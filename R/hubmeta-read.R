@@ -18,53 +18,50 @@
 #' yml_path <- system.file("hubmeta/scnr_hubmeta_ref.yml", package = "hubUtils")
 #' read_hubmeta(yml_path, drop_defs = FALSE)
 read_hubmeta <- function(path, drop_defs = TRUE) {
-
-    if (!fs::file_exists(path)){
-        cli::cli_abort(
-            "File {.path { path }} does not exist."
-        )
-    }
-
-    ext <- fs::path_ext(path)
-    valid_ext <- c('json', 'yaml', 'yml')
-
-    if (!ext %in% valid_ext) {
-        cli::cli_abort(
-            c(
-                "{.var hubmeta} file extension should be one of {.val { valid_ext }}",
-                x ="File {.file { path }} has extension {.val { ext }}"
-            )
-        )
-    }
-
-    if (ext == "yaml") ext <- "yml"
-
-    hubmeta <- switch (
-        ext,
-        json = jsonlite::read_json(path,
-                                   simplifyVector = TRUE,
-                                   simplifyDataFrame = FALSE),
-        yml = yaml::read_yaml(path)
+  if (!fs::file_exists(path)) {
+    cli::cli_abort(
+      "File {.path { path }} does not exist."
     )
+  }
+
+  ext <- fs::path_ext(path)
+  valid_ext <- c("json", "yaml", "yml")
+
+  if (!ext %in% valid_ext) {
+    cli::cli_abort(
+      c(
+        "{.var hubmeta} file extension should be one of {.val { valid_ext }}",
+        x = "File {.file { path }} has extension {.val { ext }}"
+      )
+    )
+  }
+
+  if (ext == "yaml") ext <- "yml"
+
+  hubmeta <- switch(ext,
+    json = jsonlite::read_json(path,
+      simplifyVector = TRUE,
+      simplifyDataFrame = FALSE
+    ),
+    yml = yaml::read_yaml(path)
+  )
 
 
 
-    defs_idx <- names(hubmeta) == "$defs"
+  defs_idx <- names(hubmeta) == "$defs"
 
-    if (any(defs_idx)) {
-        defs <- hubmeta[defs_idx]
-        hubmeta <- hubmeta[!defs_idx]
+  if (any(defs_idx)) {
+    defs <- hubmeta[defs_idx]
+    hubmeta <- hubmeta[!defs_idx]
 
-        hubmeta <- substitute_refs(hubmeta, defs)
+    hubmeta <- substitute_refs(hubmeta, defs)
 
-        if (!drop_defs) {
-            hubmeta <- c(hubmeta, defs)
-        }
-
-        return(hubmeta)
+    if (!drop_defs) {
+      hubmeta <- c(hubmeta, defs)
     }
 
-
+    return(hubmeta)
+  }
 }
 
 #' Substitute references with definitions
@@ -79,33 +76,31 @@ read_hubmeta <- function(path, drop_defs = TRUE) {
 #' @return x with any elements labelled with `$ref` replaced with the contents of the
 #'   definition specified by the value in `$ref`.
 #' @noRd
-substitute_refs <- function(x, defs){
+substitute_refs <- function(x, defs) {
+  if (is.list(x)) {
+    is_ref <- names(x) == "$ref"
 
-    if(is.list(x)){
-        is_ref <- names(x) == "$ref"
+    if (any(is_ref)) {
+      def_location <- x[[is_ref]]
 
-        if (any(is_ref)) {
-            def_location <- x[[is_ref]]
+      def_idx <- gsub("#/", "", def_location, fixed = TRUE) |>
+        strsplit(split = "/") |>
+        unlist() |>
+        as.list()
 
-            def_idx <- gsub("#/", "", def_location, fixed = TRUE) |>
-                strsplit(split = "/") |>
-                unlist() |>
-                as.list()
+      replace <- purrr::pluck(defs, !!!def_idx)
 
-            replace <- purrr::pluck(defs, !!!def_idx)
-
-            if (is.null(replace)) {
-                cli::cli_abort(
-                    c(x = "definition for def {.val { def_location }} returning {.var NULL} ")
-                )
-            } else {
-                x <- replace
-            }
-        } else {
-            lapply(x, substitute_refs, defs = defs)
-        }
-    }else{
-        x
+      if (is.null(replace)) {
+        cli::cli_abort(
+          c(x = "definition for def {.val { def_location }} returning {.var NULL} ")
+        )
+      } else {
+        x <- replace
+      }
+    } else {
+      lapply(x, substitute_refs, defs = defs)
     }
+  } else {
+    x
+  }
 }
-
