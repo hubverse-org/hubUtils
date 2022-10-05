@@ -1,6 +1,6 @@
 Package: hubUtils
 Title: Utility functions for Infectious Disease Modeling Hubs
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2378-4915"))
@@ -16,5 +16,9 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: 
-    jsonlite
+    cli,
+    fs,
+    jsonlite,
+    purrr,
+    rlang,
     yaml
