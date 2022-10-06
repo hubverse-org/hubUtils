@@ -62,6 +62,7 @@ read_hubmeta <- function(path, drop_defs = TRUE) {
 
     return(hubmeta)
   }
+  hubmeta
 }
 
 #' Substitute references with definitions
