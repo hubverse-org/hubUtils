@@ -103,6 +103,8 @@
       [1] "origin_date" "location"    "horizon"    
       attr(,"round_ids")
       [1] "origin_date"
+      attr(,"task_ids_by_round")
+      [1] FALSE
       attr(,"class")
       [1] "list"           "hub_connection"
 
@@ -396,6 +398,8 @@
       
       attr(,"round_ids")
       [1] "round-1" "round-2"
+      attr(,"task_ids_by_round")
+      [1] TRUE
       attr(,"class")
       [1] "list"           "hub_connection"
 
@@ -469,6 +473,8 @@
       
       attr(,"round_ids")
       [1] "round-1"
+      attr(,"task_ids_by_round")
+      [1] TRUE
       attr(,"class")
       [1] "list"           "hub_connection"
 

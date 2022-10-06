@@ -113,6 +113,7 @@ assing_hc_attrs <- function(x) {
             names()
 
         round_ids <- x[["round_id_from_variable"]][["round_id_variable"]]
+        task_ids_by_round <- FALSE
 
     } else {
 
@@ -129,6 +130,8 @@ assing_hc_attrs <- function(x) {
                     names()
             )
         round_ids <- names(task_id_names)
+
+        task_ids_by_round <- TRUE
     }
 
 
@@ -148,6 +151,9 @@ assing_hc_attrs <- function(x) {
     }
 
     attr(x, "round_ids") <- round_ids
+
+    attr(x, "task_ids_by_round") <- task_ids_by_round
+
 
     return(x)
 }

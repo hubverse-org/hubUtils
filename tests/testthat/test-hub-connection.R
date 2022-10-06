@@ -14,6 +14,10 @@ test_that("connect_hub works on simple forecasting hub", {
         attr(hub_con, "hub_path"),
         hub_path
     )
+    expect_false(
+        attr(hub_con, "task_ids_by_round")
+    )
+
     # overwrite path attributes to make snapshot portable
     attr(hub_con, "hubmeta_path") <- ""
     attr(hub_con, "hub_path") <- ""
@@ -25,8 +29,13 @@ test_that("connect_hub works on scenario hub", {
     # Scenario Hub example ----
     scnr_path <- system.file("scnr_hub_1", package = "hubUtils")
     hub_con <- connect_hub(scnr_path)
+
     attr(hub_con, "hubmeta_path") <- ""
     attr(hub_con, "hub_path") <- ""
+
+    expect_true(
+        attr(hub_con, "task_ids_by_round")
+    )
     expect_snapshot(hub_con)
 
     # More detailed tests in case snapshot update creates unnexpected behaviour
