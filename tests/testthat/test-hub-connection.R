@@ -49,7 +49,7 @@ test_that("connect_hub works on scenario hub", {
         list(`round-1` = c("origin_date", "scenario_id", "location",
                            "target", "horizon"),
              `round-2` = c("origin_date", "scenario_id",
-                           "location", "target", "horizon"))
+                           "location", "target", "age_group", "horizon"))
     )
 
 })

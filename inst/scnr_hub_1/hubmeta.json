@@ -126,6 +126,10 @@
             "required": null,
             "optional": ["weekly rate"]
           },
+          "age_group": {
+            "required": null,
+            "optional": ["0-5", "6-18", "19-24", "25-64", "65+"]
+          },
           "horizon": {
             "required": null,
             "optional": [1, 2]

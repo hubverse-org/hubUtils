@@ -342,6 +342,14 @@
       [1] "weekly rate"
       
       
+      $`round-2`$model_tasks[[1]]$task_ids$age_group
+      $`round-2`$model_tasks[[1]]$task_ids$age_group$required
+      NULL
+      
+      $`round-2`$model_tasks[[1]]$task_ids$age_group$optional
+      [1] "0-5"   "6-18"  "19-24" "25-64" "65+"  
+      
+      
       $`round-2`$model_tasks[[1]]$task_ids$horizon
       $`round-2`$model_tasks[[1]]$task_ids$horizon$required
       NULL
@@ -394,7 +402,8 @@
       [1] "origin_date" "scenario_id" "location"    "target"      "horizon"    
       
       attr(,"task_id_names")$`round-2`
-      [1] "origin_date" "scenario_id" "location"    "target"      "horizon"    
+      [1] "origin_date" "scenario_id" "location"    "target"      "age_group"  
+      [6] "horizon"    
       
       attr(,"round_ids")
       [1] "round-1" "round-2"
