@@ -84,9 +84,9 @@ substitute_refs <- function(x, defs) {
     if (any(is_ref)) {
       def_location <- x[[is_ref]]
 
-      def_idx <- gsub("#/", "", def_location, fixed = TRUE) |>
-        strsplit(split = "/") |>
-        unlist() |>
+      def_idx <- gsub("#/", "", def_location, fixed = TRUE) %>%
+        strsplit(split = "/") %>%
+        unlist() %>%
         as.list()
 
       replace <- purrr::pluck(defs, !!!def_idx)

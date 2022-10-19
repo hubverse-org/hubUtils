@@ -109,7 +109,7 @@ assing_hc_attrs <- function(x) {
             "model_tasks",
             1,
             "task_ids"
-        ) |>
+        ) %>%
             names()
 
         round_ids <- x[["round_id_from_variable"]][["round_id_variable"]]
@@ -119,14 +119,14 @@ assing_hc_attrs <- function(x) {
 
         # TODO - confirm that hub metadata that vary by round will
         # contain 'round' in the name
-        task_id_names <- x[grepl("round", names(x))] |>
+        task_id_names <- x[grepl("round", names(x))] %>%
             purrr::map(
                 ~purrr::pluck(
                     .x,
                     "model_tasks",
                     1,
                     "task_ids"
-                ) |>
+                ) %>%
                     names()
             )
         round_ids <- names(task_id_names)

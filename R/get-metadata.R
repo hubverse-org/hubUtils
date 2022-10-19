@@ -50,7 +50,7 @@ get_task_id_vals <- function(con,
   # if distinction between required & optional not important,
   # flatten output into single vector
   if (flatten) {
-    out <- out |>
+    out <- out %>%
       unlist(use.names = FALSE)
   }
 
