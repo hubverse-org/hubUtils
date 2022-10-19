@@ -25,7 +25,7 @@
 connect_hub <- function(hub_path, hubmeta_path = NULL,
                         hubmeta_format = c("json", "yaml", "yml")) {
 
-    hubmeta_format <- match.arg(hubmeta_format)
+    hubmeta_format <- rlang::arg_match(hubmeta_format)
 
     if (is.null(hubmeta_path)) {
         hubmeta_path <- fs::path(
