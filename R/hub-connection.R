@@ -58,7 +58,7 @@ new_hub_connection <- function(x) {
 
     x <- assing_hc_attrs(x)
 
-    class(x) <- append(class(x), "hub_connection")
+    class(x) <- "hub_connection"
 
     x
 }

@@ -106,7 +106,7 @@
       attr(,"task_ids_by_round")
       [1] FALSE
       attr(,"class")
-      [1] "list"           "hub_connection"
+      [1] "hub_connection"
 
 # connect_hub works on scenario hub
 
@@ -410,7 +410,7 @@
       attr(,"task_ids_by_round")
       [1] TRUE
       attr(,"class")
-      [1] "list"           "hub_connection"
+      [1] "hub_connection"
 
 # connect_hub works on yml hubmeta at specified path
 
@@ -485,5 +485,5 @@
       attr(,"task_ids_by_round")
       [1] TRUE
       attr(,"class")
-      [1] "list"           "hub_connection"
+      [1] "hub_connection"
 
