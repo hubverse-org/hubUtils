@@ -4,10 +4,10 @@
 \alias{print.hub_connection}
 \title{Print a \verb{<hub_connection>} S3 class object}
 \usage{
-\method{print}{hub_connection}(con, verbose = FALSE)
+\method{print}{hub_connection}(x, verbose = FALSE)
 }
 \arguments{
-\item{con}{A \verb{<hub_connection>} S3 class object.}
+\item{x}{A \verb{<hub_connection>} S3 class object.}
 
 \item{verbose}{Logical. Whether to print the full structure of the object.
 Defaults to \code{FALSE}.}

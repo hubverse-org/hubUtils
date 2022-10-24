@@ -160,7 +160,7 @@ assign_hc_attrs <- function(x) {
 
 #' Print a `<hub_connection>` S3 class object
 #'
-#' @param con A `<hub_connection>` S3 class object.
+#' @param x A `<hub_connection>` S3 class object.
 #'
 #' @param verbose Logical. Whether to print the full structure of the object.
 #' Defaults to `FALSE`.
@@ -170,19 +170,19 @@ assign_hc_attrs <- function(x) {
 #' con <- connect_hub(system.file("hub_1", package = "hubUtils"))
 #' con
 #' print(con)
-print.hub_connection <- function(con, verbose = FALSE) {
+print.hub_connection <- function(x, verbose = FALSE) {
 
     cli::cli_h2("{.cls hub_connection}")
     cli::cli_bullets(c(
-        "i" = "Connected to Hub at  {.file { attr(con, 'hub_path') }}",
+        "i" = "Connected to Hub at  {.file { attr(x, 'hub_path') }}",
         "i" = "Connection configured using {.field hubmeta} file
-        {.file { attr(con, 'hubmeta_path') }}",
-        "*" = "task_ids_by_round: {.val {attr(con, 'task_ids_by_round')}}"
+        {.file { attr(x, 'hubmeta_path') }}",
+        "*" = "task_ids_by_round: {.val {attr(x, 'task_ids_by_round')}}"
     ))
 
     if (verbose) {
-        print.default(con)
+        print.default(x)
     }
 
-    invisible(con)
+    invisible(x)
 }
