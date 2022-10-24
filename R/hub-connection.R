@@ -56,7 +56,7 @@ connect_hub <- function(hub_path, hubmeta_path = NULL,
 new_hub_connection <- function(x) {
     stopifnot(is.list(x))
 
-    x <- assing_hc_attrs(x)
+    x <- assign_hc_attrs(x)
 
     class(x) <- "hub_connection"
 
@@ -87,7 +87,7 @@ new_hub_connection <- function(x) {
 #'   list, they are removed from the list and assigned to attributes `hubmeta_path`
 #'   `hub_path` respectively.
 #' @noRd
-assing_hc_attrs <- function(x) {
+assign_hc_attrs <- function(x) {
 
     # if assigned, move hubmeta_path & hub_path to attributes to maintain
     # original hubmeta structure
