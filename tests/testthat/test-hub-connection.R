@@ -19,9 +19,9 @@ test_that("connect_hub works on simple forecasting hub", {
     )
 
     # overwrite path attributes to make snapshot portable
-    attr(hub_con, "hubmeta_path") <- ""
-    attr(hub_con, "hub_path") <- ""
-    expect_snapshot(hub_con)
+    attr(hub_con, "hubmeta_path") <- "test/hubmeta_path"
+    attr(hub_con, "hub_path") <- "test/hub_path"
+    expect_snapshot(str(hub_con))
 })
 
 
@@ -30,13 +30,13 @@ test_that("connect_hub works on scenario hub", {
     scnr_path <- system.file("scnr_hub_1", package = "hubUtils")
     hub_con <- connect_hub(scnr_path)
 
-    attr(hub_con, "hubmeta_path") <- ""
-    attr(hub_con, "hub_path") <- ""
+    attr(hub_con, "hubmeta_path") <- "test/hubmeta_path"
+    attr(hub_con, "hub_path") <- "test/hub_path"
 
     expect_true(
         attr(hub_con, "task_ids_by_round")
     )
-    expect_snapshot(hub_con)
+    expect_snapshot(str(hub_con))
 
     # More detailed tests in case snapshot update creates unnexpected behaviour
     expect_s3_class(hub_con,
@@ -73,11 +73,21 @@ test_that("connect_hub works on yml hubmeta at specified path", {
         basename(attr(hub_con, "hubmeta_path")),
         "scnr_hubmeta_ref.yml"
     )
-    attr(hub_con, "hubmeta_path") <- ""
-    attr(hub_con, "hub_path") <- ""
-    expect_snapshot(hub_con)
+    attr(hub_con, "hubmeta_path") <- "test/hubmeta_path"
+    attr(hub_con, "hub_path") <- "test/hub_path"
+    expect_snapshot(str(hub_con))
 
 
     ## Expect error with random path
     expect_error(connect_hub("random/path"))
+})
+
+test_that("connect_hub print method works", {
+    hub_path <- system.file("hub_1", package = "hubUtils")
+    hub_con <- connect_hub(hub_path)
+    attr(hub_con, "hubmeta_path") <- "test/hubmeta_path"
+    attr(hub_con, "hub_path") <- "test/hub_path"
+
+    expect_snapshot(hub_con)
+    expect_snapshot(print(hub_con, verbose = TRUE))
 })
