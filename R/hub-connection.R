@@ -164,13 +164,14 @@ assign_hc_attrs <- function(x) {
 #'
 #' @param verbose Logical. Whether to print the full structure of the object.
 #' Defaults to `FALSE`.
+#' @param ... Further arguments passed to or from other methods.
 #'
 #' @export
 #' @examples
 #' con <- connect_hub(system.file("hub_1", package = "hubUtils"))
 #' con
 #' print(con)
-print.hub_connection <- function(x, verbose = FALSE) {
+print.hub_connection <- function(x, verbose = FALSE, ...) {
 
     cli::cli_h2("{.cls hub_connection}")
     cli::cli_bullets(c(
