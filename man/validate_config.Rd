@@ -55,6 +55,7 @@ validate_config(
                             package = "hubUtils"),
     config = "tasks")
 # Config file with errors
-config_path <- testthat::test_path("testdata", "tasks-errors.json")
+config_path <- system.file("error-schema/tasks-errors.json",
+                            package = "hubUtils")
 validate_config(config_path = config_path, config = "tasks")
 }
