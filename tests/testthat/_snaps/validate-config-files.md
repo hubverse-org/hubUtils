@@ -1,19 +1,3 @@
-# Config validated successfully
-
-    Code
-      validate_config(hub_path = system.file("testhubs/simple/", package = "hubUtils"),
-      config = "tasks")
-    Message <cliMessage>
-      v Successfully validated config file '/Users/Anna/Documents/workflows/UMASS/hubUtils/inst/testhubs/simple/hub-config/tasks.json'
-    Output
-      [1] TRUE
-      attr(,"config_path")
-      /Users/Anna/Documents/workflows/UMASS/hubUtils/inst/testhubs/simple/hub-config/tasks.json
-      attr(,"schema_version")
-      [1] "v0.0.0.9"
-      attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json
-
 # Config errors detected successfully
 
     Code
@@ -637,25 +621,25 @@
         <tbody class="gt_table_body">
           <tr><td class="gt_row gt_left" style="white-space: pre;"><div class='gt_from_md'><p><strong>rounds</strong>
       └<strong>1</strong>
-      └-<strong>model_tasks</strong>
-      └--<strong>1</strong>
-      └---<strong>task_ids</strong>
-      └----<strong>target</strong>
-      └-----<strong>required</strong></p>
+      └─<strong>model_tasks</strong>
+      └──<strong>1</strong>
+      └───<strong>task_ids</strong>
+      └────<strong>target</strong>
+      └─────<strong>required</strong></p>
       </div></td>
       <td class="gt_row gt_left" style="white-space: pre;"><div class='gt_from_md'><p>properties
       └<strong>rounds</strong>
-      └-items
-      └--properties
-      └---<strong>model_tasks</strong>
-      └----items
-      └-----properties
-      └------<strong>task_ids</strong>
-      └-------properties
-      └--------<strong>target</strong>
-      └---------properties
-      └----------<strong>required</strong>
-      └-----------<strong>type</strong></p>
+      └─items
+      └──properties
+      └───<strong>model_tasks</strong>
+      └────items
+      └─────properties
+      └──────<strong>task_ids</strong>
+      └───────properties
+      └────────<strong>target</strong>
+      └─────────properties
+      └──────────<strong>required</strong>
+      └───────────<strong>type</strong></p>
       </div></td>
       <td class="gt_row gt_center">type</td>
       <td class="gt_row gt_center" style="background-color: #F9E3D6; font-weight: bold;">❌ must be array,null</td>
@@ -664,25 +648,25 @@
       <td class="gt_row gt_center" style="background-color: #F9E3D6; font-weight: bold;">wk inc flu hosp</td></tr>
           <tr><td class="gt_row gt_left" style="white-space: pre;"><div class='gt_from_md'><p><strong>rounds</strong>
       └<strong>1</strong>
-      └-<strong>model_tasks</strong>
-      └--<strong>1</strong>
-      └---<strong>output_type</strong>
-      └----<strong>mean</strong>
-      └-----<strong>type_id</strong></p>
+      └─<strong>model_tasks</strong>
+      └──<strong>1</strong>
+      └───<strong>output_type</strong>
+      └────<strong>mean</strong>
+      └─────<strong>type_id</strong></p>
       </div></td>
       <td class="gt_row gt_left" style="white-space: pre;"><div class='gt_from_md'><p>properties
       └<strong>rounds</strong>
-      └-items
-      └--properties
-      └---<strong>model_tasks</strong>
-      └----items
-      └-----properties
-      └------<strong>output_type</strong>
-      └-------properties
-      └--------<strong>mean</strong>
-      └---------properties
-      └----------<strong>type_id</strong>
-      └-----------<strong>oneOf</strong></p>
+      └─items
+      └──properties
+      └───<strong>model_tasks</strong>
+      └────items
+      └─────properties
+      └──────<strong>output_type</strong>
+      └───────properties
+      └────────<strong>mean</strong>
+      └─────────properties
+      └──────────<strong>type_id</strong>
+      └───────────<strong>oneOf</strong></p>
       </div></td>
       <td class="gt_row gt_center">oneOf</td>
       <td class="gt_row gt_center" style="background-color: #F9E3D6; font-weight: bold;">❌ must match exactly one schema in oneOf</td>
@@ -704,14 +688,14 @@
       <td class="gt_row gt_center" style="background-color: #F9E3D6; font-weight: bold;">required: NA, optional: NA</td></tr>
           <tr><td class="gt_row gt_left" style="white-space: pre;"><div class='gt_from_md'><p><strong>rounds</strong>
       └<strong>1</strong>
-      └-<strong>submissions_due</strong></p>
+      └─<strong>submissions_due</strong></p>
       </div></td>
       <td class="gt_row gt_left" style="white-space: pre;"><div class='gt_from_md'><p>properties
       └<strong>rounds</strong>
-      └-items
-      └--properties
-      └---<strong>submissions_due</strong>
-      └----<strong>oneOf</strong></p>
+      └─items
+      └──properties
+      └───<strong>submissions_due</strong>
+      └────<strong>oneOf</strong></p>
       </div></td>
       <td class="gt_row gt_center">oneOf</td>
       <td class="gt_row gt_center" style="background-color: #F9E3D6; font-weight: bold;">❌ must match exactly one schema in oneOf</td>

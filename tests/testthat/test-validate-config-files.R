@@ -35,7 +35,7 @@ test_that("Valid json schema versions detected successfully", {
 
 
 test_that("Config validated successfully", {
-  expect_snapshot(validate_config(
+  expect_true(validate_config(
     hub_path =  system.file(
       "testhubs/simple/",
       package = "hubUtils"
