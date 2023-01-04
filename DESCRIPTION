@@ -26,6 +26,7 @@ Imports:
     yaml
 Suggests: 
     curl,
+    digest,
     gh,
     gt,
     jsonvalidate,
