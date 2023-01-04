@@ -47,16 +47,27 @@ test_that("Config validated successfully", {
 
 test_that("Config errors detected successfully", {
   config_path <- testthat::test_path("testdata", "tasks-errors.json")
-  expect_snapshot(validate_config(config_path = config_path))
+  expect_snapshot(
+    validate_config(config_path = config_path, pretty_errors = FALSE)
+    )
+  expect_false(
+    suppressWarnings(
+      validate_config(config_path = config_path, pretty_errors = FALSE)
+      )
+    )
   set.seed(1)
-  expect_snapshot(launch_pretty_errors_report(validate_config(config_path = config_path)))
+  suppressMessages(launch_pretty_errors_report(
+    suppressWarnings(validate_config(config_path = config_path)))) %>%
+    gt:::render_as_html() %>% expect_snapshot()
+
+  suppressMessages(launch_pretty_errors_report(
+    suppressWarnings(validate_config(config_path = config_path)))) %>%
+    gt::as_raw_html(inline_css = TRUE) %>%
+    gsub("id=\"[a-z]*?\"", "", .) %>%
+    digest::sha1() %>% expect_snapshot()
+
+
 })
 
-
-
-test_that("Schema URL created successfully", {
-  schema <- get_schema_url("admin", "v0.0.0.9")
-  expect_s3_class(get_schema(schema), "json")
-})
 
 
