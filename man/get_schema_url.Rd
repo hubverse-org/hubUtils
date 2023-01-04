@@ -24,5 +24,5 @@ The json schema download URL for a given config file version.
 Get the json schema download URL for a given config file version
 }
 \examples{
-get_schema_url(config = "tasks", version = "v.0.0.0.9")
+get_schema_url(config = "tasks", version = "v0.0.0.9")
 }

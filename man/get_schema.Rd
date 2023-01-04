@@ -16,6 +16,6 @@ Contents of the json schema as a character string.
 Download a schema
 }
 \examples{
-schema_url <- get_schema_url(config = "tasks", version = "v.0.0.0.9")
+schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
 get_schema(schema_url)
 }

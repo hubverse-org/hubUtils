@@ -61,10 +61,6 @@ validate_config <- function(hub_path = ".",
       utils::tail(1)
   }
 
-  # Ensure the version determined is valid and a folder exists in our GitHub schema
-  # repo
-  validate_schema_version(schema_version, branch = branch)
-
   schema_url <- get_schema_url(
     config = config,
     version = schema_version,
@@ -180,11 +176,16 @@ validate_schema_version <- function(schema_version, branch) {
 #' @export
 #'
 #' @examples
-#' get_schema_url(config = "tasks", version = "v.0.0.0.9")
+#' get_schema_url(config = "tasks", version = "v0.0.0.9")
 get_schema_url <- function(config = c("tasks", "admin", "model"),
                            version, branch = "main") {
+
   config <- rlang::arg_match(config)
   rlang::check_required(version)
+
+  # Ensure the version determined is valid and a folder exists in our GitHub schema
+  # repo
+  validate_schema_version(version, branch = branch)
 
   schema_repo <- "Infectious-Disease-Modeling-Hubs/schemas"
   glue::glue("https://raw.githubusercontent.com/{schema_repo}/{branch}/{version}/{config}-schema.json")
@@ -207,8 +208,7 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
       jsonlite::prettify()
   } else {
     cli::cli_abort(
-      "Attempt to download schema {.val {config}-schema.json} version
-            {.val {schema_version}} from {.url {schema_url}} failed with status code: {.field {response$status_code}}."
+      "Attempt to download schema from {.url {schema_url}} failed with status code: {.field {response$status_code}}."
     )
   }
 }
@@ -220,11 +220,17 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 #' @return Contents of the json schema as a character string.
 #' @export
 #' @examples
-#' schema_url <- get_schema_url(config = "tasks", version = "v.0.0.0.9")
+#' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
 #' get_schema(schema_url)
 get_schema <- memoise::memoise(.get_schema)
 
 
+#' Print a concise and informative version of validation errors table
+#'
+#' @param x output of [validate_config].
+#'
+#' @return prints the errors attribute of x in an informative format to the viewer. Only
+#' available in interactive mode.
 launch_pretty_errors_report <- function(x) {
 
     errors_tbl <- attr(x, "errors")
@@ -359,7 +365,7 @@ path_to_tree <- function(x) {
 
   # build path tree
   for (i in 2:length(paths)) {
-    paths[i] <- paste0("└", paste(rep("-", times = i - 2),
+    paths[i] <- paste0("\u2514", paste(rep("\u2500", times = i - 2),
       collapse = ""
     ), paths[i])
   }
