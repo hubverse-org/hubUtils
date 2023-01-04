@@ -59,10 +59,7 @@ test_that("Config errors detected successfully", {
   expect_snapshot(
   suppressMessages(launch_pretty_errors_report(
     suppressWarnings(validate_config(config_path = config_path)))) %>%
-    gt::as_raw_html(inline_css = TRUE) %>%
-    gsub("id=\"[a-z]*?\"", "", .) %>%
-    digest::sha1())
-
+    gt:::render_as_html())
 
 })
 
