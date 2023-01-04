@@ -19,6 +19,7 @@ Imports:
     glue,
     jsonlite,
     magrittr,
+    memoise,
     purrr,
     rlang,
     stringr,
@@ -28,6 +29,5 @@ Suggests:
     gh,
     gt,
     jsonvalidate,
-    memoise,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
