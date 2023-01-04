@@ -27,20 +27,22 @@
 #' @examples
 #' # Valid config file
 #' validate_config(
-#'     hub_path =  system.file(
-#'                             "testhubs/simple/",
-#'                             package = "hubUtils"),
-#'     config = "tasks")
+#'   hub_path = system.file(
+#'     "testhubs/simple/",
+#'     package = "hubUtils"
+#'   ),
+#'   config = "tasks"
+#' )
 #' # Config file with errors
 #' config_path <- system.file("error-schema/tasks-errors.json",
-#'                             package = "hubUtils")
+#'   package = "hubUtils"
+#' )
 #' validate_config(config_path = config_path, config = "tasks")
 validate_config <- function(hub_path = ".",
                             config = c("tasks", "admin", "model"),
                             config_path = NULL, schema_version = "from_config",
                             branch = "main",
-                            pretty_errors = TRUE) {
-
+                            pretty_errors = FALSE) {
   config <- rlang::arg_match(config)
 
   if (is.null(config_path)) {
@@ -92,8 +94,10 @@ validate_config <- function(hub_path = ".",
       "Schema errors detected in config file {.file {config_path}}"
     )
 
-    if (pretty_errors && interactive()) {
-      launch_pretty_errors_report(validation)
+    if (pretty_errors) {
+      print(
+        launch_pretty_errors_report(validation)
+      )
     }
   }
   return(validation)
@@ -180,7 +184,6 @@ validate_schema_version <- function(schema_version, branch) {
 #' get_schema_url(config = "tasks", version = "v0.0.0.9")
 get_schema_url <- function(config = c("tasks", "admin", "model"),
                            version, branch = "main") {
-
   config <- rlang::arg_match(config)
   rlang::check_required(version)
 
@@ -234,11 +237,10 @@ get_schema <- memoise::memoise(.get_schema)
 #' available in interactive mode.
 #' @noRd
 launch_pretty_errors_report <- function(x) {
-
-    errors_tbl <- attr(x, "errors")
-    config_path <- attr(x, "config_path")
-    schema_version <- attr(x, "schema_version")
-    schema_url <- attr(x, "schema_url")
+  errors_tbl <- attr(x, "errors")
+  config_path <- attr(x, "config_path")
+  schema_version <- attr(x, "schema_version")
+  schema_url <- attr(x, "schema_url")
 
   title <- gt::md("**`hubUtils` config validation error report**")
   subtitle <- gt::md(

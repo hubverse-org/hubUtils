@@ -10,7 +10,7 @@ validate_config(
   config_path = NULL,
   schema_version = "from_config",
   branch = "main",
-  pretty_errors = TRUE
+  pretty_errors = FALSE
 )
 }
 \arguments{
@@ -50,12 +50,15 @@ Validate a hub config file against a Infectious Disease Modeling Hubs schema
 \examples{
 # Valid config file
 validate_config(
-    hub_path =  system.file(
-                            "testhubs/simple/",
-                            package = "hubUtils"),
-    config = "tasks")
+  hub_path = system.file(
+    "testhubs/simple/",
+    package = "hubUtils"
+  ),
+  config = "tasks"
+)
 # Config file with errors
 config_path <- system.file("error-schema/tasks-errors.json",
-                            package = "hubUtils")
+  package = "hubUtils"
+)
 validate_config(config_path = config_path, config = "tasks")
 }
