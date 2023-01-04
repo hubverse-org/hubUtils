@@ -231,6 +231,7 @@ get_schema <- memoise::memoise(.get_schema)
 #'
 #' @return prints the errors attribute of x in an informative format to the viewer. Only
 #' available in interactive mode.
+#' @noRd
 launch_pretty_errors_report <- function(x) {
 
     errors_tbl <- attr(x, "errors")
