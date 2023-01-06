@@ -59,7 +59,9 @@ test_that("Config errors detected successfully", {
 
 test_that("Errors report launch successful", {
   config_path <- testthat::test_path("testdata", "tasks-errors.json")
-  validation <- suppressWarnings(validate_config(config_path = config_path))
+  validation <- suppressWarnings(
+    validate_config(config_path = config_path, pretty_errors = FALSE)
+    )
   set.seed(1)
   skip_on_ci()
   tbl <- launch_pretty_errors_report(validation) %>%
