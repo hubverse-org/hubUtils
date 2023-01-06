@@ -1,7 +1,7 @@
 #' Validate a hub config file against a Infectious Disease Modeling Hubs schema
 #'
 #' @param hub_path Path to a local hub directory.
-#' @param config Name of config file to validate. One of `"tasks"`, `"admin"` or `"model"`.
+#' @param config Name of config file to validate. One of `"tasks"` or `"admin"`.
 #' @param config_path Defaults to `NULL` which assumes all config files are in
 #'   the `hub-config` directory in the root of hub directory. Argument `config_path`
 #'   can be used to override default by providing a path to the config file to be
@@ -39,7 +39,7 @@
 #' )
 #' validate_config(config_path = config_path, config = "tasks")
 validate_config <- function(hub_path = ".",
-                            config = c("tasks", "admin", "model"),
+                            config = c("tasks", "admin"),
                             config_path = NULL, schema_version = "from_config",
                             branch = "main",
                             pretty_errors = FALSE) {

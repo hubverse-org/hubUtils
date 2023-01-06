@@ -7,7 +7,7 @@
 get_schema_url(config = c("tasks", "admin", "model"), version, branch = "main")
 }
 \arguments{
-\item{config}{Name of config file to validate. One of \code{"tasks"}, \code{"admin"} or \code{"model"}.}
+\item{config}{Name of config file to validate. One of \code{"tasks"} or \code{"admin"}.}
 
 \item{version}{A valid version of Infectious Disease Modeling Hubs
 \href{https://github.com/Infectious-Disease-Modeling-Hubs/schemas}{schema}
