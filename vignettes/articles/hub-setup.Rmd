@@ -34,7 +34,7 @@ For more details on these files, guidance on how to set them up and access to te
 
 You can use function `validate_config()` to check whether your Hub config files are valid. To specify the file you want to validate you can either provide the path to the root of the Hub to argument `hub_path` (which assumes the config files are correctly located in directory `hub-config/`) or you can provide a direct path to a config file to argument `config_path`. You also need to specify the type of config file through argument `config` (one of `"tasks"` or `"admin"`, defaults to `"tasks"`).
 
-The function will validate a given config file against a specific version of it's schema, specified through argument `schema_version`. The default value of `schema_version` is `"from_file"` which uses the version specified in the `schema_version` property of the config file being validated. 
+The function will validate a given config file against a specific version of it's schema, specified through argument `schema_version`. The default value of `schema_version` is `"from_config"` which uses the version specified in the `schema_version` property of the config file being validated. 
 
 
 ```{r}
@@ -85,14 +85,18 @@ validate_config(config_path = config_path, config = "tasks")
 ```{r, echo=FALSE}
 out <- validate_config(config_path = config_path, config = "tasks", pretty_errors = FALSE)
 out
-hubUtils:::launch_pretty_errors_report(out) |> 
-    gt::as_raw_html()
 ```
 
 
 Because the default output of the validator can be unwieldy and difficult to review, the function also prints a more user friendly and concise version of the errors table. 
 
-In the example above:
+
+```{r, echo=FALSE}
+hubUtils:::launch_pretty_errors_report(out) 
+```
+
+In the example above: 
+
 - `instancePath` indicates the location of the validation error in the config file.
 - `schemaPath` indicates the location of the element in the schema which is failing validation.
 - `keyword` indicates the keyword causing the validation error.
@@ -100,9 +104,9 @@ In the example above:
 - `schema` describes the valid schema values the failing keyword should conform to.
 - `data` is the value of the property in the config file which is failing validation.
 
-You can suppress this by using `pretty_errors = FALSE`.
+You can suppress printing the pretty errors table with `pretty_errors = FALSE`.
 
-```{r}
+```{r, eval=FALSE}
 validate_config(config_path = config_path, config = "tasks",
                 pretty_errors = FALSE)
 ```
