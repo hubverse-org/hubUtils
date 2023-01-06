@@ -3,7 +3,7 @@
     Code
       validate_config(config_path = config_path, pretty_errors = FALSE)
     Warning <rlang_warning>
-      Schema errors detected in config file 'testdata/tasks-errors.json'
+      Schema errors detected in config file 'testdata/tasks-errors.json' validated against schema <https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json>
     Output
       [1] FALSE
       attr(,"errors")
