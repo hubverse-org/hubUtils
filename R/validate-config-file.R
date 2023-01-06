@@ -22,7 +22,8 @@
 #'   details of errors appended as a data.frame to an `errors` attribute. To access
 #'   the errors table use `attr(x, "errors")` where `x` is the output of the function.
 #' @export
-#'
+#' @seealso launch_pretty_errors_report
+#' @family schema-validation
 #' @examples
 #' # Valid config file
 #' validate_config(
@@ -36,7 +37,14 @@
 #' config_path <- system.file("error-schema/tasks-errors.json",
 #'   package = "hubUtils"
 #' )
-#' validate_config(config_path = config_path, config = "tasks")
+#' validate_config(config_path = config_path, config = "tasks", pretty_errors = FALSE)
+#'
+#' # Print pretty errors in help & pkgdown documentation. Not necessary when running
+#' # interactively.
+#' validate_config(config_path = config_path,
+#'                 config = "tasks", pretty_errors = FALSE) |>
+#'                 launch_pretty_errors_report() |>
+#'                 gt::as_raw_html()
 validate_config <- function(hub_path = ".",
                             config = c("tasks", "admin"),
                             config_path = NULL, schema_version = "from_config",
@@ -86,11 +94,11 @@ validate_config <- function(hub_path = ".",
 
   if (validation) {
     cli::cli_alert_success(
-      "Successfully validated config file {.file {config_path}}"
+      "Successfully validated config file {.file {config_path}} against schema {.url {schema_url}}"
     )
   } else {
     cli::cli_warn(
-      "Schema errors detected in config file {.file {config_path}}"
+      "Schema errors detected in config file {.file {config_path}} validated against schema {.url {schema_url}}"
     )
 
     if (pretty_errors) {
@@ -228,13 +236,15 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 get_schema <- memoise::memoise(.get_schema)
 
 
-#' Print a concise and informative version of validation errors table
+#' Print a concise and informative version of validation errors table.
 #'
 #' @param x output of [validate_config].
 #'
 #' @return prints the errors attribute of x in an informative format to the viewer. Only
 #' available in interactive mode.
-#' @noRd
+#' @export
+#' @seealso validate_config
+#' @family schema-validation
 launch_pretty_errors_report <- function(x) {
   errors_tbl <- attr(x, "errors")
   config_path <- attr(x, "config_path")

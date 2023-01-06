@@ -59,5 +59,19 @@ validate_config(
 config_path <- system.file("error-schema/tasks-errors.json",
   package = "hubUtils"
 )
-validate_config(config_path = config_path, config = "tasks")
+validate_config(config_path = config_path, config = "tasks", pretty_errors = FALSE)
+
+# Print pretty errors in help & pkgdown documentation. Not necessary when running
+# interactively.
+validate_config(config_path = config_path,
+                config = "tasks", pretty_errors = FALSE) |>
+                launch_pretty_errors_report() |>
+                gt::as_raw_html()
 }
+\seealso{
+launch_pretty_errors_report
+
+Other schema-validation: 
+\code{\link{launch_pretty_errors_report}()}
+}
+\concept{schema-validation}

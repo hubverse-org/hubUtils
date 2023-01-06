@@ -17,6 +17,7 @@ Imports:
     cli,
     fs,
     glue,
+    gt,
     jsonlite,
     magrittr,
     memoise,
@@ -28,7 +29,6 @@ Suggests:
     curl,
     digest,
     gh,
-    gt,
     jsonvalidate,
     rmarkdown,
     testthat (>= 3.0.0)
