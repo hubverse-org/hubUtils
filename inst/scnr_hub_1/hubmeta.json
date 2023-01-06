@@ -1,0 +1,165 @@
+{
+  "round-1": {
+    "model_tasks": [
+      {
+        "task_ids": {
+          "origin_date": {
+            "required": ["2022-09-03"],
+            "optional": null
+          },
+          "scenario_id": {
+            "required": [1],
+            "optional": null
+          },
+          "location": {
+            "required": {
+              "$ref": "#/$defs/task_ids/location/us_states"
+            },
+            "optional": ["US"]
+          },
+          "target": {
+            "required": null,
+            "optional": ["weekly rate"]
+          },
+          "horizon": {
+            "required": null,
+            "optional": [1, 2]
+          }
+        },
+        "output_types": {
+          "mean": {
+            "type_id": {
+              "required": null,
+              "optional": ["NA"]
+            },
+            "value": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "quantile": {
+            "type_id": {
+              "required": [0.25, 0.5, 0.75],
+              "optional": [0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9]
+            },
+            "value": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "cdf": {
+            "type_id": {
+              "required": [10.0, 20.0],
+              "optional": null
+            },
+            "value": {
+              "type": "numeric",
+              "minimum": 0.0,
+              "maximum": 1.0
+            }
+          }
+        }
+      },
+      {
+        "task_ids": {
+          "origin_date": {
+            "required": ["2022-09-03"],
+            "optional": null
+          },
+          "scenario_id": {
+            "required": [1],
+            "optional": null
+          },
+          "location": {
+            "required": {
+              "$ref": "#/$defs/task_ids/location/us_states"
+            },
+            "optional": ["US"]
+          },
+          "target": {
+            "required": null,
+            "optional": ["peak week"]
+          },
+          "horizon": {
+            "required": null,
+            "optional": ["NA"]
+          }
+        },
+        "output_types": {
+          "cdf": {
+            "type_id": {
+              "required": ["EW202240", "EW202241", "EW202242", "EW202243", "EW202244", "EW202245", "EW202246", "EW202247", "EW202248", "EW202249", "EW202250", "EW202251", "EW202252", "EW202301", "EW202302", "EW202303", "EW202304", "EW202305", "EW202306", "EW202307", "EW202308", "EW202309", "EW202310", "EW2023011", "EW202312", "EW202313", "EW202314", "EW202315", "EW202316", "EW202317", "EW202318", "EW202319", "EW202320"],
+              "optional": null
+            },
+            "value": {
+              "type": "numeric",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    ],
+    "submissions_due": {
+        "start": "2022-09-01",
+        "end": "2022-09-05"
+    }
+  },
+  "round-2": {
+    "model_tasks": [
+      {
+        "task_ids": {
+          "origin_date": {
+            "required": ["2022-10-01"],
+            "optional": null
+          },
+          "scenario_id": {
+            "required": null,
+            "optional": [2, 3]
+          },
+          "location": {
+            "required": {
+              "$ref": "#/$defs/task_ids/location/us_states"
+            },
+            "optional": ["US"]
+          },
+          "target": {
+            "required": null,
+            "optional": ["weekly rate"]
+          },
+          "age_group": {
+            "required": null,
+            "optional": ["0-5", "6-18", "19-24", "25-64", "65+"]
+          },
+          "horizon": {
+            "required": null,
+            "optional": [1, 2]
+          }
+        },
+        "output_types": {
+          "quantile": {
+            "type_id": {
+              "required": [0.25, 0.5, 0.75],
+              "optional": [0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9]
+            },
+            "value": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    ],
+    "submissions_due": {
+        "start": "2022-09-28",
+        "end": "2022-10-01"
+    },
+    "last_data_date": "2022-09-30"
+  },
+  "$defs": {
+    "task_ids": {
+      "location": {
+        "us_states": ["01", "02", "04", "05", "06", "08", "09", "10", "11", "12", "13", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "44", "45", "46", "47", "48", "49", "50", "51", "53", "54", "55", "56"]
+      }
+    }
+  }
+}
