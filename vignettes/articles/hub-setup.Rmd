@@ -13,6 +13,20 @@ knitr::opts_chunk$set(
 library(hubUtils)
 ```
 
+<div class="alert alert-info" role="alert">
+
+<h5> **Note:** </h5>
+
+To use full administrator functionality please ensure you install full list of package dependencies including **Suggests** with:
+
+```{r, eval=FALSE}
+remotes::install_github("Infectious-Disease-Modeling-Hubs/hubUtils",
+                        dependencies = TRUE)
+```
+
+If you have any problems with installation of package `V8` (more likely on Linux), please consult the [following installation instructions](https://github.com/jeroen/V8#installation).
+
+</div>
 
 ## Create Hub Repository from Template
 
@@ -31,6 +45,7 @@ For more details on these files, guidance on how to set them up and access to te
 
 
 ## Validate Config files
+
 
 You can use function `validate_config()` to check whether your Hub config files are valid. To specify the file you want to validate you can either provide the path to the root of the Hub to argument `hub_path` (which assumes the config files are correctly located in directory `hub-config/`) or you can provide a direct path to a config file to argument `config_path`. You also need to specify the type of config file through argument `config` (one of `"tasks"` or `"admin"`, defaults to `"tasks"`).
 
