@@ -16,8 +16,7 @@
 #'   [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas)
 #'   from which to fetch schema. Defaults to `"main"`.
 #' @param pretty_errors Whether to launch an informative pretty table of any
-#'   validation errors in the Viewer panel. Will only launch run in an interactive
-#'   environment.
+#'   validation errors in the Viewer panel. Defaults to `TRUE`.
 #' @return Returns the result of validation. If validation is successful, will
 #'   return `TRUE`. If any validation errors are detected, returns `FALSE` with
 #'   details of errors appended as a data.frame to an `errors` attribute. To access
@@ -42,7 +41,7 @@ validate_config <- function(hub_path = ".",
                             config = c("tasks", "admin"),
                             config_path = NULL, schema_version = "from_config",
                             branch = "main",
-                            pretty_errors = FALSE) {
+                            pretty_errors = TRUE) {
   config <- rlang::arg_match(config)
 
   if (is.null(config_path)) {

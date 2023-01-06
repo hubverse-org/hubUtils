@@ -10,7 +10,7 @@ validate_config(
   config_path = NULL,
   schema_version = "from_config",
   branch = "main",
-  pretty_errors = FALSE
+  pretty_errors = TRUE
 )
 }
 \arguments{
@@ -35,8 +35,7 @@ Alternartively, a specific version of a schema (e.g. \code{"v0.0.1"})  can be sp
 from which to fetch schema. Defaults to \code{"main"}.}
 
 \item{pretty_errors}{Whether to launch an informative pretty table of any
-validation errors in the Viewer panel. Will only launch run in an interactive
-environment.}
+validation errors in the Viewer panel. Defaults to \code{TRUE}.}
 }
 \value{
 Returns the result of validation. If validation is successful, will
