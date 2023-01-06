@@ -36,6 +36,7 @@ The first step to setting up a Modeling Hub is to make a copy of the [`hubTempla
 ## Configure Modeling Hub
 
 Hubs are configured through two JSON config files which are used to validate new submissions as well as inform data users of available data.
+
 - `admin.json`: Contains Hub wide administrative configuration settings
 - `tasks.json`: Contains round-specific metadata of modeling tasks including task, target and output type metadata as well as details of submission windows.
 These files should live in a directory called `hub-config/` in the root of the Hub repository.
@@ -62,7 +63,9 @@ validate_config(
 If validation succeeds, the function returns `TRUE`. The path to the config file validated and the version and URL of the schema used for validation are also attached as attributes `"config_path"`, `"schema_version"` and `"schema_url"` respectively.
 
 
-You can validate a config file against the latest version of the schema by using `"latest"` or you can choose a specific version, e.g `"v0.0.1"`. The fuunction defaults to using stable schema versions released to the `main` branch, but you can choose to validate against another branch (e.g. an upcoming development version).
+You can validate a config file against the latest version of the schema by using `"latest"` or you can choose a specific version, e.g `"v0.0.1"`. 
+
+The function defaults to using stable schema versions released to the `main` branch, but you can choose to validate against another branch (e.g. an upcoming development version) through argument `branch`.
 
 ```{r}
 validate_config(
