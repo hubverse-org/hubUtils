@@ -9,8 +9,7 @@ validate_config(
   config = c("tasks", "admin"),
   config_path = NULL,
   schema_version = "from_config",
-  branch = "main",
-  pretty_errors = TRUE
+  branch = "main"
 )
 }
 \arguments{
