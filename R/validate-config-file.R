@@ -15,14 +15,12 @@
 #' @param branch The branch of the Infectious Disease Modeling Hubs
 #'   [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas)
 #'   from which to fetch schema. Defaults to `"main"`.
-#' @param pretty_errors Whether to launch an informative pretty table of any
-#'   validation errors in the Viewer panel. Defaults to `TRUE`.
 #' @return Returns the result of validation. If validation is successful, will
 #'   return `TRUE`. If any validation errors are detected, returns `FALSE` with
 #'   details of errors appended as a data.frame to an `errors` attribute. To access
 #'   the errors table use `attr(x, "errors")` where `x` is the output of the function.
 #' @export
-#' @seealso launch_pretty_errors_report
+#' @seealso view_config_val_errors
 #' @family schema-validation
 #' @examples
 #' # Valid config file
@@ -37,13 +35,13 @@
 #' config_path <- system.file("error-schema/tasks-errors.json",
 #'   package = "hubUtils"
 #' )
-#' validate_config(config_path = config_path, config = "tasks", pretty_errors = FALSE)
+#' validate_config(config_path = config_path, config = "tasks")
 #'
-#' # Print pretty errors in help & pkgdown documentation. Not necessary when running
+#' # View validation errors report in help & pkgdown documentation. `gt::as_raw_html()` not necessary when running
 #' # interactively.
 #' validate_config(config_path = config_path,
 #'                 config = "tasks", pretty_errors = FALSE) |>
-#'                 launch_pretty_errors_report() |>
+#'                 view_config_val_errors() |>
 #'                 gt::as_raw_html()
 validate_config <- function(hub_path = ".",
                             config = c("tasks", "admin"),

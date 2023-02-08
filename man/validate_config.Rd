@@ -32,9 +32,6 @@ Alternartively, a specific version of a schema (e.g. \code{"v0.0.1"})  can be sp
 \item{branch}{The branch of the Infectious Disease Modeling Hubs
 \href{https://github.com/Infectious-Disease-Modeling-Hubs/schemas}{schemas repository}
 from which to fetch schema. Defaults to \code{"main"}.}
-
-\item{pretty_errors}{Whether to launch an informative pretty table of any
-validation errors in the Viewer panel. Defaults to \code{TRUE}.}
 }
 \value{
 Returns the result of validation. If validation is successful, will
@@ -58,19 +55,19 @@ validate_config(
 config_path <- system.file("error-schema/tasks-errors.json",
   package = "hubUtils"
 )
-validate_config(config_path = config_path, config = "tasks", pretty_errors = FALSE)
+validate_config(config_path = config_path, config = "tasks")
 
-# Print pretty errors in help & pkgdown documentation. Not necessary when running
+# View validation errors report in help & pkgdown documentation. `gt::as_raw_html()` not necessary when running
 # interactively.
 validate_config(config_path = config_path,
                 config = "tasks", pretty_errors = FALSE) |>
-                launch_pretty_errors_report() |>
+                view_config_val_errors() |>
                 gt::as_raw_html()
 }
 \seealso{
-launch_pretty_errors_report
+view_config_val_errors
 
 Other schema-validation: 
-\code{\link{launch_pretty_errors_report}()}
+\code{\link{view_config_val_errors}()}
 }
 \concept{schema-validation}
