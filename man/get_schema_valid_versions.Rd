@@ -21,3 +21,11 @@ Get a vector of valid schema version
 \examples{
 get_schema_valid_versions()
 }
+\seealso{
+Other schema-validation: 
+\code{\link{get_schema_url}()},
+\code{\link{get_schema}()},
+\code{\link{validate_config}()},
+\code{\link{view_config_val_errors}()}
+}
+\concept{schema-validation}

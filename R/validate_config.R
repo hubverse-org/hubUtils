@@ -125,6 +125,7 @@ validate_config <- function(hub_path = ".",
 #'
 #' @return a character vector of valid versions of Infectious Disease Modeling Hubs
 #'   [schema](https://github.com/Infectious-Disease-Modeling-Hubs/schemas).
+#' @family schema-validation
 #' @export
 #' @examples
 #' get_schema_valid_versions()
@@ -180,6 +181,7 @@ validate_schema_version <- function(schema_version, branch) {
 #'   (e.g. `"v0.0.1"`).
 #'
 #' @return The json schema download URL for a given config file version.
+#' @family schema-validation
 #' @export
 #'
 #' @examples
@@ -224,6 +226,7 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 #' @param schema_url The download URL for a given config schema version.
 #'
 #' @return Contents of the json schema as a character string.
+#' @family schema-validation
 #' @export
 #' @examples
 #' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
@@ -231,6 +234,12 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 get_schema <- memoise::memoise(.get_schema)
 
 
+#' Validate target keys for internal consistency against task ids
+#'
+#' @param validation
+#'
+#' @return
+#' @noRd
 validate_config_target_keys <- function(validation) {
   if (!validation) {
     return(validation)

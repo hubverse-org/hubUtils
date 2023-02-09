@@ -26,3 +26,11 @@ Get the json schema download URL for a given config file version
 \examples{
 get_schema_url(config = "tasks", version = "v0.0.0.9")
 }
+\seealso{
+Other schema-validation: 
+\code{\link{get_schema_valid_versions}()},
+\code{\link{get_schema}()},
+\code{\link{validate_config}()},
+\code{\link{view_config_val_errors}()}
+}
+\concept{schema-validation}

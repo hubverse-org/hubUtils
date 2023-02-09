@@ -68,6 +68,9 @@ validate_config(config_path = config_path,
 view_config_val_errors
 
 Other schema-validation: 
+\code{\link{get_schema_url}()},
+\code{\link{get_schema_valid_versions}()},
+\code{\link{get_schema}()},
 \code{\link{view_config_val_errors}()}
 }
 \concept{schema-validation}
