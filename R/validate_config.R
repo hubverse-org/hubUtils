@@ -3,21 +3,24 @@
 #' @param hub_path Path to a local hub directory.
 #' @param config Name of config file to validate. One of `"tasks"` or `"admin"`.
 #' @param config_path Defaults to `NULL` which assumes all config files are in
-#'   the `hub-config` directory in the root of hub directory. Argument `config_path`
-#'   can be used to override default by providing a path to the config file to be
-#'   validated.
+#'   the `hub-config` directory in the root of hub directory. Argument
+#'   `config_path` can be used to override default by providing a path to the
+#'    config file to be validated.
 #' @param schema_version Character string specifying the json schema version to
-#'   be used for validation. The default value `"from_config"` will use the version
-#'   specified in the `schema_version` property of the config file. `"latest"` will
-#'   use the latest version available in the Infectious Disease Modeling Hubs
+#'   be used for validation. The default value `"from_config"` will use the
+#'   version specified in the `schema_version` property of the config file.
+#'   `"latest"` will use the latest version available in the Infectious Disease
+#'   Modeling Hubs
 #'   [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas).
-#'   Alternartively, a specific version of a schema (e.g. `"v0.0.1"`)  can be specified.
+#'   Alternatively, a specific version of a schema (e.g. `"v0.0.1"`)  can be
+#'  specified.
 #' @param branch The branch of the Infectious Disease Modeling Hubs
 #'   [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas)
 #'   from which to fetch schema. Defaults to `"main"`.
 #' @return Returns the result of validation. If validation is successful, will
 #'   return `TRUE`. If any validation errors are detected, returns `FALSE` with
-#'   details of errors appended as a data.frame to an `errors` attribute. To access
+#'   details of errors appended as a data.frame to an `errors` attribute.
+#'   To access
 #'   the errors table use `attr(x, "errors")` where `x` is the output of the function.
 #' @export
 #' @seealso view_config_val_errors
@@ -39,14 +42,21 @@
 #'
 #' # View validation errors report in help & pkgdown documentation. `gt::as_raw_html()` not necessary when running
 #' # interactively.
-#' validate_config(config_path = config_path,
-#'                 config = "tasks", pretty_errors = FALSE) |>
-#'                 view_config_val_errors() |>
-#'                 gt::as_raw_html()
+#' validate_config(
+#'   config_path = config_path,
+#'   config = "tasks") |>
+#'   view_config_val_errors() |>
+#'   gt::as_raw_html()
 validate_config <- function(hub_path = ".",
                             config = c("tasks", "admin"),
                             config_path = NULL, schema_version = "from_config",
                             branch = "main") {
+  if (!(requireNamespace("jsonvalidate"))) {
+    cli::cli_abort("Package {.pkg jsonvalidate} must be installed to use {.fn validate_config}. Please install it to continue.
+
+                   Alternatively, to be able to use all packages required for hub maintainer functionality, re-install {.pkg hubUtils} using argument {.code dependencies = TRUE}")
+  }
+
   config <- rlang::arg_match(config)
 
   if (is.null(config_path)) {
@@ -234,11 +244,15 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 get_schema <- memoise::memoise(.get_schema)
 
 
-#' Validate target keys for internal consistency against task ids
+#' Peform dynamic validation of target keys for internal consistency against
+#'  task ids. Check only performed once basic jsonvalidate checks pass against
+#'  schema.
 #'
-#' @param validation
+#' @param validation validation object returned by jsonvalidate::json_validate().
 #'
-#' @return
+#' @return If validation successful, returns original validation object. If
+#'  validation fails, value of validation object is set to FALSE and the error
+#'  table is appended to attribute "errors".
 #' @noRd
 validate_config_target_keys <- function(validation) {
   if (!validation) {
@@ -246,17 +260,22 @@ validate_config_target_keys <- function(validation) {
   }
 
   config_json <- jsonlite::read_json(attr(validation, "config_path"),
-                                     simplifyVector = TRUE,
-                                     simplifyDataFrame = FALSE)
+    simplifyVector = TRUE,
+    simplifyDataFrame = FALSE
+  )
   schema <- get_schema(attr(validation, "schema_url"))
 
 
-  errors_tbl <- purrr::imap(config_json[["rounds"]],
-                            ~val_round(round = .x, rnd_i = .y,
-                                       schema = schema)) %>%
+  errors_tbl <- purrr::imap(
+    config_json[["rounds"]],
+    ~ val_round(
+      round = .x, round_i = .y,
+      schema = schema
+    )
+  ) %>%
     purrr::list_rbind()
 
-  if (!is.null(errors_tbl)) {
+  if (nrow(errors_tbl) > 1) {
     # assign FALSE without loosing attributes
     validation[] <- FALSE
     attr(validation, "errors") <- errors_tbl
@@ -265,101 +284,115 @@ validate_config_target_keys <- function(validation) {
   return(validation)
 }
 
+## Dynamic schema validation utilities ----
+val_round <- function(round, round_i, schema) {
+  model_task_grps <- round[["model_tasks"]]
 
-val_round <- function(round, rnd_i, schema) {
-
-  mt_grps <- round[["model_tasks"]]
-
-  purrr::imap(mt_grps,
-              ~val_mt_grp(mt_grp = .x, mt_i = .y,
-                          rnd_i = rnd_i, schema = schema)) %>%
+  purrr::imap(
+    model_task_grps,
+    ~ val_model_task_grp(
+      model_task_grp = .x, model_task_i = .y,
+      round_i = round_i, schema = schema
+    )
+  ) %>%
     purrr::list_rbind()
 }
 
 
 
-val_mt_grp <- function(mt_grp, mt_i, rnd_i, schema) {
-
-  grp_tks <- get_grp_tks(mt_grp)
+val_model_task_grp <- function(model_task_grp, model_task_i,
+                               round_i, schema) {
+  grp_target_keys <- get_grp_target_keys(model_task_grp)
 
   # If all target keys are NULL, exit checks
-  if (all(purrr::map_lgl(grp_tks, ~is.null(.x)))) {
+  if (all(purrr::map_lgl(grp_target_keys, ~ is.null(.x)))) {
     return(NULL)
   }
 
   # Check that target key names across items in target metadata array are consistent.
   # If not returns error early as further checks may fail unexpectedly.
-  errors_check_1 <- val_tk_nms_const(grp_tks, mt_grp,
-                                     mt_i, rnd_i, schema)
+  errors_check_1 <- val_target_key_names_const(
+    grp_target_keys, model_task_grp,
+    model_task_i, round_i, schema
+  )
 
   if (!is.null(errors_check_1)) {
     return(errors_check_1)
   }
 
   # Check whether target key names do not correspond to task_id properties
-  invalid_tk_nms <- purrr::map(grp_tks,
-                               ~find_inval_tks(.x, mt_grp)) %>%
+  invalid_target_key_names <- purrr::map(
+    grp_target_keys,
+    ~ find_invalid_target_keys(.x, model_task_grp)
+  ) %>%
     unlist(use.names = FALSE)
 
   # If any do not correspond, run validation function to generate errors rows.
   # Otherwise assign NULL to errors_check_2
-  if (any(invalid_tk_nms)) {
-
-    errors_check_2 <- purrr::imap(grp_tks,
-                                  ~val_tk_nms(.x, tk_i = .y,
-                                              mt_grp = mt_grp,
-                                              mt_i = mt_i,
-                                              rnd_i = rnd_i,
-                                              schema = schema)) %>%
+  if (any(invalid_target_key_names)) {
+    errors_check_2 <- purrr::imap(
+      grp_target_keys,
+      ~ val_target_key_names(.x,
+        target_key_i = .y,
+        model_task_grp = model_task_grp,
+        model_task_i = model_task_i,
+        round_i = round_i,
+        schema = schema
+      )
+    ) %>%
       purrr::list_rbind()
   } else {
     errors_check_2 <- NULL
   }
   # If none of the target key names match task id properties, return errors_check_2
   # early as further checks become redundant.
-  if (all(invalid_tk_nms)) {
+  if (all(invalid_target_key_names)) {
     return(errors_check_2)
   }
 
   # Check that the values of each target keys have matching values in the corresponding
   # task_id required & optional property arrays.
-  errors_check_3 <- purrr::imap(grp_tks,
-                                ~val_tk_vals(.x, mt_grp,
-                                             tk_i = .y,
-                                             mt_i = mt_i,
-                                             rnd_i = rnd_i,
-                                             schema = schema))  %>%
+  errors_check_3 <- purrr::imap(
+    grp_target_keys,
+    ~ val_target_key_values(.x, model_task_grp,
+      target_key_i = .y,
+      model_task_i = model_task_i,
+      round_i = round_i,
+      schema = schema
+    )
+  ) %>%
     purrr::list_rbind()
 
   # Check that the unique values in the required & optional property arrays
   #  of each task_id identified as a target key have a matching
   #  value in the corresponding target key of at least one target metadata item.
-  errors_check_4 <- val_tk_tid_vals(grp_tks, mt_grp,
-                                    mt_i = mt_i,
-                                    rnd_i = rnd_i,
-                                    schema = schema)
+  errors_check_4 <- val_target_key_task_id_values(grp_target_keys, model_task_grp,
+    model_task_i = model_task_i,
+    round_i = round_i,
+    schema = schema
+  )
   # Combine all error checks
-  rbind(errors_check_2,
-        errors_check_3,
-        errors_check_4)
-
+  rbind(
+    errors_check_2,
+    errors_check_3,
+    errors_check_4
+  )
 }
 
 
-val_tk_nms_const <- function(grp_tks, mt_grp,
-                             mt_i, rnd_i, schema) {
+val_target_key_names_const <- function(grp_target_keys, model_task_grp,
+                                       model_task_i, round_i, schema) {
+  target_key_names <- purrr::map(grp_target_keys, ~ names(.x)) %>%
+    purrr::map_if(~ !is.null(.x), ~.x, .else = ~"null")
 
-  tk_nms <- purrr::map(grp_tks, ~names(.x)) %>%
-    purrr::map_if(~!is.null(.x), ~.x, .else = ~"null")
-
-  if (length(unique(tk_nms)) > 1){
+  if (length(unique(target_key_names)) > 1) {
     error_row <- data.frame(
       instancePath = glue::glue(get_error_path(schema, "target_keys", "instance")),
-      schemaPath =  get_error_path(schema, "target_keys", "schema"),
+      schemaPath = get_error_path(schema, "target_keys", "schema"),
       keyword = "target_keys names",
       message = glue::glue("target_key names not consistent across target_metadata array items"),
       schema = "",
-      data = glue::glue("target_key_{seq_along(tk_nms)}: {purrr::map_chr(tk_nms,
+      data = glue::glue("target_key_{seq_along(target_key_names)}: {purrr::map_chr(target_key_names,
         ~paste(.x, collapse = ','))}") %>%
         glue::glue_collapse(sep = ";  ")
     )
@@ -368,25 +401,26 @@ val_tk_nms_const <- function(grp_tks, mt_grp,
   return(NULL)
 }
 
-val_tk_nms <- function(tks, mt_grp, tk_i, mt_i, rnd_i, schema) {
-
-  check <- find_inval_tks(tks, mt_grp)
+val_target_key_names <- function(target_keys, model_task_grp,
+                                 target_key_i, model_task_i,
+                                 round_i, schema) {
+  check <- find_invalid_target_keys(target_keys, model_task_grp)
 
   if (any(check)) {
-
     error_row <- data.frame(
-      instancePath = paste0(glue::glue(get_error_path(schema, "target_keys", "instance")),
-                            "/", names(check[check])),
-      schemaPath =  get_error_path(schema, "target_keys", "schema"),
+      instancePath = paste0(
+        glue::glue(get_error_path(schema, "target_keys", "instance")),
+        "/", names(check[check])
+      ),
+      schemaPath = get_error_path(schema, "target_keys", "schema"),
       keyword = "target_keys names",
       message = glue::glue("target_key(s) '{names(check[check])}' not properties of modeling task group task IDs"),
       schema = "",
-      data = glue::glue("task_id names: {glue::glue_collapse(get_grp_tids(mt_grp), sep = ', ')};
-            target_key names: {glue::glue_collapse(names(tks), sep = ', ')}")
+      data = glue::glue("task_id names: {glue::glue_collapse(get_grp_task_ids(model_task_grp), sep = ', ')};
+            target_key names: {glue::glue_collapse(names(target_keys), sep = ', ')}")
     )
 
     return(error_row)
-
   } else {
     return(NULL)
   }
@@ -395,32 +429,39 @@ val_tk_nms <- function(tks, mt_grp, tk_i, mt_i, rnd_i, schema) {
 
 
 
-val_tk_vals <- function(tks, mt_grp, tk_i, mt_i, rnd_i, schema) {
+val_target_key_values <- function(target_keys, model_task_grp,
+                                  target_key_i, model_task_i,
+                                  round_i, schema) {
+  check <- !find_invalid_target_keys(target_keys, model_task_grp)
 
-  check <- !find_inval_tks(tks, mt_grp)
+  valid_target_keys <- target_keys[check]
 
-  valid_tks <- tks[check]
-
-  tid_vals <- purrr::map(names(valid_tks),
-                         ~mt_grp[["task_ids"]][[.x]] %>%
-                           unlist(recursive = TRUE, use.names = FALSE)) %>%
-    purrr::set_names(names(valid_tks))
-
-
-  is_invalid_tk <- purrr::map2_lgl(valid_tks, tid_vals,
-                                   ~!.x %in% .y)
+  task_id_values <- purrr::map(
+    names(valid_target_keys),
+    ~ model_task_grp[["task_ids"]][[.x]] %>%
+      unlist(recursive = TRUE, use.names = FALSE)
+  ) %>%
+    purrr::set_names(names(valid_target_keys))
 
 
-  if (any(is_invalid_tk)) {
+  is_invalid_target_key <- purrr::map2_lgl(
+    valid_target_keys, task_id_values,
+    ~ !.x %in% .y
+  )
+
+
+  if (any(is_invalid_target_key)) {
     error_row <- data.frame(
-      instancePath = paste0(glue::glue(get_error_path(schema, "target_keys", "instance")),
-                            "/", names(is_invalid_tk)),
-      schemaPath =  get_error_path(schema, "target_keys", "schema"),
+      instancePath = paste0(
+        glue::glue(get_error_path(schema, "target_keys", "instance")),
+        "/", names(is_invalid_target_key)
+      ),
+      schemaPath = get_error_path(schema, "target_keys", "schema"),
       keyword = "target_keys values",
-      message = glue::glue("target_key value '{valid_tks[names(is_invalid_tk[is_invalid_tk])]}' does not match any values in corresponding modeling task group task_id"),
+      message = glue::glue("target_key value '{valid_target_keys[names(is_invalid_target_key[is_invalid_target_key])]}' does not match any values in corresponding modeling task group task_id"),
       schema = "",
-      data = glue::glue("task_id.{names(is_invalid_tk)} values: {purrr::map_chr(tid_vals, ~glue::glue_collapse(.x, sep = ', '))};
-            target_key.{names(valid_tks)} value: {unlist(valid_tks)}")
+      data = glue::glue("task_id.{names(is_invalid_target_key)} values: {purrr::map_chr(task_id_values, ~glue::glue_collapse(.x, sep = ', '))};
+            target_key.{names(valid_target_keys)} value: {unlist(valid_target_keys)}")
     )
 
     return(error_row)
@@ -432,54 +473,60 @@ val_tk_vals <- function(tks, mt_grp, tk_i, mt_i, rnd_i, schema) {
 
 
 
-val_tk_tid_vals <- function(grp_tks, mt_grp, mt_i,
-                            rnd_i, schema) {
+val_target_key_task_id_values <- function(grp_target_keys,
+                                          model_task_grp,
+                                          model_task_i,
+                                          round_i, schema) {
 
   # Get unique values of target key names
-  tk_nms <- purrr::map(grp_tks, ~names(.x)) %>%
-    unique() %>% unlist()
+  target_key_names <- purrr::map(grp_target_keys, ~ names(.x)) %>%
+    unique() %>%
+    unlist()
 
   # Identify target_key_names that are valid task id properties
-  val_tk_nms <- tk_nms[tk_nms %in% names(mt_grp[["task_ids"]])]
+  val_target_key_names <- target_key_names[
+    target_key_names %in% names(model_task_grp[["task_ids"]])
+  ]
 
 
   # Get list of unique task id values across both required & optional arrays
   # for each valid target key.
-  tid_vals <- mt_grp[["task_ids"]][val_tk_nms] %>%
-    purrr::map(~unlist(.x, use.names = FALSE)) %>%
+  task_id_values <- model_task_grp[["task_ids"]][val_target_key_names] %>%
+    purrr::map(~ unlist(.x, use.names = FALSE)) %>%
     unique() %>%
-    purrr::set_names(val_tk_nms)
+    purrr::set_names(val_target_key_names)
 
   # Get list of target key values for each valid target key.
-  tk_vals <- purrr::map(
-    purrr::set_names(val_tk_nms),
-    ~get_all_grp_tk_vals(.x, grp_tks) %>%
+  target_key_values <- purrr::map(
+    purrr::set_names(val_target_key_names),
+    ~ get_all_grp_target_key_values(.x, grp_target_keys) %>%
       unique()
   )
 
   # Identify task id values that do not have a match in any of the corresponding
   # target key definitions.
-  invalid_tid_vals <- purrr::map2(
-    .x = tid_vals,
-    .y = tk_vals,
-    ~!.x %in% .y
+  invalid_task_id_values <- purrr::map2(
+    .x = task_id_values,
+    .y = target_key_values,
+    ~ !.x %in% .y
   ) %>%
     purrr::map2(
-      tid_vals,
-      ~.y[.x]) %>%
+      task_id_values,
+      ~ .y[.x]
+    ) %>%
     purrr::compact() %>%
-    purrr::map_chr(~paste(.x, collapse = ", "))
+    purrr::map_chr(~ paste(.x, collapse = ", "))
 
 
-  if(length(invalid_tid_vals) != 0){
+  if (length(invalid_task_id_values) != 0) {
     error_row <- data.frame(
-      instancePath = paste0(glue::glue(get_error_path(schema, "task_ids", "instance")),"/", names(invalid_tid_vals)),
-      schemaPath =  get_error_path(schema, "task_ids", "schema"),
+      instancePath = paste0(glue::glue(get_error_path(schema, "task_ids", "instance")), "/", names(invalid_task_id_values)),
+      schemaPath = get_error_path(schema, "task_ids", "schema"),
       keyword = "task_id values",
-      message = glue::glue("task_id value(s) '{invalid_tid_vals}' not defined in any corresponding target_key."),
+      message = glue::glue("task_id value(s) '{invalid_task_id_values}' not defined in any corresponding target_key."),
       schema = "",
-      data = glue::glue("task_id.{names(invalid_tid_vals)} unique values: {purrr::map_chr(tk_vals[names(invalid_tid_vals)], ~glue::glue_collapse(.x, sep = ', '))};
-            target_key.{names(invalid_tid_vals)} unique values: {purrr::map_chr(tk_vals[names(invalid_tid_vals)],
+      data = glue::glue("task_id.{names(invalid_task_id_values)} unique values: {purrr::map_chr(target_key_values[names(invalid_task_id_values)], ~glue::glue_collapse(.x, sep = ', '))};
+            target_key.{names(invalid_task_id_values)} unique values: {purrr::map_chr(target_key_values[names(invalid_task_id_values)],
             ~paste(.x, collapse = ', '))}")
     )
     return(error_row)
@@ -489,32 +536,33 @@ val_tk_tid_vals <- function(grp_tks, mt_grp, mt_i,
 }
 
 
-get_all_grp_tk_vals <- function(target, grp_tks) {
-  purrr::map_chr(grp_tks,
-                 ~.x[[target]])
-}
-
-
-get_grp_tks <- function(mt_grp) {
-  purrr::map(mt_grp[["target_metadata"]],
-             ~.x[["target_keys"]]
+get_all_grp_target_key_values <- function(target, grp_target_keys) {
+  purrr::map_chr(
+    grp_target_keys,
+    ~ .x[[target]]
   )
 }
 
-get_grp_tids <- function(mt_grp) {
-  names(mt_grp[["task_ids"]])
+
+get_grp_target_keys <- function(model_task_grp) {
+  purrr::map(
+    model_task_grp[["target_metadata"]],
+    ~ .x[["target_keys"]]
+  )
 }
 
-find_inval_tks <- function(target_keys, mt_grp) {
+get_grp_task_ids <- function(model_task_grp) {
+  names(model_task_grp[["task_ids"]])
+}
 
-  !names(target_keys) %in% get_grp_tids(mt_grp) %>%
+find_invalid_target_keys <- function(target_keys, model_task_grp) {
+  !names(target_keys) %in% get_grp_task_ids(model_task_grp) %>%
     stats::setNames(names(target_keys))
 }
 
 
 get_error_path <- function(schema, element = "target_metadata",
                            type = c("schema", "instance")) {
-
   type <- rlang::arg_match(type)
 
   schema_paths <- schema %>%
@@ -528,23 +576,22 @@ get_error_path <- function(schema, element = "target_metadata",
     gsub("/type([0-9])?", "", .) %>%
     unique()
 
-  switch (type,
-          schema = paste0("#", path),
-          instance = generate_instance_path_glue(path)
+  switch(type,
+    schema = paste0("#", path),
+    instance = generate_instance_path_glue(path)
   )
-
 }
 
 generate_instance_path_glue <- function(path) {
-
   split_path <- gsub("properties/", "", path) %>%
     strsplit("/") %>%
     unlist()
 
   is_item <- split_path == "items"
-  split_path[is_item]  <- c("{rnd_i - 1}", "{mt_i - 1}", "{tk_i - 1}")[1:sum(is_item)]
+  split_path[is_item] <- c(
+    "{round_i - 1}",
+    "{model_task_i - 1}",
+    "{target_key_i - 1}"
+  )[1:sum(is_item)]
   paste(split_path, collapse = "/")
 }
-
-
-
