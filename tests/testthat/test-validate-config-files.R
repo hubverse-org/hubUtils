@@ -47,11 +47,11 @@ test_that("Config validated successfully", {
 test_that("Config errors detected successfully", {
   config_path <- testthat::test_path("testdata", "tasks-errors.json")
   expect_snapshot(
-    validate_config(config_path = config_path, pretty_errors = FALSE)
+    validate_config(config_path = config_path)
     )
   expect_false(
     suppressWarnings(
-      validate_config(config_path = config_path, pretty_errors = FALSE)
+      validate_config(config_path = config_path)
       )
     )
 })
@@ -60,11 +60,11 @@ test_that("Config errors detected successfully", {
 test_that("Errors report launch successful", {
   config_path <- testthat::test_path("testdata", "tasks-errors.json")
   validation <- suppressWarnings(
-    validate_config(config_path = config_path, pretty_errors = FALSE)
+    validate_config(config_path = config_path)
     )
   set.seed(1)
   skip_on_ci()
-  tbl <- launch_pretty_errors_report(validation) %>%
+  tbl <- view_config_val_errors(validation) %>%
     gt:::render_as_html()
   expect_snapshot(tbl)
 })

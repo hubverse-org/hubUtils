@@ -18,16 +18,18 @@ validate_config(
 \item{config}{Name of config file to validate. One of \code{"tasks"} or \code{"admin"}.}
 
 \item{config_path}{Defaults to \code{NULL} which assumes all config files are in
-the \code{hub-config} directory in the root of hub directory. Argument \code{config_path}
-can be used to override default by providing a path to the config file to be
-validated.}
+the \code{hub-config} directory in the root of hub directory. Argument
+\code{config_path} can be used to override default by providing a path to the
+config file to be validated.}
 
 \item{schema_version}{Character string specifying the json schema version to
-be used for validation. The default value \code{"from_config"} will use the version
-specified in the \code{schema_version} property of the config file. \code{"latest"} will
-use the latest version available in the Infectious Disease Modeling Hubs
+be used for validation. The default value \code{"from_config"} will use the
+version specified in the \code{schema_version} property of the config file.
+\code{"latest"} will use the latest version available in the Infectious Disease
+Modeling Hubs
 \href{https://github.com/Infectious-Disease-Modeling-Hubs/schemas}{schemas repository}.
-Alternartively, a specific version of a schema (e.g. \code{"v0.0.1"})  can be specified.}
+Alternatively, a specific version of a schema (e.g. \code{"v0.0.1"})  can be
+specified.}
 
 \item{branch}{The branch of the Infectious Disease Modeling Hubs
 \href{https://github.com/Infectious-Disease-Modeling-Hubs/schemas}{schemas repository}
@@ -36,7 +38,8 @@ from which to fetch schema. Defaults to \code{"main"}.}
 \value{
 Returns the result of validation. If validation is successful, will
 return \code{TRUE}. If any validation errors are detected, returns \code{FALSE} with
-details of errors appended as a data.frame to an \code{errors} attribute. To access
+details of errors appended as a data.frame to an \code{errors} attribute.
+To access
 the errors table use \code{attr(x, "errors")} where \code{x} is the output of the function.
 }
 \description{
@@ -59,10 +62,11 @@ validate_config(config_path = config_path, config = "tasks")
 
 # View validation errors report in help & pkgdown documentation. `gt::as_raw_html()` not necessary when running
 # interactively.
-validate_config(config_path = config_path,
-                config = "tasks", pretty_errors = FALSE) |>
-                view_config_val_errors() |>
-                gt::as_raw_html()
+validate_config(
+  config_path = config_path,
+  config = "tasks") |>
+  view_config_val_errors() |>
+  gt::as_raw_html()
 }
 \seealso{
 view_config_val_errors
