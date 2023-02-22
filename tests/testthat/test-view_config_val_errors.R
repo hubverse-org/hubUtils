@@ -1,16 +1,3 @@
-test_that("Errors report launch successful", {
-    config_path <- testthat::test_path("testdata", "tasks-errors.json")
-    validation <- suppressWarnings(
-        validate_config(config_path = config_path)
-    )
-    set.seed(1)
-    skip_on_ci()
-    tbl <- view_config_val_errors(validation) %>%
-        gt:::render_as_html()
-    expect_snapshot(tbl)
-})
-
-
 test_that("Data column handled correctly when required property missing", {
     set.seed(1)
     # One nested property missing, one type error
@@ -43,6 +30,19 @@ test_that("Data column handled correctly when required property missing", {
     tbl <- view_config_val_errors(suppressWarnings(
         validate_config(config_path = config_path)
     )) %>%
+        gt:::render_as_html()
+    expect_snapshot(tbl)
+})
+
+
+test_that("Errors report launch successful", {
+    config_path <- testthat::test_path("testdata", "tasks-errors.json")
+    validation <- suppressWarnings(
+        validate_config(config_path = config_path)
+    )
+    set.seed(1)
+    skip_on_ci()
+    tbl <- view_config_val_errors(validation) %>%
         gt:::render_as_html()
     expect_snapshot(tbl)
 })
