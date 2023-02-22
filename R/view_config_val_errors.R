@@ -24,6 +24,16 @@ view_config_val_errors <- function(x) {
     errors_tbl[c("dataPath", "parentSchema", "params")] <- NULL
     errors_tbl <- errors_tbl[!grepl("oneOf.+", errors_tbl$schemaPath), ]
 
+    # Get rid of unnecessarily verbose data entry when a required property is
+    # missing. Addressing this is dependent on the data column data type.
+    if (any(errors_tbl$keyword == "required")) {
+        if (inherits(errors_tbl$data, "data.frame")){
+            errors_tbl$data <- ""
+        } else {
+            errors_tbl$data[errors_tbl$keyword == "required"] <- ""
+        }
+    }
+
     n_col <- length(errors_tbl)
 
     error_df <- split(errors_tbl, 1:nrow(errors_tbl)) %>%
