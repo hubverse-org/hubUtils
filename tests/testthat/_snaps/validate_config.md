@@ -1,9 +1,7 @@
 # Config errors detected successfully
 
     Code
-      validate_config(config_path = config_path)
-    Warning <rlang_warning>
-      Schema errors detected in config file 'testdata/tasks-errors.json' validated against schema <https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json>
+      out
     Output
       [1] FALSE
       attr(,"errors")
@@ -167,10 +165,47 @@
       attr(,"schema_url")
       https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json
 
-# Errors report launch successful
+# Dynamic config errors detected successfully by custom R validation
 
     Code
-      tbl
+      out
     Output
-      [1] "<table class=\"gt_table\" style=\"table-layout: fixed;\">\n  <colgroup>\n    <col/>\n    <col/>\n    <col/>\n    <col style=\"width:16.6666666666667%;\"/>\n    <col style=\"width:25%;\"/>\n    <col style=\"width:16.6666666666667%;\"/>\n  </colgroup>\n  <thead class=\"gt_header\">\n    <tr>\n      <td colspan=\"6\" class=\"gt_heading gt_title gt_font_normal\" style><strong><code>hubUtils</code> config validation error report</strong></td>\n    </tr>\n    <tr>\n      <td colspan=\"6\" class=\"gt_heading gt_subtitle gt_font_normal gt_bottom_border\" style>Report for file <strong><code>testdata/tasks-errors.json</code></strong> using\nschema version <a href=\"https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json\"><strong>v0.0.0.9</strong></a></td>\n    </tr>\n  </thead>\n  <thead class=\"gt_col_headings\">\n    <tr>\n      <th class=\"gt_center gt_columns_top_border gt_column_spanner_outer\" rowspan=\"1\" colspan=\"2\" scope=\"colgroup\" id=\"&lt;strong&gt;Error location&lt;/strong&gt;\">\n        <span class=\"gt_column_spanner\"><strong>Error location</strong></span>\n      </th>\n      <th class=\"gt_center gt_columns_top_border gt_column_spanner_outer\" rowspan=\"1\" colspan=\"3\" scope=\"colgroup\" id=\"&lt;strong&gt;Schema details&lt;/strong&gt;\">\n        <span class=\"gt_column_spanner\"><strong>Schema details</strong></span>\n      </th>\n      <th class=\"gt_center gt_columns_top_border gt_column_spanner_outer\" rowspan=\"1\" colspan=\"1\" scope=\"col\" id=\"&lt;strong&gt;Config&lt;/strong&gt;\">\n        <span class=\"gt_column_spanner\"><strong>Config</strong></span>\n      </th>\n    </tr>\n    <tr>\n      <th class=\"gt_col_heading gt_columns_bottom_border gt_left\" rowspan=\"1\" colspan=\"1\" scope=\"col\" id=\"instancePath\">instancePath</th>\n      <th class=\"gt_col_heading gt_columns_bottom_border gt_left\" rowspan=\"1\" colspan=\"1\" scope=\"col\" id=\"schemaPath\">schemaPath</th>\n      <th class=\"gt_col_heading gt_columns_bottom_border gt_center\" rowspan=\"1\" colspan=\"1\" scope=\"col\" id=\"keyword\">keyword</th>\n      <th class=\"gt_col_heading gt_columns_bottom_border gt_center\" rowspan=\"1\" colspan=\"1\" scope=\"col\" id=\"message\">message</th>\n      <th class=\"gt_col_heading gt_columns_bottom_border gt_left\" rowspan=\"1\" colspan=\"1\" scope=\"col\" id=\"schema\">schema</th>\n      <th class=\"gt_col_heading gt_columns_bottom_border gt_center\" rowspan=\"1\" colspan=\"1\" scope=\"col\" id=\"data\">data</th>\n    </tr>\n  </thead>\n  <tbody class=\"gt_table_body\">\n    <tr><td headers=\"instancePath\" class=\"gt_row gt_left\" style=\"white-space: pre;\"><div class='gt_from_md'><p><strong>rounds</strong>\n└<strong>1</strong>\n└─<strong>model_tasks</strong>\n└──<strong>1</strong>\n└───<strong>task_ids</strong>\n└────<strong>target</strong>\n└─────<strong>required</strong></p>\n</div></td>\n<td headers=\"schemaPath\" class=\"gt_row gt_left\" style=\"white-space: pre;\"><div class='gt_from_md'><p>properties\n└<strong>rounds</strong>\n└─items\n└──properties\n└───<strong>model_tasks</strong>\n└────items\n└─────properties\n└──────<strong>task_ids</strong>\n└───────properties\n└────────<strong>target</strong>\n└─────────properties\n└──────────<strong>required</strong>\n└───────────<strong>type</strong></p>\n</div></td>\n<td headers=\"keyword\" class=\"gt_row gt_center\">type</td>\n<td headers=\"message\" class=\"gt_row gt_center\" style=\"background-color: #F9E3D6; font-weight: bold;\">❌ must be array,null</td>\n<td headers=\"schema\" class=\"gt_row gt_left\" style=\"white-space: pre-wrap;\"><div class='gt_from_md'><p>array, null</p>\n</div></td>\n<td headers=\"data\" class=\"gt_row gt_center\" style=\"background-color: #F9E3D6; font-weight: bold;\">wk inc flu hosp</td></tr>\n    <tr><td headers=\"instancePath\" class=\"gt_row gt_left\" style=\"white-space: pre;\"><div class='gt_from_md'><p><strong>rounds</strong>\n└<strong>1</strong>\n└─<strong>model_tasks</strong>\n└──<strong>1</strong>\n└───<strong>output_type</strong>\n└────<strong>mean</strong>\n└─────<strong>type_id</strong></p>\n</div></td>\n<td headers=\"schemaPath\" class=\"gt_row gt_left\" style=\"white-space: pre;\"><div class='gt_from_md'><p>properties\n└<strong>rounds</strong>\n└─items\n└──properties\n└───<strong>model_tasks</strong>\n└────items\n└─────properties\n└──────<strong>output_type</strong>\n└───────properties\n└────────<strong>mean</strong>\n└─────────properties\n└──────────<strong>type_id</strong>\n└───────────<strong>oneOf</strong></p>\n</div></td>\n<td headers=\"keyword\" class=\"gt_row gt_center\">oneOf</td>\n<td headers=\"message\" class=\"gt_row gt_center\" style=\"background-color: #F9E3D6; font-weight: bold;\">❌ must match exactly one schema in oneOf</td>\n<td headers=\"schema\" class=\"gt_row gt_left\" style=\"white-space: pre-wrap;\"><div class='gt_from_md'><p><strong>1</strong>\n<strong>required-description:</strong> When mean is required, property set to single element 'NA' array\n<strong>required-type:</strong> array\n<strong>required-items-const:</strong>'NA'\n<strong>required-items-maxItems:</strong> 1\n<strong>optional-description:</strong> When mean is required, property set to null\n<strong>optional-type:</strong> null</p>\n<p><strong>2</strong>\n<strong>required-description:</strong> When mean is optional, property set to null\n<strong>required-type:</strong> null\n<strong>optional-description:</strong> When mean is optional, property set to single element 'NA' array\n<strong>optional-type:</strong> array\n<strong>optional-items-const:</strong>'NA'\n<strong>optional-items-maxItems:</strong> 1</p>\n</div></td>\n<td headers=\"data\" class=\"gt_row gt_center\" style=\"background-color: #F9E3D6; font-weight: bold;\">required: NA, optional: NA</td></tr>\n    <tr><td headers=\"instancePath\" class=\"gt_row gt_left\" style=\"white-space: pre;\"><div class='gt_from_md'><p><strong>rounds</strong>\n└<strong>1</strong>\n└─<strong>submissions_due</strong></p>\n</div></td>\n<td headers=\"schemaPath\" class=\"gt_row gt_left\" style=\"white-space: pre;\"><div class='gt_from_md'><p>properties\n└<strong>rounds</strong>\n└─items\n└──properties\n└───<strong>submissions_due</strong>\n└────<strong>oneOf</strong></p>\n</div></td>\n<td headers=\"keyword\" class=\"gt_row gt_center\">oneOf</td>\n<td headers=\"message\" class=\"gt_row gt_center\" style=\"background-color: #F9E3D6; font-weight: bold;\">❌ must match exactly one schema in oneOf</td>\n<td headers=\"schema\" class=\"gt_row gt_left\" style=\"white-space: pre-wrap;\"><div class='gt_from_md'><p><strong>1</strong>\n<strong>relative_to-description:</strong> Name of task id variable in relation to which submission start and end dates are calculated.\n<strong>relative_to-type:</strong> string\n<strong>start-description:</strong> Difference in days between start and origin date.\n<strong>start-type:</strong> integer\n<strong>start-format:</strong>'NA'\n<strong>end-description:</strong> Difference in days between end and origin date.\n<strong>end-type:</strong> integer\n<strong>end-format:</strong>'NA'\n<strong>required1:</strong> relative_to\n<strong>required2:</strong> start\n<strong>required3:</strong> end</p>\n<p><strong>2</strong>\n<strong>relative_to-description:</strong>'NA'\n<strong>relative_to-type:</strong>'NA'\n<strong>start-description:</strong> Submission start date.\n<strong>start-type:</strong> string\n<strong>start-format:</strong> date\n<strong>end-description:</strong> Submission end date.\n<strong>end-type:</strong> string\n<strong>end-format:</strong> date\n<strong>required1:</strong> start\n<strong>required2:</strong> end</p>\n</div></td>\n<td headers=\"data\" class=\"gt_row gt_center\" style=\"background-color: #F9E3D6; font-weight: bold;\">start: -6, end: 1</td></tr>\n  </tbody>\n  <tfoot class=\"gt_sourcenotes\">\n    <tr>\n      <td class=\"gt_sourcenote\" colspan=\"6\">For more information, please consult the\n<a href=\"https://hubdocs.readthedocs.io/en/latest/\"><strong><code>hubDocs</code> documentation</strong>.</a></td>\n    </tr>\n  </tfoot>\n  \n</table>"
+      [1] FALSE
+      attr(,"config_path")
+      [1] "testdata/tasks-errors-rval.json"
+      attr(,"schema_version")
+      [1] "v0.0.1"
+      attr(,"schema_url")
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json
+      attr(,"errors")
+                                                                instancePath
+      1 /rounds/0/model_tasks/1/target_metadata/0/target_keys/target_measure
+      2 /rounds/0/model_tasks/1/target_metadata/1/target_keys/target_measure
+      3 /rounds/0/model_tasks/1/target_metadata/0/target_keys/target_outcome
+      4                      /rounds/0/model_tasks/1/task_ids/target_outcome
+                                                                                                            schemaPath
+      1 #/properties/rounds/items/properties/model_tasks/items/properties/target_metadata/items/properties/target_keys
+      2 #/properties/rounds/items/properties/model_tasks/items/properties/target_metadata/items/properties/target_keys
+      3 #/properties/rounds/items/properties/model_tasks/items/properties/target_metadata/items/properties/target_keys
+      4                                     #/properties/rounds/items/properties/model_tasks/items/properties/task_ids
+                   keyword
+      1  target_keys names
+      2  target_keys names
+      3 target_keys values
+      4     task_id values
+                                                                                                              message
+      1                                 target_key(s) 'target_measure' not properties of modeling task group task IDs
+      2                                 target_key(s) 'target_measure' not properties of modeling task group task IDs
+      3 target_key value 'flu hospitalisation' does not match any values in corresponding modeling task group task_id
+      4                     task_id value(s) 'flu hosp, wk inc flu hosp' not defined in any corresponding target_key.
+        schema
+      1       
+      2       
+      3       
+      4       
+                                                                                                                                                data
+      1             task_id names: origin_date, target_outcome, target_mesures, horizon, location;\ntarget_key names: target_measure, target_outcome
+      2             task_id names: origin_date, target_outcome, target_mesures, horizon, location;\ntarget_key names: target_measure, target_outcome
+      3                    task_id.target_outcome values: flu hosp, wk inc flu hosp, flu case;\ntarget_key.target_outcome value: flu hospitalisation
+      4 task_id.target_outcome unique values: flu hospitalisation, flu case;\ntarget_key.target_outcome unique values: flu hospitalisation, flu case
 

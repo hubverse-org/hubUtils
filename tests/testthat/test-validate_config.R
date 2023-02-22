@@ -46,15 +46,16 @@ test_that("Config validated successfully", {
 
 test_that("Config errors detected successfully", {
   config_path <- testthat::test_path("testdata", "tasks-errors.json")
-  expect_snapshot(
-    validate_config(config_path = config_path)
-    )
-  expect_false(
-    suppressWarnings(
-      validate_config(config_path = config_path)
-      )
-    )
+  out <- suppressWarnings(validate_config(config_path = config_path))
+  expect_snapshot(out)
+  expect_false(out)
 })
 
 
 
+test_that("Dynamic config errors detected successfully by custom R validation", {
+  config_path <- testthat::test_path("testdata", "tasks-errors-rval.json")
+  out <- suppressWarnings(validate_config(config_path = config_path))
+  expect_snapshot(out)
+  expect_false(out)
+})
