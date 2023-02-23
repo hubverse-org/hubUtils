@@ -46,9 +46,6 @@
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/launch_pretty_errors_report.html</loc>
-  </url>
-  <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/pipe.html</loc>
   </url>
   <url>
@@ -59,5 +56,8 @@
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_config.html</loc>
+  </url>
+  <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/view_config_val_errors.html</loc>
   </url>
 </urlset>

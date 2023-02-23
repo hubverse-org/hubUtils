@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Get a vector of valid schema version</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/blob/HEAD/R/validate-config-file.R" class="external-link"><code>R/validate-config-file.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/blob/HEAD/R/validate_config.R" class="external-link"><code>R/validate_config.R</code></a></small>
       <div class="d-none name"><code>get_schema_valid_versions.Rd</code></div>
     </div>
 
@@ -72,11 +72,19 @@ from which to fetch schema. Defaults to <code>"main"</code>.</p></dd>
 <p>a character vector of valid versions of Infectious Disease Modeling Hubs
 <a href="https://github.com/Infectious-Disease-Modeling-Hubs/schemas" class="external-link">schema</a>.</p>
     </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other functions supporting config file validation: 
+<code><a href="get_schema_url.html">get_schema_url</a>()</code>,
+<code><a href="get_schema.html">get_schema</a>()</code>,
+<code><a href="validate_config.html">validate_config</a>()</code>,
+<code><a href="view_config_val_errors.html">view_config_val_errors</a>()</code></p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_schema_valid_versions</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "v0.0.0.9"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "v0.0.0.9" "v0.0.1"  </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

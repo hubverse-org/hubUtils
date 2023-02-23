@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Validate a hub config file against a Infectious Disease Modeling Hubs schema</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/blob/HEAD/R/validate-config-file.R" class="external-link"><code>R/validate-config-file.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/blob/HEAD/R/validate_config.R" class="external-link"><code>R/validate_config.R</code></a></small>
       <div class="d-none name"><code>validate_config.Rd</code></div>
     </div>
 
@@ -59,8 +59,7 @@
 <span>  config <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tasks"</span>, <span class="st">"admin"</span><span class="op">)</span>,</span>
 <span>  config_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  schema_version <span class="op">=</span> <span class="st">"from_config"</span>,</span>
-<span>  branch <span class="op">=</span> <span class="st">"main"</span>,</span>
-<span>  pretty_errors <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  branch <span class="op">=</span> <span class="st">"main"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -76,29 +75,26 @@
 
 <dt>config_path</dt>
 <dd><p>Defaults to <code>NULL</code> which assumes all config files are in
-the <code>hub-config</code> directory in the root of hub directory. Argument <code>config_path</code>
-can be used to override default by providing a path to the config file to be
-validated.</p></dd>
+the <code>hub-config</code> directory in the root of hub directory. Argument
+<code>config_path</code> can be used to override default by providing a path to the
+config file to be validated.</p></dd>
 
 
 <dt>schema_version</dt>
 <dd><p>Character string specifying the json schema version to
-be used for validation. The default value <code>"from_config"</code> will use the version
-specified in the <code>schema_version</code> property of the config file. <code>"latest"</code> will
-use the latest version available in the Infectious Disease Modeling Hubs
+be used for validation. The default value <code>"from_config"</code> will use the
+version specified in the <code>schema_version</code> property of the config file.
+<code>"latest"</code> will use the latest version available in the Infectious Disease
+Modeling Hubs
 <a href="https://github.com/Infectious-Disease-Modeling-Hubs/schemas" class="external-link">schemas repository</a>.
-Alternartively, a specific version of a schema (e.g. <code>"v0.0.1"</code>)  can be specified.</p></dd>
+Alternatively, a specific version of a schema (e.g. <code>"v0.0.1"</code>)  can be
+specified.</p></dd>
 
 
 <dt>branch</dt>
 <dd><p>The branch of the Infectious Disease Modeling Hubs
 <a href="https://github.com/Infectious-Disease-Modeling-Hubs/schemas" class="external-link">schemas repository</a>
 from which to fetch schema. Defaults to <code>"main"</code>.</p></dd>
-
-
-<dt>pretty_errors</dt>
-<dd><p>Whether to launch an informative pretty table of any
-validation errors in the Viewer panel. Defaults to <code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -107,14 +103,22 @@ validation errors in the Viewer panel. Defaults to <code>TRUE</code>.</p></dd>
 
 <p>Returns the result of validation. If validation is successful, will
 return <code>TRUE</code>. If any validation errors are detected, returns <code>FALSE</code> with
-details of errors appended as a data.frame to an <code>errors</code> attribute. To access
+details of errors appended as a data.frame to an <code>errors</code> attribute.
+To access
 the errors table use <code>attr(x, "errors")</code> where <code>x</code> is the output of the function.</p>
+
+
+<p>You can print a more concise and easier to view version of an errors table with
+<code><a href="view_config_val_errors.html">view_config_val_errors()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>launch_pretty_errors_report</p>
-<p>Other schema-validation: 
-<code><a href="launch_pretty_errors_report.html">launch_pretty_errors_report</a>()</code></p></div>
+    <div class="dont-index"><p><code><a href="view_config_val_errors.html">view_config_val_errors()</a></code></p>
+<p>Other functions supporting config file validation: 
+<code><a href="get_schema_url.html">get_schema_url</a>()</code>,
+<code><a href="get_schema_valid_versions.html">get_schema_valid_versions</a>()</code>,
+<code><a href="get_schema.html">get_schema</a>()</code>,
+<code><a href="view_config_val_errors.html">view_config_val_errors</a>()</code></p></div>
     </div>
 
     <div class="section level2">
@@ -127,19 +131,20 @@ the errors table use <code>attr(x, "errors")</code> where <code>x</code> is the 
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  config <span class="op">=</span> <span class="st">"tasks"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: jsonvalidate</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"config_path")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> /home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_version")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "v0.0.0.9"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "v0.0.1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_url")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json</span>
 <span class="r-in"><span><span class="co"># Config file with errors</span></span></span>
 <span class="r-in"><span><span class="va">config_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"error-schema/tasks-errors.json"</span>,</span></span>
 <span class="r-in"><span>  package <span class="op">=</span> <span class="st">"hubUtils"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">validate_config</span><span class="op">(</span>config_path <span class="op">=</span> <span class="va">config_path</span>, config <span class="op">=</span> <span class="st">"tasks"</span>, pretty_errors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">validate_config</span><span class="op">(</span>config_path <span class="op">=</span> <span class="va">config_path</span>, config <span class="op">=</span> <span class="st">"tasks"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Schema errors detected in config file</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/error-schema/tasks-errors.json</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> validated against schema</span>
@@ -305,174 +310,6 @@ the errors table use <code>attr(x, "errors")</code> where <code>x</code> is the 
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "v0.0.0.9"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_url")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Print pretty errors in help &amp; pkgdown documentation. Not necessary when running</span></span></span>
-<span class="r-in"><span><span class="co"># interactively.</span></span></span>
-<span class="r-in"><span><span class="fu">validate_config</span><span class="op">(</span>config_path <span class="op">=</span> <span class="va">config_path</span>,</span></span>
-<span class="r-in"><span>                config <span class="op">=</span> <span class="st">"tasks"</span>, pretty_errors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>                <span class="fu"><a href="launch_pretty_errors_report.html">launch_pretty_errors_report</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>                <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/as_raw_html.html" class="external-link">as_raw_html</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Schema errors detected in config file</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/error-schema/tasks-errors.json</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> validated against schema</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div id="jcntdqrhte" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;table class="gt_table" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif; display: table; border-collapse: collapse; margin-left: 2%; margin-right: 2%; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 2px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; table-layout: fixed;" bgcolor="#FFFFFF"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;colgroup&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;col&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;col&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;col&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;col style="width:16.6666666666667%;"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;col style="width:25%;"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;col style="width:16.6666666666667%;"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/colgroup&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;thead class="gt_header"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;td colspan="6" class="gt_heading gt_title gt_font_normal" style="background-color: #F0F3F5; text-align: center; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; color: #333333; font-size: 125%; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; border-bottom-color: #FFFFFF; border-bottom-width: 0; font-weight: normal;" bgcolor="#F0F3F5" align="center"&gt;&lt;strong&gt;&lt;code&gt;hubUtils&lt;/code&gt; config validation error report&lt;/strong&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;td colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="background-color: #F0F3F5; text-align: center; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; color: #333333; font-size: 85%; padding-top: 0; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; border-top-color: #FFFFFF; border-top-width: 0; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; font-weight: normal;" bgcolor="#F0F3F5" align="center"&gt;Report for file &lt;strong&gt;&lt;code&gt;/home/runner/work/_temp/Library/hubUtils/error-schema/tasks-errors.json&lt;/code&gt;&lt;/strong&gt; using</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> schema version &lt;a href="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json"&gt;&lt;strong&gt;v0.0.0.9&lt;/strong&gt;&lt;/a&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/thead&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;thead class="gt_col_headings" style="border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" scope="colgroup" id="&amp;lt;strong&amp;gt;Error location&amp;lt;/strong&amp;gt;" style="color: #333333; background-color: #F0F3F5; font-size: 100%; font-weight: bold; text-transform: inherit; padding-top: 0; padding-bottom: 0; padding-right: 4px; text-align: center; padding-left: 0;" bgcolor="#F0F3F5" align="center"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;span class="gt_column_spanner" style="border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; overflow-x: hidden; display: inline-block; width: 100%;"&gt;&lt;strong&gt;Error location&lt;/strong&gt;&lt;/span&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/th&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="3" scope="colgroup" id="&amp;lt;strong&amp;gt;Schema details&amp;lt;/strong&amp;gt;" style="color: #333333; background-color: #F0F3F5; font-size: 100%; font-weight: bold; text-transform: inherit; padding-top: 0; padding-bottom: 0; padding-left: 4px; padding-right: 4px; text-align: center;" bgcolor="#F0F3F5" align="center"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;span class="gt_column_spanner" style="border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; overflow-x: hidden; display: inline-block; width: 100%;"&gt;&lt;strong&gt;Schema details&lt;/strong&gt;&lt;/span&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/th&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="1" scope="col" id="&amp;lt;strong&amp;gt;Config&amp;lt;/strong&amp;gt;" style="color: #333333; background-color: #F0F3F5; font-size: 100%; font-weight: bold; text-transform: inherit; padding-top: 0; padding-bottom: 0; padding-left: 4px; text-align: center; padding-right: 0;" bgcolor="#F0F3F5" align="center"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;span class="gt_column_spanner" style="border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; overflow-x: hidden; display: inline-block; width: 100%;"&gt;&lt;strong&gt;Config&lt;/strong&gt;&lt;/span&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;/th&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="instancePath" style="color: #333333; background-color: #F0F3F5; font-size: 100%; font-weight: bold; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#F0F3F5" valign="bottom" align="left"&gt;instancePath&lt;/th&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="schemaPath" style="color: #333333; background-color: #F0F3F5; font-size: 100%; font-weight: bold; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#F0F3F5" valign="bottom" align="left"&gt;schemaPath&lt;/th&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="keyword" style="color: #333333; background-color: #F0F3F5; font-size: 100%; font-weight: bold; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: center;" bgcolor="#F0F3F5" valign="bottom" align="center"&gt;keyword&lt;/th&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="message" style="color: #333333; background-color: #F0F3F5; font-size: 100%; font-weight: bold; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: center;" bgcolor="#F0F3F5" valign="bottom" align="center"&gt;message&lt;/th&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="schema" style="color: #333333; background-color: #F0F3F5; font-size: 100%; font-weight: bold; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: left;" bgcolor="#F0F3F5" valign="bottom" align="left"&gt;schema&lt;/th&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="data" style="color: #333333; background-color: #F0F3F5; font-size: 100%; font-weight: bold; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; text-align: center;" bgcolor="#F0F3F5" valign="bottom" align="center"&gt;data&lt;/th&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/thead&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;tbody class="gt_table_body" style="border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3;"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;tr&gt;&lt;td headers="instancePath" class="gt_row gt_left" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left; white-space: pre;" valign="middle" align="left"&gt;&lt;div class="gt_from_md"&gt;&lt;p style="margin-top: 0; margin-bottom: 0;"&gt;&lt;strong&gt;rounds&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └&lt;strong&gt;1&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─&lt;strong&gt;model_tasks&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └──&lt;strong&gt;1&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └───&lt;strong&gt;task_ids&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └────&lt;strong&gt;target&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─────&lt;strong&gt;required&lt;/strong&gt;&lt;/p&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="schemaPath" class="gt_row gt_left" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left; white-space: pre;" valign="middle" align="left"&gt;&lt;div class="gt_from_md"&gt;&lt;p style="margin-top: 0; margin-bottom: 0;"&gt;properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └&lt;strong&gt;rounds&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─items</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └──properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └───&lt;strong&gt;model_tasks&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └────items</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─────properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └──────&lt;strong&gt;task_ids&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └───────properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └────────&lt;strong&gt;target&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─────────properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └──────────&lt;strong&gt;required&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └───────────&lt;strong&gt;type&lt;/strong&gt;&lt;/p&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="keyword" class="gt_row gt_center" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center"&gt;type&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="message" class="gt_row gt_center" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center; background-color: #F9E3D6; font-weight: bold;" bgcolor="#F9E3D6" valign="middle" align="center"&gt;❌ must be array,null&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="schema" class="gt_row gt_left" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left; white-space: pre-wrap;" valign="middle" align="left"&gt;&lt;div class="gt_from_md"&gt;&lt;p style="margin-top: 0; margin-bottom: 0;"&gt;array, null&lt;/p&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="data" class="gt_row gt_center" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center; background-color: #F9E3D6; font-weight: bold;" bgcolor="#F9E3D6" valign="middle" align="center"&gt;wk inc flu hosp&lt;/td&gt;&lt;/tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;tr&gt;&lt;td headers="instancePath" class="gt_row gt_left" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left; white-space: pre;" valign="middle" align="left"&gt;&lt;div class="gt_from_md"&gt;&lt;p style="margin-top: 0; margin-bottom: 0;"&gt;&lt;strong&gt;rounds&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └&lt;strong&gt;1&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─&lt;strong&gt;model_tasks&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └──&lt;strong&gt;1&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └───&lt;strong&gt;output_type&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └────&lt;strong&gt;mean&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─────&lt;strong&gt;type_id&lt;/strong&gt;&lt;/p&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="schemaPath" class="gt_row gt_left" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left; white-space: pre;" valign="middle" align="left"&gt;&lt;div class="gt_from_md"&gt;&lt;p style="margin-top: 0; margin-bottom: 0;"&gt;properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └&lt;strong&gt;rounds&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─items</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └──properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └───&lt;strong&gt;model_tasks&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └────items</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─────properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └──────&lt;strong&gt;output_type&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └───────properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └────────&lt;strong&gt;mean&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─────────properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └──────────&lt;strong&gt;type_id&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └───────────&lt;strong&gt;oneOf&lt;/strong&gt;&lt;/p&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="keyword" class="gt_row gt_center" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center"&gt;oneOf&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="message" class="gt_row gt_center" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center; background-color: #F9E3D6; font-weight: bold;" bgcolor="#F9E3D6" valign="middle" align="center"&gt;❌ must match exactly one schema in oneOf&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="schema" class="gt_row gt_left" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left; white-space: pre-wrap;" valign="middle" align="left"&gt;&lt;div class="gt_from_md"&gt;&lt;p style="margin-top: 0;"&gt;&lt;strong&gt;1&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;required-description:&lt;/strong&gt; When mean is required, property set to single element 'NA' array</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;required-type:&lt;/strong&gt; array</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;required-items-const:&lt;/strong&gt;'NA'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;required-items-maxItems:&lt;/strong&gt; 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;optional-description:&lt;/strong&gt; When mean is required, property set to null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;optional-type:&lt;/strong&gt; null&lt;/p&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;p style="margin-bottom: 0;"&gt;&lt;strong&gt;2&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;required-description:&lt;/strong&gt; When mean is optional, property set to null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;required-type:&lt;/strong&gt; null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;optional-description:&lt;/strong&gt; When mean is optional, property set to single element 'NA' array</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;optional-type:&lt;/strong&gt; array</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;optional-items-const:&lt;/strong&gt;'NA'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;optional-items-maxItems:&lt;/strong&gt; 1&lt;/p&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="data" class="gt_row gt_center" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center; background-color: #F9E3D6; font-weight: bold;" bgcolor="#F9E3D6" valign="middle" align="center"&gt;required: NA, optional: NA&lt;/td&gt;&lt;/tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;tr&gt;&lt;td headers="instancePath" class="gt_row gt_left" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left; white-space: pre;" valign="middle" align="left"&gt;&lt;div class="gt_from_md"&gt;&lt;p style="margin-top: 0; margin-bottom: 0;"&gt;&lt;strong&gt;rounds&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └&lt;strong&gt;1&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─&lt;strong&gt;submissions_due&lt;/strong&gt;&lt;/p&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="schemaPath" class="gt_row gt_left" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left; white-space: pre;" valign="middle" align="left"&gt;&lt;div class="gt_from_md"&gt;&lt;p style="margin-top: 0; margin-bottom: 0;"&gt;properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └&lt;strong&gt;rounds&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └─items</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └──properties</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └───&lt;strong&gt;submissions_due&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> └────&lt;strong&gt;oneOf&lt;/strong&gt;&lt;/p&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="keyword" class="gt_row gt_center" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center;" valign="middle" align="center"&gt;oneOf&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="message" class="gt_row gt_center" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center; background-color: #F9E3D6; font-weight: bold;" bgcolor="#F9E3D6" valign="middle" align="center"&gt;❌ must match exactly one schema in oneOf&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="schema" class="gt_row gt_left" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: left; white-space: pre-wrap;" valign="middle" align="left"&gt;&lt;div class="gt_from_md"&gt;&lt;p style="margin-top: 0;"&gt;&lt;strong&gt;1&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;relative_to-description:&lt;/strong&gt; Name of task id variable in relation to which submission start and end dates are calculated.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;relative_to-type:&lt;/strong&gt; string</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;start-description:&lt;/strong&gt; Difference in days between start and origin date.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;start-type:&lt;/strong&gt; integer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;start-format:&lt;/strong&gt;'NA'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;end-description:&lt;/strong&gt; Difference in days between end and origin date.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;end-type:&lt;/strong&gt; integer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;end-format:&lt;/strong&gt;'NA'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;required1:&lt;/strong&gt; relative_to</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;required2:&lt;/strong&gt; start</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;required3:&lt;/strong&gt; end&lt;/p&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;p style="margin-bottom: 0;"&gt;&lt;strong&gt;2&lt;/strong&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;relative_to-description:&lt;/strong&gt;'NA'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;relative_to-type:&lt;/strong&gt;'NA'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;start-description:&lt;/strong&gt; Submission start date.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;start-type:&lt;/strong&gt; string</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;start-format:&lt;/strong&gt; date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;end-description:&lt;/strong&gt; Submission end date.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;end-type:&lt;/strong&gt; string</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;end-format:&lt;/strong&gt; date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;required1:&lt;/strong&gt; start</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;strong&gt;required2:&lt;/strong&gt; end&lt;/p&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;td headers="data" class="gt_row gt_center" style="padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; text-align: center; background-color: #F9E3D6; font-weight: bold;" bgcolor="#F9E3D6" valign="middle" align="center"&gt;start: -6, end: 1&lt;/td&gt;&lt;/tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/tbody&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;tfoot class="gt_sourcenotes" style="color: #333333; background-color: #FFFFFF; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3;" bgcolor="#FFFFFF"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;td class="gt_sourcenote" colspan="6" style="font-size: 90%; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px;"&gt;For more information, please consult the</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;a href="https://hubdocs.readthedocs.io/en/latest/"&gt;&lt;strong&gt;&lt;code&gt;hubDocs&lt;/code&gt; documentation&lt;/strong&gt;.&lt;/a&gt;&lt;/td&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;/tr&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/tfoot&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/table&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
