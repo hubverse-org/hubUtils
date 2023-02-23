@@ -35,12 +35,12 @@ test_that("Valid json schema versions detected successfully", {
 
 
 test_that("Config validated successfully", {
-  expect_true(validate_config(
+  expect_true(suppressMessages(validate_config(
     hub_path =  system.file(
       "testhubs/simple/",
       package = "hubUtils"
     ),
-    config = "tasks"))
+    config = "tasks")))
 })
 
 
@@ -59,3 +59,13 @@ test_that("Dynamic config errors detected successfully by custom R validation", 
   expect_snapshot(out)
   expect_false(out)
 })
+
+
+test_that("NULL target keys validated successfully", {
+  config_path <- testthat::test_path("testdata", "tasks_null_rval.json")
+  out <- suppressMessages(validate_config(config_path = config_path))
+  expect_true(out)
+})
+
+
+
