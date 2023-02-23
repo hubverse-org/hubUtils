@@ -9,10 +9,6 @@
                         "required": null,
                         "optional": ["2022-10-01", "2022-10-08", "2022-10-15", "2022-10-15", "2022-10-22", "2022-10-29"]
                     },
-                    "target": {
-                        "required": ["wk inc flu hosp"],
-                        "optional": null
-                    },
                     "horizon": {
                         "required": [1],
                         "optional": [2, 3, 4]
@@ -127,9 +123,7 @@
                     "target_id": "wk inc flu hosp",
                     "target_name": "Weekly incident influenza hospitalizations",
                     "target_units": "count",
-                    "target_keys": {
-                        "target": "wk inc flu hosp"
-                    },
+                    "target_keys": null,
                     "target_type": "continuous",
                     "is_step_ahead": true,
                     "time_unit": "week"

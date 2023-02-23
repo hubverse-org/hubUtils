@@ -6,7 +6,7 @@ test_that("version from file handled successfully", {
         package = "hubUtils"
       )
     ),
-    "v0.0.0.9"
+    "v0.0.1"
   )
 
   expect_error(
@@ -18,11 +18,11 @@ test_that("version from file handled successfully", {
 
 
 test_that("Schema URL created successfully", {
-  schema_url <- get_schema_url("tasks", "v0.0.0.9")
+  schema_url <- get_schema_url("tasks", "v0.0.1")
   expect_true(valid_url(schema_url))
   expect_equal(
     schema_url,
-    "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json"
+    "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
   )
 })
 
@@ -35,36 +35,37 @@ test_that("Valid json schema versions detected successfully", {
 
 
 test_that("Config validated successfully", {
-  expect_true(validate_config(
+  expect_true(suppressMessages(validate_config(
     hub_path =  system.file(
       "testhubs/simple/",
       package = "hubUtils"
     ),
-    config = "tasks"))
+    config = "tasks")))
 })
 
 
 test_that("Config errors detected successfully", {
   config_path <- testthat::test_path("testdata", "tasks-errors.json")
-  expect_snapshot(
-    validate_config(config_path = config_path, pretty_errors = FALSE)
-    )
-  expect_false(
-    suppressWarnings(
-      validate_config(config_path = config_path, pretty_errors = FALSE)
-      )
-    )
+  out <- suppressWarnings(validate_config(config_path = config_path))
+  expect_snapshot(out)
+  expect_false(out)
 })
 
 
-test_that("Errors report launch successful", {
-  config_path <- testthat::test_path("testdata", "tasks-errors.json")
-  validation <- suppressWarnings(
-    validate_config(config_path = config_path, pretty_errors = FALSE)
-    )
-  set.seed(1)
-  skip_on_ci()
-  tbl <- launch_pretty_errors_report(validation) %>%
-    gt:::render_as_html()
-  expect_snapshot(tbl)
+
+test_that("Dynamic config errors detected successfully by custom R validation", {
+  config_path <- testthat::test_path("testdata", "tasks-errors-rval.json")
+  out <- suppressWarnings(validate_config(config_path = config_path))
+  expect_snapshot(out)
+  expect_false(out)
 })
+
+
+test_that("NULL target keys validated successfully", {
+  config_path <- testthat::test_path("testdata", "tasks_null_rval.json")
+  out <- suppressMessages(validate_config(config_path = config_path))
+  expect_true(out)
+})
+
+
+

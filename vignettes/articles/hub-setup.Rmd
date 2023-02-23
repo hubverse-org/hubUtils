@@ -95,23 +95,17 @@ config_path <- system.file("error-schema/tasks-errors.json",
                            package = "hubUtils")
 ```
 
-```{r, eval=FALSE}
+```{r}
 validate_config(config_path = config_path, config = "tasks")
 ```
 
+Because the default output of the validator can be unwieldy and difficult to review, you can use function `view_config_val_errors()` to launch a more user friendly and concise version of the errors table in the Viewer panel in Rstudio. 
 
-```{r, echo=FALSE}
-out <- validate_config(config_path = config_path, config = "tasks", pretty_errors = FALSE)
-out
+```{r}
+validation <- validate_config(config_path = config_path, config = "tasks")
+view_config_val_errors(validation)
 ```
 
-
-Because the default output of the validator can be unwieldy and difficult to review, the function also prints a more user friendly and concise version of the errors table. 
-
-
-```{r, echo=FALSE}
-hubUtils:::launch_pretty_errors_report(out) 
-```
 
 In the example above: 
 
@@ -121,11 +115,4 @@ In the example above:
 - `message` is the validation error message returned by the validator.
 - `schema` describes the valid schema values the failing keyword should conform to.
 - `data` is the value of the property in the config file which is failing validation.
-
-You can suppress printing the pretty errors table with `pretty_errors = FALSE`.
-
-```{r, eval=FALSE}
-validate_config(config_path = config_path, config = "tasks",
-                pretty_errors = FALSE)
-```
 
