@@ -41,6 +41,9 @@ return \code{TRUE}. If any validation errors are detected, returns \code{FALSE} 
 details of errors appended as a data.frame to an \code{errors} attribute.
 To access
 the errors table use \code{attr(x, "errors")} where \code{x} is the output of the function.
+
+You can print a more concise and easier to view version of an errors table with
+\code{\link[=view_config_val_errors]{view_config_val_errors()}}.
 }
 \description{
 Validate a hub config file against a Infectious Disease Modeling Hubs schema
@@ -59,22 +62,14 @@ config_path <- system.file("error-schema/tasks-errors.json",
   package = "hubUtils"
 )
 validate_config(config_path = config_path, config = "tasks")
-
-# View validation errors report in help & pkgdown documentation. `gt::as_raw_html()` not necessary when running
-# interactively.
-validate_config(
-  config_path = config_path,
-  config = "tasks") |>
-  view_config_val_errors() |>
-  gt::as_raw_html()
 }
 \seealso{
-view_config_val_errors
+\code{\link[=view_config_val_errors]{view_config_val_errors()}}
 
-Other schema-validation: 
+Other functions supporting config file validation: 
 \code{\link{get_schema_url}()},
 \code{\link{get_schema_valid_versions}()},
 \code{\link{get_schema}()},
 \code{\link{view_config_val_errors}()}
 }
-\concept{schema-validation}
+\concept{functions supporting config file validation}

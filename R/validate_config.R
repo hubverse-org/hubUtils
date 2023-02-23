@@ -22,9 +22,13 @@
 #'   details of errors appended as a data.frame to an `errors` attribute.
 #'   To access
 #'   the errors table use `attr(x, "errors")` where `x` is the output of the function.
+#'
+#'   You can print a more concise and easier to view version of an errors table with
+#'   [view_config_val_errors()].
 #' @export
-#' @seealso view_config_val_errors
-#' @family schema-validation
+#' @seealso [view_config_val_errors()]
+#' @family functions supporting config file validation
+#'
 #' @examples
 #' # Valid config file
 #' validate_config(
@@ -39,14 +43,6 @@
 #'   package = "hubUtils"
 #' )
 #' validate_config(config_path = config_path, config = "tasks")
-#'
-#' # View validation errors report in help & pkgdown documentation. `gt::as_raw_html()` not necessary when running
-#' # interactively.
-#' validate_config(
-#'   config_path = config_path,
-#'   config = "tasks") |>
-#'   view_config_val_errors() |>
-#'   gt::as_raw_html()
 validate_config <- function(hub_path = ".",
                             config = c("tasks", "admin"),
                             config_path = NULL, schema_version = "from_config",
@@ -121,7 +117,7 @@ validate_config <- function(hub_path = ".",
 #'
 #' @return a character vector of valid versions of Infectious Disease Modeling Hubs
 #'   [schema](https://github.com/Infectious-Disease-Modeling-Hubs/schemas).
-#' @family schema-validation
+#' @family functions supporting config file validation
 #' @export
 #' @examples
 #' get_schema_valid_versions()
@@ -187,7 +183,7 @@ validate_schema_version <- function(schema_version, branch) {
 #'   (e.g. `"v0.0.1"`).
 #'
 #' @return The json schema download URL for a given config file version.
-#' @family schema-validation
+#' @family functions supporting config file validation
 #' @export
 #'
 #' @examples
@@ -210,7 +206,7 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 #' @param schema_url The download URL for a given config schema version.
 #'
 #' @return Contents of the json schema as a character string.
-#' @family schema-validation
+#' @family functions supporting config file validation
 #' @export
 #' @examples
 #' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")

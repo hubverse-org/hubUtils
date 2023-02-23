@@ -2,13 +2,21 @@
 
 #' Print a concise and informative version of validation errors table.
 #'
-#' @param x output of [validate_config].
+#' @param x output of [validate_config()].
 #'
 #' @return prints the errors attribute of x in an informative format to the viewer. Only
 #' available in interactive mode.
 #' @export
-#' @seealso validate_config
-#' @family schema-validation
+#' @seealso [validate_config()]
+#' @family functions supporting config file validation
+#' @examples
+#' \dontrun{
+#' config_path <- system.file("error-schema/tasks-errors.json",
+#'   package = "hubUtils"
+#' )
+#' validate_config(config_path = config_path, config = "tasks") |>
+#'   view_config_val_errors()
+#' }
 view_config_val_errors <- function(x) {
     errors_tbl <- attr(x, "errors")
     config_path <- attr(x, "config_path")

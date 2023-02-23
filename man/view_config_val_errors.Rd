@@ -7,7 +7,7 @@
 view_config_val_errors(x)
 }
 \arguments{
-\item{x}{output of \link{validate_config}.}
+\item{x}{output of \code{\link[=validate_config]{validate_config()}}.}
 }
 \value{
 prints the errors attribute of x in an informative format to the viewer. Only
@@ -16,13 +16,22 @@ available in interactive mode.
 \description{
 Print a concise and informative version of validation errors table.
 }
+\examples{
+\dontrun{
+config_path <- system.file("error-schema/tasks-errors.json",
+  package = "hubUtils"
+)
+validate_config(config_path = config_path, config = "tasks") |>
+  view_config_val_errors()
+}
+}
 \seealso{
-validate_config
+\code{\link[=validate_config]{validate_config()}}
 
-Other schema-validation: 
+Other functions supporting config file validation: 
 \code{\link{get_schema_url}()},
 \code{\link{get_schema_valid_versions}()},
 \code{\link{get_schema}()},
 \code{\link{validate_config}()}
 }
-\concept{schema-validation}
+\concept{functions supporting config file validation}

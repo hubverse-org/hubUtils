@@ -22,10 +22,10 @@ Get a vector of valid schema version
 get_schema_valid_versions()
 }
 \seealso{
-Other schema-validation: 
+Other functions supporting config file validation: 
 \code{\link{get_schema_url}()},
 \code{\link{get_schema}()},
 \code{\link{validate_config}()},
 \code{\link{view_config_val_errors}()}
 }
-\concept{schema-validation}
+\concept{functions supporting config file validation}
