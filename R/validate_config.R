@@ -115,20 +115,6 @@ validate_config <- function(hub_path = ".",
   return(validation)
 }
 
-
-.get_schema_valid_versions <- function(branch = "main") {
-  req <- gh::gh("GET /repos/Infectious-Disease-Modeling-Hubs/schemas/git/trees/{branch}",
-    branch = branch
-  )
-
-  types <- vapply(req$tree, "[[", "", "type")
-  paths <- vapply(req$tree, "[[", "", "path")
-  dirs_lgl <- types == "tree" & grepl("^v([0-9]\\.){2}[0-9](\\.[0-9]+)?", paths)
-
-  paths[dirs_lgl]
-}
-
-
 #' Get a vector of valid schema version
 #'
 #' @inheritParams validate_config
@@ -139,7 +125,17 @@ validate_config <- function(hub_path = ".",
 #' @export
 #' @examples
 #' get_schema_valid_versions()
-get_schema_valid_versions <- memoise::memoise(.get_schema_valid_versions)
+get_schema_valid_versions <- function(branch = "main") {
+  req <- gh::gh("GET /repos/Infectious-Disease-Modeling-Hubs/schemas/git/trees/{branch}",
+    branch = branch
+  )
+
+  types <- vapply(req$tree, "[[", "", "type")
+  paths <- vapply(req$tree, "[[", "", "path")
+  dirs_lgl <- types == "tree" & grepl("^v([0-9]\\.){2}[0-9](\\.[0-9]+)?", paths)
+
+  paths[dirs_lgl]
+}
 
 
 get_config_schema_version <- function(config_path) {
@@ -209,7 +205,17 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
   glue::glue("https://raw.githubusercontent.com/{schema_repo}/{branch}/{version}/{config}-schema.json")
 }
 
-.get_schema <- function(schema_url) {
+#' Download a schema
+#'
+#' @param schema_url The download URL for a given config schema version.
+#'
+#' @return Contents of the json schema as a character string.
+#' @family schema-validation
+#' @export
+#' @examples
+#' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
+#' get_schema(schema_url)
+get_schema <- function(schema_url) {
   response <- try(curl::curl_fetch_memory(schema_url), silent = TRUE)
 
   if (inherits(response, "try-error")) {
@@ -230,19 +236,6 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
     )
   }
 }
-
-#' Download a schema
-#'
-#' @param schema_url The download URL for a given config schema version.
-#'
-#' @return Contents of the json schema as a character string.
-#' @family schema-validation
-#' @export
-#' @examples
-#' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
-#' get_schema(schema_url)
-get_schema <- memoise::memoise(.get_schema)
-
 
 #' Peform dynamic validation of target keys for internal consistency against
 #'  task ids. Check only performed once basic jsonvalidate checks pass against
