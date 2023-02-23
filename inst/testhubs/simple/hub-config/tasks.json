@@ -1,5 +1,5 @@
 {
-    "schema_version": "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/main/v0.0.0.9/tasks-schema.json",
+    "schema_version": "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/main/v0.0.1/tasks-schema.json",
     "rounds": [{
             "round_id_from_variable": true,
             "round_id": "origin_date",
@@ -122,7 +122,18 @@
                             "minimum": 0
                         }
                     }
-                }
+                },
+                "target_metadata": [{
+                    "target_id": "wk inc flu hosp",
+                    "target_name": "Weekly incident influenza hospitalizations",
+                    "target_units": "count",
+                    "target_keys": {
+                        "target": "wk inc flu hosp"
+                    },
+                    "target_type": "continuous",
+                    "is_step_ahead": true,
+                    "time_unit": "week"
+                }]
             }],
             "submissions_due": {
                 "relative_to": "origin_date",

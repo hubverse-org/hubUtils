@@ -6,7 +6,7 @@ test_that("version from file handled successfully", {
         package = "hubUtils"
       )
     ),
-    "v0.0.0.9"
+    "v0.0.1"
   )
 
   expect_error(
@@ -18,11 +18,11 @@ test_that("version from file handled successfully", {
 
 
 test_that("Schema URL created successfully", {
-  schema_url <- get_schema_url("tasks", "v0.0.0.9")
+  schema_url <- get_schema_url("tasks", "v0.0.1")
   expect_true(valid_url(schema_url))
   expect_equal(
     schema_url,
-    "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json"
+    "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
   )
 })
 
