@@ -8,3 +8,4 @@
 ^LICENSE\.md$
 ^attic$
 ^vignettes/articles$
+^data-raw$
