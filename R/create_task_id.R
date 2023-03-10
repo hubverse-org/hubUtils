@@ -7,6 +7,12 @@
 #'   values are optional.
 #' @param optional Atomic vector of optional task_id values. Can be `NULL` if all
 #'   values are required.
+#' @param schema_version Character string specifying the json schema version to
+#'   be used for validation. The default value `"latest"` will use the latest version
+#'   available in the Infectious Disease Modeling Hubs
+#'   [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas).
+#'   Alternatively, a specific version of a schema (e.g. `"v0.0.1"`)  can be
+#'   specified.
 #' @details `required` and `optional` vectors for standard task_ids defined in a Hub schema
 #' must match data types and formats specified in the schema. For more details consult
 #' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file)
@@ -41,23 +47,7 @@ create_task_id <- function(name, required, optional,
   rlang::check_required(required)
   rlang::check_required(optional)
 
-  # Get the latest version available in our GitHub schema repo
-  if (schema_version == "latest") {
-    schema_version <- get_schema_valid_versions(branch = branch) %>%
-      sort() %>%
-      utils::tail(1)
-  }
-
-  schema_url <- get_schema_url(
-    config = "tasks",
-    version = schema_version,
-    branch = branch
-  )
-
-  schema_json <- get_schema(schema_url)
-  schema <- jsonlite::fromJSON(schema_json,
-    simplifyDataFrame = FALSE
-  )
+  schema <- download_schema(schema_version, branch)
 
   task_ids <- get_schema_task_ids(schema)
 
@@ -90,8 +80,13 @@ create_task_id <- function(name, required, optional,
 }
 
 get_schema_task_ids <- function(schema) {
-  schema$properties$rounds$items$properties$model_tasks$items$properties$task_ids$properties
-}
+
+    purrr::pluck(schema,
+                 "properties","rounds",
+                 "items", "properties", "model_tasks",
+                 "items", "properties", "task_ids",
+                 "properties")
+    }
 
 
 match_element_name <- function(name, element_names,

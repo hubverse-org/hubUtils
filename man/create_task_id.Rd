@@ -22,10 +22,8 @@ values are optional.}
 values are required.}
 
 \item{schema_version}{Character string specifying the json schema version to
-be used for validation. The default value \code{"from_config"} will use the
-version specified in the \code{schema_version} property of the config file.
-\code{"latest"} will use the latest version available in the Infectious Disease
-Modeling Hubs
+be used for validation. The default value \code{"latest"} will use the latest version
+available in the Infectious Disease Modeling Hubs
 \href{https://github.com/Infectious-Disease-Modeling-Hubs/schemas}{schemas repository}.
 Alternatively, a specific version of a schema (e.g. \code{"v0.0.1"})  can be
 specified.}
