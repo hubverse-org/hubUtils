@@ -65,9 +65,13 @@ output type.
 
 }}
 \examples{
-create_output_type_mean(is_required = TRUE,
-                        value_type = "double",
-                        value_minimum = 0L)
-create_output_type_median(is_required = FALSE,
-                         value_type = "integer")
+create_output_type_mean(
+  is_required = TRUE,
+  value_type = "double",
+  value_minimum = 0L
+)
+create_output_type_median(
+  is_required = FALSE,
+  value_type = "integer"
+)
 }
