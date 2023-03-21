@@ -240,7 +240,7 @@
         "EW2022423"), value_type = "double")
     Error <purrr_error_indexed>
       i In index: 2.
-      Caused by error in `check_oneof_input()`:
+      Caused by error in `create_output_type_cdf()`:
       ! The maximum number of characters allowed for values in argument `optional` is 8.
       x Value "EW2022423" has more characters than allowed
 

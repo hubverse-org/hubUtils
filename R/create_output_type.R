@@ -241,7 +241,8 @@ create_output_type_dist <- function(output_type = c(
       ~ check_oneof_input(
         input = get(.x),
         property = .x,
-        output_type_schema
+        output_type_schema,
+        call = rlang::caller_env(n = 5)
       )
     )
   } else {
@@ -539,7 +540,8 @@ check_input <- function(input, property, output_type_schema,
 
 
 check_oneof_input <- function(input, property = c("required", "optional"),
-                              output_type_schema) {
+                              output_type_schema,
+                              call = rlang::caller_env()) {
   property_schema <- purrr::pluck(
     output_type_schema,
     "properties",
@@ -550,17 +552,20 @@ check_oneof_input <- function(input, property = c("required", "optional"),
   if (is.null(input)) {
     property_types <- property_schema[["type"]]
     if (!"null" %in% property_types) {
-      cli::cli_abort(c("x" = "Argument {.arg {property}} cannot be NULL."))
+      cli::cli_abort(c("x" = "Argument {.arg {property}} cannot be NULL."),
+                     call = call)
     } else {
       return()
     }
   }
   if (!is.atomic(input) | is.pairlist(input)) {
-    cli::cli_abort(c("x" = "Argument {.arg {property}} must be an atomic vector."))
+    cli::cli_abort(c("x" = "Argument {.arg {property}} must be an atomic vector."),
+                   call = call)
   }
 
   if (is.factor(input)) {
-    cli::cli_abort(c("x" = "Argument {.arg {property}} cannot be of class {.cls factor}."))
+    cli::cli_abort(c("x" = "Argument {.arg {property}} cannot be of class {.cls factor}."),
+                   call = call)
   }
 
   oneof_schema <- property_schema[["items"]][["oneOf"]]
@@ -579,7 +584,8 @@ check_oneof_input <- function(input, property = c("required", "optional"),
     cli::cli_abort(c(
       "x" = "Argument {.arg {property}} is of type {.cls {input_type}}.",
       "!" = "Must be {?/one of} {.cls {value_types}}."
-    ))
+    ),
+    call = call)
   }
 
   if (typeof(input) == "character") {
@@ -589,7 +595,8 @@ check_oneof_input <- function(input, property = c("required", "optional"),
         "x" = "Values of argument {.arg {property}} must match regex pattern
              {.val {value_schema[['pattern']]}}.",
         "!" = 'Values {.val {!(grepl(value_schema[["pattern"]], input))}} do not.'
-      ))
+      ),
+      call = call)
     }
 
     is_too_long <- stringr::str_length(input) > value_schema[["maxLength"]]
@@ -599,7 +606,8 @@ check_oneof_input <- function(input, property = c("required", "optional"),
                 argument {.arg {property}} is {.val {value_schema[['maxLength']]}}.",
         "x" = "Value{?s} {.val {input[is_too_long]}} {?has/have}
                 more characters than allowed"
-      ))
+      ),
+      call = call)
     }
 
     is_too_short <- stringr::str_length(input) < value_schema[["minLength"]]
@@ -609,7 +617,8 @@ check_oneof_input <- function(input, property = c("required", "optional"),
                 argument {.arg {property}} is {.val {value_schema[['minLength']]}}.",
         "x" = "Value{?s} {.val {input[is_too_short]}} {?has/have}
                 fewer characters than allowed."
-      ))
+      ),
+      call = call)
     }
   }
 
@@ -623,7 +632,8 @@ check_oneof_input <- function(input, property = c("required", "optional"),
                 than {.val {value_min}}.",
         "x" = "{cli::qty(sum(is_invalid))} Value{?s} {.val {input[is_invalid]}}
                 {cli::qty(sum(is_invalid))}{?is/are} equal to or less."
-      ))
+      ),
+      call = call)
     }
   }
 }
