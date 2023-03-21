@@ -49,21 +49,24 @@ create_task_id <- function(name, required, optional,
 
   schema <- download_schema(schema_version, branch)
 
-  task_ids <- get_schema_task_ids(schema)
+  task_id_schema <- get_schema_task_ids(schema)
+  schema_task_ids <- names(task_id_schema$properties)
 
   name <- match_element_name(
     name,
-    names(task_ids),
+    schema_task_ids,
     element = "task_id"
   )
 
-  if (name %in% names(task_ids)) {
+  if (name %in% schema_task_ids) {
     purrr::walk(
       c("required", "optional"),
-      ~ check_task_id_input(
+      ~ check_input(
         input = get(.x),
-        task_id = task_ids[[name]],
-        .x
+        property = .x,
+        task_id_schema,
+        parent_property = name,
+        call = rlang::caller_env(n = 4)
       )
     )
   }
@@ -84,8 +87,7 @@ get_schema_task_ids <- function(schema) {
     purrr::pluck(schema,
                  "properties","rounds",
                  "items", "properties", "model_tasks",
-                 "items", "properties", "task_ids",
-                 "properties")
+                 "items", "properties", "task_ids")
     }
 
 
@@ -132,50 +134,6 @@ ask_msg <- function(name, matched_name, element = c("task_id", "output_type")) {
     }
   ))
   cli::cli_end()
-}
-
-
-check_task_id_input <- function(input, task_id, property = c(
-                                  "required",
-                                  "optional"
-                                )) {
-  property_types <- task_id$properties[[property]]$type
-
-  if (is.null(input)) {
-    if (!"null" %in% property_types) {
-      cli::cli_abort(c("x" = "Argument {.arg {property}} cannot be NULL."))
-    } else {
-      return()
-    }
-  }
-
-
-  if (!is.atomic(input) | is.pairlist(input)) {
-    cli::cli_abort(c("x" = "Argument {.arg {property}} must be an atomic vector."))
-  }
-
-  if (is.factor(input)) {
-    cli::cli_abort(c("x" = "Argument {.arg {property}} cannot be of class {.cls factor}."))
-  }
-
-  item_types <- json_datatypes[task_id$properties[[property]]$items$type]
-  item_formats <- task_id$properties[[property]]$items$format
-
-  if (!is.null(item_formats) &&
-    item_formats == "date" &&
-    anyNA(as.Date(input, format = "%Y-%m-%d"))
-  ) {
-    cli::cli_abort(c("x" = "Argument {.arg {property}} must be valid ISO 8601 date format (YYYY-MM-DD)."))
-  }
-
-  input_type <- typeof(input)
-
-  if (!input_type %in% item_types) {
-    cli::cli_abort(c(
-      "x" = "Argument {.arg {property}} is of type {.cls {input_type}}.",
-      "!" = "Must be {?/one of} {.cls {item_types}}."
-    ))
-  }
 }
 
 check_prop_not_all_null <- function(required, optional) {

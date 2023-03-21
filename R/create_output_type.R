@@ -294,10 +294,10 @@ create_output_type_dist <- function(output_type = c(
 }
 
 check_input <- function(input, property, output_type_schema,
-                              parent_property = c("type_id", "value"),
+                              parent_property,
                               scalar = FALSE,
                               call = rlang::caller_env()) {
-  parent_property <- rlang::arg_match(parent_property)
+
   property_name <- property
   if (parent_property == "value") {
     property_name <- paste0("value_", property)

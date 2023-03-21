@@ -69,7 +69,7 @@
       create_task_id("origin_date", required = NULL, optional = c("01/20/2023"))
     Error <purrr_error_indexed>
       i In index: 2.
-      Caused by error in `check_task_id_input()`:
+      Caused by error in `create_task_id()`:
       x Argument `optional` must be valid ISO 8601 date format (YYYY-MM-DD).
 
 ---
@@ -86,7 +86,7 @@
       create_task_id("horizon", required = c(TRUE, FALSE), optional = NULL)
     Error <purrr_error_indexed>
       i In index: 1.
-      Caused by error in `check_task_id_input()`:
+      Caused by error in `create_task_id()`:
       x Argument `required` is of type <logical>.
       ! Must be one of <integer/character>.
 
