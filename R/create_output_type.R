@@ -95,10 +95,13 @@ create_output_type_point <- function(output_type = c("mean", "median"),
 
   purrr::walk(
     names(value),
-    ~ check_value_type(
-      .x,
-      value,
-      output_type_schema
+    ~ check_input(
+      input = value[[.x]],
+      property = .x,
+      output_type_schema,
+      parent_property = "value",
+      scalar = TRUE,
+      call = rlang::caller_env(n = 5)
     )
   )
 
@@ -244,10 +247,12 @@ create_output_type_dist <- function(output_type = c(
   } else {
     purrr::walk(
       c("required", "optional"),
-      ~ check_array_input(
+      ~ check_input(
         input = get(.x),
         property = .x,
-        output_type_schema
+        output_type_schema,
+        parent_property = "type_id",
+        call = rlang::caller_env(n = 5)
       )
     )
   }
@@ -272,155 +277,262 @@ create_output_type_dist <- function(output_type = c(
 
   purrr::walk(
     names(value),
-    ~ check_value_type(
-      .x,
-      value,
-      output_type_schema
+    ~ check_input(
+      input = value[[.x]],
+      property = .x,
+      output_type_schema,
+      parent_property = "value",
+      scalar = TRUE,
+      call = rlang::caller_env(n = 5)
     )
   )
+
 
   list(c(type_id, list(value = value))) %>%
     stats::setNames(output_type)
 }
 
-check_array_input <- function(input, property = c("required", "optional"),
-                              output_type_schema) {
-  array_schema <- purrr::pluck(
+check_input <- function(input, property, output_type_schema,
+                              parent_property = c("type_id", "value"),
+                              scalar = FALSE,
+                              call = rlang::caller_env()) {
+  parent_property <- rlang::arg_match(parent_property)
+  property_name <- property
+  if (parent_property == "value") {
+    property_name <- paste0("value_", property)
+  }
+
+  property_schema <- purrr::pluck(
     output_type_schema,
     "properties",
-    "type_id",
+    parent_property,
     "properties", property
   )
 
   if (is.null(input)) {
-    property_types <- array_schema[["type"]]
+    property_types <- property_schema[["type"]]
     if (!"null" %in% property_types) {
-      cli::cli_abort(c("x" = "Argument {.arg {property}} cannot be NULL."))
+      cli::cli_abort(c("x" = "Argument {.arg {property_name}} cannot be NULL."),
+        call = call
+      )
     } else {
       return()
     }
   }
   if (!is.atomic(input) | is.pairlist(input)) {
-    cli::cli_abort(c("x" = "Argument {.arg {property}} must be an atomic vector."))
+    cli::cli_abort(c("x" = "Argument {.arg {property_name}} must be an atomic vector."),
+      call = call
+    )
   }
 
   if (is.factor(input)) {
-    cli::cli_abort(c("x" = "Argument {.arg {property}} cannot be of class {.cls factor}."))
+    cli::cli_abort(c("x" = "Argument {.arg {property_name}} cannot be of class
+                     {.cls factor}."),
+      call = call
+    )
   }
-  if (any(names(array_schema) == "maxItems")) {
-    max_items <- array_schema[["maxItems"]]
+
+  if (scalar) {
+    if (length(input) != 1L) {
+      cli::cli_abort(c(
+        "x" = "Argument {.arg {property_name}} must be length {.val {1}},
+          not {.val {length(input)}}."
+      ),
+      call = call
+      )
+    }
+  }
+
+  if (any(names(property_schema) == "maxItems")) {
+    if (scalar) {
+      max_items <- 1
+    } else {
+      max_items <- property_schema[["maxItems"]]
+    }
     is_invalid <- length(input) > max_items
     if (is_invalid) {
       cli::cli_abort(c(
-        "x" = "Argument {.arg {property}} must be of length equal to or less than
+        "x" = "Argument {.arg {property_name}} must be of length equal to or less than
                 {.val {max_items}} but is of length {.val {length(input)}}."
-      ))
+      ),
+      call = call
+      )
     }
   }
-  if (any(names(array_schema) == "minItems")) {
-    min_items <- array_schema[["minItems"]]
+  if (any(names(property_schema) == "minItems")) {
+    min_items <- property_schema[["minItems"]]
     is_invalid <- length(input) < min_items
     if (is_invalid) {
       cli::cli_abort(c(
-        "x" = "Argument {.arg {property}} must be of length equal to or greater
+        "x" = "Argument {.arg {property_name}} must be of length equal to or greater
                 than {.val {min_items}} but is of length {.val {length(input)}}."
-      ))
+      ),
+      call = call
+      )
+    }
+  }
+
+  if (any(names(property_schema) == "uniqueItems")) {
+    unique_items <- property_schema[["uniqueItems"]]
+    if (unique_items & any(duplicated(input))) {
+      duplicates <- input[duplicated(input)]
+      cli::cli_abort(c(
+        "!" = "All values in argument {.arg {property_name}} must be unique.",
+        "x" = "{cli::qty(sum(duplicates))} Value{?s} {.val {duplicates}}
+        {cli::qty(sum(duplicates))} {?is/are} duplicated."
+      ),
+      call = call
+      )
     }
   }
 
   # Array item validation
-  items_schema <- array_schema[["items"]]
+  if (scalar) {
+    value_schema <- property_schema
+  } else {
+    value_schema <- property_schema[["items"]]
+  }
 
   input_type <- typeof(input)
-  item_types <- json_datatypes[items_schema[["type"]]]
-  item_formats <- items_schema[["format"]]
+  value_formats <- value_schema[["format"]]
+  # Handle situation where type must be missing but can be inferred from `const` or
+  # `enum` properties. Clunky but included for back compatibility.
+  if (any(names(value_schema) == "type")) {
+    value_types <- json_datatypes[value_schema[["type"]]]
+  } else {
+    if (any(names(value_schema) == "enum")) {
+      value_types <- typeof(value_schema[["enum"]])
+    } else if (any(names(value_schema) == "const")) {
+      value_types <- typeof(value_schema[["const"]])
+    } else {
+      cli::cli_abort(c(
+        "x" = "Invalid schema. Cannot determine appropriate type for argument
+        {.arg {property_name}}.
+        Please open an issue at
+        {.url https://github.com/Infectious-Disease-Modeling-Hubs/schemas/issues}"
+      ),
+      call = call
+      )
+    }
+  }
 
-  if (!is.null(item_formats) &&
-    item_formats == "date" &&
+  if (!is.null(value_formats) &&
+    value_formats == "date" &&
     anyNA(as.Date(input, format = "%Y-%m-%d"))
   ) {
-    cli::cli_abort(c("x" = "Argument {.arg {property}} must be valid ISO 8601
-                         date format (YYYY-MM-DD)."))
+    cli::cli_abort(c("x" = "Argument {.arg {property_name}} must be valid ISO 8601
+                         date format (YYYY-MM-DD)."),
+      call = call
+    )
   }
 
-  if (!input_type %in% item_types) {
+  if (!input_type %in% value_types) {
     cli::cli_abort(c(
-      "x" = "Argument {.arg {property}} is of type {.cls {input_type}}.",
-      "!" = "Must be {?/one of} {.cls {item_types}}."
-    ))
+      "x" = "Argument {.arg {property_name}} is of type {.cls {input_type}}.",
+      "!" = "Must be {?/one of} {.cls {value_types}}."
+    ),
+    call = call
+    )
   }
 
-  if (any(names(items_schema) == "maximum")) {
-    item_max <- items_schema[["maximum"]]
-    is_invalid <- input > item_max
+  if (any(names(value_schema) == "maximum")) {
+    value_max <- value_schema[["maximum"]]
+    is_invalid <- input > value_max
     if (any(is_invalid)) {
       cli::cli_abort(c(
-        "!" = "All values in argument {.arg {property}} must be equal to or less
-                than {.val {item_max}}.",
+        "!" = "All values in argument {.arg {property_name}} must be equal to or less
+                than {.val {value_max}}.",
         "x" = "{cli::qty(sum(is_invalid))} Value{?s} {.val {input[is_invalid]}}
                 {cli::qty(sum(is_invalid))}{?is/are} greater."
-      ))
+      ),
+      call = call
+      )
     }
   }
 
-  if (any(names(items_schema) == "minimum")) {
-    item_min <- items_schema[["minimum"]]
-    is_invalid <- input < item_min
+  if (any(names(value_schema) == "minimum")) {
+    value_min <- value_schema[["minimum"]]
+    is_invalid <- input < value_min
     if (any(is_invalid)) {
       cli::cli_abort(c(
-        "!" = "All values in argument {.arg {property}} must be equal to or greater
-                than {.val {item_min}}.",
+        "!" = "All values in argument {.arg {property_name}} must be equal to or greater
+                than {.val {value_min}}.",
         "x" = "{cli::qty(sum(is_invalid))} Value{?s} {.val {input[is_invalid]}}
                 {cli::qty(sum(is_invalid))}{?is/are} less."
-      ))
+      ),
+      call = call
+      )
     }
   }
 
-  if (any(names(items_schema) == "enum")) {
-    if (any(!input %in% items[["enum"]])) {
-      invalid_values <- input[!input %in% items[["enum"]]]
+  if (any(names(value_schema) == "enum")) {
+    if (any(!input %in% value_schema[["enum"]])) {
+      invalid_values <- input[!input %in% value_schema[["enum"]]]
       cli::cli_abort(c(
-        "!" = "Values in argument {.arg {property}} must be members in
-                set {.val {items[['enum']]}}.",
-        "x" = "Value{?s} {.val {invalid_values}} not valid."
-      ))
+        "x" = "{.arg {property_name}} {cli::qty(length(invalid_values))}
+        value{?s} {?is/are} invalid.",
+        "!" = "Must be {cli::qty(if(scalar){1}else{2})} {?one of/member in}
+        {.val {value_schema[['enum']]}}.",
+        "i" = "Actual value{?s} {?is/are} {.val {invalid_values}}"
+      ),
+      call = call
+      )
     }
   }
 
-  if (any(names(items_schema) == "minLength")) {
-    is_invalid <- stringr::str_length(input) < items_schema[["minLength"]]
+  if (any(names(value_schema) == "const")) {
+    value_const <- value_schema[["const"]]
+    if (any(input != value_const)) {
+      cli::cli_abort(c(
+        "x" = "Argument {.arg {property_name}} value is invalid.",
+        "!" = "Must be {.val {value_const}}.",
+        "i" = "Actual value is {.val {input}}"
+      ),
+      call = call
+      )
+    }
+  }
+
+  if (any(names(value_schema) == "minLength")) {
+    is_invalid <- stringr::str_length(input) < value_schema[["minLength"]]
     if (any(is_invalid)) {
       cli::cli_abort(c(
         "!" = "The minimum number of characters allowed for values in
-                argument {.arg {property}} is {.val {items_schema[['minLength']]}}.",
+                argument {.arg {property_name}} is {.val {value_schema[['minLength']]}}.",
         "x" = "Value{?s} {.val {input[is_invalid]}} {?has/have}
                 fewer characters than allowed."
-      ))
+      ),
+      call = call
+      )
     }
   }
 
-  if (any(names(items_schema) == "maxLength")) {
-    is_invalid <- stringr::str_length(input) > items_schema[["maxLength"]]
+  if (any(names(value_schema) == "maxLength")) {
+    is_invalid <- stringr::str_length(input) > value_schema[["maxLength"]]
     if (any(is_invalid)) {
       cli::cli_abort(c(
         "!" = "The maximum number of characters allowed for values in
-                argument {.arg {property}} is {.val {items_schema[['maxLength']]}}.",
+                argument {.arg {property_name}} is {.val {value_schema[['maxLength']]}}.",
         "x" = "Value{?s} {.val {input[is_invalid]}} {?has/have}
                 more characters than allowed"
-      ))
+      ),
+      call = call
+      )
     }
   }
 
 
-  if (any(names(items_schema) == "multipleOf")) {
-    is_invalid <- input %% items_schema[["multipleOf"]] != 0L
+  if (any(names(value_schema) == "multipleOf")) {
+    is_invalid <- input %% value_schema[["multipleOf"]] != 0L
     if (any(is_invalid)) {
       cli::cli_abort(c(
-        "!" = "Values in argument {.arg {property}} must be multiples of
-                {.val {items_schema[['multipleOf']]}}.",
+        "!" = "Values in argument {.arg {property_name}} must be multiples of
+                {.val {value_schema[['multipleOf']]}}.",
         "x" = "{cli::qty(sum(is_invalid))} Value{?s}
                 {.val {input[is_invalid]}} {cli::qty(sum(is_invalid))} {?is/are} not."
-      ))
+      ),
+      call = call
+      )
     }
   }
 }
@@ -428,7 +540,7 @@ check_array_input <- function(input, property = c("required", "optional"),
 
 check_oneof_input <- function(input, property = c("required", "optional"),
                               output_type_schema) {
-  array_schema <- purrr::pluck(
+  property_schema <- purrr::pluck(
     output_type_schema,
     "properties",
     "type_id",
@@ -436,7 +548,7 @@ check_oneof_input <- function(input, property = c("required", "optional"),
   )
 
   if (is.null(input)) {
-    property_types <- array_schema[["type"]]
+    property_types <- property_schema[["type"]]
     if (!"null" %in% property_types) {
       cli::cli_abort(c("x" = "Argument {.arg {property}} cannot be NULL."))
     } else {
@@ -451,7 +563,7 @@ check_oneof_input <- function(input, property = c("required", "optional"),
     cli::cli_abort(c("x" = "Argument {.arg {property}} cannot be of class {.cls factor}."))
   }
 
-  oneof_schema <- array_schema[["items"]][["oneOf"]]
+  oneof_schema <- property_schema[["items"]][["oneOf"]]
 
   names(oneof_schema) <- json_datatypes[
     purrr::map_chr(
@@ -461,40 +573,40 @@ check_oneof_input <- function(input, property = c("required", "optional"),
   ]
 
 
-  item_types <- c("character", "double", "integer")
+  value_types <- c("character", "double", "integer")
   input_type <- typeof(input)
-  if (!input_type %in% item_types) {
+  if (!input_type %in% value_types) {
     cli::cli_abort(c(
       "x" = "Argument {.arg {property}} is of type {.cls {input_type}}.",
-      "!" = "Must be {?/one of} {.cls {item_types}}."
+      "!" = "Must be {?/one of} {.cls {value_types}}."
     ))
   }
 
   if (typeof(input) == "character") {
-    items_schema <- oneof_schema[["character"]]
-    if (!any((grepl(items_schema[["pattern"]], input)))) {
+    value_schema <- oneof_schema[["character"]]
+    if (!any((grepl(value_schema[["pattern"]], input)))) {
       cli::cli_abort(c(
         "x" = "Values of argument {.arg {property}} must match regex pattern
-             {.val {items_schema[['pattern']]}}.",
-        "!" = 'Values {.val {!(grepl(items_schema[["pattern"]], input))}} do not.'
+             {.val {value_schema[['pattern']]}}.",
+        "!" = 'Values {.val {!(grepl(value_schema[["pattern"]], input))}} do not.'
       ))
     }
 
-    is_too_long <- stringr::str_length(input) > items_schema[["maxLength"]]
+    is_too_long <- stringr::str_length(input) > value_schema[["maxLength"]]
     if (any(is_too_long)) {
       cli::cli_abort(c(
         "!" = "The maximum number of characters allowed for values in
-                argument {.arg {property}} is {.val {items_schema[['maxLength']]}}.",
+                argument {.arg {property}} is {.val {value_schema[['maxLength']]}}.",
         "x" = "Value{?s} {.val {input[is_too_long]}} {?has/have}
                 more characters than allowed"
       ))
     }
 
-    is_too_short <- stringr::str_length(input) < items_schema[["minLength"]]
+    is_too_short <- stringr::str_length(input) < value_schema[["minLength"]]
     if (any(is_too_short)) {
       cli::cli_abort(c(
         "!" = "The minimum number of characters allowed for values in
-                argument {.arg {property}} is {.val {items_schema[['minLength']]}}.",
+                argument {.arg {property}} is {.val {value_schema[['minLength']]}}.",
         "x" = "Value{?s} {.val {input[is_too_short]}} {?has/have}
                 fewer characters than allowed."
       ))
@@ -502,87 +614,15 @@ check_oneof_input <- function(input, property = c("required", "optional"),
   }
 
   if (typeof(input) %in% c("double", "integer")) {
-    items_schema <- oneof_schema[["double"]]
-    item_min <- items_schema[["minimum"]]
-    is_too_small <- input < item_min
+    value_schema <- oneof_schema[["double"]]
+    value_min <- value_schema[["minimum"]]
+    is_too_small <- input < value_min
     if (any(is_too_small)) {
       cli::cli_abort(c(
         "!" = "All values in argument {.arg {property}} must be greater
-                than {.val {item_min}}.",
+                than {.val {value_min}}.",
         "x" = "{cli::qty(sum(is_invalid))} Value{?s} {.val {input[is_invalid]}}
                 {cli::qty(sum(is_invalid))}{?is/are} equal to or less."
-      ))
-    }
-  }
-}
-
-check_value_type <- function(property, value, output_type_schema) {
-  property_schema <- purrr::pluck(
-    output_type_schema,
-    "properties", "value",
-    "properties", property
-  )
-
-  property_type <- typeof(value[[property]])
-  property_value <- value[[property]]
-
-  # Check property type
-  if (any(names(property_schema) == "type")) {
-    schema_types <- json_datatypes[property_schema[["type"]]]
-    if (!property_type %in% schema_types) {
-      cli::cli_abort(c(
-        "x" = "Argument {.arg value_{property}} is of type {.cls {property_type}}.",
-        "!" = "Must be {?/one of} {.cls {schema_types}}."
-      ))
-    }
-  } else {
-    if (any(names(property_schema) == "enum")) {
-      schema_types <- typeof(property_schema[["enum"]])
-      if (!property_type %in% schema_types) {
-        cli::cli_abort(c(
-          "x" = "Argument {.arg value_{property}} is of type {.cls {property_type}}.",
-          "!" = "Must be {?/one of} {.cls {schema_types}}."
-        ))
-      }
-    } else if (any(names(property_schema) == "const")) {
-      schema_types <- typeof(property_schema[["const"]])
-      if (!property_type %in% schema_types) {
-        cli::cli_abort(c(
-          "x" = "Argument {.arg value_{property}} is of type {.cls {property_type}}.",
-          "!" = "Must be {?/one of} {.cls {schema_types}}."
-        ))
-      }
-    }
-  }
-  # Check property length
-  input_length <- length(value[[property]])
-
-  if (input_length != 1) {
-    cli::cli_abort(c(
-      "x" = "Argument {.arg value_{property}} must be length {.val {1}},
-          not {.val {input_length}}."
-    ))
-  }
-
-  # Check property values
-  if (any(names(property_schema) == "enum")) {
-    property_enum <- property_schema[["enum"]]
-    if (!property_value %in% property_enum) {
-      cli::cli_abort(c(
-        "x" = "Argument {.arg value_{property}} value is invalid.",
-        "!" = "Must be {?/one of} {.val {property_enum}}.",
-        "i" = "Actual value is {.val {property_value}}"
-      ))
-    }
-  }
-
-  if (any(names(property_schema) == "const")) {
-    property_const <- property_schema[["const"]]
-    if (property_value != property_const) {
-      cli::cli_abort(c(
-        "x" = "Argument {.arg value_{property}} value is invalid.",
-        "!" = "Must be {.val {property_const}}.",
-        "i" = "Actual value is {.val {property_value}}"
       ))
     }
   }

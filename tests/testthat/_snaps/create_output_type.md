@@ -82,7 +82,7 @@
       create_output_type_mean(is_required = TRUE, value_type = c("double", "numeric"))
     Error <purrr_error_indexed>
       i In index: 1.
-      Caused by error in `check_value_type()`:
+      Caused by error in `create_output_type_mean()`:
       x Argument `value_type` must be length 1, not 2.
 
 ---
@@ -92,8 +92,8 @@
         value_maximum = 0L)
     Error <purrr_error_indexed>
       i In index: 1.
-      Caused by error in `check_value_type()`:
-      x Argument `value_type` value is invalid.
+      Caused by error in `create_output_type_mean()`:
+      x `value_type` value is invalid.
       ! Must be one of "numeric", "double", and "integer".
       i Actual value is "character"
 
@@ -260,7 +260,18 @@
       create_output_type_sample(required = 0:10, optional = 11:15, value_type = "double")
     Error <purrr_error_indexed>
       i In index: 1.
-      Caused by error in `check_array_input()`:
+      Caused by error in `create_output_type_sample()`:
       ! All values in argument `required` must be equal to or greater than 1.
       x Value 0 is less.
+
+---
+
+    Code
+      create_output_type_sample(required = 1:10, optional = 11:15, value_type = "character")
+    Error <purrr_error_indexed>
+      i In index: 1.
+      Caused by error in `create_output_type_sample()`:
+      x `value_type` value is invalid.
+      ! Must be one of "numeric", "double", and "integer".
+      i Actual value is "character"
 

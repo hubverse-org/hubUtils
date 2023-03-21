@@ -133,4 +133,11 @@ test_that("create_output_type_dist functions error correctly", {
     ),
     error = TRUE
   )
+  expect_snapshot(
+    create_output_type_sample(
+      required = 1:10, optional = 11:15,
+      value_type = "character"
+    ),
+    error = TRUE
+  )
 })
