@@ -299,16 +299,23 @@ check_input <- function(input, property, output_type_schema,
                               call = rlang::caller_env()) {
 
   property_name <- property
-  if (parent_property == "value") {
+  if (!is.null(parent_property) && parent_property == "value") {
     property_name <- paste0("value_", property)
   }
 
-  property_schema <- purrr::pluck(
-    output_type_schema,
-    "properties",
-    parent_property,
-    "properties", property
-  )
+  if (is.null(parent_property)) {
+    property_schema <- purrr::pluck(
+      output_type_schema,
+      "properties", property
+    )
+  } else {
+    property_schema <- purrr::pluck(
+      output_type_schema,
+      "properties",
+      parent_property,
+      "properties", property
+    )
+  }
 
   if (is.null(input)) {
     property_types <- property_schema[["type"]]
