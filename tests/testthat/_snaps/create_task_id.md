@@ -11,6 +11,10 @@
       [1] 2 3 4
       
       
+      attr(,"class")
+      [1] "task_id" "list"   
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 ---
 
@@ -26,6 +30,10 @@
       [1] "2023-01-02" "2023-01-09" "2023-01-16"
       
       
+      attr(,"class")
+      [1] "task_id" "list"   
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 ---
 
@@ -41,6 +49,10 @@
       [1] "A-2021-03-28" "B-2021-03-28"
       
       
+      attr(,"class")
+      [1] "task_id" "list"   
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 ---
 
@@ -55,6 +67,10 @@
       [1] 1 2
       
       
+      attr(,"class")
+      [1] "task_id" "list"   
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 # create_task_id errors correctly
 

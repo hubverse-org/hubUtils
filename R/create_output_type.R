@@ -105,8 +105,11 @@ create_output_type_point <- function(output_type = c("mean", "median"),
     )
   )
 
-  list(c(type_id, list(value = value))) %>%
-    stats::setNames(output_type)
+  structure(
+    list(c(type_id, list(value = value))),
+    class = c("output_type", "list"),
+    names = output_type,
+    schema_id = schema$`$id`)
 }
 
 
@@ -288,9 +291,11 @@ create_output_type_dist <- function(output_type = c(
     )
   )
 
-
-  list(c(type_id, list(value = value))) %>%
-    stats::setNames(output_type)
+  structure(
+    list(c(type_id, list(value = value))),
+    class = c("output_type", "list"),
+    names = output_type,
+    schema_id = schema$`$id`)
 }
 
 check_input <- function(input, property, output_type_schema,

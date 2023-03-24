@@ -75,11 +75,14 @@ create_task_id <- function(name, required, optional,
   check_prop_type_const(required, optional)
   check_prop_dups(required, optional)
 
-  list(list(
-    required = required,
-    optional = optional
-  )) %>%
-    stats::setNames(name)
+  structure(
+    list(list(
+      required = required,
+      optional = optional
+    )),
+    class = c("task_id", "list"),
+    names = name,
+    schema_id = schema$`$id`)
 }
 
 get_schema_task_ids <- function(schema) {

@@ -22,6 +22,10 @@
       
       
       
+      attr(,"class")
+      [1] "output_type" "list"       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 ---
 
@@ -47,6 +51,10 @@
       
       
       
+      attr(,"class")
+      [1] "output_type" "list"       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 ---
 
@@ -68,6 +76,10 @@
       
       
       
+      attr(,"class")
+      [1] "output_type" "list"       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 # create_output_type_point functions error correctly
 
@@ -128,6 +140,10 @@
       
       
       
+      attr(,"class")
+      [1] "output_type" "list"       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 ---
 
@@ -155,6 +171,10 @@
       
       
       
+      attr(,"class")
+      [1] "output_type" "list"       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 ---
 
@@ -183,6 +203,10 @@
       
       
       
+      attr(,"class")
+      [1] "output_type" "list"       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 ---
 
@@ -211,6 +235,10 @@
       
       
       
+      attr(,"class")
+      [1] "output_type" "list"       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 ---
 
@@ -232,6 +260,10 @@
       
       
       
+      attr(,"class")
+      [1] "output_type" "list"       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
 
 # create_output_type_dist functions error correctly
 
