@@ -35,8 +35,8 @@ create_target_metadata <- function(...) {
 
   schema_id <- check_schema_ids(items)
 
-  check_unique_target_metadata_properties(items, property = "target_id")
-  check_unique_target_metadata_properties(items, property = "target_name")
+  check_target_metadata_properties_unique(items, property = "target_id")
+  check_target_metadata_properties_unique(items, property = "target_name")
 
   structure(list(items),
     class = c("target_metadata", "list"),
@@ -91,7 +91,7 @@ check_item_classes <- function(items, class, call = rlang::caller_env()) {
     }
 }
 
-check_unique_target_metadata_properties <- function(items, property,
+check_target_metadata_properties_unique <- function(items, property,
                                                     call = rlang::caller_env()) {
 
     item_properties <- purrr::map_chr(
