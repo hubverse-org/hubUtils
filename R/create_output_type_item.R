@@ -1,6 +1,9 @@
-#' Create a point estimate `output_type` element
+#' Create a point estimate output type object of class `output_type_item`
 #'
-#' Create a list representation of a `mean` or `median` output type.
+#' Create a representation of a `mean` or `median` output type as a list object of
+#' class `output_type_item`. This can be combined with
+#' additional `output_type_item` objects using function [`create_output_type()`] to
+#' create an `output_type` object for a given modelling_task item.
 #' This can be combined with other building blocks which can then be written as
 #' or appended to `tasks.json` Hub config files.
 #' @param is_required Logical. Is the output type required?
@@ -10,11 +13,13 @@
 #'
 #' @details For more details consult
 #' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
-#' @return a named list representing a `mean` or `median` output type.
+#' @return a named list of class `output_type_item` representing a `mean` or
+#' `median` output type.
 #' @inheritParams create_task_id
 #' @export
 #' @describeIn create_output_type_mean Create a list representation of a `mean`
 #' output type.
+#' @seealso [create_output_type()]
 #' @examples
 #' create_output_type_mean(
 #'   is_required = TRUE,
@@ -113,9 +118,14 @@ create_output_type_point <- function(output_type = c("mean", "median"),
 }
 
 
-#' Create a distribution `output_type` element
+#' Create a distribution output type object of class `output_type_item`
 #'
-#' Create a list representation of a `quantile`, `cdf`, `categorical` or `sample`
+#' Create a representation of a `quantile`, `cdf`, `categorical` or `sample` output
+#' type as a list object of class `output_type_item`. This can be combined with
+#' additional `output_type_item`s using function [`create_output_type()`] to
+#' create an `output_type` object for a given modelling_task item.
+#' This can be combined with other building blocks which can then be written as
+#' or appended to `tasks.json` Hub config files.
 #' output type.
 #' This can be combined with other building blocks which can then be written as
 #' or appended to `tasks.json` Hub config files.
@@ -128,11 +138,12 @@ create_output_type_point <- function(output_type = c("mean", "median"),
 #' @details For more details consult
 #' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #'
-#' @return a named list representing a `quantile`, `cdf`, `categorical` or `sample` output type.
+#' @return a named list of class `output_type_item` representing a `quantile`,
+#' `cdf`, `categorical` or `sample` output type.
 #' @export
 #' @describeIn create_output_type_quantile Create a list representation of a `quantile`
 #' output type.
-#'
+#' @seealso [create_output_type()]
 #' @examples
 #' create_output_type_quantile(
 #'   required = c(0.25, 0.5, 0.75),

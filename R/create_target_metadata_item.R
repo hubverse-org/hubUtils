@@ -1,6 +1,7 @@
-#' Create a target_metadata item element
+#' Create an object of class `target_metadata_item`
 #'
-#' Create a list representation of a target_metadata item. This can be combined with
+#' Create a representation of a target_metadata item as a list object of
+#' class `target_metadata_item`. This can be combined with
 #' additional target_metadata items using function [`create_target_metadata()`] to
 #' create a target_metadata object for a given modelling_task item.
 #' Such building blocks can ultimately be combined and then written out as or
@@ -27,8 +28,10 @@
 #' argument is required and defines the unit of time steps. if `is_step_ahead` is
 #' `FALSE`, then this argument is not required and will be ignored if given.
 #' @inheritParams create_task_id
-#'
-#' @return a named list representing a target_metadata item.
+#' @seealso [create_target_metadata()]
+#' @details For more details consult
+#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' @return a named list of class `target_metadata_item`.
 #' @export
 #'
 #' @examples

@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_task_id.R
 \name{create_task_id}
 \alias{create_task_id}
-\title{Create a task_id element}
+\title{#' Create an object of class \code{task_id}}
 \usage{
 create_task_id(
   name,
@@ -33,11 +33,15 @@ specified.}
 from which to fetch schema. Defaults to \code{"main"}.}
 }
 \value{
-a named list representing a task ID.
+a named list of class \code{task_id} representing a task ID.
 }
 \description{
-Create a list representation of a task ID. This can be combined with other building
-blocks which can then be written as or appended to \code{tasks.json} Hub config files.
+Create a representation of a task ID item as a list object of
+class \code{task_id}. This can be combined with
+additional \code{task_id} objects using function \code{\link[=create_task_ids]{create_task_ids()}} to
+create a \code{task_ids} class object for a given modelling_task item.
+Such building blocks can ultimately be combined and then written out as or
+appended to \code{tasks.json} Hub config files.
 }
 \details{
 \code{required} and \code{optional} vectors for standard task_ids defined in a Hub schema
@@ -64,4 +68,7 @@ user is responsible for providing values of the correct data type.
 }
 \examples{
 create_task_id("horizon", required = 1L, optional = 2:4)
+}
+\seealso{
+\code{\link[=create_task_ids]{create_task_ids()}}
 }

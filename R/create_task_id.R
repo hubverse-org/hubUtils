@@ -1,7 +1,11 @@
-#' Create a task_id element
+#' #' Create an object of class `task_id`
 #'
-#' Create a list representation of a task ID. This can be combined with other building
-#' blocks which can then be written as or appended to `tasks.json` Hub config files.
+#' Create a representation of a task ID item as a list object of
+#' class `task_id`. This can be combined with
+#' additional `task_id` objects using function [`create_task_ids()`] to
+#' create a `task_ids` class object for a given modelling_task item.
+#' Such building blocks can ultimately be combined and then written out as or
+#' appended to `tasks.json` Hub config files.
 #' @param name character string, Name of task_id to create.
 #' @param required Atomic vector of required task_id values. Can be `NULL` if all
 #'   values are optional.
@@ -35,8 +39,8 @@
 #' user is responsible for providing values of the correct data type.
 #'
 #' @inheritParams validate_config
-#'
-#' @return a named list representing a task ID.
+#' @seealso [create_task_ids()]
+#' @return a named list of class `task_id` representing a task ID.
 #' @export
 #'
 #' @examples

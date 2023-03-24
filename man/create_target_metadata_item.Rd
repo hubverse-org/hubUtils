@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_target_metadata_item.R
 \name{create_target_metadata_item}
 \alias{create_target_metadata_item}
-\title{Create a target_metadata item element}
+\title{Create an object of class \code{target_metadata_item}}
 \usage{
 create_target_metadata_item(
   target_id,
@@ -59,14 +59,19 @@ specified.}
 from which to fetch schema. Defaults to \code{"main"}.}
 }
 \value{
-a named list representing a target_metadata item.
+a named list of class \code{target_metadata_item}.
 }
 \description{
-Create a list representation of a target_metadata item. This can be combined with
+Create a representation of a target_metadata item as a list object of
+class \code{target_metadata_item}. This can be combined with
 additional target_metadata items using function \code{\link[=create_target_metadata]{create_target_metadata()}} to
 create a target_metadata object for a given modelling_task item.
 Such building blocks can ultimately be combined and then written out as or
 appended to \code{tasks.json} Hub config files.
+}
+\details{
+For more details consult
+the \href{https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file}{documentation on \code{tasks.json} Hub config files}.
 }
 \examples{
 create_target_metadata_item(
@@ -78,4 +83,7 @@ create_target_metadata_item(
   is_step_ahead = TRUE,
   time_unit = "week"
 )
+}
+\seealso{
+\code{\link[=create_target_metadata]{create_target_metadata()}}
 }
