@@ -29,21 +29,10 @@
 #'   )
 #' )
 create_target_metadata <- function(...) {
-  items <- list(...)
 
-  check_item_classes(items, "target_metadata_item")
-
-  schema_id <- check_schema_ids(items)
-
-  check_target_metadata_properties_unique(items, property = "target_id")
-  check_target_metadata_properties_unique(items, property = "target_name")
-
-  structure(list(items),
-    class = c("target_metadata", "list"),
-    names = "target_metadata",
-    n = length(items),
-    schema_id = schema_id
-  )
+  collect_items(..., item_class = "target_metadata_item",
+                output_class = "target_metadata",
+                flatten = FALSE)
 }
 
 
