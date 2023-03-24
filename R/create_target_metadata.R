@@ -31,41 +31,85 @@
 create_target_metadata <- function(...) {
   items <- list(...)
 
-  is_wrong_class <- purrr::map_lgl(
-    items,
-    ~ !inherits(.x, "target_metadata_item")
-  )
+  check_item_classes(items, "target_metadata_item")
 
-  if (any(is_wrong_class)) {
-    cli::cli_abort(
-      c(
-        "!" = "All items supplied must inherit from class {.cls target_metadata_item}",
-        "x" = "{cli::qty(sum(is_wrong_class))} Item{?s} {.val {which(is_wrong_class)}}
-        {cli::qty(sum(is_wrong_class))} do{?es/} not."
-      )
-    )
-  }
+  schema_id <- check_schema_ids(items)
 
-  target_ids <- purrr::map_chr(
-    items,
-    ~ .x[["target_id"]]
-  )
-
-  if (any(duplicated(target_ids))) {
-    duplicate_idx <- which(duplicated(target_ids))
-
-    cli::cli_abort(c(
-      "!" = "{.arg target_id}s must be unique across all
-          {.arg target_metadata_item}s.",
-      "x" = "{cli::qty(length(duplicate_idx))} {.arg target_metadata_item}{?s}
-          {.val {duplicate_idx}} with {.arg target_id} value {.val {target_ids[duplicate_idx]}}
-          {cli::qty(length(duplicate_idx))} {?is/are} duplicate{?s}."
-    ))
-  }
+  check_unique_target_metadata_properties(items, property = "target_id")
+  check_unique_target_metadata_properties(items, property = "target_name")
 
   structure(list(items),
     class = c("target_metadata", "list"),
     names = "target_metadata",
-    n = length(items)
+    n = length(items),
+    schema_id = schema_id
   )
 }
+
+
+check_schema_ids <- function(items, call = rlang::caller_env()) {
+
+    schema_ids <- purrr::map_chr(items,
+                                 ~ attr(.x, "schema_id"))
+
+    unique_n <- schema_ids %>%
+        unique() %>%
+        length()
+
+    if (unique_n > 1L) {
+
+        schema_ids <- paste("Item", seq_along(schema_ids), ":", schema_ids)
+        names(schema_ids) <- rep("*", length(schema_ids))
+
+        cli::cli_abort(c(
+            "!" = "All items supplied must be created against the same Hub schema.",
+          "x" = "{.arg schema_id} attributes are not consistent across all items.",
+          "Item {.arg schema_id} attributes:",
+          schema_ids
+        ), call = call)
+    }
+
+    unique(schema_ids)
+}
+
+
+check_item_classes <- function(items, class, call = rlang::caller_env()) {
+
+    is_wrong_class <- purrr::map_lgl(
+        items,
+        ~ !inherits(.x, class)
+    )
+
+    if (any(is_wrong_class)) {
+        cli::cli_abort(
+            c(
+                "!" = "All items supplied must inherit from class {.cls {class}}",
+                "x" = "{cli::qty(sum(is_wrong_class))} Item{?s} {.val {which(is_wrong_class)}}
+        {cli::qty(sum(is_wrong_class))} do{?es/} not."),
+        call = call
+        )
+    }
+}
+
+check_unique_target_metadata_properties <- function(items, property,
+                                                    call = rlang::caller_env()) {
+
+    item_properties <- purrr::map_chr(
+        items,
+        ~ .x[[property]]
+    )
+
+    if (any(duplicated(item_properties))) {
+        duplicate_idx <- which(duplicated(item_properties))
+
+        cli::cli_abort(c(
+            "!" = "{.arg {property}}s must be unique across all
+          {.arg target_metadata_item}s.",
+          "x" = "{cli::qty(length(duplicate_idx))} {.arg target_metadata_item}{?s}
+          {.val {duplicate_idx}} with {.arg {property}} value {.val {item_properties[duplicate_idx]}}
+          {cli::qty(length(duplicate_idx))} {?is/are} duplicate{?s}."
+        ),
+        call = call)
+    }
+}
+

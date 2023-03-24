@@ -95,7 +95,8 @@ create_target_metadata_item <- function(target_id, target_name, target_units,
 
   structure(mget(property_names),
             class = c("target_metadata_item", "list"),
-            names = property_names)
+            names = property_names,
+            schema_id = schema$`$id`)
 }
 
 check_target_keys <- function(target_keys, call = rlang::caller_env()) {
