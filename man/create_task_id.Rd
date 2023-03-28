@@ -39,7 +39,7 @@ a named list of class \code{task_id} representing a task ID.
 Create a representation of a task ID item as a list object of
 class \code{task_id}. This can be combined with
 additional \code{task_id} objects using function \code{\link[=create_task_ids]{create_task_ids()}} to
-create a \code{task_ids} class object for a given modelling_task item.
+create a \code{task_ids} class object for a given model_task.
 Such building blocks can ultimately be combined and then written out as or
 appended to \code{tasks.json} Hub config files.
 }
