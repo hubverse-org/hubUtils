@@ -7,7 +7,7 @@
 create_task_ids(...)
 }
 \arguments{
-\item{...}{objects of class \code{task_id} create using function \code{\link[=create_task_id]{create_task_id()}}}
+\item{...}{objects of class \code{task_id} created using function \code{\link[=create_task_id]{create_task_id()}}}
 }
 \value{
 a named list of class \code{task_ids}.

@@ -1,6 +1,6 @@
 #' Create a `task_ids` class object.
 #'
-#' @param ... objects of class `task_id` create using function [`create_task_id()`]
+#' @param ... objects of class `task_id` created using function [`create_task_id()`]
 #'
 #' @return a named list of class `task_ids`.
 #' @export
@@ -56,46 +56,4 @@ check_property_names_unique <- function(x, call = rlang::caller_env()) {
     call = call
     )
   }
-}
-
-
-collect_items <- function(...,
-                          item_class = c("task_id",
-                                              "output_type_item",
-                                              "target_metadata_item"),
-                          output_class = c("task_ids",
-                                           "output_type",
-                                           "target_metadata"),
-                          flatten = TRUE,
-                          call = rlang::caller_env()) {
-
-  item_class <- rlang::arg_match(item_class)
-  output_class <- rlang::arg_match(output_class)
-
-  items <- list(...)
-
-  check_item_classes(items, item_class, call = call)
-
-  schema_id <- check_schema_ids(items, call = call)
-
-  if (flatten) {
-    items <- purrr::list_flatten(items)
-  }
-  if (item_class == "target_metadata_item") {
-    check_target_metadata_properties_unique(items, property = "target_id",
-                                            call = call)
-    check_target_metadata_properties_unique(items, property = "target_name",
-                                            call = call)
-    check_target_metadata_properties_unique(items, property = "target_keys",
-                                            call = call)
-  } else {
-    check_property_names_unique(items, call = call)
-  }
-
-  structure(list(items),
-            class = c(output_class, "list"),
-            names = output_class,
-            n = length(items),
-            schema_id = schema_id
-  )
 }
