@@ -3,6 +3,7 @@
 S3method(print,hub_connection)
 export("%>%")
 export(connect_hub)
+export(create_model_task)
 export(create_output_type)
 export(create_output_type_categorical)
 export(create_output_type_cdf)
