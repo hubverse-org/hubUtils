@@ -54,6 +54,7 @@ create_target_metadata_item <- function(target_id, target_name, target_units,
   rlang::check_required(target_keys)
   rlang::check_required(target_type)
   rlang::check_required(is_step_ahead)
+  call <- rlang::current_env()
 
   schema <- download_schema(schema_version, branch)
   target_metadata_schema <- get_schema_target_metadata(schema)
@@ -90,11 +91,11 @@ create_target_metadata_item <- function(target_id, target_name, target_units,
       target_metadata_schema,
       parent_property = NULL,
       scalar = TRUE,
-      call = rlang::caller_env(n = 4)
+      call = call
     )
   )
 
-  check_target_keys(target_keys, call = rlang::caller_env(n = 2))
+  check_target_keys(target_keys, call = call)
 
   structure(mget(property_names),
             class = c("target_metadata_item", "list"),
@@ -128,7 +129,7 @@ check_target_keys <- function(target_keys, call = rlang::caller_env()) {
     names(target_keys),
     ~ check_target_key_value(
       .x, .y,
-      call = rlang::caller_env(n = 5)
+      call = call
     )
   )
 }
@@ -154,6 +155,6 @@ get_schema_target_metadata <- function(schema) {
     "properties", "rounds",
     "items", "properties", "model_tasks",
     "items", "properties", "target_metadata",
-    "items"
+    "items","properties"
   )
 }
