@@ -1,5 +1,3 @@
-
-
 #' Create a `target_metadata` class object.
 #'
 #' @param ... objects of class `target_metadata_item`
@@ -47,13 +45,20 @@ check_schema_ids <- function(items, call = rlang::caller_env()) {
 
     if (unique_n > 1L) {
 
+      if (!purrr::reduce(purrr::map(items, ~ class(.x)), identical)) {
+        item_names <- purrr::map_chr(items, ~ names(.x))
+        schema_ids <- paste(item_names, ":", schema_ids)
+        obj_ref <- "Argument"
+      } else {
         schema_ids <- paste("Item", seq_along(schema_ids), ":", schema_ids)
+        obj_ref <- "Item"
+      }
         names(schema_ids) <- rep("*", length(schema_ids))
 
         cli::cli_abort(c(
-            "!" = "All items supplied must be created against the same Hub schema.",
-          "x" = "{.arg schema_id} attributes are not consistent across all items.",
-          "Item {.arg schema_id} attributes:",
+            "!" = "All {tolower(obj_ref)}s supplied must be created against the same Hub schema.",
+          "x" = "{.arg schema_id} attributes are not consistent across all {tolower(obj_ref)}s.",
+          "{obj_ref} {.arg schema_id} attributes:",
           schema_ids
         ), call = call)
     }
@@ -83,7 +88,7 @@ check_item_classes <- function(items, class, call = rlang::caller_env()) {
 check_target_metadata_properties_unique <- function(items, property,
                                                     call = rlang::caller_env()) {
 
-    item_properties <- purrr::map_chr(
+    item_properties <- purrr::map(
         items,
         ~ .x[[property]]
     )
