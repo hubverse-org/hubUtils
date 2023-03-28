@@ -86,6 +86,8 @@ collect_items <- function(...,
                                             call = call)
     check_target_metadata_properties_unique(items, property = "target_name",
                                             call = call)
+    check_target_metadata_properties_unique(items, property = "target_keys",
+                                            call = call)
   } else {
     check_property_names_unique(items, call = call)
   }
