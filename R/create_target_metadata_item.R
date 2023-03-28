@@ -3,7 +3,7 @@
 #' Create a representation of a target_metadata item as a list object of
 #' class `target_metadata_item`. This can be combined with
 #' additional target_metadata items using function [`create_target_metadata()`] to
-#' create a target_metadata object for a given modelling_task item.
+#' create a target_metadata object for a given model_task.
 #' Such building blocks can ultimately be combined and then written out as or
 #' appended to `tasks.json` Hub config files.
 #' @param target_id character string. Short description that uniquely identifies

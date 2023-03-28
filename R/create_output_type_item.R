@@ -3,7 +3,7 @@
 #' Create a representation of a `mean` or `median` output type as a list object of
 #' class `output_type_item`. This can be combined with
 #' additional `output_type_item` objects using function [`create_output_type()`] to
-#' create an `output_type` object for a given modelling_task item.
+#' create an `output_type` object for a given model_task.
 #' This can be combined with other building blocks which can then be written as
 #' or appended to `tasks.json` Hub config files.
 #' @param is_required Logical. Is the output type required?
@@ -123,7 +123,7 @@ create_output_type_point <- function(output_type = c("mean", "median"),
 #' Create a representation of a `quantile`, `cdf`, `categorical` or `sample` output
 #' type as a list object of class `output_type_item`. This can be combined with
 #' additional `output_type_item`s using function [`create_output_type()`] to
-#' create an `output_type` object for a given modelling_task item.
+#' create an `output_type` object for a given model_task.
 #' This can be combined with other building blocks which can then be written as
 #' or appended to `tasks.json` Hub config files.
 #' output type.

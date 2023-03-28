@@ -51,7 +51,7 @@ a named list of class \code{output_type_item} representing a \code{mean} or
 Create a representation of a \code{mean} or \code{median} output type as a list object of
 class \code{output_type_item}. This can be combined with
 additional \code{output_type_item} objects using function \code{\link[=create_output_type]{create_output_type()}} to
-create an \code{output_type} object for a given modelling_task item.
+create an \code{output_type} object for a given model_task.
 This can be combined with other building blocks which can then be written as
 or appended to \code{tasks.json} Hub config files.
 }

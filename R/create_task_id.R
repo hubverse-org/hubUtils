@@ -3,7 +3,7 @@
 #' Create a representation of a task ID item as a list object of
 #' class `task_id`. This can be combined with
 #' additional `task_id` objects using function [`create_task_ids()`] to
-#' create a `task_ids` class object for a given modelling_task item.
+#' create a `task_ids` class object for a given model_task.
 #' Such building blocks can ultimately be combined and then written out as or
 #' appended to `tasks.json` Hub config files.
 #' @param name character string, Name of task_id to create.
