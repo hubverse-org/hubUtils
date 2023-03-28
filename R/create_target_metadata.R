@@ -20,7 +20,7 @@
 #'     target_id = "inc death",
 #'     target_name = "Weekly incident influenza deaths",
 #'     target_units = "rate per 100,000 population",
-#'     target_keys = list(target = "inc hosp"),
+#'     target_keys = list(target = "inc death"),
 #'     target_type = "discrete",
 #'     is_step_ahead = TRUE,
 #'     time_unit = "week"
