@@ -21,6 +21,12 @@ collect_items <- function(...,
 
     if (flatten) {
         items <- purrr::list_flatten(items)
+    } else {
+        items <- purrr::map(items,
+                            function(x) {
+                                attributes(x) <- list(names = names(x))
+                                return(x)
+                            })
     }
     if (item_class == "target_metadata_item") {
         check_target_metadata_properties_unique(items, property = "target_id",

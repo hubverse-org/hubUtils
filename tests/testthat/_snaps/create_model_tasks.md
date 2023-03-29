@@ -14,85 +14,77 @@
     Output
       $model_tasks
       $model_tasks[[1]]
-      $task_ids
-      $task_ids$origin_date
-      $task_ids$origin_date$required
+      $model_tasks[[1]]$task_ids
+      $model_tasks[[1]]$task_ids$origin_date
+      $model_tasks[[1]]$task_ids$origin_date$required
       NULL
       
-      $task_ids$origin_date$optional
+      $model_tasks[[1]]$task_ids$origin_date$optional
       [1] "2023-01-02" "2023-01-09" "2023-01-16"
       
       
-      $task_ids$location
-      $task_ids$location$required
+      $model_tasks[[1]]$task_ids$location
+      $model_tasks[[1]]$task_ids$location$required
       [1] "US"
       
-      $task_ids$location$optional
+      $model_tasks[[1]]$task_ids$location$optional
       [1] "01" "02" "04" "05" "06"
       
       
-      $task_ids$horizon
-      $task_ids$horizon$required
+      $model_tasks[[1]]$task_ids$horizon
+      $model_tasks[[1]]$task_ids$horizon$required
       [1] 1
       
-      $task_ids$horizon$optional
+      $model_tasks[[1]]$task_ids$horizon$optional
       [1] 2 3 4
       
       
       
-      $output_type
-      $output_type$mean
-      $output_type$mean$type_id
-      $output_type$mean$type_id$required
+      $model_tasks[[1]]$output_type
+      $model_tasks[[1]]$output_type$mean
+      $model_tasks[[1]]$output_type$mean$type_id
+      $model_tasks[[1]]$output_type$mean$type_id$required
       [1] NA
       
-      $output_type$mean$type_id$optional
+      $model_tasks[[1]]$output_type$mean$type_id$optional
       NULL
       
       
-      $output_type$mean$value
-      $output_type$mean$value$type
+      $model_tasks[[1]]$output_type$mean$value
+      $model_tasks[[1]]$output_type$mean$value$type
       [1] "double"
       
-      $output_type$mean$value$minimum
+      $model_tasks[[1]]$output_type$mean$value$minimum
       [1] 0
       
       
       
       
-      $target_metadata
-      $target_metadata[[1]]
-      $target_id
+      $model_tasks[[1]]$target_metadata
+      $model_tasks[[1]]$target_metadata[[1]]
+      $model_tasks[[1]]$target_metadata[[1]]$target_id
       [1] "inc hosp"
       
-      $target_name
+      $model_tasks[[1]]$target_metadata[[1]]$target_name
       [1] "Weekly incident influenza hospitalizations"
       
-      $target_units
+      $model_tasks[[1]]$target_metadata[[1]]$target_units
       [1] "rate per 100,000 population"
       
-      $target_keys
+      $model_tasks[[1]]$target_metadata[[1]]$target_keys
       NULL
       
-      $target_type
+      $model_tasks[[1]]$target_metadata[[1]]$target_type
       [1] "discrete"
       
-      $is_step_ahead
+      $model_tasks[[1]]$target_metadata[[1]]$is_step_ahead
       [1] TRUE
       
-      $time_unit
+      $model_tasks[[1]]$target_metadata[[1]]$time_unit
       [1] "week"
       
-      attr(,"class")
-      [1] "target_metadata_item" "list"                
-      attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
       
       
-      attr(,"class")
-      [1] "model_task" "list"      
-      attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
       
       
       attr(,"class")
@@ -136,252 +128,232 @@
     Output
       $model_tasks
       $model_tasks[[1]]
-      $task_ids
-      $task_ids$origin_date
-      $task_ids$origin_date$required
+      $model_tasks[[1]]$task_ids
+      $model_tasks[[1]]$task_ids$origin_date
+      $model_tasks[[1]]$task_ids$origin_date$required
       NULL
       
-      $task_ids$origin_date$optional
+      $model_tasks[[1]]$task_ids$origin_date$optional
       [1] "2023-01-02" "2023-01-09" "2023-01-16"
       
       
-      $task_ids$location
-      $task_ids$location$required
+      $model_tasks[[1]]$task_ids$location
+      $model_tasks[[1]]$task_ids$location$required
       [1] "US"
       
-      $task_ids$location$optional
+      $model_tasks[[1]]$task_ids$location$optional
       [1] "01" "02" "04" "05" "06"
       
       
-      $task_ids$target
-      $task_ids$target$required
+      $model_tasks[[1]]$task_ids$target
+      $model_tasks[[1]]$task_ids$target$required
       NULL
       
-      $task_ids$target$optional
+      $model_tasks[[1]]$task_ids$target$optional
       [1] "inc death" "inc hosp" 
       
       
-      $task_ids$horizon
-      $task_ids$horizon$required
+      $model_tasks[[1]]$task_ids$horizon
+      $model_tasks[[1]]$task_ids$horizon$required
       [1] 1
       
-      $task_ids$horizon$optional
+      $model_tasks[[1]]$task_ids$horizon$optional
       [1] 2 3 4
       
       
       
-      $output_type
-      $output_type$mean
-      $output_type$mean$type_id
-      $output_type$mean$type_id$required
+      $model_tasks[[1]]$output_type
+      $model_tasks[[1]]$output_type$mean
+      $model_tasks[[1]]$output_type$mean$type_id
+      $model_tasks[[1]]$output_type$mean$type_id$required
       [1] NA
       
-      $output_type$mean$type_id$optional
+      $model_tasks[[1]]$output_type$mean$type_id$optional
       NULL
       
       
-      $output_type$mean$value
-      $output_type$mean$value$type
+      $model_tasks[[1]]$output_type$mean$value
+      $model_tasks[[1]]$output_type$mean$value$type
       [1] "double"
       
-      $output_type$mean$value$minimum
+      $model_tasks[[1]]$output_type$mean$value$minimum
       [1] 0
       
       
       
-      $output_type$median
-      $output_type$median$type_id
-      $output_type$median$type_id$required
+      $model_tasks[[1]]$output_type$median
+      $model_tasks[[1]]$output_type$median$type_id
+      $model_tasks[[1]]$output_type$median$type_id$required
       NULL
       
-      $output_type$median$type_id$optional
+      $model_tasks[[1]]$output_type$median$type_id$optional
       [1] NA
       
       
-      $output_type$median$value
-      $output_type$median$value$type
+      $model_tasks[[1]]$output_type$median$value
+      $model_tasks[[1]]$output_type$median$value$type
       [1] "numeric"
       
       
       
-      $output_type$quantile
-      $output_type$quantile$type_id
-      $output_type$quantile$type_id$required
+      $model_tasks[[1]]$output_type$quantile
+      $model_tasks[[1]]$output_type$quantile$type_id
+      $model_tasks[[1]]$output_type$quantile$type_id$required
       [1] 0.25 0.50 0.75
       
-      $output_type$quantile$type_id$optional
+      $model_tasks[[1]]$output_type$quantile$type_id$optional
       [1] 0.1 0.2 0.3 0.4 0.6 0.7 0.8 0.9
       
       
-      $output_type$quantile$value
-      $output_type$quantile$value$type
+      $model_tasks[[1]]$output_type$quantile$value
+      $model_tasks[[1]]$output_type$quantile$value$type
       [1] "double"
       
-      $output_type$quantile$value$minimum
+      $model_tasks[[1]]$output_type$quantile$value$minimum
       [1] 0
       
       
       
       
-      $target_metadata
-      $target_metadata[[1]]
-      $target_id
+      $model_tasks[[1]]$target_metadata
+      $model_tasks[[1]]$target_metadata[[1]]
+      $model_tasks[[1]]$target_metadata[[1]]$target_id
       [1] "inc hosp"
       
-      $target_name
+      $model_tasks[[1]]$target_metadata[[1]]$target_name
       [1] "Weekly incident influenza hospitalizations"
       
-      $target_units
+      $model_tasks[[1]]$target_metadata[[1]]$target_units
       [1] "rate per 100,000 population"
       
-      $target_keys
-      $target_keys$target
+      $model_tasks[[1]]$target_metadata[[1]]$target_keys
+      $model_tasks[[1]]$target_metadata[[1]]$target_keys$target
       [1] "inc hosp"
       
       
-      $target_type
+      $model_tasks[[1]]$target_metadata[[1]]$target_type
       [1] "discrete"
       
-      $is_step_ahead
+      $model_tasks[[1]]$target_metadata[[1]]$is_step_ahead
       [1] TRUE
       
-      $time_unit
+      $model_tasks[[1]]$target_metadata[[1]]$time_unit
       [1] "week"
       
-      attr(,"class")
-      [1] "target_metadata_item" "list"                
-      attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
       
-      $target_metadata[[2]]
-      $target_id
+      $model_tasks[[1]]$target_metadata[[2]]
+      $model_tasks[[1]]$target_metadata[[2]]$target_id
       [1] "inc death"
       
-      $target_name
+      $model_tasks[[1]]$target_metadata[[2]]$target_name
       [1] "Weekly incident influenza deaths"
       
-      $target_units
+      $model_tasks[[1]]$target_metadata[[2]]$target_units
       [1] "rate per 100,000 population"
       
-      $target_keys
-      $target_keys$target
+      $model_tasks[[1]]$target_metadata[[2]]$target_keys
+      $model_tasks[[1]]$target_metadata[[2]]$target_keys$target
       [1] "inc death"
       
       
-      $target_type
+      $model_tasks[[1]]$target_metadata[[2]]$target_type
       [1] "discrete"
       
-      $is_step_ahead
+      $model_tasks[[1]]$target_metadata[[2]]$is_step_ahead
       [1] TRUE
       
-      $time_unit
+      $model_tasks[[1]]$target_metadata[[2]]$time_unit
       [1] "week"
       
-      attr(,"class")
-      [1] "target_metadata_item" "list"                
-      attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
       
       
-      attr(,"class")
-      [1] "model_task" "list"      
-      attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
       
       $model_tasks[[2]]
-      $task_ids
-      $task_ids$origin_date
-      $task_ids$origin_date$required
+      $model_tasks[[2]]$task_ids
+      $model_tasks[[2]]$task_ids$origin_date
+      $model_tasks[[2]]$task_ids$origin_date$required
       NULL
       
-      $task_ids$origin_date$optional
+      $model_tasks[[2]]$task_ids$origin_date$optional
       [1] "2023-01-02" "2023-01-09" "2023-01-16"
       
       
-      $task_ids$location
-      $task_ids$location$required
+      $model_tasks[[2]]$task_ids$location
+      $model_tasks[[2]]$task_ids$location$required
       [1] "US"
       
-      $task_ids$location$optional
+      $model_tasks[[2]]$task_ids$location$optional
       [1] "01" "02" "04" "05" "06"
       
       
-      $task_ids$target
-      $task_ids$target$required
+      $model_tasks[[2]]$task_ids$target
+      $model_tasks[[2]]$task_ids$target$required
       [1] "flu hosp rt chng"
       
-      $task_ids$target$optional
+      $model_tasks[[2]]$task_ids$target$optional
       NULL
       
       
-      $task_ids$horizon
-      $task_ids$horizon$required
+      $model_tasks[[2]]$task_ids$horizon
+      $model_tasks[[2]]$task_ids$horizon$required
       [1] 1
       
-      $task_ids$horizon$optional
+      $model_tasks[[2]]$task_ids$horizon$optional
       [1] 2 3 4
       
       
       
-      $output_type
-      $output_type$categorical
-      $output_type$categorical$type_id
-      $output_type$categorical$type_id$required
+      $model_tasks[[2]]$output_type
+      $model_tasks[[2]]$output_type$categorical
+      $model_tasks[[2]]$output_type$categorical$type_id
+      $model_tasks[[2]]$output_type$categorical$type_id$required
       [1] "large_decrease" "decrease"       "stable"         "increase"      
       [5] "large_increase"
       
-      $output_type$categorical$type_id$optional
+      $model_tasks[[2]]$output_type$categorical$type_id$optional
       NULL
       
       
-      $output_type$categorical$value
-      $output_type$categorical$value$type
+      $model_tasks[[2]]$output_type$categorical$value
+      $model_tasks[[2]]$output_type$categorical$value$type
       [1] "numeric"
       
-      $output_type$categorical$value$minimum
+      $model_tasks[[2]]$output_type$categorical$value$minimum
       [1] 0
       
-      $output_type$categorical$value$maximum
+      $model_tasks[[2]]$output_type$categorical$value$maximum
       [1] 1
       
       
       
       
-      $target_metadata
-      $target_metadata[[1]]
-      $target_id
+      $model_tasks[[2]]$target_metadata
+      $model_tasks[[2]]$target_metadata[[1]]
+      $model_tasks[[2]]$target_metadata[[1]]$target_id
       [1] "flu hosp rt chng"
       
-      $target_name
+      $model_tasks[[2]]$target_metadata[[1]]$target_name
       [1] "Weekly influenza hospitalization rate change"
       
-      $target_units
+      $model_tasks[[2]]$target_metadata[[1]]$target_units
       [1] "rate per 100,000 population"
       
-      $target_keys
-      $target_keys$target
+      $model_tasks[[2]]$target_metadata[[1]]$target_keys
+      $model_tasks[[2]]$target_metadata[[1]]$target_keys$target
       [1] "flu hosp rt chng"
       
       
-      $target_type
+      $model_tasks[[2]]$target_metadata[[1]]$target_type
       [1] "categorical"
       
-      $is_step_ahead
+      $model_tasks[[2]]$target_metadata[[1]]$is_step_ahead
       [1] TRUE
       
-      $time_unit
+      $model_tasks[[2]]$target_metadata[[1]]$time_unit
       [1] "week"
       
-      attr(,"class")
-      [1] "target_metadata_item" "list"                
-      attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
       
       
-      attr(,"class")
-      [1] "model_task" "list"      
-      attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
       
       
       attr(,"class")

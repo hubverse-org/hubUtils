@@ -11,62 +11,54 @@
     Output
       $target_metadata
       $target_metadata[[1]]
-      $target_id
+      $target_metadata[[1]]$target_id
       [1] "inc hosp"
       
-      $target_name
+      $target_metadata[[1]]$target_name
       [1] "Weekly incident influenza hospitalizations"
       
-      $target_units
+      $target_metadata[[1]]$target_units
       [1] "rate per 100,000 population"
       
-      $target_keys
-      $target_keys$target
+      $target_metadata[[1]]$target_keys
+      $target_metadata[[1]]$target_keys$target
       [1] "inc hosp"
       
       
-      $target_type
+      $target_metadata[[1]]$target_type
       [1] "discrete"
       
-      $is_step_ahead
+      $target_metadata[[1]]$is_step_ahead
       [1] TRUE
       
-      $time_unit
+      $target_metadata[[1]]$time_unit
       [1] "week"
       
-      attr(,"class")
-      [1] "target_metadata_item" "list"                
-      attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
       
       $target_metadata[[2]]
-      $target_id
+      $target_metadata[[2]]$target_id
       [1] "inc death"
       
-      $target_name
+      $target_metadata[[2]]$target_name
       [1] "Weekly incident influenza deaths"
       
-      $target_units
+      $target_metadata[[2]]$target_units
       [1] "rate per 100,000 population"
       
-      $target_keys
-      $target_keys$target
+      $target_metadata[[2]]$target_keys
+      $target_metadata[[2]]$target_keys$target
       [1] "inc death"
       
       
-      $target_type
+      $target_metadata[[2]]$target_type
       [1] "discrete"
       
-      $is_step_ahead
+      $target_metadata[[2]]$is_step_ahead
       [1] TRUE
       
-      $time_unit
+      $target_metadata[[2]]$time_unit
       [1] "week"
       
-      attr(,"class")
-      [1] "target_metadata_item" "list"                
-      attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
       
       
       attr(,"class")
