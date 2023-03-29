@@ -95,7 +95,7 @@
     Error <purrr_error_indexed>
       i In index: 1.
       Caused by error in `create_output_type_mean()`:
-      x Argument `value_type` must be length 1, not 2.
+      x `value_type` must be length 1, not 2.
 
 ---
 
@@ -273,7 +273,7 @@
     Error <purrr_error_indexed>
       i In index: 2.
       Caused by error in `create_output_type_cdf()`:
-      ! The maximum number of characters allowed for values in argument `optional` is 8.
+      ! The maximum number of characters allowed for values in `optional` is 8.
       x Value "EW2022423" has more characters than allowed
 
 ---
@@ -293,7 +293,7 @@
     Error <purrr_error_indexed>
       i In index: 1.
       Caused by error in `create_output_type_sample()`:
-      ! All values in argument `required` must be equal to or greater than 1.
+      ! All values in `required` must be equal to or greater than 1.
       x Value 0 is less.
 
 ---

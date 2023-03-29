@@ -86,7 +86,7 @@
     Error <purrr_error_indexed>
       i In index: 2.
       Caused by error in `create_task_id()`:
-      x Argument `optional` must be valid ISO 8601 date format (YYYY-MM-DD).
+      x `optional` value must character string of date in valid ISO 8601 format (YYYY-MM-DD).
 
 ---
 
@@ -103,6 +103,6 @@
     Error <purrr_error_indexed>
       i In index: 1.
       Caused by error in `create_task_id()`:
-      x Argument `required` is of type <logical>.
+      x `required` is of type <logical>.
       ! Must be one of <integer/character>.
 

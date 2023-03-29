@@ -115,7 +115,7 @@
     Error <purrr_error_indexed>
       i In index: 3.
       Caused by error in `create_target_metadata_item()`:
-      x Argument `target_units` is of type <double>.
+      x `target_units` is of type <double>.
       ! Must be <character>.
 
 ---
@@ -140,5 +140,5 @@
     Error <purrr_error_indexed>
       i In index: 3.
       Caused by error in `create_target_metadata_item()`:
-      x Argument `target_units` must be length 1, not 2.
+      x `target_units` must be length 1, not 2.
 
