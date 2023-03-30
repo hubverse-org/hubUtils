@@ -7,13 +7,18 @@
 create_target_metadata(...)
 }
 \arguments{
-\item{...}{objects of class \code{target_metadata_item}}
+\item{...}{objects of class \code{target_metadata_item} created using function
+\code{\link[=create_target_metadata_item]{create_target_metadata_item()}}}
 }
 \value{
 a named list of class \code{target_metadata}.
 }
 \description{
 Create a \code{target_metadata} class object.
+}
+\details{
+For more details consult
+the \href{https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file}{documentation on \code{tasks.json} Hub config files}.
 }
 \examples{
 create_target_metadata(
@@ -36,4 +41,7 @@ create_target_metadata(
     time_unit = "week"
   )
 )
+}
+\seealso{
+\code{\link[=create_target_metadata_item]{create_target_metadata_item()}}
 }

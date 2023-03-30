@@ -4,6 +4,9 @@
 #'
 #' @return a named list of class `task_ids`.
 #' @export
+#' @seealso [create_task_id()]
+#' @details For more details consult
+#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #'
 #' @examples
 #' create_task_ids(

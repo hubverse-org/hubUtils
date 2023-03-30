@@ -15,6 +15,10 @@ a named list of class \code{task_ids}.
 \description{
 Create a \code{task_ids} class object.
 }
+\details{
+For more details consult
+the \href{https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file}{documentation on \code{tasks.json} Hub config files}.
+}
 \examples{
 create_task_ids(
   create_task_id("origin_date",
@@ -45,4 +49,7 @@ create_task_ids(
     optional = 2:4
   )
 )
+}
+\seealso{
+\code{\link[=create_task_id]{create_task_id()}}
 }

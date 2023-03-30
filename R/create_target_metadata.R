@@ -1,9 +1,13 @@
 #' Create a `target_metadata` class object.
 #'
-#' @param ... objects of class `target_metadata_item`
+#' @param ... objects of class `target_metadata_item` created using function
+#' [`create_target_metadata_item()`]
 #'
 #' @return a named list of class `target_metadata`.
 #' @export
+#' @seealso [create_target_metadata_item()]
+#' @details For more details consult
+#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #'
 #' @examples
 #' create_target_metadata(
