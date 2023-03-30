@@ -1,11 +1,11 @@
 #' Create a `rounds` class object.
 #'
-#' @param ... objects of class `rounds` created using function
-#' [`create_rounds()`]
+#' @param ... objects of class `round` created using function
+#' [`create_round()`]
 #'
 #' @return a named list of class `rounds`.
 #' @export
-#' @seealso [create_rounds()]
+#' @seealso [create_round()]
 #' @details For more details consult
 #' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #'

@@ -7,8 +7,8 @@
 create_rounds(...)
 }
 \arguments{
-\item{...}{objects of class \code{rounds} created using function
-\code{\link[=create_rounds]{create_rounds()}}}
+\item{...}{objects of class \code{round} created using function
+\code{\link[=create_round]{create_round()}}}
 }
 \value{
 a named list of class \code{rounds}.
@@ -176,5 +176,5 @@ create_rounds(
 )
 }
 \seealso{
-\code{\link[=create_rounds]{create_rounds()}}
+\code{\link[=create_round]{create_round()}}
 }
