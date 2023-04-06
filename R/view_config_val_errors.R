@@ -159,12 +159,13 @@ path_to_tree <- function(x) {
         suppressWarnings()
 
     # build path tree
-    for (i in 2:length(paths)) {
-        paths[i] <- paste0("\u2514", paste(rep("\u2500", times = i - 2),
-                                           collapse = ""
-        ), paths[i])
+    if (length(paths) > 1L) {
+        for (i in 2:length(paths)) {
+            paths[i] <- paste0("\u2514", paste(rep("\u2500", times = i - 2),
+                                               collapse = ""
+            ), paths[i])
+        }
     }
-
     paste(paths, collapse = " \n ")
 }
 
