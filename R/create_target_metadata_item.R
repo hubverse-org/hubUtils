@@ -74,12 +74,12 @@ create_target_metadata_item <- function(target_id, target_name, target_units,
   }
 
   if (is_step_ahead) {
-      if (is.null(time_unit)) {
-          cli::cli_abort(c(
-              "!" = "A value must be provided for {.arg time_unit} when {.arg is_step_ahead}
+    if (is.null(time_unit)) {
+      cli::cli_abort(c(
+        "!" = "A value must be provided for {.arg time_unit} when {.arg is_step_ahead}
             is {.val {TRUE}}"
-          ))
-      }
+      ))
+    }
     property_names <- c(property_names, "time_unit")
   }
 
@@ -98,9 +98,10 @@ create_target_metadata_item <- function(target_id, target_name, target_units,
   check_target_keys(target_keys, call = call)
 
   structure(mget(property_names),
-            class = c("target_metadata_item", "list"),
-            names = property_names,
-            schema_id = schema$`$id`)
+    class = c("target_metadata_item", "list"),
+    names = property_names,
+    schema_id = schema$`$id`
+  )
 }
 
 check_target_keys <- function(target_keys, call = rlang::caller_env()) {
@@ -155,6 +156,6 @@ get_schema_target_metadata <- function(schema) {
     "properties", "rounds",
     "items", "properties", "model_tasks",
     "items", "properties", "target_metadata",
-    "items","properties"
+    "items", "properties"
   )
 }

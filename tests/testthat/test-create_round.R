@@ -69,73 +69,72 @@ test_that("create_round functions work correctly", {
 
 
 test_that("create_round name matching works correctly", {
-    expect_snapshot(
-        create_round(
-            round_id_from_variable = FALSE,
-            round_id = "round_1",
-            model_tasks = model_tasks,
-            submissions_due = list(
-                start = "01/12/2023",
-                end = "2023-01-18"
-            ),
-            last_data_date = "2023-01-02"
-        ),
-        error = TRUE
-    )
-    expect_snapshot(
-        create_round(
-            round_id_from_variable = FALSE,
-            round_id = "round_1",
-            model_tasks = model_tasks,
-            submissions_due = list(
-                start = -4L,
-                end = 2
-            ),
-            last_data_date = "2023-01-02"
-        ),
-        error = TRUE
-    )
-    expect_snapshot(
-        create_round(
-            round_id_from_variable = TRUE,
-            round_id = "origin_dates",
-            model_tasks = model_tasks,
-            submissions_due = list(
-                relative_to = "origin_date",
-                start = -4L,
-                end = 2L
-            ),
-            last_data_date = "2023-01-02"
-        ),
-        error = TRUE
-    )
-    expect_snapshot(
-        create_round(
-            round_id_from_variable = TRUE,
-            round_id = "origin_date",
-            model_tasks = model_tasks,
-            submissions_due = list(
-                relative = "origin_date",
-                start = -4L,
-                end = 2L
-            ),
-            last_data_date = "2023-01-02"
-        ),
-        error = TRUE
-    )
-    expect_snapshot(
-        create_round(
-            round_id_from_variable = TRUE,
-            round_id = "origin_date",
-            model_tasks = "model_tasks",
-            submissions_due = list(
-                relative_to = "origin_date",
-                start = -4L,
-                end = 2L
-            ),
-            last_data_date = "2023-01-02"
-        ),
-        error = TRUE
-    )
-
+  expect_snapshot(
+    create_round(
+      round_id_from_variable = FALSE,
+      round_id = "round_1",
+      model_tasks = model_tasks,
+      submissions_due = list(
+        start = "01/12/2023",
+        end = "2023-01-18"
+      ),
+      last_data_date = "2023-01-02"
+    ),
+    error = TRUE
+  )
+  expect_snapshot(
+    create_round(
+      round_id_from_variable = FALSE,
+      round_id = "round_1",
+      model_tasks = model_tasks,
+      submissions_due = list(
+        start = -4L,
+        end = 2
+      ),
+      last_data_date = "2023-01-02"
+    ),
+    error = TRUE
+  )
+  expect_snapshot(
+    create_round(
+      round_id_from_variable = TRUE,
+      round_id = "origin_dates",
+      model_tasks = model_tasks,
+      submissions_due = list(
+        relative_to = "origin_date",
+        start = -4L,
+        end = 2L
+      ),
+      last_data_date = "2023-01-02"
+    ),
+    error = TRUE
+  )
+  expect_snapshot(
+    create_round(
+      round_id_from_variable = TRUE,
+      round_id = "origin_date",
+      model_tasks = model_tasks,
+      submissions_due = list(
+        relative = "origin_date",
+        start = -4L,
+        end = 2L
+      ),
+      last_data_date = "2023-01-02"
+    ),
+    error = TRUE
+  )
+  expect_snapshot(
+    create_round(
+      round_id_from_variable = TRUE,
+      round_id = "origin_date",
+      model_tasks = "model_tasks",
+      submissions_due = list(
+        relative_to = "origin_date",
+        start = -4L,
+        end = 2L
+      ),
+      last_data_date = "2023-01-02"
+    ),
+    error = TRUE
+  )
 })

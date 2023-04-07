@@ -29,63 +29,65 @@
 #' # Access data
 #' library(dplyr)
 #' hub_con %>%
-#'     filter(
-#'         origin_date == "2022-10-08",
-#'         horizon == 2) %>%
-#'     collect()
+#'   filter(
+#'     origin_date == "2022-10-08",
+#'     horizon == 2
+#'   ) %>%
+#'   collect()
 #' model_output_con %>%
-#'     filter(
-#'         origin_date == "2022-10-08",
-#'         horizon == 2) %>%
-#'     collect()
+#'   filter(
+#'     origin_date == "2022-10-08",
+#'     horizon == 2
+#'   ) %>%
+#'   collect()
 connect_hub <- function(hub_path, model_output_dir = NULL,
                         file_format = c("csv", "parquet", "arrow")) {
+  if (rlang::is_missing(hub_path)) {
+    rlang::check_required(model_output_dir)
+    checkmate::assert_directory_exists(model_output_dir)
+    rlang::check_required(file_format)
+    file_format <- rlang::arg_match(file_format)
+    hub_path <- NULL
+    config_tasks <- NULL
+    config_admin <- NULL
+    hub_name <- NULL
+  } else {
+    checkmate::assert_directory_exists(hub_path)
+    checkmate::assert_directory_exists(fs::path(hub_path, "hub-config"))
 
-    if (rlang::is_missing(hub_path)) {
-        rlang::check_required(model_output_dir)
-        checkmate::assert_directory_exists(model_output_dir)
-        rlang::check_required(file_format)
-        file_format <- rlang::arg_match(file_format)
-        hub_path <- NULL
-        config_tasks <- NULL
-        config_admin <- NULL
-        hub_name <- NULL
-    } else {
-        checkmate::assert_directory_exists(hub_path)
-        checkmate::assert_directory_exists(fs::path(hub_path, "hub-config"))
+    config_tasks <- read_config(hub_path, "tasks")
+    config_admin <- read_config(hub_path, "admin")
 
-        config_tasks <- read_config(hub_path, "tasks")
-        config_admin <- read_config(hub_path, "admin")
-
-        if (is.null(config_admin[["model_output_dir"]])) {
-            model_output_dir <- fs::path(hub_path, "model-output")
-            checkmate::assert_directory_exists(hub_path)
-        }
-        if (missing(file_format)) {
-            file_format <- rlang::missing_arg()
-            file_format <- get_file_format(config_admin, file_format)
-        } else {
-            file_format <- rlang::arg_match(file_format)
-        }
-        hub_name <- config_admin$name
+    if (is.null(config_admin[["model_output_dir"]])) {
+      model_output_dir <- fs::path(hub_path, "model-output")
+      checkmate::assert_directory_exists(hub_path)
     }
+    if (missing(file_format)) {
+      file_format <- rlang::missing_arg()
+      file_format <- get_file_format(config_admin, file_format)
+    } else {
+      file_format <- rlang::arg_match(file_format)
+    }
+    hub_name <- config_admin$name
+  }
 
-    dataset <- arrow::open_dataset(
-        model_output_dir, format = file_format,
-        partitioning = "team",
-        factory_options = list(exclude_invalid_files = TRUE))
+  dataset <- arrow::open_dataset(
+    model_output_dir,
+    format = file_format,
+    partitioning = "team",
+    factory_options = list(exclude_invalid_files = TRUE)
+  )
 
 
-    structure(dataset,
-              class = c("hub_connection", class(dataset)),
-              hub_name = hub_name,
-              file_format = file_format,
-              hub_path = hub_path,
-              model_output_dir = model_output_dir,
-              config_admin = config_admin,
-              config_tasks = config_tasks
-              )
-
+  structure(dataset,
+    class = c("hub_connection", class(dataset)),
+    hub_name = hub_name,
+    file_format = file_format,
+    hub_path = hub_path,
+    model_output_dir = model_output_dir,
+    config_admin = config_admin,
+    config_tasks = config_tasks
+  )
 }
 
 #' Print a `<hub_connection>` S3 class object
@@ -104,102 +106,109 @@ connect_hub <- function(hub_path, model_output_dir = NULL,
 #' print(hub_con)
 #' print(hub_con, verbose = TRUE)
 print.hub_connection <- function(x, verbose = FALSE, ...) {
+  cli::cli_h2("{.cls {class(x)[1:2]}}")
 
-    cli::cli_h2("{.cls {class(x)[1:2]}}")
-
-    print_msg <- NULL
+  print_msg <- NULL
 
 
-    if (!is.null(attr(x, 'hub_path'))) {
-        print_msg <- c(print_msg,
-                    "*" = "hub_name: {.val {attr(x, 'hub_name')}}",
-                    "*" =  "hub_path: {.file {attr(x, 'hub_path')}}")
-    }
+  if (!is.null(attr(x, "hub_path"))) {
     print_msg <- c(print_msg,
-                   "*" = "model_output_dir: {.val {attr(x, 'model_output_dir')}}")
+      "*" = "hub_name: {.val {attr(x, 'hub_name')}}",
+      "*" = "hub_path: {.file {attr(x, 'hub_path')}}"
+    )
+  }
+  print_msg <- c(print_msg,
+    "*" = "model_output_dir: {.val {attr(x, 'model_output_dir')}}"
+  )
 
-    if (!is.null(attr(x, 'config_admin'))) {
-        print_msg <- c(print_msg,
-                       "*" = "config_admin: {.path hub-config/admin.json}")
-    }
-    if (!is.null(attr(x, 'config_tasks'))) {
-        print_msg <- c(print_msg,
-                       "*" = "config_tasks: {.path hub-config/tasks.json}")
-    }
-    cli::cli_bullets(print_msg)
+  if (!is.null(attr(x, "config_admin"))) {
+    print_msg <- c(print_msg,
+      "*" = "config_admin: {.path hub-config/admin.json}"
+    )
+  }
+  if (!is.null(attr(x, "config_tasks"))) {
+    print_msg <- c(print_msg,
+      "*" = "config_tasks: {.path hub-config/tasks.json}"
+    )
+  }
+  cli::cli_bullets(print_msg)
 
-    if (inherits(x, "ArrowObject")) {
-        cli::cli_h3("Connection schema")
-        x$print()
-    }
+  if (inherits(x, "ArrowObject")) {
+    cli::cli_h3("Connection schema")
+    x$print()
+  }
 
-    if (verbose) {
-        utils::str(x)
-    }
-    invisible(x)
+  if (verbose) {
+    utils::str(x)
+  }
+  invisible(x)
 }
 
 
 
 read_config <- function(hub_path, config = c("tasks", "admin"),
                         call = rlang::caller_env()) {
+  config <- rlang::arg_match(config)
+  path <- fs::path(hub_path, "hub-config", config, ext = "json")
 
-    config <- rlang::arg_match(config)
-    path <- fs::path(hub_path, "hub-config", config, ext = "json")
-
-    if (!fs::file_exists(path)) {
-        cli::cli_abort(
-            "Config file {.field {config}} does not exist at path {.path { path }}.",
-        call = call)
-    }
-
-    jsonlite::read_json(path,
-                        simplifyVector = TRUE,
-                        simplifyDataFrame = FALSE
+  if (!fs::file_exists(path)) {
+    cli::cli_abort(
+      "Config file {.field {config}} does not exist at path {.path { path }}.",
+      call = call
     )
+  }
+
+  jsonlite::read_json(path,
+    simplifyVector = TRUE,
+    simplifyDataFrame = FALSE
+  )
 }
 
 get_file_format <- function(config_admin,
                             file_format = c("csv", "parquet", "arrow"),
                             call = rlang::caller_env()) {
+  config_file_format <- config_admin[["file_format"]]
 
-    config_file_format <- config_admin[["file_format"]]
+  if (!rlang::is_missing(file_format)) {
+    file_format <- rlang::arg_match(file_format)
 
-    if (!rlang::is_missing(file_format)) {
-        file_format <- rlang::arg_match(file_format)
-
-        if (!file_format %in% config_file_format) {
-            cli::cli_abort(c(
-                "x" = "{.arg file_format} value {.val {file_format}} is not a valid
+    if (!file_format %in% config_file_format) {
+      cli::cli_abort(c(
+        "x" = "{.arg file_format} value {.val {file_format}} is not a valid
                 file format available for this hub.",
-                "!" = "Must be {?/one of}: {.val {config_file_format}}."),
-                call = call)
-        }
-
-        return(file_format)
+        "!" = "Must be {?/one of}: {.val {config_file_format}}."
+      ),
+      call = call
+      )
     }
 
-    if (length(config_file_format) == 1L) {
-        return(config_file_format)
-    }
-    if (length(config_file_format) == 0L) {
-        cli::cli_abort(c(
-            "x" = "{.arg file_format} value could not be extracted from config
+    return(file_format)
+  }
+
+  if (length(config_file_format) == 1L) {
+    return(config_file_format)
+  }
+  if (length(config_file_format) == 0L) {
+    cli::cli_abort(c(
+      "x" = "{.arg file_format} value could not be extracted from config
             file {.field admin.json}.",
-            "!" = "Use argument {.arg file_format} to specify a file format
-            or contact hub maintainers for assistance."),
-            call = call)
-    }
+      "!" = "Use argument {.arg file_format} to specify a file format
+            or contact hub maintainers for assistance."
+    ),
+    call = call
+    )
+  }
 
-    if (length(config_file_format) > 1L && rlang::is_missing(file_format)) {
-        cli::cli_abort(c(
-            "x" = "More than one file formats are available for this hub: {.val {config_file_format}}",
-            "!" = "Current {.code hubUtils} functionality only supports connecting
+  if (length(config_file_format) > 1L && rlang::is_missing(file_format)) {
+    cli::cli_abort(c(
+      "x" = "More than one file formats are available for this hub: {.val {config_file_format}}",
+      "!" = "Current {.code hubUtils} functionality only supports connecting
             to model output data in a single format.",
-            "i" = "Use argument {.arg file_format} to specify a single file format.
+      "i" = "Use argument {.arg file_format} to specify a single file format.
             Only data stored in the specified file_format will be accessible through
-            the {.cls hub_connection} object created."),
-            call = call)
-    }
+            the {.cls hub_connection} object created."
+    ),
+    call = call
+    )
+  }
 }
-

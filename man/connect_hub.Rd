@@ -45,13 +45,15 @@ model_output_con
 # Access data
 library(dplyr)
 hub_con \%>\%
-    filter(
-        origin_date == "2022-10-08",
-        horizon == 2) \%>\%
-    collect()
+  filter(
+    origin_date == "2022-10-08",
+    horizon == 2
+  ) \%>\%
+  collect()
 model_output_con \%>\%
-    filter(
-        origin_date == "2022-10-08",
-        horizon == 2) \%>\%
-    collect()
+  filter(
+    origin_date == "2022-10-08",
+    horizon == 2
+  ) \%>\%
+  collect()
 }

@@ -39,9 +39,10 @@
 #'   )
 #' )
 create_task_ids <- function(...) {
-
-  collect_items(..., item_class = "task_id", output_class = "task_ids",
-                flatten = TRUE)
+  collect_items(...,
+    item_class = "task_id", output_class = "task_ids",
+    flatten = TRUE
+  )
 }
 
 check_property_names_unique <- function(x, call = rlang::caller_env()) {

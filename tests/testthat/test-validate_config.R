@@ -36,11 +36,12 @@ test_that("Valid json schema versions detected successfully", {
 
 test_that("Config validated successfully", {
   expect_true(suppressMessages(validate_config(
-    hub_path =  system.file(
+    hub_path = system.file(
       "testhubs/simple/",
       package = "hubUtils"
     ),
-    config = "tasks")))
+    config = "tasks"
+  )))
 })
 
 
@@ -66,6 +67,3 @@ test_that("NULL target keys validated successfully", {
   out <- suppressMessages(validate_config(config_path = config_path))
   expect_true(out)
 })
-
-
-
