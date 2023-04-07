@@ -18,6 +18,12 @@
 #'   view_config_val_errors()
 #' }
 view_config_val_errors <- function(x) {
+    if (x) {
+        cli::cli_alert_success("Validation of {.path {attr(x, 'config_path')}} was successful.
+                               No validation errors to display.")
+        return(invisible(NULL))
+    }
+
     errors_tbl <- attr(x, "errors")
     config_path <- attr(x, "config_path")
     schema_version <- attr(x, "schema_version")
