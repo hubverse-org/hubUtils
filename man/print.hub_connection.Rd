@@ -18,7 +18,9 @@ Defaults to \code{FALSE}.}
 Print a \verb{<hub_connection>} S3 class object
 }
 \examples{
-con <- connect_hub(system.file("hub_1", package = "hubUtils"))
-con
-print(con)
+hub_path <- system.file("testhubs/simple", package = "hubUtils")
+hub_con <- connect_hub(hub_path)
+hub_con
+print(hub_con)
+print(hub_con, verbose = TRUE)
 }

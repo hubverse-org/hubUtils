@@ -39,9 +39,17 @@ Connect to a Modeling Hub of model output directory.
 hub_path <- system.file("testhubs/simple", package = "hubUtils")
 hub_con <- connect_hub(hub_path)
 hub_con
+model_output_dir <- system.file("testhubs/simple/model-output", package = "hubUtils")
+model_output_con <- connect_hub(model_output_dir = model_output_dir)
+model_output_con
 # Access data
 library(dplyr)
 hub_con \%>\%
+    filter(
+        origin_date == "2022-10-08",
+        horizon == 2) \%>\%
+    collect()
+model_output_con \%>\%
     filter(
         origin_date == "2022-10-08",
         horizon == 2) \%>\%
