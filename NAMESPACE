@@ -2,7 +2,6 @@
 
 S3method(print,hub_connection)
 export("%>%")
-export(connect_hub)
 export(create_config)
 export(create_model_task)
 export(create_model_tasks)
