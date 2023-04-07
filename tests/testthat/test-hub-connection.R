@@ -47,3 +47,32 @@ test_that("connect_hub works on model_output_dir", {
     expect_snapshot(hub_con)
     expect_snapshot(str(hub_con))
 })
+
+test_that("connect_hub data extraction works on simple forecasting hub", {
+    # Simple forecasting Hub example ----
+
+    hub_path <- system.file("testhubs/simple", package = "hubUtils")
+    hub_con <- connect_hub(hub_path)
+
+    suppressMessages(library(dplyr))
+    expect_snapshot(hub_con %>%
+                            dplyr::filter(
+                                origin_date == "2022-10-08",
+                                horizon == 2,
+                                type_id == 0.01) %>%
+                            dplyr::collect()
+    )
+
+
+    model_output_dir <- system.file("testhubs/simple/model-output", package = "hubUtils")
+    model_output_con <- connect_hub(model_output_dir = model_output_dir)
+    expect_snapshot(model_output_con %>%
+                        dplyr::filter(
+                            origin_date == "2022-10-08",
+                            horizon == 2,
+                            type_id == 0.01) %>%
+                        dplyr::collect()
+    )
+
+
+})

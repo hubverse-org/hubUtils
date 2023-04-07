@@ -396,3 +396,29 @@
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
        - attr(*, "hub_path")= chr "test/hub_path"
 
+# connect_hub data extraction works on simple forecasting hub
+
+    Code
+      hub_con %>% dplyr::filter(origin_date == "2022-10-08", horizon == 2, type_id ==
+        0.01) %>% dplyr::collect()
+    Output
+      # A tibble: 3 x 8
+        origin_date target          horizon location type     type_id value team    
+        <date>      <chr>             <int> <chr>    <chr>      <dbl> <int> <chr>   
+      1 2022-10-08  wk inc flu hosp       2 US       quantile    0.01   135 baseline
+      2 2022-10-08  wk inc flu hosp       2 04       quantile    0.01   135 baseline
+      3 2022-10-08  wk inc flu hosp       2 01       quantile    0.01   135 baseline
+
+---
+
+    Code
+      model_output_con %>% dplyr::filter(origin_date == "2022-10-08", horizon == 2,
+      type_id == 0.01) %>% dplyr::collect()
+    Output
+      # A tibble: 3 x 8
+        origin_date target          horizon location type     type_id value team    
+        <date>      <chr>             <int> <chr>    <chr>      <dbl> <int> <chr>   
+      1 2022-10-08  wk inc flu hosp       2 US       quantile    0.01   135 baseline
+      2 2022-10-08  wk inc flu hosp       2 04       quantile    0.01   135 baseline
+      3 2022-10-08  wk inc flu hosp       2 01       quantile    0.01   135 baseline
+
