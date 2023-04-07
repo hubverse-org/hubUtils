@@ -12,6 +12,6 @@
         "model_abbr": "baseline",
         "model_type": "baseline"
     }],
-    "file_format": ["csv", "parquet"],
-    "timezone": ["US/Eastern"]
+    "file_format": "csv",
+    "timezone": "US/Eastern"
 }
