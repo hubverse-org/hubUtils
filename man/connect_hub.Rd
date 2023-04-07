@@ -7,7 +7,8 @@
 connect_hub(
   hub_path,
   hubmeta_path = NULL,
-  hubmeta_format = c("json", "yaml", "yml")
+  model_output_dir = NULL,
+  file_format = c("csv", "parquet", "arrow")
 )
 }
 \arguments{
