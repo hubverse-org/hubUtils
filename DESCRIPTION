@@ -24,8 +24,7 @@ Imports:
     memoise,
     purrr,
     rlang,
-    stringr,
-    yaml
+    stringr
 Suggests: 
     curl,
     digest,
