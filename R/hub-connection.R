@@ -1,28 +1,35 @@
 #' Connect to a Modeling Hub
 #'
+#' Connect to a Modeling Hub of model output directory.
+#' @param hub_path Path to a Modeling Hub directory. The hub must be fully
+#' configured with valid `admin.json` and `tasks.json` files within the `hub-config`
+#' directory.
+#' @param model_output_dir Path to the directory containing model output data.
+#' This argument can be used to access data directly from an appropriately set up
+#' model output directory which is not part of a fully configured hub.
+#' @param file_format The file format model output files are stored in.
+#' For connection to a fully configured hub, accessed through `hub_path`,
+#' `file_format` is inferred from the hub's `file_format` configuration in
+#' `admin.json` and is ignored by default.
+#' If supplied, it will override hub configuration setting.
 #'
-#' @param hub_path Path to the Modeling Hub directory.
-#' @param hubmeta_path Path to a hubmeta file. The default (`NULL`) expects a file
-#'   in the root of the directory given in `hub_path` named `hubmeta` and having
-#'   an accepted file format (see `hubmeta_format`). Use this argument if the
-#'   hubmeta file is in a non-default location or has a non-default file name and
-#'   include the file extension in the path.
-#' @param hubmeta_format The file extension of the hubmeta file. One of `"json"`,
-#'   `"yaml"` or `"yml"`. Defaults to `"json"` and ignored when `hubmeta_path` is
-#'   provided.
-#' @return an S3 object of class `<hub-connection>` containing metadata about the
-#'   modeling hub. This object is used to communicate with the Modelling Hub when
-#'   extracting or submitting data.
-#' @export
-#'
+#' @return an S3 object of class `<hub-connection>` connected to the data in the
+#' model-output directory via an Apache arrow `FileSystemDataset` connection. The
+#' connection can be used to extract data using `dplyr` custom queries. The object
+#' also contains metadata about the modeling hub.
 #' @examples
-#' # Simple forecasting Hub example
-#' hub_path <- system.file("hub_1", package = "hubUtils")
-#' connect_hub(hub_path)
-#' # Scenario Hub example
-#' scnr_path <- system.file("scnr_hub_1", package = "hubUtils")
-#' connect_hub(hub_path)
-connect_hub <- function(hub_path, hubmeta_path = NULL, model_output_dir = NULL,
+#' # Connect to a simple forecasting Hub.
+#' hub_path <- system.file("testhubs/simple", package = "hubUtils")
+#' hub_con <- connect_hub(hub_path)
+#' hub_con
+#' # Access data
+#' library(dplyr)
+#' hub_con %>%
+#'     filter(
+#'         origin_date == "2022-10-08",
+#'         horizon == 2) %>%
+#'     collect()
+connect_hub <- function(hub_path, model_output_dir = NULL,
                         file_format = c("csv", "parquet", "arrow")) {
 
     if (rlang::is_missing(hub_path)) {
@@ -62,7 +69,7 @@ connect_hub <- function(hub_path, hubmeta_path = NULL, model_output_dir = NULL,
 
     structure(dataset,
               class = c("hub_connection", class(dataset)),
-              name = hub_name,
+              hub_name = hub_name,
               file_format = file_format,
               hub_path = hub_path,
               model_output_dir = model_output_dir,
@@ -201,24 +208,26 @@ assign_hc_attrs <- function(x) {
 #' print(con)
 print.hub_connection <- function(x, verbose = FALSE, ...) {
 
-    cli::cli_h2("{.cls hub_connection}")
+    cli::cli_h2("{.cls {class(x)[1:2]}}")
 
     print_msg <- NULL
 
 
     if (!is.null(attr(x, 'hub_path'))) {
         print_msg <- c(print_msg,
-                       "Connected to Hub to {.val {attr(x, 'name')}} at {.file {attr(x, 'hub_path')}}")
+                    "*" = "hub_name: {.val {attr(x, 'hub_name')}}",
+                    "*" =  "hub_path: {.file {attr(x, 'hub_path')}}")
     }
+    print_msg <- c(print_msg,
+                   "*" = "model_output_dir: {.val {attr(x, 'model_output_dir')}}")
+
     if (!is.null(attr(x, 'config_admin'))) {
         print_msg <- c(print_msg,
-                       "*" =  "Connection configured using {.path admin.json} file.
-                       Details attached as {.val config_admin} attribute")
+                       "*" = "config_admin: {.path hub-config/admin.json}")
     }
     if (!is.null(attr(x, 'config_tasks'))) {
         print_msg <- c(print_msg,
-                       "*" =  "Details of hub model tasks configuration attached
-                       as {.val config_tasks} attribute")
+                       "*" = "config_tasks: {.path hub-config/tasks.json}")
     }
     cli::cli_bullets(print_msg)
 
@@ -228,7 +237,7 @@ print.hub_connection <- function(x, verbose = FALSE, ...) {
     }
 
     if (verbose) {
-        str(x)
+        utils::str(x)
     }
     invisible(x)
 }

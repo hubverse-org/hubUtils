@@ -6,37 +6,44 @@
 \usage{
 connect_hub(
   hub_path,
-  hubmeta_path = NULL,
   model_output_dir = NULL,
   file_format = c("csv", "parquet", "arrow")
 )
 }
 \arguments{
-\item{hub_path}{Path to the Modeling Hub directory.}
+\item{hub_path}{Path to a Modeling Hub directory. The hub must be fully
+configured with valid \code{admin.json} and \code{tasks.json} files within the \code{hub-config}
+directory.}
 
-\item{hubmeta_path}{Path to a hubmeta file. The default (\code{NULL}) expects a file
-in the root of the directory given in \code{hub_path} named \code{hubmeta} and having
-an accepted file format (see \code{hubmeta_format}). Use this argument if the
-hubmeta file is in a non-default location or has a non-default file name and
-include the file extension in the path.}
+\item{model_output_dir}{Path to the directory containing model output data.
+This argument can be used to access data directly from an appropriately set up
+model output directory which is not part of a fully configured hub.}
 
-\item{hubmeta_format}{The file extension of the hubmeta file. One of \code{"json"},
-\code{"yaml"} or \code{"yml"}. Defaults to \code{"json"} and ignored when \code{hubmeta_path} is
-provided.}
+\item{file_format}{The file format model output files are stored in.
+For connection to a fully configured hub, accessed through \code{hub_path},
+\code{file_format} is inferred from the hub's \code{file_format} configuration in
+\code{admin.json} and is ignored by default.
+If supplied, it will override hub configuration setting.}
 }
 \value{
-an S3 object of class \verb{<hub-connection>} containing metadata about the
-modeling hub. This object is used to communicate with the Modelling Hub when
-extracting or submitting data.
+an S3 object of class \verb{<hub-connection>} connected to the data in the
+model-output directory via an Apache arrow \code{FileSystemDataset} connection. The
+connection can be used to extract data using \code{dplyr} custom queries. The object
+also contains metadata about the modeling hub.
 }
 \description{
-Connect to a Modeling Hub
+Connect to a Modeling Hub of model output directory.
 }
 \examples{
-# Simple forecasting Hub example
-hub_path <- system.file("hub_1", package = "hubUtils")
-connect_hub(hub_path)
-# Scenario Hub example
-scnr_path <- system.file("scnr_hub_1", package = "hubUtils")
-connect_hub(hub_path)
+# Connect to a simple forecasting Hub.
+hub_path <- system.file("testhubs/simple", package = "hubUtils")
+hub_con <- connect_hub(hub_path)
+hub_con
+# Access data
+library(dplyr)
+hub_con \%>\%
+    filter(
+        origin_date == "2022-10-08",
+        horizon == 2) \%>\%
+    collect()
 }
