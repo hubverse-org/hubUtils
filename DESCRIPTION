@@ -13,6 +13,7 @@ RoxygenNote: 7.2.3
 URL: https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils
 BugReports: https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues
 Imports: 
+    arrow,
     checkmate,
     cli,
     fs,
@@ -28,6 +29,7 @@ Imports:
 Suggests: 
     curl,
     digest,
+    dplyr,
     gh,
     jsonvalidate,
     mockery,
