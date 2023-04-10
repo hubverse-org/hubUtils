@@ -4,9 +4,13 @@ test_that("Errors report launch successful", {
     validate_config(config_path = config_path)
   )
   set.seed(1)
-  tbl <- view_config_val_errors(validation) %>%
-    gt::as_raw_html()
-  expect_snapshot(tbl)
+  tbl <- view_config_val_errors(validation)
+
+  # Expect that the `gt_tbl` validation object has all of the
+  # usual components and that they have all of the
+  # expected dimensions and features
+  expect_tab(tbl)
+  expect_snapshot(recode_font(tbl))
 })
 
 
@@ -17,6 +21,7 @@ test_that("Data column handled correctly when required property missing", {
   tbl <- view_config_val_errors(suppressWarnings(
     validate_config(config_path = config_path)
   )) %>%
+    recode_font() %>%
     gt::as_raw_html()
   expect_snapshot(tbl)
 
