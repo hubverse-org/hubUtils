@@ -68,62 +68,68 @@
       17 data    <NA>    message           5      3     NA <cll_styl>
       18 data    <NA>    data              5      3     NA <cll_styl>
 
-# length 1 paths and related type & enum errors handled
-          correctly
+# length 1 paths and related type & enum errors handled correctly
 
     Code
-      tbl$`_data`
+      str(tbl$`_data`)
     Output
-      # A tibble: 2 x 6
-        instancePath    schemaPath                        keyword message schema data 
-        <chr>           <chr>                             <chr>   <chr>   <chr>  <chr>
-      1 **file_format** "properties \n └**file_format** ~ enum    ❌ mus~ csv, ~ csvs 
-      2 **timezone**    "properties \n └**timezone** \n ~ type    ❌ mus~ string US/E~
+      tibble [2 x 6] (S3: tbl_df/tbl/data.frame)
+       $ instancePath: chr [1:2] "**file_format**" "**timezone**"
+       $ schemaPath  : chr [1:2] "properties \n └**file_format** \n └─**enum**" "properties \n └**timezone** \n └─**type**"
+       $ keyword     : chr [1:2] "enum" "type"
+       $ message     : chr [1:2] "❌ must be equal to one of the allowed values" "❌ must be string"
+       $ schema      : chr [1:2] "csv, parquet, arrow" "string"
+       $ data        : chr [1:2] "csvs" "US/Eastern"
 
 # Data column handled correctly when required property missing
 
     Code
-      tbl$`_data`
+      str(tbl$`_data`)
     Output
-      # A tibble: 2 x 6
-        instancePath                              schem~1 keyword message schema data 
-        <chr>                                     <chr>   <chr>   <chr>   <chr>  <chr>
-      1 "**rounds** \n └**1** \n └─**model_tasks~ "prope~ requir~ ❌ mus~ task_~ ""   
-      2 "**rounds** \n └**1** \n └─**model_tasks~ "prope~ type    ❌ mus~ integ~ "0"  
-      # ... with abbreviated variable name 1: schemaPath
+      tibble [2 x 6] (S3: tbl_df/tbl/data.frame)
+       $ instancePath: chr [1:2] "**rounds** \n └**1** \n └─**model_tasks** \n └──**1**" "**rounds** \n └**1** \n └─**model_tasks** \n └──**1** \n └───**output_type** \n └────**mean** \n └─────**value*"| __truncated__
+       $ schemaPath  : chr [1:2] "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────**required**" "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────properties "| __truncated__
+       $ keyword     : chr [1:2] "required" "type"
+       $ message     : chr [1:2] "❌ must have required property 'target_metadata'" "❌ must be integer"
+       $ schema      : chr [1:2] "task_ids, output_type, target_metadata" "integer"
+       $ data        : chr [1:2] "" "0"
 
 ---
 
     Code
-      tbl$`_data`
+      str(tbl$`_data`)
     Output
-      # A tibble: 1 x 6
-        instancePath                              schem~1 keyword message schema data 
-        <chr>                                     <chr>   <chr>   <chr>   <chr>  <chr>
-      1 "**rounds** \n └**1** \n └─**model_tasks~ "prope~ requir~ ❌ mus~ task_~ ""   
-      # ... with abbreviated variable name 1: schemaPath
+      tibble [1 x 6] (S3: tbl_df/tbl/data.frame)
+       $ instancePath: chr "**rounds** \n └**1** \n └─**model_tasks** \n └──**1**"
+       $ schemaPath  : chr "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────**required**"
+       $ keyword     : chr "required"
+       $ message     : chr "❌ must have required property 'target_metadata'"
+       $ schema      : chr "task_ids, output_type, target_metadata"
+       $ data        : chr ""
 
 ---
 
     Code
-      tbl$`_data`
+      str(tbl$`_data`)
     Output
-      # A tibble: 2 x 6
-        instancePath                              schem~1 keyword message schema data 
-        <chr>                                     <chr>   <chr>   <chr>   <chr>  <chr>
-      1 "**rounds** \n └**1**"                    "prope~ requir~ ❌ mus~ round~ ""   
-      2 "**rounds** \n └**1** \n └─**model_tasks~ "prope~ requir~ ❌ mus~ task_~ ""   
-      # ... with abbreviated variable name 1: schemaPath
+      tibble [2 x 6] (S3: tbl_df/tbl/data.frame)
+       $ instancePath: chr [1:2] "**rounds** \n └**1**" "**rounds** \n └**1** \n └─**model_tasks** \n └──**1**"
+       $ schemaPath  : chr [1:2] "properties \n └**rounds** \n └─items \n └──**required**" "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────**required**"
+       $ keyword     : chr [1:2] "required" "required"
+       $ message     : chr [1:2] "❌ must have required property 'round_id_from_variable'" "❌ must have required property 'target_metadata'"
+       $ schema      : chr [1:2] "round_id_from_variable, round_id, model_tasks, submissions_due" "task_ids, output_type, target_metadata"
+       $ data        : chr [1:2] "" ""
 
 ---
 
     Code
-      tbl$`_data`
+      str(tbl$`_data`)
     Output
-      # A tibble: 2 x 6
-        instancePath                              schem~1 keyword message schema data 
-        <chr>                                     <chr>   <chr>   <chr>   <chr>  <chr>
-      1 "**rounds** \n └**1** \n └─**model_tasks~ "prope~ requir~ ❌ mus~ task_~ ""   
-      2 "**rounds** \n └**1** \n └─**model_tasks~ "prope~ requir~ ❌ mus~ task_~ ""   
-      # ... with abbreviated variable name 1: schemaPath
+      tibble [2 x 6] (S3: tbl_df/tbl/data.frame)
+       $ instancePath: chr [1:2] "**rounds** \n └**1** \n └─**model_tasks** \n └──**1**" "**rounds** \n └**1** \n └─**model_tasks** \n └──**1**"
+       $ schemaPath  : chr [1:2] "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────**required**" "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────**required**"
+       $ keyword     : chr [1:2] "required" "required"
+       $ message     : chr [1:2] "❌ must have required property 'output_type'" "❌ must have required property 'target_metadata'"
+       $ schema      : chr [1:2] "task_ids, output_type, target_metadata" "task_ids, output_type, target_metadata"
+       $ data        : chr [1:2] "" ""
 

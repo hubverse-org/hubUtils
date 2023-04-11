@@ -16,8 +16,7 @@ test_that("Errors report launch successful", {
   expect_snapshot(tbl$`_styles`)
 })
 
-test_that("length 1 paths and related type & enum errors handled
-          correctly", {
+test_that("length 1 paths and related type & enum errors handled correctly", {
 
   config_path <- testthat::test_path("testdata", "admin-errors2.json")
   # TODO - change branch back to main branch when
@@ -25,8 +24,9 @@ test_that("length 1 paths and related type & enum errors handled
     validate_config(config_path = config_path, config = "admin",
                     branch = "br-v1.0.0", schema_version = "v1.0.0")
   )
+  set.seed(1)
   tbl <- view_config_val_errors(validation)
-  expect_snapshot(tbl$`_data`)
+  expect_snapshot(str(tbl$`_data`))
 
 })
 
@@ -37,7 +37,7 @@ test_that("Data column handled correctly when required property missing", {
   tbl <- view_config_val_errors(suppressWarnings(
     validate_config(config_path = config_path)
   ))
-  expect_snapshot(tbl$`_data`)
+  expect_snapshot(str(tbl$`_data`))
 
   # Only a single property missing
   config_path <- testthat::test_path("testdata", "tasks_required_missing_only.json")
@@ -45,14 +45,14 @@ test_that("Data column handled correctly when required property missing", {
     validate_config(config_path = config_path)
   ))
 
-  expect_snapshot(tbl$`_data`)
+  expect_snapshot(str(tbl$`_data`))
 
   # Two properties missing, only one nested
   config_path <- testthat::test_path("testdata", "tasks_required_missing_only2.json")
   tbl <- view_config_val_errors(suppressWarnings(
     validate_config(config_path = config_path)
   ))
-  expect_snapshot(tbl$`_data`)
+  expect_snapshot(str(tbl$`_data`))
 
   # Two properties missing, both nested
   config_path <- testthat::test_path("testdata", "tasks_required_missing_only2b.json")
@@ -60,5 +60,5 @@ test_that("Data column handled correctly when required property missing", {
     validate_config(config_path = config_path)
   ))
 
-  expect_snapshot(tbl$`_data`)
+  expect_snapshot(str(tbl$`_data`))
 })
