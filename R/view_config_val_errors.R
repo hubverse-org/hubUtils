@@ -37,6 +37,7 @@ view_config_val_errors <- function(x) {
 
   errors_tbl[c("dataPath", "parentSchema", "params")] <- NULL
   errors_tbl <- errors_tbl[!grepl("oneOf.+", errors_tbl$schemaPath), ]
+  errors_tbl <- remove_superfluous_enum_rows(errors_tbl)
 
   # Get rid of unnecessarily verbose data entry when a required property is
   # missing. Addressing this is dependent on the data column data type.
@@ -225,3 +226,29 @@ remove_null_properties <- function(x) {
     )
   )]
 }
+
+
+
+remove_superfluous_enum_rows <- function(errors_tbl) {
+  dup_inst <- duplicated(errors_tbl$instancePath)
+
+  if (any(dup_inst)) {
+    dup_idx <- errors_tbl$instancePath[dup_inst] %>%
+      purrr::map(~which(errors_tbl$instancePath == .x))
+
+    dup_keywords <- purrr::map(dup_idx, ~errors_tbl$keyword[.x])
+
+    dup_unneccessary <- purrr::map_lgl(dup_keywords, ~all(.x == c("type", "enum") |
+                                                            .x == c("type", "const")))
+
+    if (any(dup_unneccessary)) {
+      remove_idx <- purrr::map_int(dup_idx[dup_unneccessary],
+                                   ~.x[2])
+      errors_tbl <- errors_tbl[-remove_idx,]
+    }
+  }
+
+  errors_tbl
+}
+
+
