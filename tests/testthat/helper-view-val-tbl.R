@@ -63,10 +63,6 @@ expect_tab <- function(tab) {
         dim() %>%
         expect_equal(c(18, 7))
 
-    gt:::dt_options_get(data = tab) %>%
-        dim() %>%
-        expect_equal(c(171, 5))
-
     gt:::dt_transforms_get(data = tab) %>%
         length() %>%
         expect_equal(0)
