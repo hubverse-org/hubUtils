@@ -14,7 +14,7 @@ test_that("Errors report launch successful", {
   expect_tab(tbl)
   expect_snapshot(tbl$`_source_notes`)
   expect_snapshot(tbl$`_heading`)
-  expect_snapshot(tbl$`_data`)
+  expect_snapshot(str(tbl$`_data`))
   expect_snapshot(tbl$`_styles`)
 })
 

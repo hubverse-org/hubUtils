@@ -31,15 +31,15 @@
 ---
 
     Code
-      tbl$`_data`
+      str(tbl$`_data`)
     Output
-      # A tibble: 3 x 6
-        instancePath                              schem~1 keyword message schema data 
-        <chr>                                     <chr>   <chr>   <chr>   <chr>  <chr>
-      1 "**rounds** \n └**1** \n └─**model_tasks~ "prope~ type    ❌ mus~ "arra~ wk i~
-      2 "**rounds** \n └**1** \n └─**model_tasks~ "prope~ oneOf   ❌ mus~ "**1*~ requ~
-      3 "**rounds** \n └**1** \n └─**submissions~ "prope~ oneOf   ❌ mus~ "**1*~ star~
-      # ... with abbreviated variable name 1: schemaPath
+      tibble [3 x 6] (S3: tbl_df/tbl/data.frame)
+       $ instancePath: chr [1:3] "**rounds** \n └**1** \n └─**model_tasks** \n └──**1** \n └───**task_ids** \n └────**target** \n └─────**required**" "**rounds** \n └**1** \n └─**model_tasks** \n └──**1** \n └───**output_type** \n └────**mean** \n └─────**type_id**" "**rounds** \n └**1** \n └─**submissions_due**"
+       $ schemaPath  : chr [1:3] "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────properties "| __truncated__ "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────properties "| __truncated__ "properties \n └**rounds** \n └─items \n └──properties \n └───**submissions_due** \n └────**oneOf**"
+       $ keyword     : chr [1:3] "type" "oneOf" "oneOf"
+       $ message     : chr [1:3] "❌ must be array,null" "❌ must match exactly one schema in oneOf" "❌ must match exactly one schema in oneOf"
+       $ schema      : chr [1:3] "array, null" "**1** \n **required-description:** When mean is required, property set to single element 'NA' array \n **requir"| __truncated__ "**1** \n **relative_to-description:** Name of task id variable in relation to which submission start and end da"| __truncated__
+       $ data        : chr [1:3] "wk inc flu hosp" "required: NA, optional: NA" "start: -6, end: 1"
 
 ---
 
