@@ -234,21 +234,21 @@ remove_superfluous_enum_rows <- function(errors_tbl) {
 
   if (any(dup_inst)) {
     dup_idx <- errors_tbl$instancePath[dup_inst] %>%
-      purrr::map(~which(errors_tbl$instancePath == .x))
+      purrr::map(~ which(errors_tbl$instancePath == .x))
 
-    dup_keywords <- purrr::map(dup_idx, ~errors_tbl$keyword[.x])
+    dup_keywords <- purrr::map(dup_idx, ~ errors_tbl$keyword[.x])
 
-    dup_unneccessary <- purrr::map_lgl(dup_keywords, ~all(.x == c("type", "enum") |
-                                                            .x == c("type", "const")))
+    dup_unneccessary <- purrr::map_lgl(dup_keywords, ~ all(.x == c("type", "enum") |
+      .x == c("type", "const")))
 
     if (any(dup_unneccessary)) {
-      remove_idx <- purrr::map_int(dup_idx[dup_unneccessary],
-                                   ~.x[2])
-      errors_tbl <- errors_tbl[-remove_idx,]
+      remove_idx <- purrr::map_int(
+        dup_idx[dup_unneccessary],
+        ~ .x[2]
+      )
+      errors_tbl <- errors_tbl[-remove_idx, ]
     }
   }
 
   errors_tbl
 }
-
-

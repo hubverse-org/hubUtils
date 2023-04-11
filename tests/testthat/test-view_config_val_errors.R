@@ -9,6 +9,8 @@ test_that("Errors report launch successful", {
   # Expect that the `gt_tbl` validation object has all of the
   # usual components and that they have all of the
   # expected dimensions and features
+  # Tests adapted from gt package tests:
+  # https://github.com/rstudio/gt/blob/master/tests/testthat/test-gt_object.R
   expect_tab(tbl)
   expect_snapshot(tbl$`_source_notes`)
   expect_snapshot(tbl$`_heading`)
@@ -17,17 +19,17 @@ test_that("Errors report launch successful", {
 })
 
 test_that("length 1 paths and related type & enum errors handled correctly", {
-
   config_path <- testthat::test_path("testdata", "admin-errors2.json")
   # TODO - change branch back to main branch when
   validation <- suppressWarnings(
-    validate_config(config_path = config_path, config = "admin",
-                    branch = "br-v1.0.0", schema_version = "v1.0.0")
+    validate_config(
+      config_path = config_path, config = "admin",
+      branch = "br-v1.0.0", schema_version = "v1.0.0"
+    )
   )
   set.seed(1)
   tbl <- view_config_val_errors(validation)
   expect_snapshot(str(tbl$`_data`))
-
 })
 
 test_that("Data column handled correctly when required property missing", {

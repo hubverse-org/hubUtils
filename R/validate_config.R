@@ -122,15 +122,17 @@ validate_config <- function(hub_path = ".",
 #' @examples
 #' get_schema_valid_versions()
 get_schema_valid_versions <- function(branch = "main") {
-
   branches <- gh::gh(
-    "GET /repos/Infectious-Disease-Modeling-Hubs/schemas/branches") %>%
+    "GET /repos/Infectious-Disease-Modeling-Hubs/schemas/branches"
+  ) %>%
     vapply("[[", "", "name")
 
   if (!branch %in% branches) {
-    cli::cli_abort(c("x" = "{.val {branch}} is not a valid branch in schema repository
+    cli::cli_abort(c(
+      "x" = "{.val {branch}} is not a valid branch in schema repository
                    {.url https://github.com/Infectious-Disease-Modeling-Hubs/schemas/branches}",
-                   "i" = "Current valid branches are: {.val {branches}}"))
+      "i" = "Current valid branches are: {.val {branches}}"
+    ))
   }
 
   req <- gh::gh("GET /repos/Infectious-Disease-Modeling-Hubs/schemas/git/trees/{branch}",

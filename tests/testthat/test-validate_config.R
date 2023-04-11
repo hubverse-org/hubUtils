@@ -27,8 +27,9 @@ test_that("Schema URL created successfully", {
 })
 
 test_that("Invalid branches fail successfully", {
-   expect_error(get_schema_url("tasks", "v0.0.1", branch = "random-branch"),
-                regexp = 'is not a valid branch in schema repository')
+  expect_error(get_schema_url("tasks", "v0.0.1", branch = "random-branch"),
+    regexp = "is not a valid branch in schema repository"
+  )
 })
 
 test_that("Valid json schema versions detected successfully", {
