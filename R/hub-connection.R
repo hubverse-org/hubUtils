@@ -75,6 +75,7 @@ connect_hub <- function(hub_path, model_output_dir = NULL,
     model_output_dir,
     format = file_format,
     partitioning = "team",
+    unify_schemas = TRUE,
     factory_options = list(exclude_invalid_files = TRUE)
   )
 

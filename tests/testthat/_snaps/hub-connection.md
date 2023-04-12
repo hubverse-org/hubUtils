@@ -162,7 +162,7 @@
       
       -- Connection schema 
     Output
-      hub_connection with 3 csv files
+      hub_connection with 4 csv files
       origin_date: date32[day]
       target: string
       horizon: int64
@@ -170,6 +170,7 @@
       type: string
       type_id: double
       value: int64
+      age_group: string
       team: string
 
 ---
@@ -188,7 +189,7 @@
       
       -- Connection schema 
     Output
-      hub_connection with 3 csv files
+      hub_connection with 4 csv files
       origin_date: date32[day]
       target: string
       horizon: int64
@@ -196,6 +197,7 @@
       type: string
       type_id: double
       value: int64
+      age_group: string
       team: string
       Classes 'hub_connection', 'FileSystemDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
         Inherits from: <FileSystemDataset>
@@ -354,7 +356,7 @@
       
       -- Connection schema 
     Output
-      hub_connection with 3 csv files
+      hub_connection with 4 csv files
       origin_date: date32[day]
       target: string
       horizon: int64
@@ -362,6 +364,7 @@
       type: string
       type_id: double
       value: int64
+      age_group: string
       team: string
 
 ---
@@ -402,12 +405,13 @@
       hub_con %>% dplyr::filter(origin_date == "2022-10-08", horizon == 2, type_id ==
         0.01) %>% dplyr::collect()
     Output
-      # A tibble: 3 x 8
-        origin_date target          horizon location type     type_id value team    
-        <date>      <chr>             <int> <chr>    <chr>      <dbl> <int> <chr>   
-      1 2022-10-08  wk inc flu hosp       2 US       quantile    0.01   135 baseline
-      2 2022-10-08  wk inc flu hosp       2 04       quantile    0.01   135 baseline
-      3 2022-10-08  wk inc flu hosp       2 01       quantile    0.01   135 baseline
+      # A tibble: 3 x 9
+        origin_date target          horizon location type  type_id value age_g~1 team 
+        <date>      <chr>             <int> <chr>    <chr>   <dbl> <int> <chr>   <chr>
+      1 2022-10-08  wk inc flu hosp       2 US       quan~    0.01   135 <NA>    base~
+      2 2022-10-08  wk inc flu hosp       2 04       quan~    0.01   135 <NA>    base~
+      3 2022-10-08  wk inc flu hosp       2 01       quan~    0.01   135 <NA>    base~
+      # ... with abbreviated variable name 1: age_group
 
 ---
 
@@ -415,10 +419,11 @@
       model_output_con %>% dplyr::filter(origin_date == "2022-10-08", horizon == 2,
       type_id == 0.01) %>% dplyr::collect()
     Output
-      # A tibble: 3 x 8
-        origin_date target          horizon location type     type_id value team    
-        <date>      <chr>             <int> <chr>    <chr>      <dbl> <int> <chr>   
-      1 2022-10-08  wk inc flu hosp       2 US       quantile    0.01   135 baseline
-      2 2022-10-08  wk inc flu hosp       2 04       quantile    0.01   135 baseline
-      3 2022-10-08  wk inc flu hosp       2 01       quantile    0.01   135 baseline
+      # A tibble: 3 x 9
+        origin_date target          horizon location type  type_id value age_g~1 team 
+        <date>      <chr>             <int> <chr>    <chr>   <dbl> <int> <chr>   <chr>
+      1 2022-10-08  wk inc flu hosp       2 US       quan~    0.01   135 <NA>    base~
+      2 2022-10-08  wk inc flu hosp       2 04       quan~    0.01   135 <NA>    base~
+      3 2022-10-08  wk inc flu hosp       2 01       quan~    0.01   135 <NA>    base~
+      # ... with abbreviated variable name 1: age_group
 
