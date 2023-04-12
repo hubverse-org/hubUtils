@@ -403,7 +403,7 @@
 
     Code
       hub_con %>% dplyr::filter(origin_date == "2022-10-08", horizon == 2, type_id ==
-        0.01) %>% dplyr::collect()
+        0.01) %>% dplyr::collect() %>% print(width = 80, n = 5)
     Output
       # A tibble: 3 x 9
         origin_date target          horizon location type  type_id value age_g~1 team 
@@ -416,8 +416,24 @@
 ---
 
     Code
+      hub_con %>% dplyr::filter(horizon == 2, age_group == "65+") %>% dplyr::collect() %>%
+        print(width = 80, n = 5)
+    Output
+      # A tibble: 69 x 9
+        origin_date target          horizon location type  type_id value age_g~1 team 
+        <date>      <chr>             <int> <chr>    <chr>   <dbl> <int> <chr>   <chr>
+      1 2022-10-15  wk inc flu hosp       2 US       quan~   0.01    135 65+     base~
+      2 2022-10-15  wk inc flu hosp       2 US       quan~   0.025   137 65+     base~
+      3 2022-10-15  wk inc flu hosp       2 US       quan~   0.05    139 65+     base~
+      4 2022-10-15  wk inc flu hosp       2 US       quan~   0.1     140 65+     base~
+      5 2022-10-15  wk inc flu hosp       2 US       quan~   0.15    141 65+     base~
+      # ... with 64 more rows, and abbreviated variable name 1: age_group
+
+---
+
+    Code
       model_output_con %>% dplyr::filter(origin_date == "2022-10-08", horizon == 2,
-      type_id == 0.01) %>% dplyr::collect()
+      type_id == 0.01) %>% dplyr::collect() %>% print(width = 80, n = 5)
     Output
       # A tibble: 3 x 9
         origin_date target          horizon location type  type_id value age_g~1 team 

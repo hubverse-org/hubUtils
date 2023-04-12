@@ -61,7 +61,16 @@ test_that("connect_hub data extraction works on simple forecasting hub", {
       horizon == 2,
       type_id == 0.01
     ) %>%
-    dplyr::collect())
+    dplyr::collect() %>%
+      print(width = 80, n = 5))
+
+  expect_snapshot(hub_con %>%
+    dplyr::filter(
+      horizon == 2,
+      age_group == "65+") %>%
+    dplyr::collect() %>%
+      print(width = 80, n = 5)
+  )
 
 
   model_output_dir <- system.file("testhubs/simple/model-output", package = "hubUtils")
@@ -72,5 +81,6 @@ test_that("connect_hub data extraction works on simple forecasting hub", {
       horizon == 2,
       type_id == 0.01
     ) %>%
-    dplyr::collect())
+    dplyr::collect() %>%
+      print(width = 80, n = 5))
 })
