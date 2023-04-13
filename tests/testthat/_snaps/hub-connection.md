@@ -403,43 +403,50 @@
 
     Code
       hub_con %>% dplyr::filter(origin_date == "2022-10-08", horizon == 2, type_id ==
-        0.01) %>% dplyr::collect() %>% print(width = 80, n = 5)
+        0.01) %>% dplyr::collect() %>% str()
     Output
-      # A tibble: 3 x 9
-        origin_date target          horizon location type  type_id value age_g~1 team 
-        <date>      <chr>             <int> <chr>    <chr>   <dbl> <int> <chr>   <chr>
-      1 2022-10-08  wk inc flu hosp       2 US       quan~    0.01   135 <NA>    base~
-      2 2022-10-08  wk inc flu hosp       2 04       quan~    0.01   135 <NA>    base~
-      3 2022-10-08  wk inc flu hosp       2 01       quan~    0.01   135 <NA>    base~
-      # ... with abbreviated variable name 1: age_group
+      tibble [3 x 9] (S3: tbl_df/tbl/data.frame)
+       $ origin_date: Date[1:3], format: "2022-10-08" "2022-10-08" ...
+       $ target     : chr [1:3] "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp"
+       $ horizon    : int [1:3] 2 2 2
+       $ location   : chr [1:3] "US" "04" "01"
+       $ type       : chr [1:3] "quantile" "quantile" "quantile"
+       $ type_id    : num [1:3] 0.01 0.01 0.01
+       $ value      : int [1:3] 135 135 135
+       $ age_group  : chr [1:3] NA NA NA
+       $ team       : chr [1:3] "baseline" "baseline" "baseline"
 
 ---
 
     Code
       hub_con %>% dplyr::filter(horizon == 2, age_group == "65+") %>% dplyr::collect() %>%
-        print(width = 80, n = 5)
+        str()
     Output
-      # A tibble: 69 x 9
-        origin_date target          horizon location type  type_id value age_g~1 team 
-        <date>      <chr>             <int> <chr>    <chr>   <dbl> <int> <chr>   <chr>
-      1 2022-10-15  wk inc flu hosp       2 US       quan~   0.01    135 65+     base~
-      2 2022-10-15  wk inc flu hosp       2 US       quan~   0.025   137 65+     base~
-      3 2022-10-15  wk inc flu hosp       2 US       quan~   0.05    139 65+     base~
-      4 2022-10-15  wk inc flu hosp       2 US       quan~   0.1     140 65+     base~
-      5 2022-10-15  wk inc flu hosp       2 US       quan~   0.15    141 65+     base~
-      # ... with 64 more rows, and abbreviated variable name 1: age_group
+      tibble [69 x 9] (S3: tbl_df/tbl/data.frame)
+       $ origin_date: Date[1:69], format: "2022-10-15" "2022-10-15" ...
+       $ target     : chr [1:69] "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp" ...
+       $ horizon    : int [1:69] 2 2 2 2 2 2 2 2 2 2 ...
+       $ location   : chr [1:69] "US" "US" "US" "US" ...
+       $ type       : chr [1:69] "quantile" "quantile" "quantile" "quantile" ...
+       $ type_id    : num [1:69] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
+       $ value      : int [1:69] 135 137 139 140 141 141 142 143 144 145 ...
+       $ age_group  : chr [1:69] "65+" "65+" "65+" "65+" ...
+       $ team       : chr [1:69] "baseline" "baseline" "baseline" "baseline" ...
 
 ---
 
     Code
       model_output_con %>% dplyr::filter(origin_date == "2022-10-08", horizon == 2,
-      type_id == 0.01) %>% dplyr::collect() %>% print(width = 80, n = 5)
+      type_id == 0.01) %>% dplyr::collect() %>% str()
     Output
-      # A tibble: 3 x 9
-        origin_date target          horizon location type  type_id value age_g~1 team 
-        <date>      <chr>             <int> <chr>    <chr>   <dbl> <int> <chr>   <chr>
-      1 2022-10-08  wk inc flu hosp       2 US       quan~    0.01   135 <NA>    base~
-      2 2022-10-08  wk inc flu hosp       2 04       quan~    0.01   135 <NA>    base~
-      3 2022-10-08  wk inc flu hosp       2 01       quan~    0.01   135 <NA>    base~
-      # ... with abbreviated variable name 1: age_group
+      tibble [3 x 9] (S3: tbl_df/tbl/data.frame)
+       $ origin_date: Date[1:3], format: "2022-10-08" "2022-10-08" ...
+       $ target     : chr [1:3] "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp"
+       $ horizon    : int [1:3] 2 2 2
+       $ location   : chr [1:3] "US" "04" "01"
+       $ type       : chr [1:3] "quantile" "quantile" "quantile"
+       $ type_id    : num [1:3] 0.01 0.01 0.01
+       $ value      : int [1:3] 135 135 135
+       $ age_group  : chr [1:3] NA NA NA
+       $ team       : chr [1:3] "baseline" "baseline" "baseline"
 

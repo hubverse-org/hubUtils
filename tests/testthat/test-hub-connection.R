@@ -62,14 +62,14 @@ test_that("connect_hub data extraction works on simple forecasting hub", {
       type_id == 0.01
     ) %>%
     dplyr::collect() %>%
-      print(width = 80, n = 5))
+      str())
 
   expect_snapshot(hub_con %>%
     dplyr::filter(
       horizon == 2,
       age_group == "65+") %>%
     dplyr::collect() %>%
-      print(width = 80, n = 5)
+      str()
   )
 
 
@@ -82,5 +82,5 @@ test_that("connect_hub data extraction works on simple forecasting hub", {
       type_id == 0.01
     ) %>%
     dplyr::collect() %>%
-      print(width = 80, n = 5))
+      str())
 })
