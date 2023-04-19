@@ -33,12 +33,12 @@
 create_output_type_mean <- function(is_required, value_type, value_minimum = NULL,
                                     value_maximum = NULL, schema_version = "latest",
                                     branch = "main") {
-    create_output_type_point(
-        output_type = "mean", is_required = is_required,
-        value_type = value_type, value_minimum = value_minimum,
-        value_maximum = value_maximum, schema_version = schema_version,
-        branch = branch
-    )
+  create_output_type_point(
+    output_type = "mean", is_required = is_required,
+    value_type = value_type, value_minimum = value_minimum,
+    value_maximum = value_maximum, schema_version = schema_version,
+    branch = branch
+  )
 }
 
 #' @export
@@ -47,12 +47,12 @@ create_output_type_mean <- function(is_required, value_type, value_minimum = NUL
 create_output_type_median <- function(is_required, value_type, value_minimum = NULL,
                                       value_maximum = NULL, schema_version = "latest",
                                       branch = "main") {
-    create_output_type_point(
-        output_type = "median", is_required = is_required,
-        value_type = value_type, value_minimum = value_minimum,
-        value_maximum = value_maximum, schema_version = schema_version,
-        branch = branch
-    )
+  create_output_type_point(
+    output_type = "median", is_required = is_required,
+    value_type = value_type, value_minimum = value_minimum,
+    value_maximum = value_maximum, schema_version = schema_version,
+    branch = branch
+  )
 }
 
 
@@ -60,66 +60,69 @@ create_output_type_point <- function(output_type = c("mean", "median"),
                                      is_required, value_type, value_minimum = NULL,
                                      value_maximum = NULL, schema_version = "latest",
                                      branch = "main", call = rlang::caller_env()) {
-    rlang::check_required(value_type)
-    rlang::check_required(is_required)
+  rlang::check_required(value_type)
+  rlang::check_required(is_required)
 
-    if (!rlang::is_logical(is_required, n = 1L)) {
-        cli::cli_abort(c(
-            "x" = "Argument {.arg is_required} must be {.cls logical} and have length 1."
-        ))
-    }
-    output_type <- rlang::arg_match(output_type)
+  if (!rlang::is_logical(is_required, n = 1L)) {
+    cli::cli_abort(c(
+      "x" = "Argument {.arg is_required} must be {.cls logical} and have length 1."
+    ))
+  }
+  output_type <- rlang::arg_match(output_type)
 
 
-    schema <- download_schema(schema_version, branch)
+  schema <- download_schema(schema_version, branch)
 
-    # create type_id
-    if (is_required) {
-        type_id <- list(type_id = list(
-            required = NA_character_,
-            optional = NULL
-        ))
-    } else {
-        type_id <- list(type_id = list(
-            required = NULL,
-            optional = NA_character_
-        ))
-    }
+  # create type_id
+  if (is_required) {
+    type_id <- list(type_id = list(
+      required = NA_character_,
+      optional = NULL
+    ))
+  } else {
+    type_id <- list(type_id = list(
+      required = NULL,
+      optional = NA_character_
+    ))
+  }
 
-    output_type_schema <- get_schema_output_type(schema,
-                                                 output_type = output_type
+  output_type_schema <- get_schema_output_type(schema,
+    output_type = output_type
+  )
+
+  value_schema <- purrr::pluck(
+    output_type_schema,
+    "properties",
+    "value",
+    "properties"
+  )
+
+  value <- list(
+    type = value_type,
+    minimum = value_minimum,
+    maximum = value_maximum
+  ) %>%
+    purrr::compact()
+
+
+  purrr::walk(
+    names(value),
+    ~ check_input(
+      input = value[[.x]],
+      property = .x,
+      value_schema,
+      parent_property = "value",
+      scalar = TRUE,
+      call = call
     )
+  )
 
-    value_schema <- purrr::pluck(output_type_schema,
-                                 "properties",
-                                 "value",
-                                 "properties")
-
-    value <- list(
-        type = value_type,
-        minimum = value_minimum,
-        maximum = value_maximum
-    ) %>%
-        purrr::compact()
-
-
-    purrr::walk(
-        names(value),
-        ~ check_input(
-            input = value[[.x]],
-            property = .x,
-            value_schema,
-            parent_property = "value",
-            scalar = TRUE,
-            call = call
-        )
-    )
-
-    structure(
-        list(c(type_id, list(value = value))),
-        class = c("output_type_item", "list"),
-        names = output_type,
-        schema_id = schema$`$id`)
+  structure(
+    list(c(type_id, list(value = value))),
+    class = c("output_type_item", "list"),
+    names = output_type,
+    schema_id = schema$`$id`
+  )
 }
 
 
@@ -183,12 +186,12 @@ create_output_type_quantile <- function(required, optional,
                                         value_maximum = NULL,
                                         schema_version = "latest",
                                         branch = "main") {
-    create_output_type_dist(
-        output_type = "quantile", required = required, optional = optional,
-        value_type = value_type, value_minimum = value_minimum,
-        value_maximum = value_maximum, schema_version = schema_version,
-        branch = branch
-    )
+  create_output_type_dist(
+    output_type = "quantile", required = required, optional = optional,
+    value_type = value_type, value_minimum = value_minimum,
+    value_maximum = value_maximum, schema_version = schema_version,
+    branch = branch
+  )
 }
 
 #' @describeIn create_output_type_quantile Create a list representation of a `cdf`
@@ -198,12 +201,12 @@ create_output_type_cdf <- function(required, optional,
                                    value_type,
                                    schema_version = "latest",
                                    branch = "main") {
-    create_output_type_dist(
-        output_type = "cdf", required = required, optional = optional,
-        value_type = value_type, value_minimum = 0L,
-        value_maximum = 1L, schema_version = schema_version,
-        branch = branch
-    )
+  create_output_type_dist(
+    output_type = "cdf", required = required, optional = optional,
+    value_type = value_type, value_minimum = 0L,
+    value_maximum = 1L, schema_version = schema_version,
+    branch = branch
+  )
 }
 
 #' @describeIn create_output_type_quantile Create a list representation of a `categorical`
@@ -212,12 +215,12 @@ create_output_type_cdf <- function(required, optional,
 create_output_type_categorical <- function(required, optional, value_type,
                                            schema_version = "latest",
                                            branch = "main") {
-    create_output_type_dist(
-        output_type = "categorical", required = required, optional = optional,
-        value_type = value_type, value_minimum = 0L,
-        value_maximum = 1L, schema_version = schema_version,
-        branch = branch
-    )
+  create_output_type_dist(
+    output_type = "categorical", required = required, optional = optional,
+    value_type = value_type, value_minimum = 0L,
+    value_maximum = 1L, schema_version = schema_version,
+    branch = branch
+  )
 }
 
 #' @describeIn create_output_type_quantile Create a list representation of a `sample`
@@ -227,99 +230,102 @@ create_output_type_sample <- function(required, optional, value_type,
                                       value_minimum = NULL, value_maximum = NULL,
                                       schema_version = "latest",
                                       branch = "main") {
-    create_output_type_dist(
-        output_type = "sample", required = required, optional = optional,
-        value_type = value_type, value_minimum = value_minimum,
-        value_maximum = value_maximum, schema_version = schema_version,
-        branch = branch
-    )
+  create_output_type_dist(
+    output_type = "sample", required = required, optional = optional,
+    value_type = value_type, value_minimum = value_minimum,
+    value_maximum = value_maximum, schema_version = schema_version,
+    branch = branch
+  )
 }
 
 
 create_output_type_dist <- function(output_type = c(
-    "quantile", "cdf", "categorical",
-    "sample"
-),
-required, optional,
-value_type, value_minimum = NULL,
-value_maximum = NULL, schema_version = "latest",
-branch = "main", call = rlang::caller_env()) {
+                                      "quantile", "cdf", "categorical",
+                                      "sample"
+                                    ),
+                                    required, optional,
+                                    value_type, value_minimum = NULL,
+                                    value_maximum = NULL, schema_version = "latest",
+                                    branch = "main", call = rlang::caller_env()) {
+  rlang::check_required(value_type)
+  rlang::check_required(required)
+  rlang::check_required(optional)
+  output_type <- rlang::arg_match(output_type)
 
-    rlang::check_required(value_type)
-    rlang::check_required(required)
-    rlang::check_required(optional)
-    output_type <- rlang::arg_match(output_type)
 
+  schema <- download_schema(schema_version, branch)
+  output_type_schema <- get_schema_output_type(schema, output_type)
+  type_id_schema <- purrr::pluck(
+    output_type_schema,
+    "properties",
+    "type_id",
+    "properties"
+  )
 
-    schema <- download_schema(schema_version, branch)
-    output_type_schema <- get_schema_output_type(schema, output_type)
-    type_id_schema <- purrr::pluck(output_type_schema,
-                                   "properties",
-                                   "type_id",
-                                   "properties")
-
-    # Check and create type_id
-    if (output_type == "cdf") {
-        purrr::walk(
-            c("required", "optional"),
-            ~ check_oneof_input(
-                input = get(.x),
-                property = .x,
-                type_id_schema,
-                call = call
-            )
-        )
-    } else {
-        purrr::walk(
-            c("required", "optional"),
-            ~ check_input(
-                input = get(.x),
-                property = .x,
-                type_id_schema,
-                parent_property = "type_id",
-                call = call
-            )
-        )
-    }
-
-    check_prop_not_all_null(required, optional)
-    check_prop_type_const(required, optional)
-    check_prop_dups(required, optional)
-
-    type_id <- list(type_id = list(
-        required = required,
-        optional = optional
-    ))
-
-    # Check and create value
-    value <- list(
-        type = value_type,
-        minimum = value_minimum,
-        maximum = value_maximum
-    ) %>%
-        purrr::compact()
-
-    value_schema <- purrr::pluck(output_type_schema,
-                                   "properties",
-                                   "value",
-                                   "properties")
-
+  # Check and create type_id
+  if (output_type == "cdf") {
     purrr::walk(
-        names(value),
-        ~ check_input(
-            input = value[[.x]],
-            property = .x,
-            value_schema,
-            parent_property = "value",
-            scalar = TRUE,
-            call = rlang::caller_env(n = 5)
-        )
+      c("required", "optional"),
+      ~ check_oneof_input(
+        input = get(.x),
+        property = .x,
+        type_id_schema,
+        call = call
+      )
     )
+  } else {
+    purrr::walk(
+      c("required", "optional"),
+      ~ check_input(
+        input = get(.x),
+        property = .x,
+        type_id_schema,
+        parent_property = "type_id",
+        call = call
+      )
+    )
+  }
 
-    structure(
-        list(c(type_id, list(value = value))),
-        class = c("output_type_item", "list"),
-        names = output_type,
-        schema_id = schema$`$id`)
+  check_prop_not_all_null(required, optional)
+  check_prop_type_const(required, optional)
+  check_prop_dups(required, optional)
+
+  type_id <- list(type_id = list(
+    required = required,
+    optional = optional
+  ))
+
+  # Check and create value
+  value <- list(
+    type = value_type,
+    minimum = value_minimum,
+    maximum = value_maximum
+  ) %>%
+    purrr::compact()
+
+  value_schema <- purrr::pluck(
+    output_type_schema,
+    "properties",
+    "value",
+    "properties"
+  )
+
+  purrr::walk(
+    names(value),
+    ~ check_input(
+      input = value[[.x]],
+      property = .x,
+      value_schema,
+      parent_property = "value",
+      scalar = TRUE,
+      call = rlang::caller_env(n = 5)
+    )
+  )
+
+  structure(
+    list(c(type_id, list(value = value))),
+    class = c("output_type_item", "list"),
+    names = output_type,
+    schema_id = schema$`$id`
+  )
 }
-

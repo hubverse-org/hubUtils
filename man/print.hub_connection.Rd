@@ -2,12 +2,15 @@
 % Please edit documentation in R/hub-connection.R
 \name{print.hub_connection}
 \alias{print.hub_connection}
-\title{Print a \verb{<hub_connection>} S3 class object}
+\alias{print.mod_out_connection}
+\title{Print a \verb{<hub_connection>} or \verb{<mod_out_connection>} S3 class object}
 \usage{
 \method{print}{hub_connection}(x, verbose = FALSE, ...)
+
+\method{print}{mod_out_connection}(x, verbose = FALSE, ...)
 }
 \arguments{
-\item{x}{A \verb{<hub_connection>} S3 class object.}
+\item{x}{A \verb{<hub_connection>} or \verb{<mod_out_connection>} S3 class object.}
 
 \item{verbose}{Logical. Whether to print the full structure of the object.
 Defaults to \code{FALSE}.}
@@ -15,10 +18,22 @@ Defaults to \code{FALSE}.}
 \item{...}{Further arguments passed to or from other methods.}
 }
 \description{
-Print a \verb{<hub_connection>} S3 class object
+Print a \verb{<hub_connection>} or \verb{<mod_out_connection>} S3 class object
 }
+\section{Functions}{
+\itemize{
+\item \code{print(hub_connection)}: print a \verb{<hub_connection>} object.
+
+\item \code{print(mod_out_connection)}: print a \verb{<mod_out_connection>} object.
+
+}}
 \examples{
-con <- connect_hub(system.file("hub_1", package = "hubUtils"))
-con
-print(con)
+hub_path <- system.file("testhubs/simple", package = "hubUtils")
+hub_con <- connect_hub(hub_path)
+hub_con
+print(hub_con)
+print(hub_con, verbose = TRUE)
+mod_out_path <- system.file("testhubs/simple/model-output", package = "hubUtils")
+mod_out_con <- connect_model_output(mod_out_path)
+print(mod_out_con)
 }

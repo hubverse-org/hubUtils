@@ -64,7 +64,6 @@ create_task_id <- function(name, required, optional,
   )
 
   if (name %in% schema_task_ids) {
-
     task_id_schema <- purrr::pluck(
       task_ids_schema,
       "properties",
@@ -95,16 +94,18 @@ create_task_id <- function(name, required, optional,
     )),
     class = c("task_id", "list"),
     names = name,
-    schema_id = schema$`$id`)
+    schema_id = schema$`$id`
+  )
 }
 
 get_schema_task_ids <- function(schema) {
-
-    purrr::pluck(schema,
-                 "properties","rounds",
-                 "items", "properties", "model_tasks",
-                 "items", "properties", "task_ids")
-    }
+  purrr::pluck(
+    schema,
+    "properties", "rounds",
+    "items", "properties", "model_tasks",
+    "items", "properties", "task_ids"
+  )
+}
 
 
 match_element_name <- function(name, element_names,

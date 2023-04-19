@@ -218,7 +218,8 @@ check_submission_due <- function(submissions_due, round_schema, model_tasks,
       "properties"
     )
     check_relative_to_variable(submissions_due, model_tasks,
-                               call = call)
+      call = call
+    )
   } else {
     oneof_schema <- purrr::pluck(
       round_schema,
@@ -244,27 +245,27 @@ check_submission_due <- function(submissions_due, round_schema, model_tasks,
 
 check_relative_to_variable <- function(submissions_due, model_tasks,
                                        call = rlang::caller_env()) {
-    relative_to_value <- submissions_due$relative_to
-    invalid_relative_to <- purrr::map_lgl(
-        model_tasks,
-        ~ !relative_to_value %in% names(.x$task_ids)
-    )
+  relative_to_value <- submissions_due$relative_to
+  invalid_relative_to <- purrr::map_lgl(
+    model_tasks,
+    ~ !relative_to_value %in% names(.x$task_ids)
+  )
 
-    if (any(invalid_relative_to)) {
-        cli::cli_abort(
-            c(
-                "!" = "{.arg submissions_due} {.arg relative_to} value must
+  if (any(invalid_relative_to)) {
+    cli::cli_abort(
+      c(
+        "!" = "{.arg submissions_due} {.arg relative_to} value must
                 correspond to a valid {.arg task_id} variable in every
                 {.arg model_tasks} {.arg model_task} object.",
-                "x" = "{.arg relative_to} value {.val {relative_to_value}}
+        "x" = "{.arg relative_to} value {.val {relative_to_value}}
                 does not correspond to a valid {.arg task_id} variable in
                 provided {cli::qty(sum(invalid_relative_to))}
               {.arg model_tasks} {.arg model_task} object{?s}
               {.val {which(invalid_relative_to)}}."
-            ),
-            call = call
-        )
-    }
+      ),
+      call = call
+    )
+  }
 }
 
 get_schema_round <- function(schema) {

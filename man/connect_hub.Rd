@@ -2,40 +2,93 @@
 % Please edit documentation in R/hub-connection.R
 \name{connect_hub}
 \alias{connect_hub}
-\title{Connect to a Modeling Hub}
+\alias{connect_model_output}
+\title{Connect to model output data.}
 \usage{
-connect_hub(
-  hub_path,
-  hubmeta_path = NULL,
-  hubmeta_format = c("json", "yaml", "yml")
+connect_hub(hub_path, file_format = c("csv", "parquet", "arrow"))
+
+connect_model_output(
+  model_output_dir,
+  file_format = c("csv", "parquet", "arrow")
 )
 }
 \arguments{
-\item{hub_path}{Path to the Modeling Hub directory.}
+\item{hub_path}{Either a character string path to a local Modeling Hub directory
+or an object of class \verb{<SubTreeFileSystem>} created using functions \code{\link[=s3_bucket]{s3_bucket()}}
+or \code{\link[=gs_bucket]{gs_bucket()}} by providing a string S3 or GCS bucket name or path to a
+Modeling Hub directory stored in the cloud.
+For more details consult the
+\href{https://arrow.apache.org/docs/r/articles/fs.html}{Using cloud storage (S3, GCS)}
+in the \code{arrow} package.
+The hub must be fully configured with valid \code{admin.json} and \code{tasks.json}
+files within the \code{hub-config} directory.}
 
-\item{hubmeta_path}{Path to a hubmeta file. The default (\code{NULL}) expects a file
-in the root of the directory given in \code{hub_path} named \code{hubmeta} and having
-an accepted file format (see \code{hubmeta_format}). Use this argument if the
-hubmeta file is in a non-default location or has a non-default file name and
-include the file extension in the path.}
+\item{file_format}{The file format model output files are stored in.
+For connection to a fully configured hub, accessed through \code{hub_path},
+\code{file_format} is inferred from the hub's \code{file_format} configuration in
+\code{admin.json} and is ignored by default.
+If supplied, it will override hub configuration setting.}
 
-\item{hubmeta_format}{The file extension of the hubmeta file. One of \code{"json"},
-\code{"yaml"} or \code{"yml"}. Defaults to \code{"json"} and ignored when \code{hubmeta_path} is
-provided.}
+\item{model_output_dir}{Either a character string path to a local directory
+containing model output data
+or an object of class \verb{<SubTreeFileSystem>} created using functions \code{\link[=s3_bucket]{s3_bucket()}}
+or \code{\link[=gs_bucket]{gs_bucket()}} by providing a string S3 or GCS bucket name or path to a
+directory containing model output data stored in the cloud.
+For more details consult the
+\href{https://arrow.apache.org/docs/r/articles/fs.html}{Using cloud storage (S3, GCS)}
+in the \code{arrow} package.}
 }
 \value{
-an S3 object of class \verb{<hub-connection>} containing metadata about the
-modeling hub. This object is used to communicate with the Modelling Hub when
-extracting or submitting data.
+\itemize{
+\item \code{connect_hub} returns an S3 object of class \verb{<hub_connection>}.
+\item \code{connect_mod_out} returns an S3 object of class \verb{<mod_out_connection>}.
+}
+
+Both objects are connected to the data in the model-output directory via an
+Apache arrow \code{FileSystemDataset} connection.
+The connection can be used to extract data using \code{dplyr} custom queries. The
+\verb{<hub_connection>} class also contains modeling hub metadata.
 }
 \description{
-Connect to a Modeling Hub
+Connect to data in a model output directory through a Modeling Hub or directly.
+Data can be stored in a local directory or in the cloud on AWS or GCS.
 }
+\section{Functions}{
+\itemize{
+\item \code{connect_hub()}: connect to a fully configured Modeling Hub directory.
+
+\item \code{connect_model_output()}: connect directly to a \code{model-output} directory. This
+function can be used to access data directly from an appropriately set up
+model output directory which is not part of a fully configured hub.
+
+}}
 \examples{
-# Simple forecasting Hub example
-hub_path <- system.file("hub_1", package = "hubUtils")
-connect_hub(hub_path)
-# Scenario Hub example
-scnr_path <- system.file("scnr_hub_1", package = "hubUtils")
-connect_hub(hub_path)
+# Connect to a local simple forecasting Hub.
+hub_path <- system.file("testhubs/simple", package = "hubUtils")
+hub_con <- connect_hub(hub_path)
+hub_con
+# Connect directly to a local `model-output` directory
+mod_out_path <- system.file("testhubs/simple/model-output", package = "hubUtils")
+mod_out_con <- connect_model_output(mod_out_path)
+mod_out_con
+# Query hub_connection for data
+library(dplyr)
+hub_con \%>\%
+  filter(
+    origin_date == "2022-10-08",
+    horizon == 2
+  ) \%>\%
+  collect()
+mod_out_con \%>\%
+  filter(
+    origin_date == "2022-10-08",
+    horizon == 2
+  ) \%>\%
+  collect()
+# Connect to a simple forecasting Hub stored in an AWS S3 bucket.
+\dontrun{
+hub_path <- s3_bucket("hubutils/testhubs/simple/")
+hub_con <- connect_hub(hub_path)
+hub_con
+}
 }

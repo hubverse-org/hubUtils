@@ -1,93 +1,167 @@
-test_that("connect_hub works on simple forecasting hub", {
-    # Simple forecasting Hub example ----
+test_that("connect_hub works on local simple forecasting hub", {
+  # Simple forecasting Hub example ----
 
-    hub_path <- system.file("hub_1", package = "hubUtils")
-    hub_con <- connect_hub(hub_path)
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
+  hub_con <- connect_hub(hub_path)
 
+  # Tests that paths are assigned to attributes correctly
+  expect_equal(
+    attr(hub_con, "file_format"),
+    "csv"
+  )
+  expect_equal(
+    class(attr(hub_con, "file_system")),
+    c("LocalFileSystem", "FileSystem", "ArrowObject", "R6")
+  )
+  expect_equal(
+    class(hub_con),
+    c("hub_connection", "FileSystemDataset", "Dataset", "ArrowObject",
+      "R6")
+  )
 
-    # Tests that paths are assigned to attributes correctly
-    expect_equal(
-        attr(hub_con, "hubmeta_path"),
-        fs::path(hub_path, "hubmeta.json")
-    )
-    expect_equal(
-        attr(hub_con, "hub_path"),
-        hub_path
-    )
-    expect_false(
-        attr(hub_con, "task_ids_by_round")
-    )
+  # overwrite path attributes to make snapshot portable
+  attr(hub_con, "model_output_dir") <- "test/model_output_dir"
+  attr(hub_con, "hub_path") <- "test/hub_path"
+  expect_snapshot(str(hub_con))
+})
 
-    # overwrite path attributes to make snapshot portable
-    attr(hub_con, "hubmeta_path") <- "test/hubmeta_path"
-    attr(hub_con, "hub_path") <- "test/hub_path"
-    expect_snapshot(str(hub_con))
+test_that("connect_model_output works on local model_output_dir", {
+  # Simple forecasting Hub example ----
+
+  mod_out_path <- system.file("testhubs/simple/model-output", package = "hubUtils")
+  mod_out_con <- connect_model_output(mod_out_path)
+
+  # Tests that paths are assigned to attributes correctly
+  expect_equal(
+    attr(mod_out_con, "file_format"),
+    "csv"
+  )
+  expect_equal(
+    class(attr(mod_out_con, "file_system")),
+    c("LocalFileSystem", "FileSystem", "ArrowObject", "R6")
+  )
+  expect_equal(
+    class(mod_out_con),
+    c("mod_out_connection", "FileSystemDataset", "Dataset", "ArrowObject",
+      "R6")
+  )
+  # overwrite path attributes to make snapshot portable
+  attr(mod_out_con, "model_output_dir") <- "test/model_output_dir"
+  expect_snapshot(mod_out_con)
+  expect_snapshot(str(mod_out_con))
+})
+
+test_that("hub_connection print method works", {
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
+  hub_con <- connect_hub(hub_path)
+  attr(hub_con, "model_output_dir") <- "test/model_output_dir"
+  attr(hub_con, "hub_path") <- "test/hub_path"
+
+  expect_snapshot(hub_con)
+  expect_snapshot(print(hub_con, verbose = TRUE))
+})
+
+test_that("mod_out_connection print method works", {
+  mod_out_path <- system.file("testhubs/simple/model-output", package = "hubUtils")
+  mod_out_con <- connect_model_output(mod_out_path)
+  attr(mod_out_con, "model_output_dir") <- "test/model_output_dir"
+
+  expect_snapshot(mod_out_con)
 })
 
 
-test_that("connect_hub works on scenario hub", {
-    # Scenario Hub example ----
-    scnr_path <- system.file("scnr_hub_1", package = "hubUtils")
-    hub_con <- connect_hub(scnr_path)
 
-    attr(hub_con, "hubmeta_path") <- "test/hubmeta_path"
-    attr(hub_con, "hub_path") <- "test/hub_path"
 
-    expect_true(
-        attr(hub_con, "task_ids_by_round")
-    )
-    expect_snapshot(str(hub_con))
+test_that("connect_hub data extraction works on simple forecasting hub", {
+  # Simple forecasting Hub example ----
 
-    # More detailed tests in case snapshot update creates unnexpected behaviour
-    expect_s3_class(hub_con,
-                    c("list", "hub_connection"))
-    expect_length(hub_con, 2)
-    expect_equal(attr(hub_con, "round_ids"),
-                 c("round-1", "round-2"))
-    expect_equal(
-        attr(hub_con, "task_id_names"),
-        list(`round-1` = c("origin_date", "scenario_id", "location",
-                           "target", "horizon"),
-             `round-2` = c("origin_date", "scenario_id",
-                           "location", "target", "age_group", "horizon"))
-    )
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
+  hub_con <- connect_hub(hub_path)
 
+  suppressMessages(library(dplyr))
+  expect_snapshot(hub_con %>%
+    dplyr::filter(
+      origin_date == "2022-10-08",
+      horizon == 2,
+      type_id == 0.01
+    ) %>%
+    dplyr::collect() %>%
+      str())
+
+  expect_snapshot(hub_con %>%
+    dplyr::filter(
+      horizon == 2,
+      age_group == "65+") %>%
+    dplyr::collect() %>%
+      str()
+  )
+
+
+  model_output_dir <- system.file("testhubs/simple/model-output", package = "hubUtils")
+  model_output_con <- connect_model_output(model_output_dir = model_output_dir)
+  expect_snapshot(model_output_con %>%
+    dplyr::filter(
+      origin_date == "2022-10-08",
+      horizon == 2,
+      type_id == 0.01
+    ) %>%
+    dplyr::collect() %>%
+      str())
 })
 
 
-test_that("connect_hub works on yml hubmeta at specified path", {
-    # hubmeta is yml & in different location
-    humeta_path <- system.file("hubmeta/scnr_hubmeta_ref.yml",
-                               package = "hubUtils"
-    )
-    scnr_path <- system.file("scnr_hub_1", package = "hubUtils")
+test_that("connect_hub works on S3 bucket simple forecasting hub on AWS", {
+  # Simple forecasting Hub example ----
 
+  hub_path <- s3_bucket("hubutils/testhubs/simple/")
+  hub_con <- connect_hub(hub_path)
 
-    hub_con <- connect_hub(
-        scnr_path,
-        hubmeta_path = humeta_path,
-        hubmeta_format = "yml"
-    )
+  # Tests that paths are assigned to attributes correctly
+  expect_equal(
+    attr(hub_con, "file_format"),
+    "csv"
+  )
+  expect_equal(
+    class(attr(hub_con, "file_system")),
+    c("S3FileSystem", "FileSystem", "ArrowObject", "R6")
+  )
+  expect_equal(
+    class(hub_con),
+    c("hub_connection", "FileSystemDataset", "Dataset", "ArrowObject",
+      "R6")
+  )
 
-    expect_equal(
-        basename(attr(hub_con, "hubmeta_path")),
-        "scnr_hubmeta_ref.yml"
-    )
-    attr(hub_con, "hubmeta_path") <- "test/hubmeta_path"
-    attr(hub_con, "hub_path") <- "test/hub_path"
-    expect_snapshot(str(hub_con))
+  # overwrite path attributes to make snapshot portable
+  attr(hub_con, "model_output_dir") <- "test/model_output_dir"
+  attr(hub_con, "hub_path") <- "test/hub_path"
+  expect_snapshot(str(hub_con))
 
-
-    ## Expect error with random path
-    expect_error(connect_hub("random/path"))
+  expect_snapshot(hub_con %>%
+                    dplyr::filter(
+                      horizon == 2,
+                      age_group == "65+") %>%
+                    dplyr::collect() %>%
+                    str())
 })
 
-test_that("connect_hub print method works", {
-    hub_path <- system.file("hub_1", package = "hubUtils")
-    hub_con <- connect_hub(hub_path)
-    attr(hub_con, "hubmeta_path") <- "test/hubmeta_path"
-    attr(hub_con, "hub_path") <- "test/hub_path"
 
-    expect_snapshot(hub_con)
-    expect_snapshot(print(hub_con, verbose = TRUE))
+test_that("connect_hub & connect_model_output fail correctly", {
+
+  expect_snapshot(connect_hub("random/hub/path"), error = TRUE)
+  expect_snapshot(connect_model_output("random/model-output/"), error = TRUE)
+
+  temp_dir <- tempdir()
+  expect_snapshot(connect_hub(temp_dir), error = TRUE)
+
+  dir.create(fs::path(temp_dir, "hub-config"))
+  expect_error(
+    connect_hub(temp_dir),
+    regexp = "Config file .*admin.* does not exist at path")
+
+  fs::dir_copy(
+    system.file("testhubs/simple/hub-config", package = "hubUtils"),
+    temp_dir)
+  expect_error(
+    connect_hub(temp_dir),
+    regexp = "Directory .*model-output.* does not exist at path")
 })

@@ -1,3 +1,9 @@
+# hubUtils 0.0.0.9005
+
+* Re-implemented `hub_connect()` function to open connection to `model-output` data
+implemented through an `arrow` `FileSystemDataset` object. This allows users to create
+custom `dplyr` queries to access model output data.
+
 # hubUtils 0.0.0.9004
 
 * Added functionality to help create json configuration files.
