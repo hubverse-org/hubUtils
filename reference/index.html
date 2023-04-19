@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,9 +62,9 @@
 
       <dl><dt>
           
-          <code><a href="connect_hub.html">connect_hub()</a></code> 
+          <code><a href="connect_hub.html">connect_hub()</a></code> <code><a href="connect_hub.html">connect_model_output()</a></code> 
         </dt>
-        <dd>Connect to a Modeling Hub</dd>
+        <dd>Connect to model output data.</dd>
       </dl><dl><dt>
           
           <code><a href="create_config.html">create_config()</a></code> 
@@ -127,11 +127,6 @@
         <dd>Create a <code>task_ids</code> class object.</dd>
       </dl><dl><dt>
           
-          <code><a href="get_round_ids.html">get_round_ids()</a></code> 
-        </dt>
-        <dd>Get round ids</dd>
-      </dl><dl><dt>
-          
           <code><a href="get_schema.html">get_schema()</a></code> 
         </dt>
         <dd>Download a schema</dd>
@@ -147,24 +142,19 @@
         <dd>Get a vector of valid schema version</dd>
       </dl><dl><dt>
           
-          <code><a href="get_task_id_vals.html">get_task_id_vals()</a></code> 
+          <code><a href="gs_bucket.html">gs_bucket</a></code> 
         </dt>
-        <dd>Get task id values for a given round</dd>
+        <dd>Connect to a Google Cloud Storage (GCS) bucket</dd>
       </dl><dl><dt>
           
-          <code><a href="get_task_ids.html">get_task_ids()</a></code> 
+          <code><a href="print.hub_connection.html">print(<i>&lt;hub_connection&gt;</i>)</a></code> <code><a href="print.hub_connection.html">print(<i>&lt;mod_out_connection&gt;</i>)</a></code> 
         </dt>
-        <dd>Get task ids for a given round_id</dd>
+        <dd>Print a <code>&lt;hub_connection&gt;</code> or <code>&lt;mod_out_connection&gt;</code> S3 class object</dd>
       </dl><dl><dt>
           
-          <code><a href="print.hub_connection.html">print(<i>&lt;hub_connection&gt;</i>)</a></code> 
+          <code><a href="s3_bucket.html">s3_bucket</a></code> 
         </dt>
-        <dd>Print a <code>&lt;hub_connection&gt;</code> S3 class object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="read_hubmeta.html">read_hubmeta()</a></code> 
-        </dt>
-        <dd>Read a <code>hubmeta</code> file</dd>
+        <dd>Connect to an AWS S3 bucket</dd>
       </dl><dl><dt>
           
           <code><a href="validate_config.html">validate_config()</a></code> 
