@@ -1,4 +1,4 @@
-#' Create an arrow schema
+#' Create a Hub arrow schema
 #'
 #' Create an arrow schema from a the `tasks.json` config file for using when
 #' opening an arrow dataset.
@@ -6,17 +6,19 @@
 #' config file created using function [read_config()].
 #' @param format the hub file format.
 #' @param partitions a named list specifying the arrow data types of any
-#' partitioning column. Only relevant for opening `"parquet"` format datasets.
+#' partitioning column. Only relevant for opening `"parquet"` or `"arrow"` format datasets.
 #' Ignored for all other formats.
 #'
 #' @return an arrow schema object that can be used to define column datatypes when
-#' opening model output data
+#' opening model output data. If the schema is being created for a `parquet`/`arrow` hub,
+#' the partitioning variable data type is included in the schema while for `csv` hubs
+#' the partitioning variable is not as it causes errors when opening.
 #' @export
 #'
 #' @examples
 #' origin_path <- system.file("testhubs/simple", package = "hubUtils")
 #' config_tasks <- hubUtils:::read_config(origin_path, "tasks")
-#' schema_csv <- build_arrow_schema(config_tasks, format = "csv")
+#' schema_csv <- create_hub_schema(config_tasks, format = "csv")
 #' con_csv <- arrow::open_dataset(
 #'     origin_path, format = "csv",
 #'     partitioning = "team",
@@ -24,7 +26,7 @@
 #'     factory_options = list(exclude_invalid_files = TRUE))
 #' con_csv
 #'
-#' schema_parquet <- build_arrow_schema(config_tasks, format = "parquet")
+#' schema_parquet <- create_hub_schema(config_tasks, format = "parquet")
 #' con_parquet <- arrow::open_dataset(
 #'     origin_path, format = "parquet",
 #'     partitioning = "team",
@@ -38,8 +40,8 @@
 #'         con_parquet)
 #' )
 #' hub_con
-build_arrow_schema <- function(config_tasks,
-                         format = c("csv", "parquet", "error"),
+create_hub_schema <- function(config_tasks,
+                         format = c("csv", "parquet", "arrow"),
                          partitions = list(team = arrow::utf8())) {
 
     format <- rlang::arg_match(format)
