@@ -371,60 +371,6 @@ print.mod_out_connection <- function(x, verbose = FALSE, ...) {
   invisible(x)
 }
 
-read_config <- function(hub_path, config = c("tasks", "admin"),
-                        call = rlang::caller_env()) {
-  UseMethod("read_config")
-}
-
-
-#' @export
-read_config.default <- function(hub_path, config = c("tasks", "admin"),
-                                call = rlang::caller_env()) {
-  config <- rlang::arg_match(config)
-  path <- fs::path(hub_path, "hub-config", config, ext = "json")
-
-  if (!fs::file_exists(path)) {
-    cli::cli_abort(
-      "Config file {.field {config}} does not exist at path {.path { path }}.",
-      call = call
-    )
-  }
-  jsonlite::read_json(path,
-    simplifyVector = TRUE,
-    simplifyDataFrame = FALSE
-  )
-}
-
-#' @export
-read_config.SubTreeFileSystem <- function(hub_path, config = c("tasks", "admin"),
-                                          call = rlang::caller_env()) {
-  config <- rlang::arg_match(config)
-  path <- hub_path$path(fs::path("hub-config", config, ext = "json"))
-
-  if (!paste0(config, ".json") %in% basename(hub_path$ls("hub-config"))) {
-    cli::cli_abort(
-      "Config file {.field {config}} does not exist at path {.path { path$base_path }}.",
-      call = call
-    )
-  }
-
-  split_base_path <- stringr::str_split(
-    hub_path$base_path,
-    "/", 2
-  ) %>%
-    unlist()
-
-  path_url <- glue::glue(
-    "https://{split_base_path[1]}.s3.amazonaws.com/{split_base_path[2]}hub-config/{config}.json"
-  )
-
-  jsonlite::fromJSON(path_url,
-    simplifyVector = TRUE,
-    simplifyDataFrame = FALSE
-  )
-}
-
-
 get_file_format <- function(config_admin,
                             file_format = c("csv", "parquet", "arrow"),
                             call = rlang::caller_env()) {

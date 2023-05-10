@@ -17,7 +17,7 @@
 #'
 #' @examples
 #' hub_path <- system.file("testhubs/simple", package = "hubUtils")
-#' config_tasks <- hubUtils:::read_config(hub_path, "tasks")
+#' config_tasks <- read_config(hub_path, "tasks")
 #' schema_csv <- create_hub_schema(config_tasks, format = "csv")
 #' schema_parquet <- create_hub_schema(config_tasks, format = "parquet")
 create_hub_schema <- function(config_tasks,

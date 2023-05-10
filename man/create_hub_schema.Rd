@@ -31,28 +31,8 @@ Create an arrow schema from a the \code{tasks.json} config file for using when
 opening an arrow dataset.
 }
 \examples{
-origin_path <- system.file("testhubs/simple", package = "hubUtils")
-config_tasks <- hubUtils:::read_config(origin_path, "tasks")
+hub_path <- system.file("testhubs/simple", package = "hubUtils")
+config_tasks <- read_config(hub_path, "tasks")
 schema_csv <- create_hub_schema(config_tasks, format = "csv")
-con_csv <- arrow::open_dataset(
-    origin_path, format = "csv",
-    partitioning = "model",
-    col_types = schema_csv,
-    factory_options = list(exclude_invalid_files = TRUE))
-con_csv
-
 schema_parquet <- create_hub_schema(config_tasks, format = "parquet")
-con_parquet <- arrow::open_dataset(
-    origin_path, format = "parquet",
-    partitioning = "model",
-    schema = schema_parquet,
-    factory_options = list(exclude_invalid_files = TRUE))
-con_parquet
-
-hub_con <- arrow::open_dataset(
-    sources = list(
-        con_csv,
-        con_parquet)
-)
-hub_con
 }
