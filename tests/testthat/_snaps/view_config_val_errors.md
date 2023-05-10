@@ -74,8 +74,8 @@
       str(tbl$`_data`)
     Output
       tibble [2 x 6] (S3: tbl_df/tbl/data.frame)
-       $ instancePath: chr [1:2] "**file_format**" "**timezone**"
-       $ schemaPath  : chr [1:2] "properties \n └**file_format** \n └─**enum**" "properties \n └**timezone** \n └─**type**"
+       $ instancePath: chr [1:2] "**file_format** \n └**1**" "**timezone**"
+       $ schemaPath  : chr [1:2] "properties \n └**file_format** \n └─items \n └──**enum**" "properties \n └**timezone** \n └─**type**"
        $ keyword     : chr [1:2] "enum" "type"
        $ message     : chr [1:2] "❌ must be equal to one of the allowed values" "❌ must be string"
        $ schema      : chr [1:2] "csv, parquet, arrow" "string"

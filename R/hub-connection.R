@@ -94,14 +94,9 @@ connect_hub.default <- function(hub_path,
   }
   hub_name <- config_admin$name
 
-
-  dataset <- arrow::open_dataset(
-    model_output_dir,
-    format = file_format,
-    partitioning = "team",
-    unify_schemas = TRUE,
-    factory_options = list(exclude_invalid_files = TRUE)
-  )
+  dataset <- open_hub_datasets(model_output_dir,
+                               file_format,
+                               config_tasks)
 
   structure(dataset,
     class = c("hub_connection", class(dataset)),
@@ -114,6 +109,57 @@ connect_hub.default <- function(hub_path,
     config_tasks = config_tasks
   )
 }
+
+
+open_hub_dataset <- function(model_output_dir,
+                             file_format = c("csv", "parquet", "arrow"),
+                             config_tasks) {
+
+  file_format <- rlang::arg_match(file_format)
+  schema <- create_hub_schema(config_tasks, format = file_format)
+
+  switch (file_format,
+          csv = arrow::open_dataset(
+            model_output_dir, format = "csv",
+            partitioning = "model",
+            col_types = schema,
+            unify_schemas = TRUE,
+            factory_options = list(exclude_invalid_files = TRUE)),
+          parquet =  arrow::open_dataset(
+            model_output_dir, format = "parquet",
+            partitioning = "model",
+            schema = schema,
+            unify_schemas = TRUE,
+            factory_options = list(exclude_invalid_files = TRUE)),
+          arrow =  arrow::open_dataset(
+            model_output_dir, format = "arrow",
+            partitioning = "model",
+            schema = schema,
+            unify_schemas = TRUE,
+            factory_options = list(exclude_invalid_files = TRUE))
+  )
+}
+
+open_hub_datasets <- function(model_output_dir,
+                              file_format = c("csv", "parquet", "arrow"),
+                              config_tasks) {
+
+  if (length(file_format) == 1L) {
+
+    open_hub_dataset(model_output_dir,
+                     file_format,
+                     config_tasks)
+  } else {
+    cons <- purrr::map(file_format,
+               ~open_hub_dataset(model_output_dir,
+                                 .x,
+                                 config_tasks))
+
+    arrow::open_dataset(cons)
+  }
+
+}
+
 
 #' @export
 connect_hub.SubTreeFileSystem <- function(hub_path,
@@ -138,13 +184,9 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
   }
   hub_name <- config_admin$name
 
-  dataset <- arrow::open_dataset(
-    model_output_dir,
-    format = file_format,
-    partitioning = "team",
-    unify_schemas = TRUE,
-    factory_options = list(exclude_invalid_files = TRUE)
-  )
+  dataset <- open_hub_datasets(model_output_dir,
+                               file_format,
+                               config_tasks)
 
   structure(dataset,
     class = c("hub_connection", class(dataset)),
@@ -179,7 +221,7 @@ connect_model_output.default <- function(model_output_dir,
   dataset <- arrow::open_dataset(
     model_output_dir,
     format = file_format,
-    partitioning = "team",
+    partitioning = "model",
     unify_schemas = TRUE,
     factory_options = list(exclude_invalid_files = TRUE)
   )
@@ -201,7 +243,7 @@ connect_model_output.SubTreeFileSystem <- function(model_output_dir,
   dataset <- arrow::open_dataset(
     model_output_dir,
     format = file_format,
-    partitioning = "team",
+    partitioning = "model",
     unify_schemas = TRUE,
     factory_options = list(exclude_invalid_files = TRUE)
   )

@@ -284,6 +284,7 @@
       type: string
       type_id: double
       value: int32
+      age_group: string
       model: string
 
 ---
@@ -312,6 +313,7 @@
       type: string
       type_id: double
       value: int32
+      age_group: string
       model: string
       Classes 'hub_connection', 'FileSystemDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
         Inherits from: <FileSystemDataset>
@@ -515,7 +517,7 @@
       hub_con %>% dplyr::filter(origin_date == "2022-10-08", horizon == 2, type_id ==
         0.01) %>% dplyr::collect() %>% str()
     Output
-      tibble [3 x 8] (S3: tbl_df/tbl/data.frame)
+      tibble [3 x 9] (S3: tbl_df/tbl/data.frame)
        $ origin_date: Date[1:3], format: "2022-10-08" "2022-10-08" ...
        $ target     : chr [1:3] "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp"
        $ horizon    : int [1:3] 2 2 2
@@ -523,7 +525,25 @@
        $ type       : chr [1:3] "quantile" "quantile" "quantile"
        $ type_id    : num [1:3] 0.01 0.01 0.01
        $ value      : int [1:3] 135 135 135
+       $ age_group  : chr [1:3] NA NA NA
        $ model      : chr [1:3] "baseline" "baseline" "baseline"
+
+---
+
+    Code
+      hub_con %>% dplyr::filter(horizon == 2, age_group == "65+") %>% dplyr::collect() %>%
+        str()
+    Output
+      tibble [69 x 9] (S3: tbl_df/tbl/data.frame)
+       $ origin_date: Date[1:69], format: "2022-10-15" "2022-10-15" ...
+       $ target     : chr [1:69] "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp" ...
+       $ horizon    : int [1:69] 2 2 2 2 2 2 2 2 2 2 ...
+       $ location   : chr [1:69] "US" "US" "US" "US" ...
+       $ type       : chr [1:69] "quantile" "quantile" "quantile" "quantile" ...
+       $ type_id    : num [1:69] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
+       $ value      : int [1:69] 135 137 139 140 141 141 142 143 144 145 ...
+       $ age_group  : chr [1:69] "65+" "65+" "65+" "65+" ...
+       $ model      : chr [1:69] "baseline" "baseline" "baseline" "baseline" ...
 
 ---
 
@@ -718,6 +738,23 @@
         .. .. .. ..$ relative_to: chr "origin_date"
         .. .. .. ..$ start      : int -6
         .. .. .. ..$ end        : int 1
+
+---
+
+    Code
+      hub_con %>% dplyr::filter(horizon == 2, age_group == "65+") %>% dplyr::collect() %>%
+        str()
+    Output
+      tibble [69 x 9] (S3: tbl_df/tbl/data.frame)
+       $ origin_date: Date[1:69], format: "2022-10-15" "2022-10-15" ...
+       $ target     : chr [1:69] "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp" ...
+       $ horizon    : int [1:69] 2 2 2 2 2 2 2 2 2 2 ...
+       $ location   : chr [1:69] "US" "US" "US" "US" ...
+       $ type       : chr [1:69] "quantile" "quantile" "quantile" "quantile" ...
+       $ type_id    : num [1:69] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
+       $ value      : int [1:69] 135 137 139 140 141 141 142 143 144 145 ...
+       $ age_group  : chr [1:69] "65+" "65+" "65+" "65+" ...
+       $ model      : chr [1:69] "baseline" "baseline" "baseline" "baseline" ...
 
 # connect_hub & connect_model_output fail correctly
 

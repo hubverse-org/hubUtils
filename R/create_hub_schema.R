@@ -21,7 +21,7 @@
 #' schema_csv <- create_hub_schema(config_tasks, format = "csv")
 #' con_csv <- arrow::open_dataset(
 #'     origin_path, format = "csv",
-#'     partitioning = "team",
+#'     partitioning = "model",
 #'     col_types = schema_csv,
 #'     factory_options = list(exclude_invalid_files = TRUE))
 #' con_csv
@@ -29,7 +29,7 @@
 #' schema_parquet <- create_hub_schema(config_tasks, format = "parquet")
 #' con_parquet <- arrow::open_dataset(
 #'     origin_path, format = "parquet",
-#'     partitioning = "team",
+#'     partitioning = "model",
 #'     schema = schema_parquet,
 #'     factory_options = list(exclude_invalid_files = TRUE))
 #' con_parquet
@@ -42,10 +42,10 @@
 #' hub_con
 create_hub_schema <- function(config_tasks,
                          format = c("csv", "parquet", "arrow"),
-                         partitions = list(team = arrow::utf8())) {
+                         partitions = list(model = arrow::utf8())) {
 
     format <- rlang::arg_match(format)
-    if (format != "parquet") {
+    if (format == "csv") {
         partitions <- NULL
     }
 
@@ -77,7 +77,7 @@ create_hub_schema <- function(config_tasks,
 
 }
 
-get_task_id_names <- function(variables) {
+get_task_id_names <- function(config_tasks) {
     purrr::map(
         config_tasks[["rounds"]],
         ~.x[["model_tasks"]]) %>%
