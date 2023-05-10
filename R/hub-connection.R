@@ -100,11 +100,19 @@ connect_hub.default <- function(hub_path,
     config_tasks
   )
 
+  if (inherits(dataset, "UnionDataset")) {
+    file_system <- purrr::map_chr(dataset$children,
+                   ~class(.x$filesystem)[1]) %>%
+      unique()
+  } else {
+    file_system <- class(dataset$filesystem)[1]
+  }
+
   structure(dataset,
     class = c("hub_connection", class(dataset)),
     hub_name = hub_name,
     file_format = file_format,
-    file_system = dataset$filesystem,
+    file_system = file_system,
     hub_path = hub_path,
     model_output_dir = model_output_dir,
     config_admin = config_admin,
@@ -200,11 +208,19 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
     config_tasks
   )
 
+  if (inherits(dataset, "UnionDataset")) {
+    file_system <- purrr::map_chr(dataset$children,
+                                  ~class(.x$filesystem$base_fs)[1]) %>%
+      unique()
+  } else {
+    file_system <- class(dataset$filesystem$base_fs)[1]
+  }
+
   structure(dataset,
     class = c("hub_connection", class(dataset)),
     hub_name = hub_name,
     file_format = file_format,
-    file_system = dataset$filesystem$base_fs,
+    file_system = file_system,
     hub_path = hub_path$base_path,
     model_output_dir = model_output_dir$base_path,
     config_admin = config_admin,
@@ -241,7 +257,7 @@ connect_model_output.default <- function(model_output_dir,
   structure(dataset,
     class = c("mod_out_connection", class(dataset)),
     file_format = file_format,
-    file_system = dataset$filesystem,
+    file_system = class(dataset$filesystem)[1],
     model_output_dir = model_output_dir
   )
 }
@@ -263,7 +279,7 @@ connect_model_output.SubTreeFileSystem <- function(model_output_dir,
   structure(dataset,
     class = c("mod_out_connection", class(dataset)),
     file_format = file_format,
-    file_system = dataset$filesystem$base_fs,
+    file_system = class(dataset$filesystem$base_fs)[1],
     model_output_dir = model_output_dir$base_path
   )
 }
@@ -306,7 +322,7 @@ print.hub_connection <- function(x, verbose = FALSE, ...) {
   }
   if (!is.null(attr(x, "file_system"))) {
     print_msg <- c(print_msg,
-      "*" = "file_system: {.val {class(attr(x, 'file_system'))[1]}}"
+      "*" = "file_system: {.val {attr(x, 'file_system')[1]}}"
     )
   }
   print_msg <- c(print_msg,
@@ -351,7 +367,7 @@ print.mod_out_connection <- function(x, verbose = FALSE, ...) {
   }
   if (!is.null(attr(x, "file_system"))) {
     print_msg <- c(print_msg,
-      "*" = "file_system: {.val {class(attr(x, 'file_system'))[1]}}"
+      "*" = "file_system: {.val {attr(x, 'file_system')}}"
     )
   }
   print_msg <- c(print_msg,
@@ -392,9 +408,6 @@ get_file_format <- function(config_admin,
     return(file_format)
   }
 
-  if (length(config_file_format) == 1L) {
-    return(config_file_format)
-  }
   if (length(config_file_format) == 0L) {
     cli::cli_abort(c(
       "x" = "{.arg file_format} value could not be extracted from config
@@ -406,18 +419,8 @@ get_file_format <- function(config_admin,
     )
   }
 
-  if (length(config_file_format) > 1L && rlang::is_missing(file_format)) {
-    cli::cli_abort(c(
-      "x" = "More than one file formats are available for this hub: {.val {config_file_format}}",
-      "!" = "Current {.code hubUtils} functionality only supports connecting
-            to model output data in a single format.",
-      "i" = "Use argument {.arg file_format} to specify a single file format.
-            Only data stored in the specified file_format will be accessible through
-            the {.cls hub_connection} object created."
-    ),
-    call = call
-    )
-  }
+  return(config_file_format)
+
 }
 
 model_output_dir_path <- function(hub_path, config_admin,
