@@ -27,6 +27,7 @@ Imports:
     rlang,
     stringr
 Suggests: 
+    covr,
     curl,
     digest,
     dplyr,
