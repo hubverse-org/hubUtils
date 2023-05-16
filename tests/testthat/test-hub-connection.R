@@ -57,9 +57,8 @@ test_that("connect_hub works connection & data extraction hub", {
     dplyr::filter(is.na(type_id)) %>%
     dplyr::collect()
 
-  out_df %>%
-    str() %>%
-    expect_snapshot()
+
+  expect_snapshot(str(out_df))
 
   expect_equal(typeof(out_df$type_id), "character")
 })

@@ -275,7 +275,7 @@
 ---
 
     Code
-      .
+      str(out_df)
     Output
       tibble [6 x 8] (S3: tbl_df/tbl/data.frame)
        $ forecast_date: Date[1:6], format: "2023-04-24" "2023-04-24" ...
