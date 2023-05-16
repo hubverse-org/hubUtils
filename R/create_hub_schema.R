@@ -137,7 +137,7 @@ get_value_type <- function(config_tasks) {
     unlist() %>%
     unique()
 
-  coerce_datatype(json_datatypes[types])
+  coerce_datatype(types)
 }
 
 get_data_type <- function(x) {
