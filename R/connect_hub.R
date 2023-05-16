@@ -186,6 +186,7 @@ open_hub_dataset <- function(model_output_dir,
            partitioning = "model",
            col_types = schema,
            unify_schemas = TRUE,
+           strings_can_be_null = TRUE,
            factory_options = list(exclude_invalid_files = TRUE)
          ),
          parquet = arrow::open_dataset(
