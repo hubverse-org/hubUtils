@@ -180,31 +180,31 @@ open_hub_dataset <- function(model_output_dir,
   schema <- create_hub_schema(config_tasks, format = file_format)
 
   switch(file_format,
-         csv = arrow::open_dataset(
-           model_output_dir,
-           format = "csv",
-           partitioning = "model",
-           col_types = schema,
-           unify_schemas = TRUE,
-           strings_can_be_null = TRUE,
-           factory_options = list(exclude_invalid_files = TRUE)
-         ),
-         parquet = arrow::open_dataset(
-           model_output_dir,
-           format = "parquet",
-           partitioning = "model",
-           schema = schema,
-           unify_schemas = TRUE,
-           factory_options = list(exclude_invalid_files = TRUE)
-         ),
-         arrow = arrow::open_dataset(
-           model_output_dir,
-           format = "arrow",
-           partitioning = "model",
-           schema = schema,
-           unify_schemas = TRUE,
-           factory_options = list(exclude_invalid_files = TRUE)
-         )
+    csv = arrow::open_dataset(
+      model_output_dir,
+      format = "csv",
+      partitioning = "model",
+      col_types = schema,
+      unify_schemas = TRUE,
+      strings_can_be_null = TRUE,
+      factory_options = list(exclude_invalid_files = TRUE)
+    ),
+    parquet = arrow::open_dataset(
+      model_output_dir,
+      format = "parquet",
+      partitioning = "model",
+      schema = schema,
+      unify_schemas = TRUE,
+      factory_options = list(exclude_invalid_files = TRUE)
+    ),
+    arrow = arrow::open_dataset(
+      model_output_dir,
+      format = "arrow",
+      partitioning = "model",
+      schema = schema,
+      unify_schemas = TRUE,
+      factory_options = list(exclude_invalid_files = TRUE)
+    )
   )
 }
 
@@ -226,6 +226,13 @@ open_hub_datasets <- function(model_output_dir,
         config_tasks
       )
     )
+
+    # Remove connections with 0 files in model-output data
+    cons[
+      purrr::map_lgl(
+        cons,
+        ~ length(.x$files) == 0L)
+    ] <- NULL
 
     arrow::open_dataset(cons)
   }
