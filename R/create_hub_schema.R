@@ -116,8 +116,8 @@ get_type_id_type <- function(config_tasks) {
   values <- purrr::map(
     config_tasks[["rounds"]],
     ~ .x[["model_tasks"]]
-  ) %>%
-    purrr::map(~ .x[[1]][["output_type"]]) %>%
+  ) %>% unlist(recursive = FALSE) %>%
+    purrr::map(~ .x[["output_type"]]) %>%
     unlist(recursive = FALSE) %>%
     purrr::map(~ purrr::pluck(.x, "type_id")) %>%
     unlist()
@@ -130,8 +130,8 @@ get_value_type <- function(config_tasks) {
   types <- purrr::map(
     config_tasks[["rounds"]],
     ~ .x[["model_tasks"]]
-  ) %>%
-    purrr::map(~ .x[[1]][["output_type"]]) %>%
+  ) %>% unlist(recursive = FALSE) %>%
+    purrr::map(~ .x[["output_type"]]) %>%
     purrr::flatten() %>%
     purrr::map(~ purrr::pluck(.x, "value", "type")) %>%
     unlist() %>%
