@@ -35,7 +35,7 @@ test_that("connect_hub works connection & data extraction hub", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    c("csv", "parquet", "arrow")
+    c("csv", "parquet", "ipc")
   )
   expect_equal(
     attr(hub_con, "file_system"),

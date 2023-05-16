@@ -41,7 +41,7 @@
         .. .. ..$ team_abbr : chr "simple_hub"
         .. .. ..$ model_abbr: chr "baseline"
         .. .. ..$ model_type: chr "baseline"
-        ..$ file_format   : chr [1:2] "csv" "parquet"
+        ..$ file_format   : chr [1:3] "csv" "parquet" "arrow"
         ..$ timezone      : chr "US/Eastern"
        - attr(*, "config_tasks")=List of 2
         ..$ schema_version: chr "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/main/v0.0.1/tasks-schema.json"
@@ -170,7 +170,7 @@
           set_pointer: function (xp) 
           type: active binding 
        - attr(*, "hub_name")= chr "US CDC FluSight"
-       - attr(*, "file_format")= chr [1:3] "csv" "parquet" "arrow"
+       - attr(*, "file_format")= chr [1:3] "csv" "parquet" "ipc"
        - attr(*, "file_system")= chr "LocalFileSystem"
        - attr(*, "hub_path")= chr "flusight"
        - attr(*, "model_output_dir")= chr "forecasts"
@@ -438,7 +438,7 @@
         .. .. ..$ team_abbr : chr "simple_hub"
         .. .. ..$ model_abbr: chr "baseline"
         .. .. ..$ model_type: chr "baseline"
-        ..$ file_format   : chr [1:2] "csv" "parquet"
+        ..$ file_format   : chr [1:3] "csv" "parquet" "arrow"
         ..$ timezone      : chr "US/Eastern"
        - attr(*, "config_tasks")=List of 2
         ..$ schema_version: chr "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/main/v0.0.1/tasks-schema.json"
