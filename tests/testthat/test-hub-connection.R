@@ -58,7 +58,7 @@ test_that("connect_hub works connection & data extraction hub", {
     dplyr::collect()
 
 
-  expect_snapshot(str(out_df))
+  expect_snapshot(str(dplyr::arrange(out_df, value)))
 
   expect_equal(typeof(out_df$type_id), "character")
 })
