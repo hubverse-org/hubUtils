@@ -16,7 +16,7 @@ test_that("create_output_type_point functions work correctly", {
   expect_snapshot(
     create_output_type_median(
       is_required = FALSE,
-      value_type = "numeric"
+      value_type = "double"
     )
   )
 })

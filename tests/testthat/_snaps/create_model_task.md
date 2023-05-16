@@ -85,7 +85,7 @@
       attr(,"class")
       [1] "model_task" "list"      
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 ---
 
@@ -97,7 +97,7 @@
         "inc hosp")), create_task_id("horizon", required = 1L, optional = 2:4)),
       output_type = create_output_type(create_output_type_mean(is_required = TRUE,
         value_type = "double", value_minimum = 0L), create_output_type_median(
-        is_required = FALSE, value_type = "numeric"), create_output_type_quantile(
+        is_required = FALSE, value_type = "double"), create_output_type_quantile(
         required = c(0.25, 0.5, 0.75), optional = c(0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8,
           0.9), value_type = "double", value_minimum = 0)), target_metadata = create_target_metadata(
         create_target_metadata_item(target_id = "inc hosp", target_name = "Weekly incident influenza hospitalizations",
@@ -171,7 +171,7 @@
       
       $output_type$median$value
       $output_type$median$value$type
-      [1] "numeric"
+      [1] "double"
       
       
       
@@ -249,7 +249,7 @@
       attr(,"class")
       [1] "model_task" "list"      
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 # create_output_type_point functions error correctly
 
@@ -304,6 +304,6 @@
       x `schema_id` attributes are not consistent across all arguments.
       Argument `schema_id` attributes:
       * task_ids : invalid_schema_id
-      * output_type : https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json
-      * target_metadata : https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json
+      * output_type : https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json
+      * target_metadata : https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json
 

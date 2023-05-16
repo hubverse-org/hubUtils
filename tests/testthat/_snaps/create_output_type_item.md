@@ -25,7 +25,7 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 ---
 
@@ -54,12 +54,12 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 ---
 
     Code
-      create_output_type_median(is_required = FALSE, value_type = "numeric")
+      create_output_type_median(is_required = FALSE, value_type = "double")
     Output
       $median
       $median$type_id
@@ -72,14 +72,14 @@
       
       $median$value
       $median$value$type
-      [1] "numeric"
+      [1] "double"
       
       
       
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 # create_output_type_point functions error correctly
 
@@ -106,7 +106,7 @@
       i In index: 1.
       Caused by error in `create_output_type_mean()`:
       x `value_type` value is invalid.
-      ! Must be one of "numeric", "double", and "integer".
+      ! Must be one of "double" and "integer".
       i Actual value is "character"
 
 ---
@@ -143,7 +143,7 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 ---
 
@@ -174,7 +174,7 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 ---
 
@@ -206,31 +206,31 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 ---
 
     Code
-      create_output_type_categorical(required = NULL, optional = c("low", "moderate",
-        "high", "extreme"), value_type = "double")
+      create_output_type_pmf(required = NULL, optional = c("low", "moderate", "high",
+        "extreme"), value_type = "double")
     Output
-      $categorical
-      $categorical$type_id
-      $categorical$type_id$required
+      $pmf
+      $pmf$type_id
+      $pmf$type_id$required
       NULL
       
-      $categorical$type_id$optional
+      $pmf$type_id$optional
       [1] "low"      "moderate" "high"     "extreme" 
       
       
-      $categorical$value
-      $categorical$value$type
+      $pmf$value
+      $pmf$value$type
       [1] "double"
       
-      $categorical$value$minimum
+      $pmf$value$minimum
       [1] 0
       
-      $categorical$value$maximum
+      $pmf$value$maximum
       [1] 1
       
       
@@ -238,7 +238,7 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 ---
 
@@ -263,7 +263,7 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 # create_output_type_dist functions error correctly
 
@@ -304,6 +304,6 @@
       i In index: 1.
       Caused by error in `create_output_type_sample()`:
       x `value_type` value is invalid.
-      ! Must be one of "numeric", "double", and "integer".
+      ! Must be one of "double" and "integer".
       i Actual value is "character"
 
