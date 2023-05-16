@@ -132,7 +132,7 @@ test_that("create_model_tasks functions work correctly", {
           )
         ),
         output_type = create_output_type(
-          create_output_type_categorical(
+          create_output_type_pmf(
             required = c(
               "large_decrease",
               "decrease",
@@ -263,7 +263,7 @@ test_that("create_model_tasks functions error correctly", {
           )
         ),
         output_type = create_output_type(
-          create_output_type_categorical(
+          create_output_type_pmf(
             required = c(
               "large_decrease",
               "decrease",

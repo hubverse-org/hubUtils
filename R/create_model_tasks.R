@@ -137,7 +137,7 @@
 #'       )
 #'     ),
 #'     output_type = create_output_type(
-#'       create_output_type_categorical(
+#'       create_output_type_pmf(
 #'         required = c(
 #'           "large_decrease",
 #'           "decrease",

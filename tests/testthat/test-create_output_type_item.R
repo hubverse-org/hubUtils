@@ -83,7 +83,7 @@ test_that("create_output_type_dist functions work correctly", {
     )
   )
   expect_snapshot(
-    create_output_type_categorical(
+    create_output_type_pmf(
       required = NULL,
       optional = c(
         "low", "moderate",
