@@ -26,6 +26,45 @@ test_that("connect_hub works on local simple forecasting hub", {
 })
 
 
+test_that("connect_hub works connection & data extraction hub", {
+  # Simple forecasting Hub example ----
+
+  hub_path <- system.file("testhubs/flusight", package = "hubUtils")
+  hub_con <- connect_hub(hub_path)
+
+  # Tests that paths are assigned to attributes correctly
+  expect_equal(
+    attr(hub_con, "file_format"),
+    c("csv", "parquet", "arrow")
+  )
+  expect_equal(
+    attr(hub_con, "file_system"),
+    "LocalFileSystem"
+  )
+  expect_equal(
+    class(hub_con),
+    c("hub_connection", "UnionDataset", "Dataset", "ArrowObject",
+      "R6")
+  )
+
+  # overwrite path attributes to make snapshot portable
+  attr(hub_con, "model_output_dir") <- basename(attr(hub_con, "model_output_dir"))
+  attr(hub_con, "hub_path") <- basename(attr(hub_con, "hub_path"))
+  expect_snapshot(str(hub_con))
+
+  # Test that NAs are parsed correctly
+  out_df <- hub_con %>%
+    dplyr::filter(is.na(type_id)) %>%
+    dplyr::collect()
+
+  out_df %>%
+    str() %>%
+    expect_snapshot()
+
+  expect_equal(typeof(out_df$type_id), "character")
+})
+
+
 test_that("connect_hub file_format override works on local hub", {
   # Simple forecasting Hub example ----
 
