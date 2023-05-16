@@ -6,7 +6,7 @@
 #' @param output_type object of class `output_type`.
 #' @param target_metadata object of class `target_metadata`.
 #'
-#' @return a named list of class `target_metadata`.
+#' @return a named list of class `model_task`.
 #' @export
 #' @seealso [create_task_ids()], [create_output_type()], [create_target_metadata()],
 #' [`create_model_tasks()`]

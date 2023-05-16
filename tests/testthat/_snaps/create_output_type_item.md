@@ -91,7 +91,7 @@
 ---
 
     Code
-      create_output_type_mean(is_required = TRUE, value_type = c("double", "numeric"))
+      create_output_type_mean(is_required = TRUE, value_type = c("double", "integer"))
     Error <purrr_error_indexed>
       i In index: 1.
       Caused by error in `create_output_type_mean()`:

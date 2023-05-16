@@ -19,7 +19,7 @@
 #'   ),
 #'   create_output_type_median(
 #'     is_required = FALSE,
-#'     value_type = "numeric"
+#'     value_type = "double"
 #'   ),
 #'   create_output_type_quantile(
 #'     required = c(0.25, 0.5, 0.75),

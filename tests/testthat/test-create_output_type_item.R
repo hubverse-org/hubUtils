@@ -33,7 +33,7 @@ test_that("create_output_type_point functions error correctly", {
   expect_snapshot(
     create_output_type_mean(
       is_required = TRUE,
-      value_type = c("double", "numeric")
+      value_type = c("double", "integer")
     ),
     error = TRUE
   )
