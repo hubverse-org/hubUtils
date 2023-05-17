@@ -44,7 +44,7 @@
         ..$ file_format   : chr [1:3] "csv" "parquet" "arrow"
         ..$ timezone      : chr "US/Eastern"
        - attr(*, "config_tasks")=List of 2
-        ..$ schema_version: chr "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/main/v0.0.1/tasks-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
         ..$ rounds        :List of 2
         .. ..$ :List of 4
         .. .. ..$ round_id_from_variable: logi TRUE
@@ -441,7 +441,7 @@
         ..$ file_format   : chr [1:3] "csv" "parquet" "arrow"
         ..$ timezone      : chr "US/Eastern"
        - attr(*, "config_tasks")=List of 2
-        ..$ schema_version: chr "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/main/v0.0.1/tasks-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
         ..$ rounds        :List of 2
         .. ..$ :List of 4
         .. .. ..$ round_id_from_variable: logi TRUE
