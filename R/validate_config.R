@@ -64,7 +64,7 @@ validate_config <- function(hub_path = ".",
   checkmate::assert_file_exists(config_path, extension = "json")
 
   if (schema_version == "from_config") {
-    schema_version <- get_config_schema_version(config_path)
+    schema_version <- get_config_schema_version(config_path, config)
   }
 
   # Get the latest version available in our GitHub schema repo
@@ -95,8 +95,11 @@ validate_config <- function(hub_path = ".",
   attr(validation, "schema_url") <- schema_url
 
 
-  if (validation && config == "tasks") {
-    validation <- validate_config_target_keys(validation)
+  if (validation) {
+    validation <- validate_schema_version_property(validation, config)
+    if (config == "tasks") {
+      validation <- perform_dynamic_config_validations(validation)
+    }
   }
 
   if (validation) {
@@ -147,12 +150,16 @@ get_schema_valid_versions <- function(branch = "main") {
 }
 
 
-get_config_schema_version <- function(config_path) {
+get_config_schema_version <- function(config_path, config) {
   config_schema_version <- jsonlite::read_json(config_path)$schema_version
 
   if (is.null(config_schema_version)) {
-    error_detail <- c("x" = "Property {.val schema_version} not found in file.")
+    cli::cli_abort(c("x" = "Property {.code schema_version} not found in config file."))
   }
+
+  check_config_schema_version(config_schema_version,
+    config = config
+  )
 
   version <- stringr::str_extract(
     config_schema_version,
@@ -160,12 +167,11 @@ get_config_schema_version <- function(config_path) {
   )
 
   if (length(version) == 0L) {
-    error_detail <- c("!" = "Please check property {.val schema_version} is correct.")
     cli::cli_abort(
       c(
-        "Valid {.field version} could not be extracted from config
+        "x" = "Valid {.field version} could not be extracted from config
             file {.file {config_path}}",
-        error_detail
+        "!" = "Please check property {.val schema_version} is correctly formatted."
       )
     )
   }
@@ -246,7 +252,7 @@ get_schema <- function(schema_url) {
   }
 }
 
-#' Peform dynamic validation of target keys for internal consistency against
+#' Perform dynamic validation of target keys and schema_ids for internal consistency against
 #'  task ids. Check only performed once basic jsonvalidate checks pass against
 #'  schema.
 #'
@@ -256,11 +262,7 @@ get_schema <- function(schema_url) {
 #'  validation fails, value of validation object is set to FALSE and the error
 #'  table is appended to attribute "errors".
 #' @noRd
-validate_config_target_keys <- function(validation) {
-  if (!validation) {
-    return(validation)
-  }
-
+perform_dynamic_config_validations <- function(validation) {
   config_json <- jsonlite::read_json(attr(validation, "config_path"),
     simplifyVector = TRUE,
     simplifyDataFrame = FALSE
@@ -277,10 +279,14 @@ validate_config_target_keys <- function(validation) {
   ) %>%
     purrr::list_rbind()
 
+
   if (nrow(errors_tbl) > 1) {
     # assign FALSE without loosing attributes
     validation[] <- FALSE
-    attr(validation, "errors") <- errors_tbl
+    attr(validation, "errors") <- rbind(
+      attr(validation, "errors"),
+      errors_tbl
+    )
   }
 
   return(validation)
@@ -596,4 +602,101 @@ generate_instance_path_glue <- function(path) {
     "{target_key_i - 1}"
   )[1:sum(is_item)]
   paste(split_path, collapse = "/")
+}
+
+check_config_schema_version <- function(schema_version, config = c("tasks", "admin")) {
+  config <- rlang::arg_match(config)
+
+  check_filename <- grepl(
+    glue::glue("/{config}-schema.json$"),
+    schema_version
+  )
+  if (!check_filename) {
+    cli::cli_abort(c(
+      "x" = "{.code schema_version} property {.url {schema_version}}
+                     does not point to appropriate schema file.",
+      "i" = "{.code schema_version} basename should be
+                     {.file {config}-schema.json} but is {.file {basename(schema_version)}}"
+    ))
+  }
+
+  check_prefix <- grepl("https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/",
+    schema_version,
+    fixed = TRUE
+  )
+
+  if (!check_prefix) {
+    cli::cli_abort(c(
+      "x" = "Invalid {.code schema_version} property.",
+      "i" = "Valid {.code schema_version} properties should start with
+                         {.val https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/}
+                         and resolve to the schema file's raw contents on GitHub."
+    ))
+  }
+}
+
+
+validate_schema_version_property <- function(validation, config = c("tasks", "admin")) {
+  config <- rlang::arg_match(config)
+  schema_version <- jsonlite::read_json(attr(validation, "config_path"),
+    simplifyVector = TRUE,
+    simplifyDataFrame = FALSE
+  )$schema_version
+  schema <- get_schema(attr(validation, "schema_url"))
+
+
+  errors_tbl <- NULL
+  check_filename <- grepl(
+    glue::glue("/{config}-schema.json$"),
+    schema_version
+  )
+  if (!check_filename) {
+    errors_tbl <- rbind(
+      errors_tbl,
+      data.frame(
+        instancePath = get_error_path(schema, "schema_version", "instance"),
+        schemaPath = get_error_path(schema, "schema_version", "schema"),
+        keyword = "schema_version file name",
+        message = glue::glue(
+          "'schema_version' property does not point to corresponding schema file for config '{config}'. ",
+          "Should be '{config}-schema.json' but is '{basename(schema_version)}'"
+        ),
+        schema = "",
+        data = schema_version
+      )
+    )
+  }
+
+  check_prefix <- grepl("https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/",
+    schema_version,
+    fixed = TRUE
+  )
+
+  if (!check_prefix) {
+    errors_tbl <- rbind(
+      errors_tbl,
+      data.frame(
+        instancePath = get_error_path(schema, "schema_version", "instance"),
+        schemaPath = get_error_path(schema, "schema_version", "schema"),
+        keyword = "schema_version prefix",
+        message = paste(
+          "Invalid 'schema_version' property. Should start with",
+          "'https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/'"
+        ),
+        schema = "",
+        data = schema_version
+      )
+    )
+  }
+
+  if (!is.null(errors_tbl)) {
+    # assign FALSE without loosing attributes
+    validation[] <- FALSE
+    attr(validation, "errors") <- rbind(
+      attr(validation, "errors"),
+      errors_tbl
+    )
+  }
+
+  return(validation)
 }

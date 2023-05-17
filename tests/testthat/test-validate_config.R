@@ -4,14 +4,16 @@ test_that("version from file handled successfully", {
       system.file(
         "testhubs/simple/hub-config/tasks.json",
         package = "hubUtils"
-      )
+      ),
+      config = "tasks"
     ),
     "v0.0.1"
   )
 
   expect_error(
     get_config_schema_version(
-      testthat::test_path("testdata", "empty.json")
+      testthat::test_path("testdata", "empty.json"),
+      config = "tasks"
     )
   )
 })
@@ -73,3 +75,10 @@ test_that("NULL target keys validated successfully", {
   out <- suppressMessages(validate_config(config_path = config_path))
   expect_true(out)
 })
+
+
+test_that("Bad schema_version URL errors successfully", {
+     config_path <- testthat::test_path("testdata", "schema_version-errors.json")
+    expect_error(validate_config(config_path = config_path))
+})
+
