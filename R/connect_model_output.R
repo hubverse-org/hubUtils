@@ -16,14 +16,25 @@ connect_model_output.default <- function(model_output_dir,
     }
     file_format <- rlang::arg_match(file_format)
 
-    dataset <- arrow::open_dataset(
-        model_output_dir,
-        format = file_format,
-        partitioning = "model_id",
-        unify_schemas = TRUE,
-        strings_can_be_null = TRUE,
-        factory_options = list(exclude_invalid_files = TRUE)
-    )
+    if (file_format == "csv") {
+        dataset <- arrow::open_dataset(
+            model_output_dir,
+            format = file_format,
+            partitioning = "model_id",
+            unify_schemas = FALSE,
+            strings_can_be_null = TRUE,
+            factory_options = list(exclude_invalid_files = TRUE)
+        )
+    } else {
+        dataset <- arrow::open_dataset(
+            model_output_dir,
+            format = file_format,
+            partitioning = "model_id",
+            unify_schemas = FALSE,
+            factory_options = list(exclude_invalid_files = TRUE)
+        )
+    }
+
 
     structure(dataset,
               class = c("mod_out_connection", class(dataset)),
@@ -39,14 +50,24 @@ connect_model_output.SubTreeFileSystem <- function(model_output_dir,
     rlang::check_required(model_output_dir)
     file_format <- rlang::arg_match(file_format)
 
-    dataset <- arrow::open_dataset(
-        model_output_dir,
-        format = file_format,
-        partitioning = "model_id",
-        unify_schemas = TRUE,
-        strings_can_be_null = TRUE,
-        factory_options = list(exclude_invalid_files = TRUE)
-    )
+    if (file_format == "csv") {
+        dataset <- arrow::open_dataset(
+            model_output_dir,
+            format = file_format,
+            partitioning = "model_id",
+            unify_schemas = TRUE,
+            strings_can_be_null = TRUE,
+            factory_options = list(exclude_invalid_files = TRUE)
+        )
+    } else {
+        dataset <- arrow::open_dataset(
+            model_output_dir,
+            format = file_format,
+            partitioning = "model_id",
+            unify_schemas = TRUE,
+            factory_options = list(exclude_invalid_files = TRUE)
+        )
+    }
 
     structure(dataset,
               class = c("mod_out_connection", class(dataset)),
