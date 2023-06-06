@@ -32,7 +32,7 @@ library(dplyr)
 ## Connecting to a configured hub
 
 
-```{r, eval=FALSE, echo=FALSE}
+```{r}
 hub_path <- system.file("testhubs/flusight", package = "hubUtils")
 hub_con <- connect_hub(hub_path)
 hub_con
@@ -69,6 +69,7 @@ hub_con %>%
 ```
 
 Alternatively, depending on the size of the data, in might be quicker to filter the data in two steps:
+
 1. get the last forecast date available for the filtered subset.
 2. use the last forecast date in the filtering query.
 
