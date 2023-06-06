@@ -23,7 +23,7 @@
 #' For connection to a fully configured hub, accessed through `hub_path`,
 #' `file_format` is inferred from the hub's `file_format` configuration in
 #' `admin.json` and is ignored by default.
-#' If supplied, it will override hub configuration setting.
+#' If supplied, it will override hub configuration setting. Multiple formats can be supplied to `connect_hub` but only a single file format can be supplied to `connect_mod_out`.
 #'
 #' @return
 #' - `connect_hub` returns an S3 object of class `<hub_connection>`.
@@ -90,7 +90,7 @@ connect_hub.default <- function(hub_path,
     file_format <- rlang::missing_arg()
     file_format <- get_file_format(config_admin, file_format)
   } else {
-    file_format <- rlang::arg_match(file_format)
+    file_format <- rlang::arg_match(file_format, multiple = TRUE)
   }
   hub_name <- config_admin$name
 
@@ -146,7 +146,7 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
     file_format <- rlang::missing_arg()
     file_format <- get_file_format(config_admin, file_format)
   } else {
-    file_format <- rlang::arg_match(file_format)
+    file_format <- rlang::arg_match(file_format, multiple = TRUE)
   }
   hub_name <- config_admin$name
 
