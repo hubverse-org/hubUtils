@@ -7,7 +7,7 @@
 create_hub_schema(
   config_tasks,
   format = c("csv", "parquet", "arrow"),
-  partitions = list(model = arrow::utf8())
+  partitions = list(model_id = arrow::utf8())
 )
 }
 \arguments{

@@ -285,7 +285,7 @@
        $ type         : chr [1:6] "mean" "mean" "mean" "mean" ...
        $ type_id      : chr [1:6] NA NA NA NA ...
        $ value        : num [1:6] 926 926 945 945 1033 ...
-       $ model        : chr [1:6] "baseline" "baseline" "baseline" "baseline" ...
+       $ model_id     : chr [1:6] "baseline" "baseline" "baseline" "baseline" ...
 
 # connect_model_output works on local model_output_dir
 
@@ -309,7 +309,7 @@
       type: string
       type_id: double
       value: int64
-      model: string
+      model_id: string
 
 ---
 
@@ -369,7 +369,7 @@
       type: string
       type_id: double
       value: int32
-      model: string
+      model_id: string
       age_group: string
 
 ---
@@ -398,7 +398,7 @@
       type: string
       type_id: double
       value: int32
-      model: string
+      model_id: string
       age_group: string
       Classes 'hub_connection', 'UnionDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
         Inherits from: <UnionDataset>
@@ -563,7 +563,7 @@
       type: string
       type_id: double
       value: int64
-      model: string
+      model_id: string
 
 # connect_hub data extraction works on simple forecasting hub
 
@@ -579,7 +579,7 @@
        $ type       : chr [1:3] "quantile" "quantile" "quantile"
        $ type_id    : num [1:3] 0.01 0.01 0.01
        $ value      : int [1:3] 135 135 135
-       $ model      : chr [1:3] "baseline" "baseline" "baseline"
+       $ model_id   : chr [1:3] "baseline" "baseline" "baseline"
        $ age_group  : chr [1:3] NA NA NA
 
 ---
@@ -596,7 +596,7 @@
        $ type       : chr [1:69] "quantile" "quantile" "quantile" "quantile" ...
        $ type_id    : num [1:69] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
        $ value      : int [1:69] 135 137 139 140 141 141 142 143 144 145 ...
-       $ model      : chr [1:69] "baseline" "baseline" "baseline" "baseline" ...
+       $ model_id   : chr [1:69] "baseline" "baseline" "baseline" "baseline" ...
        $ age_group  : chr [1:69] "65+" "65+" "65+" "65+" ...
 
 ---
@@ -613,7 +613,7 @@
        $ type       : chr [1:3] "quantile" "quantile" "quantile"
        $ type_id    : num [1:3] 0.01 0.01 0.01
        $ value      : int [1:3] 135 135 135
-       $ model      : chr [1:3] "baseline" "baseline" "baseline"
+       $ model_id   : chr [1:3] "baseline" "baseline" "baseline"
 
 # connect_hub works on S3 bucket simple forecasting hub on AWS
 
@@ -775,7 +775,7 @@
        $ type       : chr [1:69] "quantile" "quantile" "quantile" "quantile" ...
        $ type_id    : num [1:69] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
        $ value      : int [1:69] 135 137 139 140 141 141 142 143 144 145 ...
-       $ model      : chr [1:69] "baseline" "baseline" "baseline" "baseline" ...
+       $ model_id   : chr [1:69] "baseline" "baseline" "baseline" "baseline" ...
        $ age_group  : chr [1:69] "65+" "65+" "65+" "65+" ...
 
 # connect_hub & connect_model_output fail correctly

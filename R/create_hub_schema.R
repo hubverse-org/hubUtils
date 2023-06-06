@@ -22,7 +22,7 @@
 #' schema_parquet <- create_hub_schema(config_tasks, format = "parquet")
 create_hub_schema <- function(config_tasks,
                               format = c("csv", "parquet", "arrow"),
-                              partitions = list(model = arrow::utf8())) {
+                              partitions = list(model_id = arrow::utf8())) {
   format <- rlang::arg_match(format)
   if (format == "csv") {
     partitions <- NULL

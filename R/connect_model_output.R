@@ -19,7 +19,7 @@ connect_model_output.default <- function(model_output_dir,
     dataset <- arrow::open_dataset(
         model_output_dir,
         format = file_format,
-        partitioning = "model",
+        partitioning = "model_id",
         unify_schemas = TRUE,
         strings_can_be_null = TRUE,
         factory_options = list(exclude_invalid_files = TRUE)
@@ -42,7 +42,7 @@ connect_model_output.SubTreeFileSystem <- function(model_output_dir,
     dataset <- arrow::open_dataset(
         model_output_dir,
         format = file_format,
-        partitioning = "model",
+        partitioning = "model_id",
         unify_schemas = TRUE,
         strings_can_be_null = TRUE,
         factory_options = list(exclude_invalid_files = TRUE)

@@ -193,7 +193,7 @@ open_hub_dataset <- function(model_output_dir,
     csv = arrow::open_dataset(
       model_output_dir,
       format = "csv",
-      partitioning = "model",
+      partitioning = "model_id",
       col_types = schema,
       unify_schemas = TRUE,
       strings_can_be_null = TRUE,
@@ -202,7 +202,7 @@ open_hub_dataset <- function(model_output_dir,
     parquet = arrow::open_dataset(
       model_output_dir,
       format = "parquet",
-      partitioning = "model",
+      partitioning = "model_id",
       schema = schema,
       unify_schemas = TRUE,
       factory_options = list(exclude_invalid_files = TRUE)
@@ -210,7 +210,7 @@ open_hub_dataset <- function(model_output_dir,
     arrow = arrow::open_dataset(
       model_output_dir,
       format = "arrow",
-      partitioning = "model",
+      partitioning = "model_id",
       schema = schema,
       unify_schemas = TRUE,
       factory_options = list(exclude_invalid_files = TRUE)
