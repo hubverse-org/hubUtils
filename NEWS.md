@@ -4,7 +4,7 @@
 * Introduced function `create_hub_schema()` for determining the schema for data in a hub's model-output directory from a tasks.json config file.
 * `hub_connect()` now allows establishing connections to hubs with multiple file type formats.
 * `create_output_type_categorical()` function was renamed to `create_output_type_pmf()`.
-* Model output data directory partitions inferred when Column renamed from "model" to "model_id".
+* When extracting data via a hub connection, the column containing model identification information, inferred from `model-output` data directory partitions, was renamed from "model" to "model_id".
 
 # hubUtils 0.0.0.9005
 
