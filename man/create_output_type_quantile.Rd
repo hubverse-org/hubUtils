@@ -3,7 +3,7 @@
 \name{create_output_type_quantile}
 \alias{create_output_type_quantile}
 \alias{create_output_type_cdf}
-\alias{create_output_type_categorical}
+\alias{create_output_type_pmf}
 \alias{create_output_type_sample}
 \title{Create a distribution output type object of class \code{output_type_item}}
 \usage{
@@ -25,7 +25,7 @@ create_output_type_cdf(
   branch = "main"
 )
 
-create_output_type_categorical(
+create_output_type_pmf(
   required,
   optional,
   value_type,
@@ -69,10 +69,10 @@ from which to fetch schema. Defaults to \code{"main"}.}
 }
 \value{
 a named list of class \code{output_type_item} representing a \code{quantile},
-\code{cdf}, \code{categorical} or \code{sample} output type.
+\code{cdf}, \code{pmf} or \code{sample} output type.
 }
 \description{
-Create a representation of a \code{quantile}, \code{cdf}, \code{categorical} or \code{sample} output
+Create a representation of a \code{quantile}, \code{cdf}, \code{pmf} or \code{sample} output
 type as a list object of class \code{output_type_item}. This can be combined with
 additional \code{output_type_item}s using function \code{\link[=create_output_type]{create_output_type()}} to
 create an \code{output_type} object for a given model_task.
@@ -94,7 +94,7 @@ output type.
 \item \code{create_output_type_cdf()}: Create a list representation of a \code{cdf}
 output type.
 
-\item \code{create_output_type_categorical()}: Create a list representation of a \code{categorical}
+\item \code{create_output_type_pmf()}: Create a list representation of a \code{pmf}
 output type.
 
 \item \code{create_output_type_sample()}: Create a list representation of a \code{sample}
@@ -121,7 +121,7 @@ create_output_type_cdf(
   optional = c("EW202240", "EW202241", "EW202242"),
   value_type = "double"
 )
-create_output_type_categorical(
+create_output_type_pmf(
   required = NULL,
   optional = c("low", "moderate", "high", "extreme"),
   value_type = "double"

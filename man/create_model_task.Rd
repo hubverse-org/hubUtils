@@ -14,7 +14,7 @@ create_model_task(task_ids, output_type, target_metadata)
 \item{target_metadata}{object of class \code{target_metadata}.}
 }
 \value{
-a named list of class \code{target_metadata}.
+a named list of class \code{model_task}.
 }
 \description{
 Create an object of class \code{model_task} representing a model task. Multiple

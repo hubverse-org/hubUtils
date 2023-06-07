@@ -16,7 +16,7 @@ test_that("create_output_type_point functions work correctly", {
   expect_snapshot(
     create_output_type_median(
       is_required = FALSE,
-      value_type = "numeric"
+      value_type = "double"
     )
   )
 })
@@ -33,7 +33,7 @@ test_that("create_output_type_point functions error correctly", {
   expect_snapshot(
     create_output_type_mean(
       is_required = TRUE,
-      value_type = c("double", "numeric")
+      value_type = c("double", "integer")
     ),
     error = TRUE
   )
@@ -83,7 +83,7 @@ test_that("create_output_type_dist functions work correctly", {
     )
   )
   expect_snapshot(
-    create_output_type_categorical(
+    create_output_type_pmf(
       required = NULL,
       optional = c(
         "low", "moderate",

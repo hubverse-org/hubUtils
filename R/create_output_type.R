@@ -7,7 +7,7 @@
 #' @export
 #' @seealso [create_output_type_mean()], [create_output_type_median()],
 #' [create_output_type_quantile()], [create_output_type_cdf()],
-#' [create_output_type_categorical()], [create_output_type_sample()]
+#' [create_output_type_pmf()], [create_output_type_sample()]
 #' @details For more details consult
 #' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #' @examples
@@ -19,7 +19,7 @@
 #'   ),
 #'   create_output_type_median(
 #'     is_required = FALSE,
-#'     value_type = "numeric"
+#'     value_type = "double"
 #'   ),
 #'   create_output_type_quantile(
 #'     required = c(0.25, 0.5, 0.75),

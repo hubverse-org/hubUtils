@@ -1,0 +1,14 @@
+{
+    "schema_version": "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/admin-schema.json",
+    "name": "US CDC FluSight",
+    "maintainer": "US CDC",
+    "contact": {
+        "name": "Joe Bloggs",
+        "email": "joe.blogs@cdc.gov"
+    },
+    "repository_host": "GitHub",
+    "repository_url": "https://github.com/cdcepi/Flusight-forecast-data",
+    "file_format": ["csv", "parquet", "arrow"],
+    "timezone": "US/Eastern",
+    "model_output_dir": "forecasts"
+}

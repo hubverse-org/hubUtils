@@ -7,15 +7,15 @@ test_that("connect_hub works on local simple forecasting hub", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    "csv"
+    c("csv", "parquet")
   )
   expect_equal(
-    class(attr(hub_con, "file_system")),
-    c("LocalFileSystem", "FileSystem", "ArrowObject", "R6")
+    attr(hub_con, "file_system"),
+    "LocalFileSystem"
   )
   expect_equal(
     class(hub_con),
-    c("hub_connection", "FileSystemDataset", "Dataset", "ArrowObject",
+    c("hub_connection", "UnionDataset", "Dataset", "ArrowObject",
       "R6")
   )
 
@@ -24,6 +24,71 @@ test_that("connect_hub works on local simple forecasting hub", {
   attr(hub_con, "hub_path") <- "test/hub_path"
   expect_snapshot(str(hub_con))
 })
+
+
+test_that("connect_hub works connection & data extraction hub", {
+  # Simple forecasting Hub example ----
+
+  hub_path <- system.file("testhubs/flusight", package = "hubUtils")
+  hub_con <- connect_hub(hub_path)
+
+  # Tests that paths are assigned to attributes correctly
+  expect_equal(
+    attr(hub_con, "file_format"),
+    c("csv", "parquet", "ipc")
+  )
+  expect_equal(
+    attr(hub_con, "file_system"),
+    "LocalFileSystem"
+  )
+  expect_equal(
+    class(hub_con),
+    c("hub_connection", "UnionDataset", "Dataset", "ArrowObject",
+      "R6")
+  )
+
+  # overwrite path attributes to make snapshot portable
+  attr(hub_con, "model_output_dir") <- basename(attr(hub_con, "model_output_dir"))
+  attr(hub_con, "hub_path") <- basename(attr(hub_con, "hub_path"))
+  expect_snapshot(str(hub_con))
+
+  # Test that NAs are parsed correctly
+  out_df <- hub_con %>%
+    dplyr::filter(is.na(type_id)) %>%
+    dplyr::collect()
+
+
+  expect_snapshot(str(dplyr::arrange(out_df, value)))
+
+  expect_equal(typeof(out_df$type_id), "character")
+})
+
+
+test_that("connect_hub file_format override works on local hub", {
+  # Simple forecasting Hub example ----
+
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
+  hub_con <- connect_hub(hub_path, file_format = "csv")
+
+  # Tests that paths are assigned to attributes correctly
+  expect_equal(
+    attr(hub_con, "file_format"),
+    "csv"
+  )
+  expect_equal(
+    attr(hub_con, "file_system"),
+    "LocalFileSystem"
+  )
+
+  expect_equal(
+    class(hub_con),
+    c("hub_connection", "FileSystemDataset", "Dataset", "ArrowObject",
+      "R6")
+  )
+})
+
+
+
 
 test_that("connect_model_output works on local model_output_dir", {
   # Simple forecasting Hub example ----
@@ -37,8 +102,8 @@ test_that("connect_model_output works on local model_output_dir", {
     "csv"
   )
   expect_equal(
-    class(attr(mod_out_con, "file_system")),
-    c("LocalFileSystem", "FileSystem", "ArrowObject", "R6")
+    attr(mod_out_con, "file_system"),
+    "LocalFileSystem"
   )
   expect_equal(
     class(mod_out_con),
@@ -119,15 +184,17 @@ test_that("connect_hub works on S3 bucket simple forecasting hub on AWS", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    "csv"
+    c("csv", "parquet")
   )
+
   expect_equal(
-    class(attr(hub_con, "file_system")),
-    c("S3FileSystem", "FileSystem", "ArrowObject", "R6")
+    attr(hub_con, "file_system"),
+    "S3FileSystem"
   )
+
   expect_equal(
     class(hub_con),
-    c("hub_connection", "FileSystemDataset", "Dataset", "ArrowObject",
+    c("hub_connection", "UnionDataset", "Dataset", "ArrowObject",
       "R6")
   )
 

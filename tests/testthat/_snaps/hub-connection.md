@@ -3,20 +3,17 @@
     Code
       str(hub_con)
     Output
-      Classes 'hub_connection', 'FileSystemDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
-        Inherits from: <FileSystemDataset>
+      Classes 'hub_connection', 'UnionDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
+        Inherits from: <UnionDataset>
         Public:
           .:xp:.: externalptr
-          .class_title: function () 
           .unsafe_delete: function () 
           NewScan: function () 
           ToString: function () 
           WithSchema: function (schema) 
+          children: active binding
           class_title: function () 
           clone: function (deep = FALSE) 
-          files: active binding
-          filesystem: active binding
-          format: active binding
           initialize: function (xp) 
           metadata: active binding
           num_cols: active binding
@@ -27,35 +24,8 @@
           set_pointer: function (xp) 
           type: active binding 
        - attr(*, "hub_name")= chr "Simple Forecast Hub"
-       - attr(*, "file_format")= chr "csv"
-       - attr(*, "file_system")=Classes 'LocalFileSystem', 'FileSystem', 'ArrowObject', 'R6' <LocalFileSystem>
-        Inherits from: <FileSystem>
-        Public:
-          .:xp:.: externalptr
-          .unsafe_delete: function () 
-          CopyFile: function (src, dest) 
-          CreateDir: function (path, recursive = TRUE) 
-          DeleteDir: function (path) 
-          DeleteDirContents: function (path) 
-          DeleteFile: function (path) 
-          DeleteFiles: function (paths) 
-          GetFileInfo: function (x) 
-          Move: function (src, dest) 
-          OpenAppendStream: function (path) 
-          OpenInputFile: function (path) 
-          OpenInputStream: function (path) 
-          OpenOutputStream: function (path) 
-          cd: function (x) 
-          class_title: function () 
-          clone: function (deep = FALSE) 
-          initialize: function (xp) 
-          ls: function (path = "", ...) 
-          path: function (x) 
-          pointer: function () 
-          print: function (...) 
-          set_pointer: function (xp) 
-          type_name: active binding
-          url_scheme: active binding 
+       - attr(*, "file_format")= chr [1:2] "csv" "parquet"
+       - attr(*, "file_system")= chr "LocalFileSystem"
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
        - attr(*, "config_admin")=List of 8
@@ -71,10 +41,10 @@
         .. .. ..$ team_abbr : chr "simple_hub"
         .. .. ..$ model_abbr: chr "baseline"
         .. .. ..$ model_type: chr "baseline"
-        ..$ file_format   : chr "csv"
+        ..$ file_format   : chr [1:3] "csv" "parquet" "arrow"
         ..$ timezone      : chr "US/Eastern"
        - attr(*, "config_tasks")=List of 2
-        ..$ schema_version: chr "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/main/v0.0.1/tasks-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
         ..$ rounds        :List of 2
         .. ..$ :List of 4
         .. .. ..$ round_id_from_variable: logi TRUE
@@ -174,6 +144,149 @@
         .. .. .. ..$ start      : int -6
         .. .. .. ..$ end        : int 1
 
+# connect_hub works connection & data extraction hub
+
+    Code
+      str(hub_con)
+    Output
+      Classes 'hub_connection', 'UnionDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
+        Inherits from: <UnionDataset>
+        Public:
+          .:xp:.: externalptr
+          .unsafe_delete: function () 
+          NewScan: function () 
+          ToString: function () 
+          WithSchema: function (schema) 
+          children: active binding
+          class_title: function () 
+          clone: function (deep = FALSE) 
+          initialize: function (xp) 
+          metadata: active binding
+          num_cols: active binding
+          num_rows: active binding
+          pointer: function () 
+          print: function (...) 
+          schema: active binding
+          set_pointer: function (xp) 
+          type: active binding 
+       - attr(*, "hub_name")= chr "US CDC FluSight"
+       - attr(*, "file_format")= chr [1:3] "csv" "parquet" "ipc"
+       - attr(*, "file_system")= chr "LocalFileSystem"
+       - attr(*, "hub_path")= chr "flusight"
+       - attr(*, "model_output_dir")= chr "forecasts"
+       - attr(*, "config_admin")=List of 9
+        ..$ schema_version  : chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/admin-schema.json"
+        ..$ name            : chr "US CDC FluSight"
+        ..$ maintainer      : chr "US CDC"
+        ..$ contact         :List of 2
+        .. ..$ name : chr "Joe Bloggs"
+        .. ..$ email: chr "joe.blogs@cdc.gov"
+        ..$ repository_host : chr "GitHub"
+        ..$ repository_url  : chr "https://github.com/cdcepi/Flusight-forecast-data"
+        ..$ file_format     : chr [1:3] "csv" "parquet" "arrow"
+        ..$ timezone        : chr "US/Eastern"
+        ..$ model_output_dir: chr "forecasts"
+       - attr(*, "config_tasks")=List of 2
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+        ..$ rounds        :List of 1
+        .. ..$ :List of 4
+        .. .. ..$ round_id_from_variable: logi TRUE
+        .. .. ..$ round_id              : chr "forecast_date"
+        .. .. ..$ model_tasks           :List of 2
+        .. .. .. ..$ :List of 3
+        .. .. .. .. ..$ task_ids       :List of 4
+        .. .. .. .. .. ..$ forecast_date:List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr [1:23] "2022-12-12" "2022-12-19" "2022-12-26" "2023-01-02" ...
+        .. .. .. .. .. ..$ target       :List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr "wk flu hosp rate change"
+        .. .. .. .. .. ..$ horizon      :List of 2
+        .. .. .. .. .. .. ..$ required: int 2
+        .. .. .. .. .. .. ..$ optional: int 1
+        .. .. .. .. .. ..$ location     :List of 2
+        .. .. .. .. .. .. ..$ required: chr "US"
+        .. .. .. .. .. .. ..$ optional: chr [1:53] "01" "02" "04" "05" ...
+        .. .. .. .. ..$ output_type    :List of 1
+        .. .. .. .. .. ..$ pmf:List of 2
+        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. .. ..$ required: chr [1:5] "large_decrease" "decrease" "stable" "increase" ...
+        .. .. .. .. .. .. .. ..$ optional: NULL
+        .. .. .. .. .. .. ..$ value  :List of 3
+        .. .. .. .. .. .. .. ..$ type   : chr "double"
+        .. .. .. .. .. .. .. ..$ minimum: int 0
+        .. .. .. .. .. .. .. ..$ maximum: int 1
+        .. .. .. .. ..$ target_metadata:List of 1
+        .. .. .. .. .. ..$ :List of 8
+        .. .. .. .. .. .. ..$ target_id    : chr "wk flu hosp rate change"
+        .. .. .. .. .. .. ..$ target_name  : chr "weekly influenza hospitalization rate change"
+        .. .. .. .. .. .. ..$ target_units : chr "rate per 100,000 population"
+        .. .. .. .. .. .. ..$ target_keys  :List of 1
+        .. .. .. .. .. .. .. ..$ target: chr "wk flu hosp rate change"
+        .. .. .. .. .. .. ..$ target_type  : chr "nominal"
+        .. .. .. .. .. .. ..$ description  : chr "This target represents the change in the rate of new hospitalizations per week comparing the week ending two da"| __truncated__
+        .. .. .. .. .. .. ..$ is_step_ahead: logi TRUE
+        .. .. .. .. .. .. ..$ time_unit    : chr "week"
+        .. .. .. ..$ :List of 3
+        .. .. .. .. ..$ task_ids       :List of 4
+        .. .. .. .. .. ..$ forecast_date:List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr [1:23] "2022-12-12" "2022-12-19" "2022-12-26" "2023-01-02" ...
+        .. .. .. .. .. ..$ target       :List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr "wk ahead inc flu hosp"
+        .. .. .. .. .. ..$ horizon      :List of 2
+        .. .. .. .. .. .. ..$ required: int 2
+        .. .. .. .. .. .. ..$ optional: int 1
+        .. .. .. .. .. ..$ location     :List of 2
+        .. .. .. .. .. .. ..$ required: chr "US"
+        .. .. .. .. .. .. ..$ optional: chr [1:53] "01" "02" "04" "05" ...
+        .. .. .. .. ..$ output_type    :List of 2
+        .. .. .. .. .. ..$ quantile:List of 2
+        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
+        .. .. .. .. .. .. .. ..$ optional: NULL
+        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. .. ..$ type   : chr "integer"
+        .. .. .. .. .. .. .. ..$ minimum: int 0
+        .. .. .. .. .. ..$ mean    :List of 2
+        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. .. ..$ optional: logi NA
+        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. .. ..$ type   : chr "double"
+        .. .. .. .. .. .. .. ..$ minimum: int 0
+        .. .. .. .. ..$ target_metadata:List of 1
+        .. .. .. .. .. ..$ :List of 8
+        .. .. .. .. .. .. ..$ target_id    : chr "wk ahead inc flu hosp"
+        .. .. .. .. .. .. ..$ target_name  : chr "weekly influenza hospitalization incidence"
+        .. .. .. .. .. .. ..$ target_units : chr "rate per 100,000 population"
+        .. .. .. .. .. .. ..$ target_keys  :List of 1
+        .. .. .. .. .. .. .. ..$ target: chr "wk ahead inc flu hosp"
+        .. .. .. .. .. .. ..$ target_type  : chr "discrete"
+        .. .. .. .. .. .. ..$ description  : chr "This target represents the counts of new hospitalizations per horizon week."
+        .. .. .. .. .. .. ..$ is_step_ahead: logi TRUE
+        .. .. .. .. .. .. ..$ time_unit    : chr "week"
+        .. .. ..$ submissions_due       :List of 3
+        .. .. .. ..$ relative_to: chr "forecast_date"
+        .. .. .. ..$ start      : int -6
+        .. .. .. ..$ end        : int 2
+
+---
+
+    Code
+      str(dplyr::arrange(out_df, value))
+    Output
+      tibble [6 x 8] (S3: tbl_df/tbl/data.frame)
+       $ forecast_date: Date[1:6], format: "2023-05-01" "2023-05-01" ...
+       $ horizon      : int [1:6] 1 2 1 2 1 2
+       $ target       : chr [1:6] "wk ahead inc flu hosp" "wk ahead inc flu hosp" "wk ahead inc flu hosp" "wk ahead inc flu hosp" ...
+       $ location     : chr [1:6] "US" "US" "US" "US" ...
+       $ type         : chr [1:6] "mean" "mean" "mean" "mean" ...
+       $ type_id      : chr [1:6] NA NA NA NA ...
+       $ value        : num [1:6] 926 926 945 945 1033 ...
+       $ model_id     : chr [1:6] "baseline" "baseline" "baseline" "baseline" ...
+
 # connect_model_output works on local model_output_dir
 
     Code
@@ -188,7 +301,7 @@
       
       -- Connection schema 
     Output
-      mod_out_connection with 4 csv files
+      mod_out_connection with 3 csv files
       origin_date: date32[day]
       target: string
       horizon: int64
@@ -196,8 +309,7 @@
       type: string
       type_id: double
       value: int64
-      age_group: string
-      team: string
+      model_id: string
 
 ---
 
@@ -228,34 +340,7 @@
           set_pointer: function (xp) 
           type: active binding 
        - attr(*, "file_format")= chr "csv"
-       - attr(*, "file_system")=Classes 'LocalFileSystem', 'FileSystem', 'ArrowObject', 'R6' <LocalFileSystem>
-        Inherits from: <FileSystem>
-        Public:
-          .:xp:.: externalptr
-          .unsafe_delete: function () 
-          CopyFile: function (src, dest) 
-          CreateDir: function (path, recursive = TRUE) 
-          DeleteDir: function (path) 
-          DeleteDirContents: function (path) 
-          DeleteFile: function (path) 
-          DeleteFiles: function (paths) 
-          GetFileInfo: function (x) 
-          Move: function (src, dest) 
-          OpenAppendStream: function (path) 
-          OpenInputFile: function (path) 
-          OpenInputStream: function (path) 
-          OpenOutputStream: function (path) 
-          cd: function (x) 
-          class_title: function () 
-          clone: function (deep = FALSE) 
-          initialize: function (xp) 
-          ls: function (path = "", ...) 
-          path: function (x) 
-          pointer: function () 
-          print: function (...) 
-          set_pointer: function (xp) 
-          type_name: active binding
-          url_scheme: active binding 
+       - attr(*, "file_system")= chr "LocalFileSystem"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
 
 # hub_connection print method works
@@ -264,11 +349,11 @@
       hub_con
     Message <cliMessage>
       
-      -- <hub_connection/FileSystemDataset> --
+      -- <hub_connection/UnionDataset> --
       
       * hub_name: "Simple Forecast Hub"
       * hub_path: 'test/hub_path'
-      * file_format: "csv"
+      * file_format: "csv" and "parquet"
       * file_system: "LocalFileSystem"
       * model_output_dir: "test/model_output_dir"
       * config_admin: 'hub-config/admin.json'
@@ -276,16 +361,16 @@
       
       -- Connection schema 
     Output
-      hub_connection with 4 csv files
+      hub_connection
       origin_date: date32[day]
       target: string
-      horizon: int64
+      horizon: int32
       location: string
       type: string
       type_id: double
-      value: int64
+      value: int32
+      model_id: string
       age_group: string
-      team: string
 
 ---
 
@@ -293,11 +378,11 @@
       print(hub_con, verbose = TRUE)
     Message <cliMessage>
       
-      -- <hub_connection/FileSystemDataset> --
+      -- <hub_connection/UnionDataset> --
       
       * hub_name: "Simple Forecast Hub"
       * hub_path: 'test/hub_path'
-      * file_format: "csv"
+      * file_format: "csv" and "parquet"
       * file_system: "LocalFileSystem"
       * model_output_dir: "test/model_output_dir"
       * config_admin: 'hub-config/admin.json'
@@ -305,30 +390,27 @@
       
       -- Connection schema 
     Output
-      hub_connection with 4 csv files
+      hub_connection
       origin_date: date32[day]
       target: string
-      horizon: int64
+      horizon: int32
       location: string
       type: string
       type_id: double
-      value: int64
+      value: int32
+      model_id: string
       age_group: string
-      team: string
-      Classes 'hub_connection', 'FileSystemDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
-        Inherits from: <FileSystemDataset>
+      Classes 'hub_connection', 'UnionDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
+        Inherits from: <UnionDataset>
         Public:
           .:xp:.: externalptr
-          .class_title: function () 
           .unsafe_delete: function () 
           NewScan: function () 
           ToString: function () 
           WithSchema: function (schema) 
+          children: active binding
           class_title: function () 
           clone: function (deep = FALSE) 
-          files: active binding
-          filesystem: active binding
-          format: active binding
           initialize: function (xp) 
           metadata: active binding
           num_cols: active binding
@@ -339,35 +421,8 @@
           set_pointer: function (xp) 
           type: active binding 
        - attr(*, "hub_name")= chr "Simple Forecast Hub"
-       - attr(*, "file_format")= chr "csv"
-       - attr(*, "file_system")=Classes 'LocalFileSystem', 'FileSystem', 'ArrowObject', 'R6' <LocalFileSystem>
-        Inherits from: <FileSystem>
-        Public:
-          .:xp:.: externalptr
-          .unsafe_delete: function () 
-          CopyFile: function (src, dest) 
-          CreateDir: function (path, recursive = TRUE) 
-          DeleteDir: function (path) 
-          DeleteDirContents: function (path) 
-          DeleteFile: function (path) 
-          DeleteFiles: function (paths) 
-          GetFileInfo: function (x) 
-          Move: function (src, dest) 
-          OpenAppendStream: function (path) 
-          OpenInputFile: function (path) 
-          OpenInputStream: function (path) 
-          OpenOutputStream: function (path) 
-          cd: function (x) 
-          class_title: function () 
-          clone: function (deep = FALSE) 
-          initialize: function (xp) 
-          ls: function (path = "", ...) 
-          path: function (x) 
-          pointer: function () 
-          print: function (...) 
-          set_pointer: function (xp) 
-          type_name: active binding
-          url_scheme: active binding 
+       - attr(*, "file_format")= chr [1:2] "csv" "parquet"
+       - attr(*, "file_system")= chr "LocalFileSystem"
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
        - attr(*, "config_admin")=List of 8
@@ -383,10 +438,10 @@
         .. .. ..$ team_abbr : chr "simple_hub"
         .. .. ..$ model_abbr: chr "baseline"
         .. .. ..$ model_type: chr "baseline"
-        ..$ file_format   : chr "csv"
+        ..$ file_format   : chr [1:3] "csv" "parquet" "arrow"
         ..$ timezone      : chr "US/Eastern"
        - attr(*, "config_tasks")=List of 2
-        ..$ schema_version: chr "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/main/v0.0.1/tasks-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
         ..$ rounds        :List of 2
         .. ..$ :List of 4
         .. .. ..$ round_id_from_variable: logi TRUE
@@ -500,7 +555,7 @@
       
       -- Connection schema 
     Output
-      mod_out_connection with 4 csv files
+      mod_out_connection with 3 csv files
       origin_date: date32[day]
       target: string
       horizon: int64
@@ -508,8 +563,7 @@
       type: string
       type_id: double
       value: int64
-      age_group: string
-      team: string
+      model_id: string
 
 # connect_hub data extraction works on simple forecasting hub
 
@@ -525,8 +579,8 @@
        $ type       : chr [1:3] "quantile" "quantile" "quantile"
        $ type_id    : num [1:3] 0.01 0.01 0.01
        $ value      : int [1:3] 135 135 135
+       $ model_id   : chr [1:3] "baseline" "baseline" "baseline"
        $ age_group  : chr [1:3] NA NA NA
-       $ team       : chr [1:3] "baseline" "baseline" "baseline"
 
 ---
 
@@ -542,8 +596,8 @@
        $ type       : chr [1:69] "quantile" "quantile" "quantile" "quantile" ...
        $ type_id    : num [1:69] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
        $ value      : int [1:69] 135 137 139 140 141 141 142 143 144 145 ...
+       $ model_id   : chr [1:69] "baseline" "baseline" "baseline" "baseline" ...
        $ age_group  : chr [1:69] "65+" "65+" "65+" "65+" ...
-       $ team       : chr [1:69] "baseline" "baseline" "baseline" "baseline" ...
 
 ---
 
@@ -551,7 +605,7 @@
       model_output_con %>% dplyr::filter(origin_date == "2022-10-08", horizon == 2,
       type_id == 0.01) %>% dplyr::collect() %>% str()
     Output
-      tibble [3 x 9] (S3: tbl_df/tbl/data.frame)
+      tibble [3 x 8] (S3: tbl_df/tbl/data.frame)
        $ origin_date: Date[1:3], format: "2022-10-08" "2022-10-08" ...
        $ target     : chr [1:3] "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp"
        $ horizon    : int [1:3] 2 2 2
@@ -559,28 +613,24 @@
        $ type       : chr [1:3] "quantile" "quantile" "quantile"
        $ type_id    : num [1:3] 0.01 0.01 0.01
        $ value      : int [1:3] 135 135 135
-       $ age_group  : chr [1:3] NA NA NA
-       $ team       : chr [1:3] "baseline" "baseline" "baseline"
+       $ model_id   : chr [1:3] "baseline" "baseline" "baseline"
 
 # connect_hub works on S3 bucket simple forecasting hub on AWS
 
     Code
       str(hub_con)
     Output
-      Classes 'hub_connection', 'FileSystemDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
-        Inherits from: <FileSystemDataset>
+      Classes 'hub_connection', 'UnionDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
+        Inherits from: <UnionDataset>
         Public:
           .:xp:.: externalptr
-          .class_title: function () 
           .unsafe_delete: function () 
           NewScan: function () 
           ToString: function () 
           WithSchema: function (schema) 
+          children: active binding
           class_title: function () 
           clone: function (deep = FALSE) 
-          files: active binding
-          filesystem: active binding
-          format: active binding
           initialize: function (xp) 
           metadata: active binding
           num_cols: active binding
@@ -591,36 +641,8 @@
           set_pointer: function (xp) 
           type: active binding 
        - attr(*, "hub_name")= chr "Simple Forecast Hub"
-       - attr(*, "file_format")= chr "csv"
-       - attr(*, "file_system")=Classes 'S3FileSystem', 'FileSystem', 'ArrowObject', 'R6' <S3FileSystem>
-        Inherits from: <FileSystem>
-        Public:
-          .:xp:.: externalptr
-          .unsafe_delete: function () 
-          CopyFile: function (src, dest) 
-          CreateDir: function (path, recursive = TRUE) 
-          DeleteDir: function (path) 
-          DeleteDirContents: function (path) 
-          DeleteFile: function (path) 
-          DeleteFiles: function (paths) 
-          GetFileInfo: function (x) 
-          Move: function (src, dest) 
-          OpenAppendStream: function (path) 
-          OpenInputFile: function (path) 
-          OpenInputStream: function (path) 
-          OpenOutputStream: function (path) 
-          cd: function (x) 
-          class_title: function () 
-          clone: function (deep = FALSE) 
-          initialize: function (xp) 
-          ls: function (path = "", ...) 
-          path: function (x) 
-          pointer: function () 
-          print: function (...) 
-          region: active binding
-          set_pointer: function (xp) 
-          type_name: active binding
-          url_scheme: active binding 
+       - attr(*, "file_format")= chr [1:2] "csv" "parquet"
+       - attr(*, "file_system")= chr "S3FileSystem"
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
        - attr(*, "config_admin")=List of 8
@@ -636,7 +658,7 @@
         .. .. ..$ team_abbr : chr "simple_hub"
         .. .. ..$ model_abbr: chr "baseline"
         .. .. ..$ model_type: chr "baseline"
-        ..$ file_format   : chr "csv"
+        ..$ file_format   : chr [1:2] "csv" "parquet"
         ..$ timezone      : chr "US/Eastern"
        - attr(*, "config_tasks")=List of 2
         ..$ schema_version: chr "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/main/v0.0.1/tasks-schema.json"
@@ -753,8 +775,8 @@
        $ type       : chr [1:69] "quantile" "quantile" "quantile" "quantile" ...
        $ type_id    : num [1:69] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
        $ value      : int [1:69] 135 137 139 140 141 141 142 143 144 145 ...
+       $ model_id   : chr [1:69] "baseline" "baseline" "baseline" "baseline" ...
        $ age_group  : chr [1:69] "65+" "65+" "65+" "65+" ...
-       $ team       : chr [1:69] "baseline" "baseline" "baseline" "baseline" ...
 
 # connect_hub & connect_model_output fail correctly
 

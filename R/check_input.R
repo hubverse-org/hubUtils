@@ -279,13 +279,22 @@ check_oneof_input <- function(input, property = c("required", "optional"),
 
   oneof_schema <- property_schema[["items"]][["oneOf"]]
 
-  names(oneof_schema) <- json_datatypes[
-    purrr::map_chr(
-      oneof_schema,
-      ~ .x$type
-    )
-  ]
-
+  oneof_schema <- purrr::map(
+    oneof_schema,
+    function(x){
+      type <- x$type
+      if (length(type) > 1L) {
+        x <- rep(list(x), length(type))
+        names(x) <- json_datatypes[type]
+        x
+      } else {
+        x <- list(x)
+        names(x) <- json_datatypes[type]
+        x
+      }
+    }
+  ) %>%
+    unlist(recursive = FALSE)
 
   value_types <- c("character", "double", "integer")
   input_type <- typeof(input)

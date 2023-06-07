@@ -23,7 +23,7 @@
 #' For connection to a fully configured hub, accessed through `hub_path`,
 #' `file_format` is inferred from the hub's `file_format` configuration in
 #' `admin.json` and is ignored by default.
-#' If supplied, it will override hub configuration setting.
+#' If supplied, it will override hub configuration setting. Multiple formats can be supplied to `connect_hub` but only a single file format can be supplied to `connect_mod_out`.
 #'
 #' @return
 #' - `connect_hub` returns an S3 object of class `<hub_connection>`.
@@ -90,24 +90,36 @@ connect_hub.default <- function(hub_path,
     file_format <- rlang::missing_arg()
     file_format <- get_file_format(config_admin, file_format)
   } else {
-    file_format <- rlang::arg_match(file_format)
+    file_format <- rlang::arg_match(file_format, multiple = TRUE)
   }
   hub_name <- config_admin$name
 
-
-  dataset <- arrow::open_dataset(
+  dataset <- open_hub_datasets(
     model_output_dir,
-    format = file_format,
-    partitioning = "team",
-    unify_schemas = TRUE,
-    factory_options = list(exclude_invalid_files = TRUE)
+    file_format,
+    config_tasks
   )
+
+  if (inherits(dataset, "UnionDataset")) {
+    file_system <- purrr::map_chr(
+      dataset$children,
+      ~ class(.x$filesystem)[1]
+    ) %>%
+      unique()
+
+    file_format <- purrr::map_chr(
+      dataset$children,
+      ~ .x$format$type
+    )
+  } else {
+    file_system <- class(dataset$filesystem)[1]
+  }
 
   structure(dataset,
     class = c("hub_connection", class(dataset)),
     hub_name = hub_name,
     file_format = file_format,
-    file_system = dataset$filesystem,
+    file_system = file_system,
     hub_path = hub_path,
     model_output_dir = model_output_dir,
     config_admin = config_admin,
@@ -134,23 +146,36 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
     file_format <- rlang::missing_arg()
     file_format <- get_file_format(config_admin, file_format)
   } else {
-    file_format <- rlang::arg_match(file_format)
+    file_format <- rlang::arg_match(file_format, multiple = TRUE)
   }
   hub_name <- config_admin$name
 
-  dataset <- arrow::open_dataset(
+  dataset <- open_hub_datasets(
     model_output_dir,
-    format = file_format,
-    partitioning = "team",
-    unify_schemas = TRUE,
-    factory_options = list(exclude_invalid_files = TRUE)
+    file_format,
+    config_tasks
   )
+
+  if (inherits(dataset, "UnionDataset")) {
+    file_system <- purrr::map_chr(
+      dataset$children,
+      ~ class(.x$filesystem$base_fs)[1]
+    ) %>%
+      unique()
+
+    file_format <- purrr::map_chr(
+      dataset$children,
+      ~ .x$format$type
+    )
+  } else {
+    file_system <- class(dataset$filesystem$base_fs)[1]
+  }
 
   structure(dataset,
     class = c("hub_connection", class(dataset)),
     hub_name = hub_name,
     file_format = file_format,
-    file_system = dataset$filesystem$base_fs,
+    file_system = file_system,
     hub_path = hub_path$base_path,
     model_output_dir = model_output_dir$base_path,
     config_admin = config_admin,
@@ -158,218 +183,70 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
   )
 }
 
-#' @export
-#' @describeIn connect_hub connect directly to a `model-output` directory. This
-#' function can be used to access data directly from an appropriately set up
-#' model output directory which is not part of a fully configured hub.
-connect_model_output <- function(model_output_dir,
-                                 file_format = c("csv", "parquet", "arrow")) {
-  UseMethod("connect_model_output")
-}
-
-#' @export
-connect_model_output.default <- function(model_output_dir,
-                                         file_format = c("csv", "parquet", "arrow")) {
-  rlang::check_required(model_output_dir)
-  if (!dir.exists(model_output_dir)) {
-    cli::cli_abort(c("x" = "Directory {.path {model_output_dir}} does not exist."))
-  }
+open_hub_dataset <- function(model_output_dir,
+                             file_format = c("csv", "parquet", "arrow"),
+                             config_tasks) {
   file_format <- rlang::arg_match(file_format)
+  schema <- create_hub_schema(config_tasks, format = file_format)
 
-  dataset <- arrow::open_dataset(
-    model_output_dir,
-    format = file_format,
-    partitioning = "team",
-    unify_schemas = TRUE,
-    factory_options = list(exclude_invalid_files = TRUE)
-  )
-
-  structure(dataset,
-    class = c("mod_out_connection", class(dataset)),
-    file_format = file_format,
-    file_system = dataset$filesystem,
-    model_output_dir = model_output_dir
-  )
-}
-
-#' @export
-connect_model_output.SubTreeFileSystem <- function(model_output_dir,
-                                                   file_format = c("csv", "parquet", "arrow")) {
-  rlang::check_required(model_output_dir)
-  file_format <- rlang::arg_match(file_format)
-
-  dataset <- arrow::open_dataset(
-    model_output_dir,
-    format = file_format,
-    partitioning = "team",
-    unify_schemas = TRUE,
-    factory_options = list(exclude_invalid_files = TRUE)
-  )
-
-  structure(dataset,
-    class = c("mod_out_connection", class(dataset)),
-    file_format = file_format,
-    file_system = dataset$filesystem$base_fs,
-    model_output_dir = model_output_dir$base_path
+  switch(file_format,
+    csv = arrow::open_dataset(
+      model_output_dir,
+      format = "csv",
+      partitioning = "model_id",
+      col_types = schema,
+      unify_schemas = FALSE,
+      strings_can_be_null = TRUE,
+      factory_options = list(exclude_invalid_files = TRUE)
+    ),
+    parquet = arrow::open_dataset(
+      model_output_dir,
+      format = "parquet",
+      partitioning = "model_id",
+      schema = schema,
+      unify_schemas = FALSE,
+      factory_options = list(exclude_invalid_files = TRUE)
+    ),
+    arrow = arrow::open_dataset(
+      model_output_dir,
+      format = "arrow",
+      partitioning = "model_id",
+      schema = schema,
+      unify_schemas = FALSE,
+      factory_options = list(exclude_invalid_files = TRUE)
+    )
   )
 }
 
-#' Print a `<hub_connection>` or `<mod_out_connection>` S3 class object
-#'
-#' @param x A `<hub_connection>` or `<mod_out_connection>` S3 class object.
-#'
-#' @param verbose Logical. Whether to print the full structure of the object.
-#' Defaults to `FALSE`.
-#' @param ... Further arguments passed to or from other methods.
-#'
-#' @export
-#' @describeIn print.hub_connection print a `<hub_connection>` object.
-#' @examples
-#' hub_path <- system.file("testhubs/simple", package = "hubUtils")
-#' hub_con <- connect_hub(hub_path)
-#' hub_con
-#' print(hub_con)
-#' print(hub_con, verbose = TRUE)
-#' mod_out_path <- system.file("testhubs/simple/model-output", package = "hubUtils")
-#' mod_out_con <- connect_model_output(mod_out_path)
-#' print(mod_out_con)
-print.hub_connection <- function(x, verbose = FALSE, ...) {
-  cli::cli_h2("{.cls {class(x)[1:2]}}")
-
-  print_msg <- NULL
-
-
-  if (!is.null(attr(x, "hub_path"))) {
-    print_msg <- c(print_msg,
-      "*" = "hub_name: {.val {attr(x, 'hub_name')}}",
-      "*" = "hub_path: {.file {attr(x, 'hub_path')}}"
+open_hub_datasets <- function(model_output_dir,
+                              file_format = c("csv", "parquet", "arrow"),
+                              config_tasks) {
+  if (length(file_format) == 1L) {
+    open_hub_dataset(
+      model_output_dir,
+      file_format,
+      config_tasks
     )
-  }
-  if (!is.null(attr(x, "file_format"))) {
-    print_msg <- c(print_msg,
-      "*" = "file_format: {.val {attr(x, 'file_format')}}"
+  } else {
+    cons <- purrr::map(
+      file_format,
+      ~ open_hub_dataset(
+        model_output_dir,
+        .x,
+        config_tasks
+      )
     )
-  }
-  if (!is.null(attr(x, "file_system"))) {
-    print_msg <- c(print_msg,
-      "*" = "file_system: {.val {class(attr(x, 'file_system'))[1]}}"
-    )
-  }
-  print_msg <- c(print_msg,
-    "*" = "model_output_dir: {.val {attr(x, 'model_output_dir')}}"
-  )
 
-  if (!is.null(attr(x, "config_admin"))) {
-    print_msg <- c(print_msg,
-      "*" = "config_admin: {.path hub-config/admin.json}"
-    )
-  }
-  if (!is.null(attr(x, "config_tasks"))) {
-    print_msg <- c(print_msg,
-      "*" = "config_tasks: {.path hub-config/tasks.json}"
-    )
-  }
+    # Remove connections with 0 files in model-output data
+    cons[
+      purrr::map_lgl(
+        cons,
+        ~ length(.x$files) == 0L)
+    ] <- NULL
 
-  cli::cli_bullets(print_msg)
-
-  if (inherits(x, "ArrowObject")) {
-    cli::cli_h3("Connection schema")
-    x$print()
+    arrow::open_dataset(cons)
   }
-
-  if (verbose) {
-    utils::str(x)
-  }
-  invisible(x)
 }
-
-#' @export
-#' @describeIn print.hub_connection print a `<mod_out_connection>` object.
-print.mod_out_connection <- function(x, verbose = FALSE, ...) {
-  cli::cli_h2("{.cls {class(x)[1:2]}}")
-
-  print_msg <- NULL
-
-  if (!is.null(attr(x, "file_format"))) {
-    print_msg <- c(print_msg,
-      "*" = "file_format: {.val {attr(x, 'file_format')}}"
-    )
-  }
-  if (!is.null(attr(x, "file_system"))) {
-    print_msg <- c(print_msg,
-      "*" = "file_system: {.val {class(attr(x, 'file_system'))[1]}}"
-    )
-  }
-  print_msg <- c(print_msg,
-    "*" = "model_output_dir: {.val {attr(x, 'model_output_dir')}}"
-  )
-
-  cli::cli_bullets(print_msg)
-
-  if (inherits(x, "ArrowObject")) {
-    cli::cli_h3("Connection schema")
-    x$print()
-  }
-
-  if (verbose) {
-    utils::str(x)
-  }
-  invisible(x)
-}
-
-read_config <- function(hub_path, config = c("tasks", "admin"),
-                        call = rlang::caller_env()) {
-  UseMethod("read_config")
-}
-
-
-#' @export
-read_config.default <- function(hub_path, config = c("tasks", "admin"),
-                                call = rlang::caller_env()) {
-  config <- rlang::arg_match(config)
-  path <- fs::path(hub_path, "hub-config", config, ext = "json")
-
-  if (!fs::file_exists(path)) {
-    cli::cli_abort(
-      "Config file {.field {config}} does not exist at path {.path { path }}.",
-      call = call
-    )
-  }
-  jsonlite::read_json(path,
-    simplifyVector = TRUE,
-    simplifyDataFrame = FALSE
-  )
-}
-
-#' @export
-read_config.SubTreeFileSystem <- function(hub_path, config = c("tasks", "admin"),
-                                          call = rlang::caller_env()) {
-  config <- rlang::arg_match(config)
-  path <- hub_path$path(fs::path("hub-config", config, ext = "json"))
-
-  if (!paste0(config, ".json") %in% basename(hub_path$ls("hub-config"))) {
-    cli::cli_abort(
-      "Config file {.field {config}} does not exist at path {.path { path$base_path }}.",
-      call = call
-    )
-  }
-
-  split_base_path <- stringr::str_split(
-    hub_path$base_path,
-    "/", 2
-  ) %>%
-    unlist()
-
-  path_url <- glue::glue(
-    "https://{split_base_path[1]}.s3.amazonaws.com/{split_base_path[2]}hub-config/{config}.json"
-  )
-
-  jsonlite::fromJSON(path_url,
-    simplifyVector = TRUE,
-    simplifyDataFrame = FALSE
-  )
-}
-
 
 get_file_format <- function(config_admin,
                             file_format = c("csv", "parquet", "arrow"),
@@ -392,9 +269,6 @@ get_file_format <- function(config_admin,
     return(file_format)
   }
 
-  if (length(config_file_format) == 1L) {
-    return(config_file_format)
-  }
   if (length(config_file_format) == 0L) {
     cli::cli_abort(c(
       "x" = "{.arg file_format} value could not be extracted from config
@@ -406,18 +280,7 @@ get_file_format <- function(config_admin,
     )
   }
 
-  if (length(config_file_format) > 1L && rlang::is_missing(file_format)) {
-    cli::cli_abort(c(
-      "x" = "More than one file formats are available for this hub: {.val {config_file_format}}",
-      "!" = "Current {.code hubUtils} functionality only supports connecting
-            to model output data in a single format.",
-      "i" = "Use argument {.arg file_format} to specify a single file format.
-            Only data stored in the specified file_format will be accessible through
-            the {.cls hub_connection} object created."
-    ),
-    call = call
-    )
-  }
+  return(config_file_format)
 }
 
 model_output_dir_path <- function(hub_path, config_admin,

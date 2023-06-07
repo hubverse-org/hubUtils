@@ -29,7 +29,7 @@ create_output_type(
   ),
   create_output_type_median(
     is_required = FALSE,
-    value_type = "numeric"
+    value_type = "double"
   ),
   create_output_type_quantile(
     required = c(0.25, 0.5, 0.75),
@@ -45,5 +45,5 @@ create_output_type(
 \seealso{
 \code{\link[=create_output_type_mean]{create_output_type_mean()}}, \code{\link[=create_output_type_median]{create_output_type_median()}},
 \code{\link[=create_output_type_quantile]{create_output_type_quantile()}}, \code{\link[=create_output_type_cdf]{create_output_type_cdf()}},
-\code{\link[=create_output_type_categorical]{create_output_type_categorical()}}, \code{\link[=create_output_type_sample]{create_output_type_sample()}}
+\code{\link[=create_output_type_pmf]{create_output_type_pmf()}}, \code{\link[=create_output_type_sample]{create_output_type_sample()}}
 }

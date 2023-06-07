@@ -128,7 +128,7 @@ create_output_type_point <- function(output_type = c("mean", "median"),
 
 #' Create a distribution output type object of class `output_type_item`
 #'
-#' Create a representation of a `quantile`, `cdf`, `categorical` or `sample` output
+#' Create a representation of a `quantile`, `cdf`, `pmf` or `sample` output
 #' type as a list object of class `output_type_item`. This can be combined with
 #' additional `output_type_item`s using function [`create_output_type()`] to
 #' create an `output_type` object for a given model_task.
@@ -147,7 +147,7 @@ create_output_type_point <- function(output_type = c("mean", "median"),
 #' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #'
 #' @return a named list of class `output_type_item` representing a `quantile`,
-#' `cdf`, `categorical` or `sample` output type.
+#' `cdf`, `pmf` or `sample` output type.
 #' @export
 #' @describeIn create_output_type_quantile Create a list representation of a `quantile`
 #' output type.
@@ -172,7 +172,7 @@ create_output_type_point <- function(output_type = c("mean", "median"),
 #'   optional = c("EW202240", "EW202241", "EW202242"),
 #'   value_type = "double"
 #' )
-#' create_output_type_categorical(
+#' create_output_type_pmf(
 #'   required = NULL,
 #'   optional = c("low", "moderate", "high", "extreme"),
 #'   value_type = "double"
@@ -209,14 +209,14 @@ create_output_type_cdf <- function(required, optional,
   )
 }
 
-#' @describeIn create_output_type_quantile Create a list representation of a `categorical`
+#' @describeIn create_output_type_quantile Create a list representation of a `pmf`
 #' output type.
 #' @export
-create_output_type_categorical <- function(required, optional, value_type,
+create_output_type_pmf <- function(required, optional, value_type,
                                            schema_version = "latest",
                                            branch = "main") {
   create_output_type_dist(
-    output_type = "categorical", required = required, optional = optional,
+    output_type = "pmf", required = required, optional = optional,
     value_type = value_type, value_minimum = 0L,
     value_maximum = 1L, schema_version = schema_version,
     branch = branch
@@ -240,7 +240,7 @@ create_output_type_sample <- function(required, optional, value_type,
 
 
 create_output_type_dist <- function(output_type = c(
-                                      "quantile", "cdf", "categorical",
+                                      "quantile", "cdf", "pmf",
                                       "sample"
                                     ),
                                     required, optional,

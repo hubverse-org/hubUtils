@@ -1,3 +1,11 @@
+# hubUtils 0.0.0.9006
+
+* `hub_connect()` now automatically determines the `output_type_id` column data type from the tasks.json config file coercing to the highest possible data type, "character" being the lowest denominator.
+* Introduced function `create_hub_schema()` for determining the schema for data in a hub's model-output directory from a tasks.json config file.
+* `hub_connect()` now allows establishing connections to hubs with multiple file type formats.
+* `create_output_type_categorical()` function was renamed to `create_output_type_pmf()`.
+* When extracting data via a hub connection, the column containing model identification information, inferred from `model-output` data directory partitions, was renamed from "model" to "model_id".
+
 # hubUtils 0.0.0.9005
 
 * Re-implemented `hub_connect()` function to open connection to `model-output` data

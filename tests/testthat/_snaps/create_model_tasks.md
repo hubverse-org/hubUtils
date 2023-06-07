@@ -92,7 +92,7 @@
       attr(,"n")
       [1] 1
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 ---
 
@@ -104,7 +104,7 @@
         optional = c("inc death", "inc hosp")), create_task_id("horizon", required = 1L,
         optional = 2:4)), output_type = create_output_type(create_output_type_mean(
         is_required = TRUE, value_type = "double", value_minimum = 0L),
-      create_output_type_median(is_required = FALSE, value_type = "numeric"),
+      create_output_type_median(is_required = FALSE, value_type = "double"),
       create_output_type_quantile(required = c(0.25, 0.5, 0.75), optional = c(0.1,
         0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9), value_type = "double", value_minimum = 0)),
       target_metadata = create_target_metadata(create_target_metadata_item(target_id = "inc hosp",
@@ -119,11 +119,11 @@
       create_task_id("location", required = "US", optional = c("01", "02", "04", "05",
         "06")), create_task_id("target", required = "flu hosp rt chng", optional = NULL),
       create_task_id("horizon", required = 1L, optional = 2:4)), output_type = create_output_type(
-        create_output_type_categorical(required = c("large_decrease", "decrease",
-          "stable", "increase", "large_increase"), optional = NULL, value_type = "numeric")),
+        create_output_type_pmf(required = c("large_decrease", "decrease", "stable",
+          "increase", "large_increase"), optional = NULL, value_type = "double")),
       target_metadata = create_target_metadata(create_target_metadata_item(target_id = "flu hosp rt chng",
         target_name = "Weekly influenza hospitalization rate change", target_units = "rate per 100,000 population",
-        target_keys = list(target = "flu hosp rt chng"), target_type = "categorical",
+        target_keys = list(target = "flu hosp rt chng"), target_type = "nominal",
         is_step_ahead = TRUE, time_unit = "week"))))
     Output
       $model_tasks
@@ -192,7 +192,7 @@
       
       $model_tasks[[1]]$output_type$median$value
       $model_tasks[[1]]$output_type$median$value$type
-      [1] "numeric"
+      [1] "double"
       
       
       
@@ -304,24 +304,24 @@
       
       
       $model_tasks[[2]]$output_type
-      $model_tasks[[2]]$output_type$categorical
-      $model_tasks[[2]]$output_type$categorical$type_id
-      $model_tasks[[2]]$output_type$categorical$type_id$required
+      $model_tasks[[2]]$output_type$pmf
+      $model_tasks[[2]]$output_type$pmf$type_id
+      $model_tasks[[2]]$output_type$pmf$type_id$required
       [1] "large_decrease" "decrease"       "stable"         "increase"      
       [5] "large_increase"
       
-      $model_tasks[[2]]$output_type$categorical$type_id$optional
+      $model_tasks[[2]]$output_type$pmf$type_id$optional
       NULL
       
       
-      $model_tasks[[2]]$output_type$categorical$value
-      $model_tasks[[2]]$output_type$categorical$value$type
-      [1] "numeric"
+      $model_tasks[[2]]$output_type$pmf$value
+      $model_tasks[[2]]$output_type$pmf$value$type
+      [1] "double"
       
-      $model_tasks[[2]]$output_type$categorical$value$minimum
+      $model_tasks[[2]]$output_type$pmf$value$minimum
       [1] 0
       
-      $model_tasks[[2]]$output_type$categorical$value$maximum
+      $model_tasks[[2]]$output_type$pmf$value$maximum
       [1] 1
       
       
@@ -344,7 +344,7 @@
       
       
       $model_tasks[[2]]$target_metadata[[1]]$target_type
-      [1] "categorical"
+      [1] "nominal"
       
       $model_tasks[[2]]$target_metadata[[1]]$is_step_ahead
       [1] TRUE
@@ -361,7 +361,7 @@
       attr(,"n")
       [1] 2
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 # create_model_tasks functions error correctly
 
@@ -380,16 +380,16 @@
           optional = c("01", "02", "04", "05", "06")), create_task_id("target",
           required = "flu hosp rt chng", optional = NULL), create_task_id("horizon",
           required = 1L, optional = 2:4)), output_type = create_output_type(
-        create_output_type_categorical(required = c("large_decrease", "decrease",
-          "stable", "increase", "large_increase"), optional = NULL, value_type = "numeric")),
+        create_output_type_pmf(required = c("large_decrease", "decrease", "stable",
+          "increase", "large_increase"), optional = NULL, value_type = "double")),
       target_metadata = create_target_metadata(create_target_metadata_item(target_id = "flu hosp rt chng",
         target_name = "Weekly influenza hospitalization rate change", target_units = "rate per 100,000 population",
-        target_keys = list(target = "flu hosp rt chng"), target_type = "categorical",
+        target_keys = list(target = "flu hosp rt chng"), target_type = "nominal",
         is_step_ahead = TRUE, time_unit = "week"))))
     Error <rlang_error>
       ! All items supplied must be created against the same Hub schema.
       x `schema_id` attributes are not consistent across all items.
       Item `schema_id` attributes:
       * Item 1 : invalid_schema_id
-      * Item 2 : https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json
+      * Item 2 : https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json
 

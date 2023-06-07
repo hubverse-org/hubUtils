@@ -75,7 +75,7 @@ test_that("create_model_tasks functions work correctly", {
           ),
           create_output_type_median(
             is_required = FALSE,
-            value_type = "numeric"
+            value_type = "double"
           ),
           create_output_type_quantile(
             required = c(0.25, 0.5, 0.75),
@@ -132,7 +132,7 @@ test_that("create_model_tasks functions work correctly", {
           )
         ),
         output_type = create_output_type(
-          create_output_type_categorical(
+          create_output_type_pmf(
             required = c(
               "large_decrease",
               "decrease",
@@ -141,7 +141,7 @@ test_that("create_model_tasks functions work correctly", {
               "large_increase"
             ),
             optional = NULL,
-            value_type = "numeric"
+            value_type = "double"
           )
         ),
         target_metadata = create_target_metadata(
@@ -150,7 +150,7 @@ test_that("create_model_tasks functions work correctly", {
             target_name = "Weekly influenza hospitalization rate change",
             target_units = "rate per 100,000 population",
             target_keys = list(target = "flu hosp rt chng"),
-            target_type = "categorical",
+            target_type = "nominal",
             is_step_ahead = TRUE,
             time_unit = "week"
           )
@@ -194,7 +194,7 @@ test_that("create_model_tasks functions error correctly", {
       ),
       create_output_type_median(
         is_required = FALSE,
-        value_type = "numeric"
+        value_type = "double"
       ),
       create_output_type_quantile(
         required = c(0.25, 0.5, 0.75),
@@ -263,7 +263,7 @@ test_that("create_model_tasks functions error correctly", {
           )
         ),
         output_type = create_output_type(
-          create_output_type_categorical(
+          create_output_type_pmf(
             required = c(
               "large_decrease",
               "decrease",
@@ -272,7 +272,7 @@ test_that("create_model_tasks functions error correctly", {
               "large_increase"
             ),
             optional = NULL,
-            value_type = "numeric"
+            value_type = "double"
           )
         ),
         target_metadata = create_target_metadata(
@@ -281,7 +281,7 @@ test_that("create_model_tasks functions error correctly", {
             target_name = "Weekly influenza hospitalization rate change",
             target_units = "rate per 100,000 population",
             target_keys = list(target = "flu hosp rt chng"),
-            target_type = "categorical",
+            target_type = "nominal",
             is_step_ahead = TRUE,
             time_unit = "week"
           )

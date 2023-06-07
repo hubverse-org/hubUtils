@@ -31,7 +31,7 @@
       attr(,"class")
       [1] "target_metadata_item" "list"                
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 ---
 
@@ -61,7 +61,7 @@
       attr(,"class")
       [1] "target_metadata_item" "list"                
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
 
 # create_target_metadata_item functions error correctly
 
@@ -128,7 +128,7 @@
       i In index: 4.
       Caused by error in `create_target_metadata_item()`:
       x `target_type` value is invalid.
-      ! Must be one of "continuous", "discrete", "date", "binary", "categorical", "ordinal", and "compositional".
+      ! Must be one of "continuous", "discrete", "date", "binary", "nominal", "ordinal", and "compositional".
       i Actual value is "invalid_target_type"
 
 ---
