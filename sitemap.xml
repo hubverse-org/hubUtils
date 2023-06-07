@@ -4,10 +4,19 @@
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/404.html</loc>
   </url>
   <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/CONTRIBUTING.html</loc>
+  </url>
+  <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/LICENSE-text.html</loc>
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/articles/connect_hub.html</loc>
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/articles/hub-setup.html</loc>
@@ -29,6 +38,9 @@
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_config.html</loc>
+  </url>
+  <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_hub_schema.html</loc>
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_model_task.html</loc>
@@ -83,6 +95,9 @@
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/print.hub_connection.html</loc>
+  </url>
+  <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/read_config.html</loc>
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/s3_bucket.html</loc>

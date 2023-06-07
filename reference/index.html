@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +24,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/connect_hub.html">Accessing model-output data</a>
     <a class="dropdown-item" href="../articles/hub-setup.html">Setting up a Hub</a>
   </div>
 </li>
@@ -72,6 +73,11 @@
         <dd>Create a <code>config</code> class object.</dd>
       </dl><dl><dt>
           
+          <code><a href="create_hub_schema.html">create_hub_schema()</a></code> 
+        </dt>
+        <dd>Create a Hub arrow schema</dd>
+      </dl><dl><dt>
+          
           <code><a href="create_model_task.html">create_model_task()</a></code> 
         </dt>
         <dd>Create an object of class <code>model_task</code></dd>
@@ -92,7 +98,7 @@
         <dd>Create a point estimate output type object of class <code>output_type_item</code></dd>
       </dl><dl><dt>
           
-          <code><a href="create_output_type_quantile.html">create_output_type_quantile()</a></code> <code><a href="create_output_type_quantile.html">create_output_type_cdf()</a></code> <code><a href="create_output_type_quantile.html">create_output_type_categorical()</a></code> <code><a href="create_output_type_quantile.html">create_output_type_sample()</a></code> 
+          <code><a href="create_output_type_quantile.html">create_output_type_quantile()</a></code> <code><a href="create_output_type_quantile.html">create_output_type_cdf()</a></code> <code><a href="create_output_type_quantile.html">create_output_type_pmf()</a></code> <code><a href="create_output_type_quantile.html">create_output_type_sample()</a></code> 
         </dt>
         <dd>Create a distribution output type object of class <code>output_type_item</code></dd>
       </dl><dl><dt>
@@ -150,6 +156,11 @@
           <code><a href="print.hub_connection.html">print(<i>&lt;hub_connection&gt;</i>)</a></code> <code><a href="print.hub_connection.html">print(<i>&lt;mod_out_connection&gt;</i>)</a></code> 
         </dt>
         <dd>Print a <code>&lt;hub_connection&gt;</code> or <code>&lt;mod_out_connection&gt;</code> S3 class object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="read_config.html">read_config()</a></code> 
+        </dt>
+        <dd>Read a hub config file into R</dd>
       </dl><dl><dt>
           
           <code><a href="s3_bucket.html">s3_bucket</a></code> 

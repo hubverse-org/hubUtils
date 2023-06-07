@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +24,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/connect_hub.html">Accessing model-output data</a>
     <a class="dropdown-item" href="../articles/hub-setup.html">Setting up a Hub</a>
   </div>
 </li>
@@ -50,6 +51,17 @@
       <small>Source: <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.0.9006" id="hubutils-0009006">hubUtils 0.0.0.9006<a class="anchor" aria-label="anchor" href="#hubutils-0009006"></a></h2>
+<ul><li>
+<code>hub_connect()</code> now automatically determines the <code>output_type_id</code> column data type from the tasks.json config file coercing to the highest possible data type, “character” being the lowest denominator.</li>
+<li>Introduced function <code><a href="../reference/create_hub_schema.html">create_hub_schema()</a></code> for determining the schema for data in a hub’s model-output directory from a tasks.json config file.</li>
+<li>
+<code>hub_connect()</code> now allows establishing connections to hubs with multiple file type formats.</li>
+<li>
+<code>create_output_type_categorical()</code> function was renamed to <code><a href="../reference/create_output_type_quantile.html">create_output_type_pmf()</a></code>.</li>
+<li>When extracting data via a hub connection, the column containing model identification information, inferred from <code>model-output</code> data directory partitions, was renamed from “model” to “model_id”.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9005" id="hubutils-0009005">hubUtils 0.0.0.9005<a class="anchor" aria-label="anchor" href="#hubutils-0009005"></a></h2>
 <ul><li>Re-implemented <code>hub_connect()</code> function to open connection to <code>model-output</code> data implemented through an <code>arrow</code> <code>FileSystemDataset</code> object. This allows users to create custom <code>dplyr</code> queries to access model output data.</li>
