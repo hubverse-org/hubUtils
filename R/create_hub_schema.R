@@ -50,8 +50,8 @@ create_hub_schema <- function(config_tasks,
     stats::setNames(task_id_names)
 
   c(task_id_arrow_types,
-    type = arrow::utf8(),
-    type_id = arrow_datatypes[[get_type_id_type(config_tasks)]],
+    output_type = arrow::utf8(),
+    output_type_id = arrow_datatypes[[get_output_type_id_type(config_tasks)]],
     value = arrow_datatypes[[get_value_type(config_tasks)]],
     partitions
   ) %>%
@@ -112,7 +112,7 @@ get_task_id_type <- function(config_tasks,
 }
 
 
-get_type_id_type <- function(config_tasks) {
+get_output_type_id_type <- function(config_tasks) {
   values <- purrr::map(
     config_tasks[["rounds"]],
     ~ .x[["model_tasks"]]

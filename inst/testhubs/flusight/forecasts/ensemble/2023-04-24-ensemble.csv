@@ -1,4 +1,4 @@
-forecast_date,horizon,target,location,type,type_id,value
+forecast_date,horizon,target,location,output_type,output_type_id,value
 2023-04-24,1,wk ahead inc flu hosp,US,quantile,0.01,232.14
 2023-04-24,1,wk ahead inc flu hosp,US,quantile,0.025,331.487407978002
 2023-04-24,1,wk ahead inc flu hosp,US,quantile,0.05,422.750066282364

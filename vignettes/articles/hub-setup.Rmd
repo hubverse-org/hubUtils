@@ -48,7 +48,9 @@ For more details on these files, guidance on how to set them up and access to te
 ## Validate Config files
 
 
-You can use function `validate_config()` to check whether your Hub config files are valid. To specify the file you want to validate you can either provide the path to the root of the Hub to argument `hub_path` (which assumes the config files are correctly located in directory `hub-config/`) or you can provide a direct path to a config file to argument `config_path`. You also need to specify the type of config file through argument `config` (one of `"tasks"` or `"admin"`, defaults to `"tasks"`).
+You can use function `validate_config()` to check whether individual Hub config files are valid. 
+To specify the file you want to validate you can either provide the path to the root of the Hub to argument `hub_path` (which assumes the config files are correctly located in directory `hub-config/`) or you can provide a direct path to a config file to argument `config_path`. 
+You also need to specify the type of config file through argument `config` (one of `"tasks"` or `"admin"`, defaults to `"tasks"`).
 
 The function will validate a given config file against a specific version of it's schema, specified through argument `schema_version`. The default value of `schema_version` is `"from_config"` which uses the version specified in the `schema_version` property of the config file being validated. 
 
@@ -116,3 +118,26 @@ In the example above:
 - `schema` describes the valid schema values the failing keyword should conform to.
 - `data` is the value of the property in the config file which is failing validation.
 
+
+## Validating all Hub config files
+
+To validate both `admin.json` and `tasks.json` in a single call, you can use function `validate_hub_config()`. 
+This functions tests both files for validity and returns a list of the results of the validation checks for each file.
+By default it uses "from_config" as the `schema_version` argument and errors if both files are not using the same schema version.
+
+```{r}
+validate_hub_config(
+    hub_path = system.file("testhubs/simple/", package = "hubUtils")
+)
+```
+
+You can also use the function to validate a Hub's config against the latest version of the schema.
+
+```{r}
+validate_config(
+    hub_path = system.file("testhubs/simple/", package = "hubUtils"),
+    schema_version = "latest"
+)
+```
+
+You can also use `view_config_val_errors()` on the output of `validate_hub_config()` to review any detected validation errors.

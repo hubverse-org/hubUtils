@@ -64,3 +64,27 @@ test_that("Data column handled correctly when required property missing", {
 
   expect_snapshot(str(tbl$`_data`))
 })
+
+
+
+test_that("Report works corectly on validate_hub_config output", {
+  config_dir <- system.file(
+    "testhubs/simple/",
+    package = "hubUtils")
+
+  tbl <- suppressMessages(
+    view_config_val_errors(
+    validate_hub_config(config_dir)
+  ))
+  expect_null(tbl)
+
+
+  config_dir <- testthat::test_path(
+    "testdata", "error_hub")
+  tbl <- suppressWarnings(
+    view_config_val_errors(
+      validate_hub_config(config_dir)
+    ))
+
+  expect_snapshot(str(tbl$`_data`))
+})

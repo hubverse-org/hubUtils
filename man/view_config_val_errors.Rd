@@ -32,6 +32,7 @@ Other functions supporting config file validation:
 \code{\link{get_schema_url}()},
 \code{\link{get_schema_valid_versions}()},
 \code{\link{get_schema}()},
-\code{\link{validate_config}()}
+\code{\link{validate_config}()},
+\code{\link{validate_hub_config}()}
 }
 \concept{functions supporting config file validation}
