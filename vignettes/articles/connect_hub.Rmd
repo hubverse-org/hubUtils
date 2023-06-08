@@ -42,7 +42,7 @@ To access data from a hub connection you can use dplyr verbs and construct query
 
 ```{r}
 hub_con %>%
-    filter(type == "quantile", location == "US") %>%
+    filter(output_type == "quantile", location == "US") %>%
     collect()
 ```
 
@@ -52,7 +52,7 @@ For example, if you wanted to get all quantile predictions for the last forecast
 
 ```{r, error=TRUE}
 hub_con %>%
-    filter(type == "quantile", location == "US") %>%
+    filter(output_type == "quantile", location == "US") %>%
     filter(forecast_date == max(forecast_date)) %>%
     collect()
 ```
@@ -63,7 +63,7 @@ In such a situation, you could collect after applying the first filtering level 
 
 ```{r}
 hub_con %>%
-    filter(type == "quantile", location == "US") %>%
+    filter(output_type == "quantile", location == "US") %>%
     collect() %>%
     filter(forecast_date == max(forecast_date)) 
 ```
@@ -75,13 +75,13 @@ Alternatively, depending on the size of the data, in might be quicker to filter 
 
 ```{r}
 last_forecast <- hub_con %>%
-    filter(type == "quantile", location == "US") %>%
+    filter(output_type == "quantile", location == "US") %>%
   pull(forecast_date, as_vector = TRUE) %>%
   max()
 
 
 hub_con %>%
-    filter(type == "quantile", location == "US",
+    filter(output_type == "quantile", location == "US",
            forecast_date == last_forecast) %>%
     collect()
 ```
@@ -105,7 +105,7 @@ mod_out_con
 
 ```{r}
 mod_out_con %>%
-    filter(type == "quantile", location == "US") %>%
+    filter(output_type == "quantile", location == "US") %>%
     collect()
 ```
 
