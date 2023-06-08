@@ -106,6 +106,9 @@
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_config.html</loc>
   </url>
   <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_hub_config.html</loc>
+  </url>
+  <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/view_config_val_errors.html</loc>
   </url>
 </urlset>
