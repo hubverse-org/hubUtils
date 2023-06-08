@@ -1,3 +1,7 @@
+# hubUtils 0.0.0.9007
+
+* New function `validate_hub_config()` allows maintainers to check the validity of hub config files in a single call. Function `view_config_val_errors()` also modified to create combined report for hub config files from output of `validate_hub_config()`.
+
 # hubUtils 0.0.0.9006
 
 * `hub_connect()` now automatically determines the `output_type_id` column data type from the tasks.json config file coercing to the highest possible data type, "character" being the lowest denominator.

@@ -18,20 +18,41 @@
 #'   view_config_val_errors()
 #' }
 view_config_val_errors <- function(x) {
-  if (x) {
-    cli::cli_alert_success("Validation of {.path {attr(x, 'config_path')}} was successful.
-                               No validation errors to display.")
+
+  if (all(unlist(x))) {
+    cli::cli_alert_success(c("Validation of {.path {attr(x, 'config_path')}}",
+                             "{.path {attr(x, 'config_dir')}} was successful.","
+                             No validation errors to display."))
     return(invisible(NULL))
   }
 
-  errors_tbl <- attr(x, "errors")
-  config_path <- attr(x, "config_path")
+  if (length(x) > 1L) {
+    errors_tbl <- purrr::map2(x, names(x),
+                            ~compile_errors(.x, .y)) %>%
+      purrr::list_rbind()
+    val_path <- attr(x, "config_dir")
+    val_type <- "directory"
+    error_loc_columns <- c(
+      "fileName",
+      "instancePath",
+      "schemaPath"
+    )
+  } else {
+    errors_tbl <- attr(x, "errors")
+    val_path <- attr(x, "config_path")
+    val_type <- "file"
+    error_loc_columns <- c(
+      "instancePath",
+      "schemaPath"
+    )
+  }
+
   schema_version <- attr(x, "schema_version")
   schema_url <- attr(x, "schema_url")
 
   title <- gt::md("**`hubUtils` config validation error report**")
   subtitle <- gt::md(
-    glue::glue("Report for file **`{config_path}`** using
+    glue::glue("Report for {val_type} **`{val_path}`** using
                    schema version [**{schema_version}**]({schema_url})")
   )
 
@@ -73,10 +94,7 @@ view_config_val_errors <- function(x) {
     ) %>%
     gt::tab_spanner(
       label = gt::md("**Error location**"),
-      columns = c(
-        "instancePath",
-        "schemaPath"
-      )
+      columns = error_loc_columns
     ) %>%
     gt::tab_spanner(
       label = gt::md("**Schema details**"),
@@ -251,4 +269,13 @@ remove_superfluous_enum_rows <- function(errors_tbl) {
   }
 
   errors_tbl
+}
+
+compile_errors <- function(x, file_name) {
+  errors_tbl <- attr(x, "errors")
+  if (!is.null(errors_tbl)) {
+    cbind(
+      fileName = rep(fs::path(file_name, ext = "json"), nrow(errors_tbl)),
+      errors_tbl)
+  }
 }

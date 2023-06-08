@@ -26,6 +26,7 @@ Other functions supporting config file validation:
 \code{\link{get_schema_url}()},
 \code{\link{get_schema}()},
 \code{\link{validate_config}()},
+\code{\link{validate_hub_config}()},
 \code{\link{view_config_val_errors}()}
 }
 \concept{functions supporting config file validation}
