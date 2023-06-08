@@ -1,6 +1,7 @@
 # hubUtils 0.0.0.9007
 
 * New function `validate_hub_config()` allows maintainers to check the validity of hub config files in a single call. Function `view_config_val_errors()` also modified to create combined report for hub config files from output of `validate_hub_config()`.
+* Breaking change: All `model-output` data are expected to have `output_type` & `output_type_id` instead of `type` & `type_id` respectively.
 
 # hubUtils 0.0.0.9006
 

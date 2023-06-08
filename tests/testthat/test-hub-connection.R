@@ -54,13 +54,13 @@ test_that("connect_hub works connection & data extraction hub", {
 
   # Test that NAs are parsed correctly
   out_df <- hub_con %>%
-    dplyr::filter(is.na(type_id)) %>%
+    dplyr::filter(is.na(output_type_id)) %>%
     dplyr::collect()
 
 
   expect_snapshot(str(dplyr::arrange(out_df, value)))
 
-  expect_equal(typeof(out_df$type_id), "character")
+  expect_equal(typeof(out_df$output_type_id), "character")
 })
 
 
@@ -148,7 +148,7 @@ test_that("connect_hub data extraction works on simple forecasting hub", {
     dplyr::filter(
       origin_date == "2022-10-08",
       horizon == 2,
-      type_id == 0.01
+      output_type_id == 0.01
     ) %>%
     dplyr::collect() %>%
       str())
@@ -168,7 +168,7 @@ test_that("connect_hub data extraction works on simple forecasting hub", {
     dplyr::filter(
       origin_date == "2022-10-08",
       horizon == 2,
-      type_id == 0.01
+      output_type_id == 0.01
     ) %>%
     dplyr::collect() %>%
       str())

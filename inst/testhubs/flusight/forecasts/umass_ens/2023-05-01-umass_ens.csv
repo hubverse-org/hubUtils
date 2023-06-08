@@ -1,6 +1,6 @@
-"forecast_date","horizon","target","location","type","type_id","value"
-2023-05-01,2,"wk flu hosp rate change","US","pmf","large_increase",0
-2023-05-01,2,"wk flu hosp rate change","US","pmf","increase",0
-2023-05-01,2,"wk flu hosp rate change","US","pmf","stable",1
-2023-05-01,2,"wk flu hosp rate change","US","pmf","large_decrease",0
-2023-05-01,2,"wk flu hosp rate change","US","pmf","decrease",0
+forecast_date,horizon,target,location,output_type,output_type_id,value
+2023-05-01,2,wk flu hosp rate change,US,pmf,large_increase,0
+2023-05-01,2,wk flu hosp rate change,US,pmf,increase,0
+2023-05-01,2,wk flu hosp rate change,US,pmf,stable,1
+2023-05-01,2,wk flu hosp rate change,US,pmf,large_decrease,0
+2023-05-01,2,wk flu hosp rate change,US,pmf,decrease,0
