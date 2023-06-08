@@ -178,7 +178,7 @@ test_that("connect_hub data extraction works on simple forecasting hub", {
 test_that("connect_hub works on S3 bucket simple forecasting hub on AWS", {
   # Simple forecasting Hub example ----
 
-  hub_path <- s3_bucket("hubutils/testhubs/simple/")
+  hub_path <- s3_bucket("hubverse/hubutils/testhubs/simple/")
   hub_con <- connect_hub(hub_path)
 
   # Tests that paths are assigned to attributes correctly

@@ -60,7 +60,7 @@
 #'   collect()
 #' # Connect to a simple forecasting Hub stored in an AWS S3 bucket.
 #' \dontrun{
-#' hub_path <- s3_bucket("hubutils/testhubs/simple/")
+#' hub_path <- s3_bucket("hubverse/hubutils/testhubs/simple/")
 #' hub_con <- connect_hub(hub_path)
 #' hub_con
 #' }
