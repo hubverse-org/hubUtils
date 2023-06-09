@@ -29,6 +29,6 @@ hub_path <- system.file("testhubs/simple", package = "hubUtils")
 read_config(hub_path, "tasks")
 read_config(hub_path, "admin")
 # Read config file from AWS S3 bucket hub
-hub_path <- s3_bucket("hubutils/testhubs/simple/")
+hub_path <- s3_bucket("hubverse/hubutils/testhubs/simple/")
 read_config(hub_path, "admin")
 }
