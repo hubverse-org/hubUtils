@@ -133,6 +133,19 @@
        $ schema      : chr [1:2] "task_ids, output_type, target_metadata" "task_ids, output_type, target_metadata"
        $ data        : chr [1:2] "" ""
 
+# Report handles additional property errors successfully
+
+    Code
+      str(tbl$`_data`)
+    Output
+      tibble [1 x 6] (S3: tbl_df/tbl/data.frame)
+       $ instancePath: chr "**rounds** \n └**1** \n └─**model_tasks** \n └──**1** \n └───**output_type**"
+       $ schemaPath  : chr "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────properties "| __truncated__
+       $ keyword     : chr "additionalProperties"
+       $ message     : chr "❌ must NOT have additional properties"
+       $ schema      : chr "FALSE"
+       $ data        : chr ""
+
 # Report works corectly on validate_hub_config output
 
     Code

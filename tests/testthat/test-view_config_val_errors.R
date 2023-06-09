@@ -65,7 +65,15 @@ test_that("Data column handled correctly when required property missing", {
   expect_snapshot(str(tbl$`_data`))
 })
 
+test_that("Report handles additional property errors successfully", {
+  config_path <- testthat::test_path("testdata", "tasks-addprop.json")
+  out <- suppressWarnings(validate_config(config_path = config_path))
+  tbl <- view_config_val_errors(out)
 
+  expect_snapshot(str(tbl$`_data`))
+})
+
+# validate_hub_config output ----
 
 test_that("Report works corectly on validate_hub_config output", {
   config_dir <- system.file(

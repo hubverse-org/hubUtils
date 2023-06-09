@@ -69,6 +69,15 @@ view_config_val_errors <- function(x) {
       errors_tbl$data[errors_tbl$keyword == "required"] <- ""
     }
   }
+  # Get rid of unnecessarily verbose data entry when an additionalProperties property is
+  # detected Addressing this is dependent on the data column data type.
+  if (any(errors_tbl$keyword == "additionalProperties")) {
+    if (inherits(errors_tbl$data, "data.frame")) {
+      errors_tbl$data <- ""
+    } else {
+      errors_tbl$data[errors_tbl$keyword == "additionalProperties"] <- ""
+    }
+  }
 
   n_col <- length(errors_tbl)
 

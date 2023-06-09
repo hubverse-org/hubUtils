@@ -82,3 +82,10 @@ test_that("Bad schema_version URL errors successfully", {
     expect_error(validate_config(config_path = config_path))
 })
 
+
+test_that("Additional properties error successfully", {
+  config_path <- testthat::test_path("testdata", "tasks-addprop.json")
+  out <- suppressWarnings(validate_config(config_path = config_path))
+  expect_snapshot(out)
+  expect_false(out)
+})
