@@ -1,3 +1,8 @@
+# hubUtils 0.0.0.9008
+
+* Added argument `output_type_id_datatype` to `connect_hub()` to allow overriding default behaviour of automatically detecting the `output_type_id` column data type from the `tasks.json` config file.
+* Exposed `create_hub_schema()` argument `partitions` to `connect_hub()` function.
+
 # hubUtils 0.0.0.9007
 
 * New function `validate_hub_config()` allows maintainers to check the validity of hub config files in a single call. Function `view_config_val_errors()` also modified to create combined report for hub config files from output of `validate_hub_config()`.
@@ -5,15 +10,15 @@
 
 # hubUtils 0.0.0.9006
 
-* `hub_connect()` now automatically determines the `output_type_id` column data type from the tasks.json config file coercing to the highest possible data type, "character" being the lowest denominator.
+* `connect_hub()` now automatically determines the `output_type_id` column data type from the tasks.json config file coercing to the highest possible data type, "character" being the lowest denominator.
 * Introduced function `create_hub_schema()` for determining the schema for data in a hub's model-output directory from a tasks.json config file.
-* `hub_connect()` now allows establishing connections to hubs with multiple file type formats.
+* `connect_hub()` now allows establishing connections to hubs with multiple file type formats.
 * `create_output_type_categorical()` function was renamed to `create_output_type_pmf()`.
 * When extracting data via a hub connection, the column containing model identification information, inferred from `model-output` data directory partitions, was renamed from "model" to "model_id".
 
 # hubUtils 0.0.0.9005
 
-* Re-implemented `hub_connect()` function to open connection to `model-output` data
+* Re-implemented `connect_hub()` function to open connection to `model-output` data
 implemented through an `arrow` `FileSystemDataset` object. This allows users to create
 custom `dplyr` queries to access model output data.
 

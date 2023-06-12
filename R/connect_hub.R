@@ -24,6 +24,7 @@
 #' `file_format` is inferred from the hub's `file_format` configuration in
 #' `admin.json` and is ignored by default.
 #' If supplied, it will override hub configuration setting. Multiple formats can be supplied to `connect_hub` but only a single file format can be supplied to `connect_mod_out`.
+#' @inheritParams create_hub_schema
 #'
 #' @return
 #' - `connect_hub` returns an S3 object of class `<hub_connection>`.
@@ -39,6 +40,8 @@
 #' # Connect to a local simple forecasting Hub.
 #' hub_path <- system.file("testhubs/simple", package = "hubUtils")
 #' hub_con <- connect_hub(hub_path)
+#' hub_con
+#' hub_con <- connect_hub(hub_path, output_type_id_datatype = "character")
 #' hub_con
 #' # Connect directly to a local `model-output` directory
 #' mod_out_path <- system.file("testhubs/simple/model-output", package = "hubUtils")
@@ -65,15 +68,26 @@
 #' hub_con
 #' }
 connect_hub <- function(hub_path,
-                        file_format = c("csv", "parquet", "arrow")) {
+                        file_format = c("csv", "parquet", "arrow"),
+                        output_type_id_datatype = c("auto", "character",
+                                                    "double", "integer",
+                                                    "logical", "Date"),
+                        partitions = list(model_id = arrow::utf8())) {
+
   UseMethod("connect_hub")
 }
 
 
 #' @export
 connect_hub.default <- function(hub_path,
-                                file_format = c("csv", "parquet", "arrow")) {
+                                file_format = c("csv", "parquet", "arrow"),
+                                output_type_id_datatype = c("auto", "character",
+                                                            "double", "integer",
+                                                            "logical", "Date"),
+                                partitions = list(model_id = arrow::utf8())) {
   rlang::check_required(hub_path)
+  output_type_id_datatype <- rlang::arg_match(output_type_id_datatype)
+
   if (!dir.exists(hub_path)) {
     cli::cli_abort(c("x" = "Directory {.path {hub_path}} does not exist."))
   }
@@ -97,7 +111,9 @@ connect_hub.default <- function(hub_path,
   dataset <- open_hub_datasets(
     model_output_dir,
     file_format,
-    config_tasks
+    config_tasks,
+    output_type_id_datatype = output_type_id_datatype,
+    partitions = partitions
   )
 
   if (inherits(dataset, "UnionDataset")) {
@@ -129,8 +145,16 @@ connect_hub.default <- function(hub_path,
 
 #' @export
 connect_hub.SubTreeFileSystem <- function(hub_path,
-                                          file_format = c("csv", "parquet", "arrow")) {
+                                          file_format = c("csv", "parquet", "arrow"),
+                                          output_type_id_datatype = c("auto",
+                                                                      "character",
+                                                                      "double",
+                                                                      "integer",
+                                                                      "logical",
+                                                                      "Date"),
+                                          partitions = list(model_id = arrow::utf8())) {
   rlang::check_required(hub_path)
+  output_type_id_datatype <- rlang::arg_match(output_type_id_datatype)
 
   if (!"hub-config" %in% hub_path$ls()) {
     cli::cli_abort("{.path hub-config} not a directory in bucket
@@ -153,7 +177,9 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
   dataset <- open_hub_datasets(
     model_output_dir,
     file_format,
-    config_tasks
+    config_tasks,
+    output_type_id_datatype = output_type_id_datatype,
+    partitions = partitions
   )
 
   if (inherits(dataset, "UnionDataset")) {
@@ -185,9 +211,16 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
 
 open_hub_dataset <- function(model_output_dir,
                              file_format = c("csv", "parquet", "arrow"),
-                             config_tasks) {
+                             config_tasks,
+                             output_type_id_datatype = c("auto", "character",
+                                                         "double", "integer",
+                                                         "logical", "Date"),
+                             partitions = list(model_id = arrow::utf8())
+                             ) {
   file_format <- rlang::arg_match(file_format)
-  schema <- create_hub_schema(config_tasks, format = file_format)
+  schema <- create_hub_schema(config_tasks, format = file_format,
+                              partitions = partitions,
+                              output_type_id_datatype = output_type_id_datatype)
 
   switch(file_format,
     csv = arrow::open_dataset(
@@ -220,12 +253,18 @@ open_hub_dataset <- function(model_output_dir,
 
 open_hub_datasets <- function(model_output_dir,
                               file_format = c("csv", "parquet", "arrow"),
-                              config_tasks) {
+                              config_tasks,
+                              output_type_id_datatype = c("auto", "character",
+                                                          "double", "integer",
+                                                          "logical", "Date"),
+                              partitions = list(model_id = arrow::utf8())) {
   if (length(file_format) == 1L) {
     open_hub_dataset(
       model_output_dir,
       file_format,
-      config_tasks
+      config_tasks,
+      output_type_id_datatype,
+      partitions = partitions
     )
   } else {
     cons <- purrr::map(
@@ -233,7 +272,9 @@ open_hub_datasets <- function(model_output_dir,
       ~ open_hub_dataset(
         model_output_dir,
         .x,
-        config_tasks
+        config_tasks,
+        output_type_id_datatype,
+        partitions = partitions
       )
     )
 
@@ -306,7 +347,9 @@ model_output_dir_path.default <- function(hub_path, config_admin,
 }
 
 #' @export
-model_output_dir_path.SubTreeFileSystem <- function(hub_path, config_admin, call = rlang::caller_env()) {
+model_output_dir_path.SubTreeFileSystem <- function(hub_path, config_admin,
+                                                    call = rlang::caller_env()) {
+
   if (is.null(config_admin[["model_output_dir"]])) {
     model_output_dir <- hub_path$path("model-output")
   } else {
