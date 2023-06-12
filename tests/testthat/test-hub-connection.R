@@ -88,11 +88,11 @@ test_that("connect_hub file_format override works on local hub", {
 })
 
 test_that("Overriding output_type_id data type works correctly", {
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
   con <- connect_hub(hub_path, output_type_id_datatype = "character")
+
   expect_equal(con$schema$output_type_id$ToString(),
                "output_type_id: string")
-
-
 })
 
 
