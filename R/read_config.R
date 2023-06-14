@@ -21,49 +21,49 @@
 #' hub_path <- s3_bucket("hubverse/hubutils/testhubs/simple/")
 #' read_config(hub_path, "admin")
 read_config <- function(hub_path, config = c("tasks", "admin")) {
-    UseMethod("read_config")
+  UseMethod("read_config")
 }
 
 
 #' @export
 read_config.default <- function(hub_path, config = c("tasks", "admin")) {
-    config <- rlang::arg_match(config)
-    path <- fs::path(hub_path, "hub-config", config, ext = "json")
+  config <- rlang::arg_match(config)
+  path <- fs::path(hub_path, "hub-config", config, ext = "json")
 
-    if (!fs::file_exists(path)) {
-        cli::cli_abort(
-            "Config file {.field {config}} does not exist at path {.path { path }}."
-        )
-    }
-    jsonlite::read_json(path,
-                        simplifyVector = TRUE,
-                        simplifyDataFrame = FALSE
+  if (!fs::file_exists(path)) {
+    cli::cli_abort(
+      "Config file {.field {config}} does not exist at path {.path { path }}."
     )
+  }
+  jsonlite::read_json(path,
+    simplifyVector = TRUE,
+    simplifyDataFrame = FALSE
+  )
 }
 
 #' @export
 read_config.SubTreeFileSystem <- function(hub_path, config = c("tasks", "admin")) {
-    config <- rlang::arg_match(config)
-    path <- hub_path$path(fs::path("hub-config", config, ext = "json"))
+  config <- rlang::arg_match(config)
+  path <- hub_path$path(fs::path("hub-config", config, ext = "json"))
 
-    if (!paste0(config, ".json") %in% basename(hub_path$ls("hub-config"))) {
-        cli::cli_abort(
-            "Config file {.field {config}} does not exist at path {.path { path$base_path }}."
-        )
-    }
-
-    split_base_path <- stringr::str_split(
-        hub_path$base_path,
-        "/", 2
-    ) %>%
-        unlist()
-
-    path_url <- glue::glue(
-        "https://{split_base_path[1]}.s3.amazonaws.com/{split_base_path[2]}hub-config/{config}.json"
+  if (!paste0(config, ".json") %in% basename(hub_path$ls("hub-config"))) {
+    cli::cli_abort(
+      "Config file {.field {config}} does not exist at path {.path { path$base_path }}."
     )
+  }
 
-    jsonlite::fromJSON(path_url,
-                       simplifyVector = TRUE,
-                       simplifyDataFrame = FALSE
-    )
+  split_base_path <- stringr::str_split(
+    hub_path$base_path,
+    "/", 2
+  ) %>%
+    unlist()
+
+  path_url <- glue::glue(
+    "https://{split_base_path[1]}.s3.amazonaws.com/{split_base_path[2]}hub-config/{config}.json"
+  )
+
+  jsonlite::fromJSON(path_url,
+    simplifyVector = TRUE,
+    simplifyDataFrame = FALSE
+  )
 }

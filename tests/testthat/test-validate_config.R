@@ -84,8 +84,8 @@ test_that("NULL target keys validated successfully", {
 
 
 test_that("Bad schema_version URL errors successfully", {
-     config_path <- testthat::test_path("testdata", "schema_version-errors.json")
-    expect_error(validate_config(config_path = config_path))
+  config_path <- testthat::test_path("testdata", "schema_version-errors.json")
+  expect_error(validate_config(config_path = config_path))
 })
 
 

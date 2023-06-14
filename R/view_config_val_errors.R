@@ -18,17 +18,20 @@
 #'   view_config_val_errors()
 #' }
 view_config_val_errors <- function(x) {
-
   if (all(unlist(x))) {
-    cli::cli_alert_success(c("Validation of {.path {attr(x, 'config_path')}}",
-                             "{.path {attr(x, 'config_dir')}} was successful.","
-                             No validation errors to display."))
+    cli::cli_alert_success(c(
+      "Validation of {.path {attr(x, 'config_path')}}",
+      "{.path {attr(x, 'config_dir')}} was successful.", "
+                             No validation errors to display."
+    ))
     return(invisible(NULL))
   }
 
   if (length(x) > 1L) {
-    errors_tbl <- purrr::map2(x, names(x),
-                            ~compile_errors(.x, .y)) %>%
+    errors_tbl <- purrr::map2(
+      x, names(x),
+      ~ compile_errors(.x, .y)
+    ) %>%
       purrr::list_rbind()
     val_path <- attr(x, "config_dir")
     val_type <- "directory"
@@ -285,6 +288,7 @@ compile_errors <- function(x, file_name) {
   if (!is.null(errors_tbl)) {
     cbind(
       fileName = rep(fs::path(file_name, ext = "json"), nrow(errors_tbl)),
-      errors_tbl)
+      errors_tbl
+    )
   }
 }

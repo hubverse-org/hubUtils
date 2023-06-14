@@ -69,11 +69,12 @@
 #' }
 connect_hub <- function(hub_path,
                         file_format = c("csv", "parquet", "arrow"),
-                        output_type_id_datatype = c("auto", "character",
-                                                    "double", "integer",
-                                                    "logical", "Date"),
+                        output_type_id_datatype = c(
+                          "auto", "character",
+                          "double", "integer",
+                          "logical", "Date"
+                        ),
                         partitions = list(model_id = arrow::utf8())) {
-
   UseMethod("connect_hub")
 }
 
@@ -81,9 +82,11 @@ connect_hub <- function(hub_path,
 #' @export
 connect_hub.default <- function(hub_path,
                                 file_format = c("csv", "parquet", "arrow"),
-                                output_type_id_datatype = c("auto", "character",
-                                                            "double", "integer",
-                                                            "logical", "Date"),
+                                output_type_id_datatype = c(
+                                  "auto", "character",
+                                  "double", "integer",
+                                  "logical", "Date"
+                                ),
                                 partitions = list(model_id = arrow::utf8())) {
   rlang::check_required(hub_path)
   output_type_id_datatype <- rlang::arg_match(output_type_id_datatype)
@@ -142,12 +145,14 @@ connect_hub.default <- function(hub_path,
 #' @export
 connect_hub.SubTreeFileSystem <- function(hub_path,
                                           file_format = c("csv", "parquet", "arrow"),
-                                          output_type_id_datatype = c("auto",
-                                                                      "character",
-                                                                      "double",
-                                                                      "integer",
-                                                                      "logical",
-                                                                      "Date"),
+                                          output_type_id_datatype = c(
+                                            "auto",
+                                            "character",
+                                            "double",
+                                            "integer",
+                                            "logical",
+                                            "Date"
+                                          ),
                                           partitions = list(model_id = arrow::utf8())) {
   rlang::check_required(hub_path)
   output_type_id_datatype <- rlang::arg_match(output_type_id_datatype)
@@ -186,7 +191,6 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
       unique()
   } else {
     file_system <- class(dataset$filesystem$base_fs)[1]
-
   }
   file_format <- get_file_format_meta(dataset)
 
@@ -205,15 +209,17 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
 open_hub_dataset <- function(model_output_dir,
                              file_format = c("csv", "parquet", "arrow"),
                              config_tasks,
-                             output_type_id_datatype = c("auto", "character",
-                                                         "double", "integer",
-                                                         "logical", "Date"),
-                             partitions = list(model_id = arrow::utf8())
-                             ) {
+                             output_type_id_datatype = c(
+                               "auto", "character",
+                               "double", "integer",
+                               "logical", "Date"
+                             ),
+                             partitions = list(model_id = arrow::utf8())) {
   file_format <- rlang::arg_match(file_format)
   schema <- create_hub_schema(config_tasks,
-                              partitions = partitions,
-                              output_type_id_datatype = output_type_id_datatype)
+    partitions = partitions,
+    output_type_id_datatype = output_type_id_datatype
+  )
 
   switch(file_format,
     csv = arrow::open_dataset(
@@ -247,9 +253,11 @@ open_hub_dataset <- function(model_output_dir,
 open_hub_datasets <- function(model_output_dir,
                               file_format = c("csv", "parquet", "arrow"),
                               config_tasks,
-                              output_type_id_datatype = c("auto", "character",
-                                                          "double", "integer",
-                                                          "logical", "Date"),
+                              output_type_id_datatype = c(
+                                "auto", "character",
+                                "double", "integer",
+                                "logical", "Date"
+                              ),
                               partitions = list(model_id = arrow::utf8())) {
   if (length(file_format) == 1L) {
     open_hub_dataset(
@@ -275,7 +283,8 @@ open_hub_datasets <- function(model_output_dir,
     cons[
       purrr::map_lgl(
         cons,
-        ~ length(.x$files) == 0L)
+        ~ length(.x$files) == 0L
+      )
     ] <- NULL
 
     arrow::open_dataset(cons)
@@ -342,7 +351,6 @@ model_output_dir_path.default <- function(hub_path, config_admin,
 #' @export
 model_output_dir_path.SubTreeFileSystem <- function(hub_path, config_admin,
                                                     call = rlang::caller_env()) {
-
   if (is.null(config_admin[["model_output_dir"]])) {
     model_output_dir <- hub_path$path("model-output")
   } else {
@@ -362,8 +370,8 @@ model_output_dir_path.SubTreeFileSystem <- function(hub_path, config_admin,
 get_file_format_meta <- function(dataset) {
   if (inherits(dataset, "UnionDataset")) {
     stats::setNames(
-      purrr::map_int(dataset$children, ~length(.x$files)),
-      purrr::map_chr(dataset$children, ~.x$format$type)
+      purrr::map_int(dataset$children, ~ length(.x$files)),
+      purrr::map_chr(dataset$children, ~ .x$format$type)
     )
   } else {
     stats::setNames(

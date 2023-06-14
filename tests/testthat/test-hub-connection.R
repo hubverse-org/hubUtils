@@ -15,14 +15,16 @@ test_that("connect_hub works on local simple forecasting hub", {
   )
   expect_equal(
     class(hub_con),
-    c("hub_connection", "UnionDataset", "Dataset", "ArrowObject",
-      "R6")
+    c(
+      "hub_connection", "UnionDataset", "Dataset", "ArrowObject",
+      "R6"
+    )
   )
 
   expect_equal(
     purrr::map_int(
       hub_con$children,
-      ~length(.x$files)
+      ~ length(.x$files)
     ),
     c(3L, 1L)
   )
@@ -51,8 +53,10 @@ test_that("connect_hub connection & data extraction works on simple local hub", 
   )
   expect_equal(
     class(hub_con),
-    c("hub_connection", "UnionDataset", "Dataset", "ArrowObject",
-      "R6")
+    c(
+      "hub_connection", "UnionDataset", "Dataset", "ArrowObject",
+      "R6"
+    )
   )
 
   # overwrite path attributes to make snapshot portable
@@ -89,14 +93,16 @@ test_that("connect_hub works on local flusight forecasting hub", {
   )
   expect_equal(
     class(hub_con),
-    c("hub_connection", "UnionDataset", "Dataset", "ArrowObject",
-      "R6")
+    c(
+      "hub_connection", "UnionDataset", "Dataset", "ArrowObject",
+      "R6"
+    )
   )
 
   expect_equal(
     purrr::map_int(
       hub_con$children,
-      ~length(.x$files)
+      ~ length(.x$files)
     ),
     c(5L, 2L, 1L)
   )
@@ -128,8 +134,10 @@ test_that("connect_hub file_format override works on local hub", {
 
   expect_equal(
     class(hub_con),
-    c("hub_connection", "FileSystemDataset", "Dataset", "ArrowObject",
-      "R6")
+    c(
+      "hub_connection", "FileSystemDataset", "Dataset", "ArrowObject",
+      "R6"
+    )
   )
 })
 
@@ -137,8 +145,10 @@ test_that("Overriding output_type_id data type works correctly", {
   hub_path <- system.file("testhubs/simple", package = "hubUtils")
   con <- connect_hub(hub_path, output_type_id_datatype = "character")
 
-  expect_equal(con$schema$output_type_id$ToString(),
-               "output_type_id: string")
+  expect_equal(
+    con$schema$output_type_id$ToString(),
+    "output_type_id: string"
+  )
 })
 
 
@@ -159,8 +169,10 @@ test_that("connect_model_output works on local model_output_dir", {
   )
   expect_equal(
     class(mod_out_con),
-    c("mod_out_connection", "FileSystemDataset", "Dataset", "ArrowObject",
-      "R6")
+    c(
+      "mod_out_connection", "FileSystemDataset", "Dataset", "ArrowObject",
+      "R6"
+    )
   )
   # overwrite path attributes to make snapshot portable
   attr(mod_out_con, "model_output_dir") <- "test/model_output_dir"
@@ -175,12 +187,12 @@ test_that("connect_model_output works on local model_output_dir", {
   hub_path <- system.file("testhubs/simple", package = "hubUtils")
   config_tasks <- read_config(hub_path, "tasks")
   schema_csv <- create_hub_schema(config_tasks,
-                                  output_type_id_datatype = "character")
+    output_type_id_datatype = "character"
+  )
   mod_out_con <- connect_model_output(mod_out_path, schema = schema_csv)
   attr(mod_out_con, "model_output_dir") <- "test/model_output_dir"
   expect_snapshot(mod_out_con)
   expect_equal(length(mod_out_con$files), 3L)
-
 })
 
 test_that("hub_connection print method works", {
@@ -218,15 +230,15 @@ test_that("connect_hub data extraction works on simple forecasting hub", {
       output_type_id == 0.01
     ) %>%
     dplyr::collect() %>%
-      str())
+    str())
 
   expect_snapshot(hub_con %>%
     dplyr::filter(
       horizon == 2,
-      age_group == "65+") %>%
+      age_group == "65+"
+    ) %>%
     dplyr::collect() %>%
-      str()
-  )
+    str())
 
 
   model_output_dir <- system.file("testhubs/simple/model-output", package = "hubUtils")
@@ -238,7 +250,7 @@ test_that("connect_hub data extraction works on simple forecasting hub", {
       output_type_id == 0.01
     ) %>%
     dplyr::collect() %>%
-      str())
+    str())
 })
 
 
@@ -261,8 +273,10 @@ test_that("connect_hub works on S3 bucket simple forecasting hub on AWS", {
 
   expect_equal(
     class(hub_con),
-    c("hub_connection", "UnionDataset", "Dataset", "ArrowObject",
-      "R6")
+    c(
+      "hub_connection", "UnionDataset", "Dataset", "ArrowObject",
+      "R6"
+    )
   )
 
   # overwrite path attributes to make snapshot portable
@@ -271,16 +285,16 @@ test_that("connect_hub works on S3 bucket simple forecasting hub on AWS", {
   expect_snapshot(str(hub_con))
 
   expect_snapshot(hub_con %>%
-                    dplyr::filter(
-                      horizon == 2,
-                      age_group == "65+") %>%
-                    dplyr::collect() %>%
-                    str())
+    dplyr::filter(
+      horizon == 2,
+      age_group == "65+"
+    ) %>%
+    dplyr::collect() %>%
+    str())
 })
 
 
 test_that("connect_hub & connect_model_output fail correctly", {
-
   expect_snapshot(connect_hub("random/hub/path"), error = TRUE)
   expect_snapshot(connect_model_output("random/model-output/"), error = TRUE)
 
@@ -290,12 +304,15 @@ test_that("connect_hub & connect_model_output fail correctly", {
   dir.create(fs::path(temp_dir, "hub-config"))
   expect_error(
     connect_hub(temp_dir),
-    regexp = "Config file .*admin.* does not exist at path")
+    regexp = "Config file .*admin.* does not exist at path"
+  )
 
   fs::dir_copy(
     system.file("testhubs/simple/hub-config", package = "hubUtils"),
-    temp_dir)
+    temp_dir
+  )
   expect_error(
     connect_hub(temp_dir),
-    regexp = "Directory .*model-output.* does not exist at path")
+    regexp = "Directory .*model-output.* does not exist at path"
+  )
 })

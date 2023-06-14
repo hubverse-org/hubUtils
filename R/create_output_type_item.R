@@ -213,8 +213,8 @@ create_output_type_cdf <- function(required, optional,
 #' output type.
 #' @export
 create_output_type_pmf <- function(required, optional, value_type,
-                                           schema_version = "latest",
-                                           branch = "main") {
+                                   schema_version = "latest",
+                                   branch = "main") {
   create_output_type_dist(
     output_type = "pmf", required = required, optional = optional,
     value_type = value_type, value_minimum = 0L,

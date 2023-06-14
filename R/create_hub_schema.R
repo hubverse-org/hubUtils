@@ -25,10 +25,11 @@
 #' schema <- create_hub_schema(config_tasks)
 create_hub_schema <- function(config_tasks,
                               partitions = list(model_id = arrow::utf8()),
-                              output_type_id_datatype = c("auto", "character",
-                                                          "double", "integer",
-                                                          "logical", "Date")) {
-
+                              output_type_id_datatype = c(
+                                "auto", "character",
+                                "double", "integer",
+                                "logical", "Date"
+                              )) {
   output_type_id_datatype <- rlang::arg_match(output_type_id_datatype)
 
   task_id_names <- get_task_id_names(config_tasks)
@@ -125,7 +126,8 @@ get_output_type_id_type <- function(config_tasks) {
   values <- purrr::map(
     config_tasks[["rounds"]],
     ~ .x[["model_tasks"]]
-  ) %>% unlist(recursive = FALSE) %>%
+  ) %>%
+    unlist(recursive = FALSE) %>%
     purrr::map(~ .x[["output_type"]]) %>%
     unlist(recursive = FALSE) %>%
     purrr::map(~ purrr::pluck(.x, "type_id")) %>%
@@ -139,7 +141,8 @@ get_value_type <- function(config_tasks) {
   types <- purrr::map(
     config_tasks[["rounds"]],
     ~ .x[["model_tasks"]]
-  ) %>% unlist(recursive = FALSE) %>%
+  ) %>%
+    unlist(recursive = FALSE) %>%
     purrr::map(~ .x[["output_type"]]) %>%
     purrr::flatten() %>%
     purrr::map(~ purrr::pluck(.x, "value", "type")) %>%

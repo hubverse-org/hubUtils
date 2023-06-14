@@ -139,7 +139,7 @@ get_schema_valid_versions <- function(branch = "main") {
   }
 
   req <- gh::gh("GET /repos/Infectious-Disease-Modeling-Hubs/schemas/git/trees/{branch}",
-                branch = branch
+    branch = branch
   )
 
   types <- vapply(req$tree, "[[", "", "type")
@@ -158,7 +158,7 @@ get_config_schema_version <- function(config_path, config) {
   }
 
   check_config_schema_version(config_schema_version,
-                              config = config
+    config = config
   )
 
   version <- stringr::str_extract(
@@ -264,8 +264,8 @@ get_schema <- function(schema_url) {
 #' @noRd
 perform_dynamic_config_validations <- function(validation) {
   config_json <- jsonlite::read_json(attr(validation, "config_path"),
-                                     simplifyVector = TRUE,
-                                     simplifyDataFrame = FALSE
+    simplifyVector = TRUE,
+    simplifyDataFrame = FALSE
   )
   schema <- get_schema(attr(validation, "schema_url"))
 
@@ -296,49 +296,56 @@ perform_dynamic_config_validations <- function(validation) {
 val_round <- function(round, round_i, schema) {
   model_task_grps <- round[["model_tasks"]]
 
-  c(purrr::imap(
-    model_task_grps,
-    ~ val_model_task_grp_target_metadata(
-      model_task_grp = .x, model_task_i = .y,
-      round_i = round_i, schema = schema
+  c(
+    purrr::imap(
+      model_task_grps,
+      ~ val_model_task_grp_target_metadata(
+        model_task_grp = .x, model_task_i = .y,
+        round_i = round_i, schema = schema
+      )
+    ),
+    purrr::imap(
+      model_task_grps,
+      ~ val_task_id_names(
+        model_task_grp = .x, model_task_i = .y,
+        round_i = round_i, schema = schema
+      )
     )
-  ),
-  purrr::imap(
-    model_task_grps,
-    ~ val_task_id_names(
-      model_task_grp = .x, model_task_i = .y,
-      round_i = round_i, schema = schema
-    )
-  )
   ) %>%
     purrr::list_rbind()
 }
 
 # Validate that no task id names match reserved hub variable names
 val_task_id_names <- function(model_task_grp, model_task_i, round_i, schema) {
-
-  reserved_hub_vars <- c("model_id", "output_type",
-                         "output_type_id", "value")
+  reserved_hub_vars <- c(
+    "model_id", "output_type",
+    "output_type_id", "value"
+  )
   task_id_names <- names(model_task_grp$task_ids)
   check_task_id_names <- task_id_names %in% reserved_hub_vars
 
   if (any(check_task_id_names)) {
-
     invalid_task_id_values <- task_id_names[check_task_id_names]
 
     error_row <- data.frame(
-      instancePath = paste0(glue::glue(
-        get_error_path(schema, "task_ids", "instance")), "/",
-        names(invalid_task_id_values)),
+      instancePath = paste0(
+        glue::glue(
+          get_error_path(schema, "task_ids", "instance")
+        ), "/",
+        names(invalid_task_id_values)
+      ),
       schemaPath = get_error_path(schema, "task_ids", "schema"),
       keyword = "task_id names",
-      message = glue::glue("task_id name(s) '{invalid_task_id_values}'",
-                           " must not match reserved hub variable names."),
+      message = glue::glue(
+        "task_id name(s) '{invalid_task_id_values}'",
+        " must not match reserved hub variable names."
+      ),
       schema = "",
       data = glue::glue(
         'task_id names: {glue::glue_collapse(task_id_names, ", ", last = " & ")};
         reserved hub variable names:',
-        ' {glue::glue_collapse(reserved_hub_vars, ", ", last = " & ")}')
+        ' {glue::glue_collapse(reserved_hub_vars, ", ", last = " & ")}'
+      )
     )
     return(error_row)
   }
@@ -379,11 +386,11 @@ val_model_task_grp_target_metadata <- function(model_task_grp, model_task_i,
     errors_check_2 <- purrr::imap(
       grp_target_keys,
       ~ val_target_key_names(.x,
-                             target_key_i = .y,
-                             model_task_grp = model_task_grp,
-                             model_task_i = model_task_i,
-                             round_i = round_i,
-                             schema = schema
+        target_key_i = .y,
+        model_task_grp = model_task_grp,
+        model_task_i = model_task_i,
+        round_i = round_i,
+        schema = schema
       )
     ) %>%
       purrr::list_rbind()
@@ -401,10 +408,10 @@ val_model_task_grp_target_metadata <- function(model_task_grp, model_task_i,
   errors_check_3 <- purrr::imap(
     grp_target_keys,
     ~ val_target_key_values(.x, model_task_grp,
-                            target_key_i = .y,
-                            model_task_i = model_task_i,
-                            round_i = round_i,
-                            schema = schema
+      target_key_i = .y,
+      model_task_i = model_task_i,
+      round_i = round_i,
+      schema = schema
     )
   ) %>%
     purrr::list_rbind()
@@ -413,9 +420,9 @@ val_model_task_grp_target_metadata <- function(model_task_grp, model_task_i,
   #  of each task_id identified as a target key have a matching
   #  value in the corresponding target key of at least one target metadata item.
   errors_check_4 <- val_target_key_task_id_values(grp_target_keys, model_task_grp,
-                                                  model_task_i = model_task_i,
-                                                  round_i = round_i,
-                                                  schema = schema
+    model_task_i = model_task_i,
+    round_i = round_i,
+    schema = schema
   )
   # Combine all error checks
   rbind(
@@ -617,8 +624,8 @@ get_error_path <- function(schema, element = "target_metadata",
     unique()
 
   switch(type,
-         schema = paste0("#", path),
-         instance = generate_instance_path_glue(path)
+    schema = paste0("#", path),
+    instance = generate_instance_path_glue(path)
   )
 }
 
@@ -653,8 +660,8 @@ check_config_schema_version <- function(schema_version, config = c("tasks", "adm
   }
 
   check_prefix <- grepl("https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/",
-                        schema_version,
-                        fixed = TRUE
+    schema_version,
+    fixed = TRUE
   )
 
   if (!check_prefix) {
@@ -671,8 +678,8 @@ check_config_schema_version <- function(schema_version, config = c("tasks", "adm
 validate_schema_version_property <- function(validation, config = c("tasks", "admin")) {
   config <- rlang::arg_match(config)
   schema_version <- jsonlite::read_json(attr(validation, "config_path"),
-                                        simplifyVector = TRUE,
-                                        simplifyDataFrame = FALSE
+    simplifyVector = TRUE,
+    simplifyDataFrame = FALSE
   )$schema_version
   schema <- get_schema(attr(validation, "schema_url"))
 
@@ -700,8 +707,8 @@ validate_schema_version_property <- function(validation, config = c("tasks", "ad
   }
 
   check_prefix <- grepl("https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/",
-                        schema_version,
-                        fixed = TRUE
+    schema_version,
+    fixed = TRUE
   )
 
   if (!check_prefix) {
