@@ -144,7 +144,7 @@
         .. .. .. ..$ start      : int -6
         .. .. .. ..$ end        : int 1
 
-# connect_hub works connection & data extraction hub
+# connect_hub connection & data extraction works on simple local hub
 
     Code
       str(hub_con)
@@ -286,6 +286,134 @@
        $ output_type_id: chr [1:6] NA NA NA NA ...
        $ value         : num [1:6] 926 926 945 945 1033 ...
        $ model_id      : chr [1:6] "baseline" "baseline" "baseline" "baseline" ...
+
+# connect_hub works on local flusight forecasting hub
+
+    Code
+      str(hub_con)
+    Output
+      Classes 'hub_connection', 'UnionDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
+        Inherits from: <UnionDataset>
+        Public:
+          .:xp:.: externalptr
+          .unsafe_delete: function () 
+          NewScan: function () 
+          ToString: function () 
+          WithSchema: function (schema) 
+          children: active binding
+          class_title: function () 
+          clone: function (deep = FALSE) 
+          initialize: function (xp) 
+          metadata: active binding
+          num_cols: active binding
+          num_rows: active binding
+          pointer: function () 
+          print: function (...) 
+          schema: active binding
+          set_pointer: function (xp) 
+          type: active binding 
+       - attr(*, "hub_name")= chr "US CDC FluSight"
+       - attr(*, "file_format")= chr [1:3] "csv" "parquet" "ipc"
+       - attr(*, "file_system")= chr "LocalFileSystem"
+       - attr(*, "hub_path")= chr "test/hub_path"
+       - attr(*, "model_output_dir")= chr "test/model_output_dir"
+       - attr(*, "config_admin")=List of 9
+        ..$ schema_version  : chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/admin-schema.json"
+        ..$ name            : chr "US CDC FluSight"
+        ..$ maintainer      : chr "US CDC"
+        ..$ contact         :List of 2
+        .. ..$ name : chr "Joe Bloggs"
+        .. ..$ email: chr "joe.blogs@cdc.gov"
+        ..$ repository_host : chr "GitHub"
+        ..$ repository_url  : chr "https://github.com/cdcepi/Flusight-forecast-data"
+        ..$ file_format     : chr [1:3] "csv" "parquet" "arrow"
+        ..$ timezone        : chr "US/Eastern"
+        ..$ model_output_dir: chr "forecasts"
+       - attr(*, "config_tasks")=List of 2
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+        ..$ rounds        :List of 1
+        .. ..$ :List of 4
+        .. .. ..$ round_id_from_variable: logi TRUE
+        .. .. ..$ round_id              : chr "forecast_date"
+        .. .. ..$ model_tasks           :List of 2
+        .. .. .. ..$ :List of 3
+        .. .. .. .. ..$ task_ids       :List of 4
+        .. .. .. .. .. ..$ forecast_date:List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr [1:23] "2022-12-12" "2022-12-19" "2022-12-26" "2023-01-02" ...
+        .. .. .. .. .. ..$ target       :List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr "wk flu hosp rate change"
+        .. .. .. .. .. ..$ horizon      :List of 2
+        .. .. .. .. .. .. ..$ required: int 2
+        .. .. .. .. .. .. ..$ optional: int 1
+        .. .. .. .. .. ..$ location     :List of 2
+        .. .. .. .. .. .. ..$ required: chr "US"
+        .. .. .. .. .. .. ..$ optional: chr [1:53] "01" "02" "04" "05" ...
+        .. .. .. .. ..$ output_type    :List of 1
+        .. .. .. .. .. ..$ pmf:List of 2
+        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. .. ..$ required: chr [1:5] "large_decrease" "decrease" "stable" "increase" ...
+        .. .. .. .. .. .. .. ..$ optional: NULL
+        .. .. .. .. .. .. ..$ value  :List of 3
+        .. .. .. .. .. .. .. ..$ type   : chr "double"
+        .. .. .. .. .. .. .. ..$ minimum: int 0
+        .. .. .. .. .. .. .. ..$ maximum: int 1
+        .. .. .. .. ..$ target_metadata:List of 1
+        .. .. .. .. .. ..$ :List of 8
+        .. .. .. .. .. .. ..$ target_id    : chr "wk flu hosp rate change"
+        .. .. .. .. .. .. ..$ target_name  : chr "weekly influenza hospitalization rate change"
+        .. .. .. .. .. .. ..$ target_units : chr "rate per 100,000 population"
+        .. .. .. .. .. .. ..$ target_keys  :List of 1
+        .. .. .. .. .. .. .. ..$ target: chr "wk flu hosp rate change"
+        .. .. .. .. .. .. ..$ target_type  : chr "nominal"
+        .. .. .. .. .. .. ..$ description  : chr "This target represents the change in the rate of new hospitalizations per week comparing the week ending two da"| __truncated__
+        .. .. .. .. .. .. ..$ is_step_ahead: logi TRUE
+        .. .. .. .. .. .. ..$ time_unit    : chr "week"
+        .. .. .. ..$ :List of 3
+        .. .. .. .. ..$ task_ids       :List of 4
+        .. .. .. .. .. ..$ forecast_date:List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr [1:23] "2022-12-12" "2022-12-19" "2022-12-26" "2023-01-02" ...
+        .. .. .. .. .. ..$ target       :List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr "wk ahead inc flu hosp"
+        .. .. .. .. .. ..$ horizon      :List of 2
+        .. .. .. .. .. .. ..$ required: int 2
+        .. .. .. .. .. .. ..$ optional: int 1
+        .. .. .. .. .. ..$ location     :List of 2
+        .. .. .. .. .. .. ..$ required: chr "US"
+        .. .. .. .. .. .. ..$ optional: chr [1:53] "01" "02" "04" "05" ...
+        .. .. .. .. ..$ output_type    :List of 2
+        .. .. .. .. .. ..$ quantile:List of 2
+        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
+        .. .. .. .. .. .. .. ..$ optional: NULL
+        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. .. ..$ type   : chr "integer"
+        .. .. .. .. .. .. .. ..$ minimum: int 0
+        .. .. .. .. .. ..$ mean    :List of 2
+        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. .. ..$ optional: logi NA
+        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. .. ..$ type   : chr "double"
+        .. .. .. .. .. .. .. ..$ minimum: int 0
+        .. .. .. .. ..$ target_metadata:List of 1
+        .. .. .. .. .. ..$ :List of 8
+        .. .. .. .. .. .. ..$ target_id    : chr "wk ahead inc flu hosp"
+        .. .. .. .. .. .. ..$ target_name  : chr "weekly influenza hospitalization incidence"
+        .. .. .. .. .. .. ..$ target_units : chr "rate per 100,000 population"
+        .. .. .. .. .. .. ..$ target_keys  :List of 1
+        .. .. .. .. .. .. .. ..$ target: chr "wk ahead inc flu hosp"
+        .. .. .. .. .. .. ..$ target_type  : chr "discrete"
+        .. .. .. .. .. .. ..$ description  : chr "This target represents the counts of new hospitalizations per horizon week."
+        .. .. .. .. .. .. ..$ is_step_ahead: logi TRUE
+        .. .. .. .. .. .. ..$ time_unit    : chr "week"
+        .. .. ..$ submissions_due       :List of 3
+        .. .. .. ..$ relative_to: chr "forecast_date"
+        .. .. .. ..$ start      : int -6
+        .. .. .. ..$ end        : int 2
 
 # connect_model_output works on local model_output_dir
 

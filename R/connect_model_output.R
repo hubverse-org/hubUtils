@@ -1,9 +1,6 @@
 #' @export
 #' @param schema An [arrow::Schema] object for the Dataset.
-#' If NULL (the default), the schema will be inferred from the data sources. Note
-#' that for `"csv"` file_format connections, the schema should NOT contain fields for
-#' any partition variables. For `"parquet"` and `"arrow"` schema should contain
-#' fields for partition variables.
+#' If NULL (the default), the schema will be inferred from the data sources.
 #' @param partition_names character vector that defines the field names to which
 #' recursive directory names correspond to. Defaults to a single `model_id` field
 #' which reflects the standard expected structure of a `model-output` directory.

@@ -47,8 +47,7 @@ will likely result in an error or potentially unexpected behaviour so use with
 care.}
 
 \item{partitions}{a named list specifying the arrow data types of any
-partitioning column. Only relevant for opening \code{"parquet"} or \code{"arrow"} format datasets.
-Ignored for all other formats.}
+partitioning column.}
 
 \item{model_output_dir}{Either a character string path to a local directory
 containing model output data
@@ -64,10 +63,7 @@ recursive directory names correspond to. Defaults to a single \code{model_id} fi
 which reflects the standard expected structure of a \code{model-output} directory.}
 
 \item{schema}{An \link[arrow:Schema]{arrow::Schema} object for the Dataset.
-If NULL (the default), the schema will be inferred from the data sources. Note
-that for \code{"csv"} file_format connections, the schema should NOT contain fields for
-any partition variables. For \code{"parquet"} and \code{"arrow"} schema should contain
-fields for partition variables.}
+If NULL (the default), the schema will be inferred from the data sources.}
 }
 \value{
 \itemize{

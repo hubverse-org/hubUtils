@@ -174,7 +174,7 @@ test_that("connect_model_output works on local model_output_dir", {
   # provide custom schema
   hub_path <- system.file("testhubs/simple", package = "hubUtils")
   config_tasks <- read_config(hub_path, "tasks")
-  schema_csv <- create_hub_schema(config_tasks, format = "csv",
+  schema_csv <- create_hub_schema(config_tasks,
                                   output_type_id_datatype = "character")
   mod_out_con <- connect_model_output(mod_out_path, schema = schema_csv)
   attr(mod_out_con, "model_output_dir") <- "test/model_output_dir"

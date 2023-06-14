@@ -6,7 +6,6 @@
 \usage{
 create_hub_schema(
   config_tasks,
-  format = c("csv", "parquet", "arrow"),
   partitions = list(model_id = arrow::utf8()),
   output_type_id_datatype = c("auto", "character", "double", "integer", "logical",
     "Date")
@@ -16,11 +15,8 @@ create_hub_schema(
 \item{config_tasks}{a list version of the content's of a hub's \code{tasks.json}
 config file created using function \code{\link[=read_config]{read_config()}}.}
 
-\item{format}{the hub file format.}
-
 \item{partitions}{a named list specifying the arrow data types of any
-partitioning column. Only relevant for opening \code{"parquet"} or \code{"arrow"} format datasets.
-Ignored for all other formats.}
+partitioning column.}
 
 \item{output_type_id_datatype}{character string. One of \code{"auto"}, \code{"character"},
 \code{"double"}, \code{"integer"}, \code{"logical"}, \code{"Date"}. Defaults to \code{"auto"} indicating
@@ -33,9 +29,7 @@ care.}
 }
 \value{
 an arrow schema object that can be used to define column datatypes when
-opening model output data. If the schema is being created for a \code{parquet}/\code{arrow} hub,
-the partitioning variable data type is included in the schema while for \code{csv} hubs
-the partitioning variable is not as it causes errors when opening.
+opening model output data.
 }
 \description{
 Create an arrow schema from a \code{tasks.json} config file. For use when
@@ -44,6 +38,5 @@ opening an arrow dataset.
 \examples{
 hub_path <- system.file("testhubs/simple", package = "hubUtils")
 config_tasks <- read_config(hub_path, "tasks")
-schema_csv <- create_hub_schema(config_tasks, format = "csv")
-schema_parquet <- create_hub_schema(config_tasks, format = "parquet")
+schema <- create_hub_schema(config_tasks)
 }

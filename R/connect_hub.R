@@ -218,7 +218,7 @@ open_hub_dataset <- function(model_output_dir,
                              partitions = list(model_id = arrow::utf8())
                              ) {
   file_format <- rlang::arg_match(file_format)
-  schema <- create_hub_schema(config_tasks, format = file_format,
+  schema <- create_hub_schema(config_tasks,
                               partitions = partitions,
                               output_type_id_datatype = output_type_id_datatype)
 

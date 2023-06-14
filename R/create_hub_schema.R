@@ -4,10 +4,8 @@
 #' opening an arrow dataset.
 #' @param config_tasks a list version of the content's of a hub's `tasks.json`
 #' config file created using function [read_config()].
-#' @param format the hub file format.
 #' @param partitions a named list specifying the arrow data types of any
-#' partitioning column. Only relevant for opening `"parquet"` or `"arrow"` format datasets.
-#' Ignored for all other formats.
+#' partitioning column.
 #' @param output_type_id_datatype character string. One of `"auto"`, `"character"`,
 #' `"double"`, `"integer"`, `"logical"`, `"Date"`. Defaults to `"auto"` indicating
 #' that `output_type_id` will be determined automatically from the `tasks.json`
@@ -18,28 +16,20 @@
 #' care.
 #'
 #' @return an arrow schema object that can be used to define column datatypes when
-#' opening model output data. If the schema is being created for a `parquet`/`arrow` hub,
-#' the partitioning variable data type is included in the schema while for `csv` hubs
-#' the partitioning variable is not as it causes errors when opening.
+#' opening model output data.
 #' @export
 #'
 #' @examples
 #' hub_path <- system.file("testhubs/simple", package = "hubUtils")
 #' config_tasks <- read_config(hub_path, "tasks")
-#' schema_csv <- create_hub_schema(config_tasks, format = "csv")
-#' schema_parquet <- create_hub_schema(config_tasks, format = "parquet")
+#' schema <- create_hub_schema(config_tasks)
 create_hub_schema <- function(config_tasks,
-                              format = c("csv", "parquet", "arrow"),
                               partitions = list(model_id = arrow::utf8()),
                               output_type_id_datatype = c("auto", "character",
                                                           "double", "integer",
                                                           "logical", "Date")) {
-  format <- rlang::arg_match(format)
-  output_type_id_datatype <- rlang::arg_match(output_type_id_datatype)
 
-  if (format == "csv") {
-    partitions <- NULL
-  }
+  output_type_id_datatype <- rlang::arg_match(output_type_id_datatype)
 
   task_id_names <- get_task_id_names(config_tasks)
 

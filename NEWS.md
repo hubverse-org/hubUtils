@@ -1,10 +1,11 @@
 # hubUtils 0.0.0.9008
 
-* Added argument `output_type_id_datatype` to `connect_hub()` to allow overriding default behaviour of automatically detecting the `output_type_id` column data type from the `tasks.json` config file.
+* Added argument `output_type_id_datatype` to `connect_hub()` to allow overriding default behaviour of automatically detecting the `output_type_id` column data type from the `tasks.json` config file (#70).
 * Exposed `create_hub_schema()` argument `partitions` to `connect_hub()` function to accommodate custom hub partitioning.
 * Added argument `partition_names` to `connect_model_output()` to accommodate custom hub partitioning.
 * Added argument `schema` to `connect_model_output()` to allow for overriding default `arrow` schema auto-detection.
 * Moved `jsonvalidate` package to Imports so Hub administrator functionality accessible through standard installation.
+* Removed argument `format` from `create_hub_schema()` which now creates the same schema from a `tasks.json` config file, regardless of the data file format (#80).
 
 
 
