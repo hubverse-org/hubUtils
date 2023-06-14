@@ -4,6 +4,7 @@
 * Exposed `create_hub_schema()` argument `partitions` to `connect_hub()` function to accommodate custom hub partitioning.
 * Added argument `partition_names` to `connect_model_output()` to accommodate custom hub partitioning.
 * Added argument `schema` to `connect_model_output()` to allow for overriding default `arrow` schema auto-detection.
+* Moved `jsonvalidate` package to Imports so Hub administrator functionality accessible through standard installation.
 
 
 

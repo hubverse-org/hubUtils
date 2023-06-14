@@ -21,6 +21,7 @@ Imports:
     glue,
     gt,
     jsonlite,
+    jsonvalidate,
     magrittr,
     memoise,
     purrr,
@@ -32,7 +33,6 @@ Suggests:
     digest,
     dplyr,
     gh,
-    jsonvalidate,
     mockery,
     rmarkdown,
     testthat (>= 3.0.0)
