@@ -19,6 +19,14 @@ test_that("connect_hub works on local simple forecasting hub", {
       "R6")
   )
 
+  expect_equal(
+    purrr::map_int(
+      hub_con$children,
+      ~length(.x$files)
+    ),
+    c(3L, 1L)
+  )
+
   # overwrite path attributes to make snapshot portable
   attr(hub_con, "model_output_dir") <- "test/model_output_dir"
   attr(hub_con, "hub_path") <- "test/hub_path"
@@ -26,7 +34,7 @@ test_that("connect_hub works on local simple forecasting hub", {
 })
 
 
-test_that("connect_hub works connection & data extraction hub", {
+test_that("connect_hub connection & data extraction works on simple local hub", {
   # Simple forecasting Hub example ----
 
   hub_path <- system.file("testhubs/flusight", package = "hubUtils")
@@ -62,6 +70,44 @@ test_that("connect_hub works connection & data extraction hub", {
 
   expect_equal(typeof(out_df$output_type_id), "character")
 })
+
+
+test_that("connect_hub works on local flusight forecasting hub", {
+  # Simple forecasting Hub example ----
+
+  hub_path <- system.file("testhubs/flusight", package = "hubUtils")
+  hub_con <- connect_hub(hub_path)
+
+  # Tests that paths are assigned to attributes correctly
+  expect_equal(
+    attr(hub_con, "file_format"),
+    c("csv", "parquet", "ipc")
+  )
+  expect_equal(
+    attr(hub_con, "file_system"),
+    "LocalFileSystem"
+  )
+  expect_equal(
+    class(hub_con),
+    c("hub_connection", "UnionDataset", "Dataset", "ArrowObject",
+      "R6")
+  )
+
+  expect_equal(
+    purrr::map_int(
+      hub_con$children,
+      ~length(.x$files)
+    ),
+    c(5L, 2L, 1L)
+  )
+
+  # overwrite path attributes to make snapshot portable
+  attr(hub_con, "model_output_dir") <- "test/model_output_dir"
+  attr(hub_con, "hub_path") <- "test/hub_path"
+  expect_snapshot(str(hub_con))
+})
+
+
 
 
 test_that("connect_hub file_format override works on local hub", {
@@ -122,6 +168,9 @@ test_that("connect_model_output works on local model_output_dir", {
   expect_snapshot(str(mod_out_con))
 
 
+  expect_equal(length(mod_out_con$files), 3L)
+
+
   # provide custom schema
   hub_path <- system.file("testhubs/simple", package = "hubUtils")
   config_tasks <- read_config(hub_path, "tasks")
@@ -130,6 +179,7 @@ test_that("connect_model_output works on local model_output_dir", {
   mod_out_con <- connect_model_output(mod_out_path, schema = schema_csv)
   attr(mod_out_con, "model_output_dir") <- "test/model_output_dir"
   expect_snapshot(mod_out_con)
+  expect_equal(length(mod_out_con$files), 3L)
 
 })
 
