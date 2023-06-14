@@ -109,3 +109,45 @@ mod_out_con %>%
     collect()
 ```
 
+
+When connecting to a model output directly, you can also specify a schema to override the default arrow schema auto-detection. This can help at times to resolve conflicts in data types across different dataset files.
+
+```{r}
+library(arrow)
+
+model_output_schema <- schema(
+  origin_date = date32(),
+  target = string(),
+  horizon = int32(),
+  location = string(),
+  output_type = string(),
+  output_type_id = string(),
+  value = int32(),
+  model_id = string()
+)
+
+mod_out_con <- connect_model_output(model_output_dir, file_format = "csv",
+                                    schema = model_output_schema)
+mod_out_con
+```
+
+Using a schema can however also produce new errors which can sometimes be hard to debug. For example, here we are defining a schema with field `output_type` cast as `int32` data type. As column `output_type` actually contain character type data which cannot be coerced to integer, connecting to the model output directory produces an `arrow` error. 
+
+
+```{r, error=TRUE}
+model_output_schema <- schema(
+  origin_date = date32(),
+  target = string(),
+  horizon = int32(),
+  location = string(),
+  output_type = int32(),
+  output_type_id = string(),
+  value = int32(),
+  model_id = string()
+)
+
+mod_out_con <- connect_model_output(model_output_dir, file_format = "csv",
+                                    schema = model_output_schema)
+```
+
+Beware that `arrow` errors can be somewhat misleading at times so if you do get such a non-informative error, a good place to start would be to check your schema matches the columns and your data can be coerced to the data types specified in the schema.

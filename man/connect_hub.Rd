@@ -15,7 +15,9 @@ connect_hub(
 
 connect_model_output(
   model_output_dir,
-  file_format = c("csv", "parquet", "arrow")
+  file_format = c("csv", "parquet", "arrow"),
+  partition_names = "model_id",
+  schema = NULL
 )
 }
 \arguments{
@@ -56,6 +58,16 @@ directory containing model output data stored in the cloud.
 For more details consult the
 \href{https://arrow.apache.org/docs/r/articles/fs.html}{Using cloud storage (S3, GCS)}
 in the \code{arrow} package.}
+
+\item{partition_names}{character vector that defines the field names to which
+recursive directory names correspond to. Defaults to a single \code{model_id} field
+which reflects the standard expected structure of a \code{model-output} directory.}
+
+\item{schema}{An \link[arrow:Schema]{arrow::Schema} object for the Dataset.
+If NULL (the default), the schema will be inferred from the data sources. Note
+that for \code{"csv"} file_format connections, the schema should NOT contain fields for
+any partition variables. For \code{"parquet"} and \code{"arrow"} schema should contain
+fields for partition variables.}
 }
 \value{
 \itemize{

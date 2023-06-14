@@ -343,6 +343,30 @@
        - attr(*, "file_system")= chr "LocalFileSystem"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
 
+---
+
+    Code
+      mod_out_con
+    Message <cliMessage>
+      
+      -- <mod_out_connection/FileSystemDataset> --
+      
+      * file_format: "csv"
+      * file_system: "LocalFileSystem"
+      * model_output_dir: "test/model_output_dir"
+      
+      -- Connection schema 
+    Output
+      mod_out_connection with 3 csv files
+      origin_date: date32[day]
+      target: string
+      horizon: int32
+      location: string
+      output_type: string
+      output_type_id: string
+      value: int32
+      model_id: string
+
 # hub_connection print method works
 
     Code
