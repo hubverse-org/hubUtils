@@ -31,7 +31,9 @@ print.hub_connection <- function(x, verbose = FALSE, ...) {
     }
     if (!is.null(attr(x, "file_format"))) {
         print_msg <- c(print_msg,
-                       "*" = "file_format: {.val {attr(x, 'file_format')}}"
+                       "*" = "file_format: {.val
+                       {paste0(names(attr(x, 'file_format')),
+                       '(', attr(x, 'file_format'), ')')}}"
         )
     }
     if (!is.null(attr(x, "file_system"))) {
@@ -76,7 +78,9 @@ print.mod_out_connection <- function(x, verbose = FALSE, ...) {
 
     if (!is.null(attr(x, "file_format"))) {
         print_msg <- c(print_msg,
-                       "*" = "file_format: {.val {attr(x, 'file_format')}}"
+                       "*" = "file_format: {.val
+                       {paste0(names(attr(x, 'file_format')),
+                       '(', attr(x, 'file_format'), ')')}}"
         )
     }
     if (!is.null(attr(x, "file_system"))) {

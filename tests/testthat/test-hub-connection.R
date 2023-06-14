@@ -7,7 +7,7 @@ test_that("connect_hub works on local simple forecasting hub", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    c("csv", "parquet")
+    c(csv = 3L, parquet = 1L)
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -43,7 +43,7 @@ test_that("connect_hub connection & data extraction works on simple local hub", 
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    c("csv", "parquet", "ipc")
+    c(csv = 5L, parquet = 2L, ipc = 1L)
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -81,7 +81,7 @@ test_that("connect_hub works on local flusight forecasting hub", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    c("csv", "parquet", "ipc")
+    c(csv = 5L, parquet = 2L, ipc = 1L)
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -119,7 +119,7 @@ test_that("connect_hub file_format override works on local hub", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    "csv"
+    c(csv = 3L)
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -151,7 +151,7 @@ test_that("connect_model_output works on local model_output_dir", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(mod_out_con, "file_format"),
-    "csv"
+    c(csv = 3L)
   )
   expect_equal(
     attr(mod_out_con, "file_system"),
@@ -251,7 +251,7 @@ test_that("connect_hub works on S3 bucket simple forecasting hub on AWS", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    c("csv", "parquet")
+    c(csv = 3L, parquet = 1L)
   )
 
   expect_equal(

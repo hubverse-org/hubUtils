@@ -122,14 +122,10 @@ connect_hub.default <- function(hub_path,
       ~ class(.x$filesystem)[1]
     ) %>%
       unique()
-
-    file_format <- purrr::map_chr(
-      dataset$children,
-      ~ .x$format$type
-    )
   } else {
     file_system <- class(dataset$filesystem)[1]
   }
+  file_format <- get_file_format_meta(dataset)
 
   structure(dataset,
     class = c("hub_connection", class(dataset)),
@@ -188,14 +184,11 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
       ~ class(.x$filesystem$base_fs)[1]
     ) %>%
       unique()
-
-    file_format <- purrr::map_chr(
-      dataset$children,
-      ~ .x$format$type
-    )
   } else {
     file_system <- class(dataset$filesystem$base_fs)[1]
+
   }
+  file_format <- get_file_format_meta(dataset)
 
   structure(dataset,
     class = c("hub_connection", class(dataset)),
@@ -364,4 +357,18 @@ model_output_dir_path.SubTreeFileSystem <- function(hub_path, config_admin,
     )
   }
   model_output_dir
+}
+
+get_file_format_meta <- function(dataset) {
+  if (inherits(dataset, "UnionDataset")) {
+    stats::setNames(
+      purrr::map_int(dataset$children, ~length(.x$files)),
+      purrr::map_chr(dataset$children, ~.x$format$type)
+    )
+  } else {
+    stats::setNames(
+      length(dataset$files),
+      dataset$format$type
+    )
+  }
 }
