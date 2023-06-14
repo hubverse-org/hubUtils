@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,15 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.0.9008" id="hubutils-0009008">hubUtils 0.0.0.9008<a class="anchor" aria-label="anchor" href="#hubutils-0009008"></a></h2>
+<ul><li>Added argument <code>output_type_id_datatype</code> to <code><a href="../reference/connect_hub.html">connect_hub()</a></code> to allow overriding default behaviour of automatically detecting the <code>output_type_id</code> column data type from the <code>tasks.json</code> config file (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/70" class="external-link">#70</a>).</li>
+<li>Exposed <code><a href="../reference/create_hub_schema.html">create_hub_schema()</a></code> argument <code>partitions</code> to <code><a href="../reference/connect_hub.html">connect_hub()</a></code> function to accommodate custom hub partitioning.</li>
+<li>Added argument <code>partition_names</code> to <code><a href="../reference/connect_hub.html">connect_model_output()</a></code> to accommodate custom hub partitioning.</li>
+<li>Added argument <code>schema</code> to <code><a href="../reference/connect_hub.html">connect_model_output()</a></code> to allow for overriding default <code>arrow</code> schema auto-detection.</li>
+<li>Moved <code>jsonvalidate</code> package to Imports so Hub administrator functionality accessible through standard installation.</li>
+<li>Removed argument <code>format</code> from <code><a href="../reference/create_hub_schema.html">create_hub_schema()</a></code> which now creates the same schema from a <code>tasks.json</code> config file, regardless of the data file format (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/80" class="external-link">#80</a>).</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9007" id="hubutils-0009007">hubUtils 0.0.0.9007<a class="anchor" aria-label="anchor" href="#hubutils-0009007"></a></h2>
 <ul><li>New function <code><a href="../reference/validate_hub_config.html">validate_hub_config()</a></code> allows maintainers to check the validity of hub config files in a single call. Function <code><a href="../reference/view_config_val_errors.html">view_config_val_errors()</a></code> also modified to create combined report for hub config files from output of <code><a href="../reference/validate_hub_config.html">validate_hub_config()</a></code>.</li>
 <li>Breaking change: All <code>model-output</code> data are expected to have <code>output_type</code> &amp; <code>output_type_id</code> instead of <code>type</code> &amp; <code>type_id</code> respectively.</li>
@@ -59,17 +68,17 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9006" id="hubutils-0009006">hubUtils 0.0.0.9006<a class="anchor" aria-label="anchor" href="#hubutils-0009006"></a></h2>
 <ul><li>
-<code>hub_connect()</code> now automatically determines the <code>output_type_id</code> column data type from the tasks.json config file coercing to the highest possible data type, “character” being the lowest denominator.</li>
+<code><a href="../reference/connect_hub.html">connect_hub()</a></code> now automatically determines the <code>output_type_id</code> column data type from the tasks.json config file coercing to the highest possible data type, “character” being the lowest denominator.</li>
 <li>Introduced function <code><a href="../reference/create_hub_schema.html">create_hub_schema()</a></code> for determining the schema for data in a hub’s model-output directory from a tasks.json config file.</li>
 <li>
-<code>hub_connect()</code> now allows establishing connections to hubs with multiple file type formats.</li>
+<code><a href="../reference/connect_hub.html">connect_hub()</a></code> now allows establishing connections to hubs with multiple file type formats.</li>
 <li>
 <code>create_output_type_categorical()</code> function was renamed to <code><a href="../reference/create_output_type_quantile.html">create_output_type_pmf()</a></code>.</li>
 <li>When extracting data via a hub connection, the column containing model identification information, inferred from <code>model-output</code> data directory partitions, was renamed from “model” to “model_id”.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9005" id="hubutils-0009005">hubUtils 0.0.0.9005<a class="anchor" aria-label="anchor" href="#hubutils-0009005"></a></h2>
-<ul><li>Re-implemented <code>hub_connect()</code> function to open connection to <code>model-output</code> data implemented through an <code>arrow</code> <code>FileSystemDataset</code> object. This allows users to create custom <code>dplyr</code> queries to access model output data.</li>
+<ul><li>Re-implemented <code><a href="../reference/connect_hub.html">connect_hub()</a></code> function to open connection to <code>model-output</code> data implemented through an <code>arrow</code> <code>FileSystemDataset</code> object. This allows users to create custom <code>dplyr</code> queries to access model output data.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9004" id="hubutils-0009004">hubUtils 0.0.0.9004<a class="anchor" aria-label="anchor" href="#hubutils-0009004"></a></h2>

@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,7 +144,7 @@ through the <code>file_format</code> argument.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> hub_name: <span style="color: #0000BB;">"US CDC FluSight"</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> hub_path: <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/flusight</span></span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> file_format: <span style="color: #0000BB;">"csv"</span>, <span style="color: #0000BB;">"parquet"</span>, and <span style="color: #0000BB;">"ipc"</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> file_format: <span style="color: #0000BB;">"csv(5)"</span>, <span style="color: #0000BB;">"parquet(2)"</span>, and <span style="color: #0000BB;">"ipc(1)"</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> file_system: <span style="color: #0000BB;">"LocalFileSystem"</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> model_output_dir:</span></span>
 <span><span class="co">#&gt;   <span style="color: #0000BB;">"/home/runner/work/_temp/Library/hubUtils/testhubs/flusight/forecasts"</span></span></span>
@@ -170,16 +170,16 @@ construct querying pipelines.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 276 × 8</span></span></span>
 <span><span class="co">#&gt;    forecast_date horizon target        location output_type output_type_id value</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2023-05-01          1 wk ahead inc… US       quantile    0.01               0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2023-05-01          1 wk ahead inc… US       quantile    0.025              0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2023-05-01          1 wk ahead inc… US       quantile    0.05               0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2023-05-01          1 wk ahead inc… US       quantile    0.1              193</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2023-05-01          1 wk ahead inc… US       quantile    0.15             495</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2023-05-01          1 wk ahead inc… US       quantile    0.2              618</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2023-05-01          1 wk ahead inc… US       quantile    0.25             717</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2023-05-01          1 wk ahead inc… US       quantile    0.3              774</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2023-05-01          1 wk ahead inc… US       quantile    0.35             822</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2023-05-01          1 wk ahead inc… US       quantile    0.4              857</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2023-04-24          1 wk ahead inc… US       quantile    0.01            232.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2023-04-24          1 wk ahead inc… US       quantile    0.025           331.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2023-04-24          1 wk ahead inc… US       quantile    0.05            423.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2023-04-24          1 wk ahead inc… US       quantile    0.1             512.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2023-04-24          1 wk ahead inc… US       quantile    0.15            610.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2023-04-24          1 wk ahead inc… US       quantile    0.2             670.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2023-04-24          1 wk ahead inc… US       quantile    0.25            724.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2023-04-24          1 wk ahead inc… US       quantile    0.3             773.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2023-04-24          1 wk ahead inc… US       quantile    0.35            812.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2023-04-24          1 wk ahead inc… US       quantile    0.4             893.</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 266 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: model_id &lt;chr&gt;</span></span></span></code></pre></div>
 <p>Note however that not all dplyr filtering options are available for
@@ -207,16 +207,16 @@ on the in-memory data returned by collect.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 92 × 8</span></span></span>
 <span><span class="co">#&gt;    forecast_date horizon target        location output_type output_type_id value</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2023-05-08          1 wk ahead inc… US       quantile    0.01               0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2023-05-08          1 wk ahead inc… US       quantile    0.025              0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2023-05-08          1 wk ahead inc… US       quantile    0.05               0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2023-05-08          1 wk ahead inc… US       quantile    0.1              231</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2023-05-08          1 wk ahead inc… US       quantile    0.15             517</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2023-05-08          1 wk ahead inc… US       quantile    0.2              637</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2023-05-08          1 wk ahead inc… US       quantile    0.25             741</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2023-05-08          1 wk ahead inc… US       quantile    0.3              796</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2023-05-08          1 wk ahead inc… US       quantile    0.35             847</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2023-05-08          1 wk ahead inc… US       quantile    0.4              876</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2023-05-08          1 wk ahead inc… US       quantile    0.01            368.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2023-05-08          1 wk ahead inc… US       quantile    0.025           428.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2023-05-08          1 wk ahead inc… US       quantile    0.05            500.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2023-05-08          1 wk ahead inc… US       quantile    0.1             569 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2023-05-08          1 wk ahead inc… US       quantile    0.15            630.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2023-05-08          1 wk ahead inc… US       quantile    0.2             683 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2023-05-08          1 wk ahead inc… US       quantile    0.25            728.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2023-05-08          1 wk ahead inc… US       quantile    0.3             769 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2023-05-08          1 wk ahead inc… US       quantile    0.35            802.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2023-05-08          1 wk ahead inc… US       quantile    0.4             845 </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 82 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: model_id &lt;chr&gt;</span></span></span></code></pre></div>
 <p>Alternatively, depending on the size of the data, in might be quicker
@@ -260,7 +260,7 @@ directory without using any metadata in a hub config file. This can be
 useful when a hub has not been fully configured yet.</p>
 <p>The approach does have certain limitations though. For example, an
 overall unifying schema cannot be determined from the config files so
-the ability of <code>open_dataset()</code> to connect and parse data
+the ability of <code><a href="https://arrow.apache.org/docs/r/reference/open_dataset.html" class="external-link">open_dataset()</a></code> to connect and parse data
 correctly cannot be guaranteed across files.</p>
 <p>In addition, only a single file_format dataset can be opened.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -270,7 +270,7 @@ correctly cannot be guaranteed across files.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="color: #0000BB; font-weight: bold;">&lt;mod_out_connection/FileSystemDataset&gt;</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> file_format: <span style="color: #0000BB;">"csv"</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> file_format: <span style="color: #0000BB;">"csv(3)"</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> file_system: <span style="color: #0000BB;">"LocalFileSystem"</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> model_output_dir:</span></span>
 <span><span class="co">#&gt;   <span style="color: #0000BB;">"/home/runner/work/_temp/Library/hubUtils/testhubs/simple/model-output"</span></span></span>
@@ -292,17 +292,87 @@ correctly cannot be guaranteed across files.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 138 × 8</span></span></span>
 <span><span class="co">#&gt;    origin_date target horizon location output_type output_type_id value model_id</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2022-10-08  wk in…       1 US       quantile             0.01    135 baseline</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2022-10-08  wk in…       1 US       quantile             0.025   137 baseline</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2022-10-08  wk in…       1 US       quantile             0.05    139 baseline</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2022-10-08  wk in…       1 US       quantile             0.1     140 baseline</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2022-10-08  wk in…       1 US       quantile             0.15    141 baseline</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2022-10-08  wk in…       1 US       quantile             0.2     141 baseline</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2022-10-08  wk in…       1 US       quantile             0.25    142 baseline</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2022-10-08  wk in…       1 US       quantile             0.3     143 baseline</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2022-10-08  wk in…       1 US       quantile             0.35    144 baseline</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2022-10-08  wk in…       1 US       quantile             0.4     145 baseline</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2022-10-01  wk in…       1 US       quantile             0.01    135 baseline</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2022-10-01  wk in…       1 US       quantile             0.025   137 baseline</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2022-10-01  wk in…       1 US       quantile             0.05    139 baseline</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2022-10-01  wk in…       1 US       quantile             0.1     140 baseline</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2022-10-01  wk in…       1 US       quantile             0.15    141 baseline</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2022-10-01  wk in…       1 US       quantile             0.2     141 baseline</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2022-10-01  wk in…       1 US       quantile             0.25    142 baseline</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2022-10-01  wk in…       1 US       quantile             0.3     143 baseline</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2022-10-01  wk in…       1 US       quantile             0.35    144 baseline</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2022-10-01  wk in…       1 US       quantile             0.4     145 baseline</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 128 more rows</span></span></span></code></pre></div>
+<p>When connecting to a model output directly, you can also specify a
+schema to override the default arrow schema auto-detection. This can
+help at times to resolve conflicts in data types across different
+dataset files.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/apache/arrow/" class="external-link">arrow</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'arrow'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:utils':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     timestamp</span></span>
+<span></span>
+<span><span class="va">model_output_schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/Schema.html" class="external-link">schema</a></span><span class="op">(</span></span>
+<span>  origin_date <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">date32</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  target <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  horizon <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">int32</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  location <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  output_type <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  output_type_id <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  value <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">int32</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  model_id <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">string</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mod_out_con</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect_hub.html">connect_model_output</a></span><span class="op">(</span><span class="va">model_output_dir</span>, file_format <span class="op">=</span> <span class="st">"csv"</span>,</span>
+<span>                                    schema <span class="op">=</span> <span class="va">model_output_schema</span><span class="op">)</span></span>
+<span><span class="va">mod_out_con</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="color: #0000BB; font-weight: bold;">&lt;mod_out_connection/FileSystemDataset&gt;</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> file_format: <span style="color: #0000BB;">"csv(3)"</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> file_system: <span style="color: #0000BB;">"LocalFileSystem"</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> model_output_dir:</span></span>
+<span><span class="co">#&gt;   <span style="color: #0000BB;">"/home/runner/work/_temp/Library/hubUtils/testhubs/simple/model-output"</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── Connection schema</span></span>
+<span><span class="co">#&gt; mod_out_connection with 3 csv files</span></span>
+<span><span class="co">#&gt; origin_date: date32[day]</span></span>
+<span><span class="co">#&gt; target: string</span></span>
+<span><span class="co">#&gt; horizon: int32</span></span>
+<span><span class="co">#&gt; location: string</span></span>
+<span><span class="co">#&gt; output_type: string</span></span>
+<span><span class="co">#&gt; output_type_id: string</span></span>
+<span><span class="co">#&gt; value: int32</span></span>
+<span><span class="co">#&gt; model_id: string</span></span></code></pre></div>
+<p>Using a schema can however also produce new errors which can
+sometimes be hard to debug. For example, here we are defining a schema
+with field <code>output_type</code> cast as <code>int32</code> data
+type. As column <code>output_type</code> actually contain character type
+data which cannot be coerced to integer, connecting to the model output
+directory produces an <code>arrow</code> error.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model_output_schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/Schema.html" class="external-link">schema</a></span><span class="op">(</span></span>
+<span>  origin_date <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">date32</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  target <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  horizon <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">int32</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  location <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  output_type <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">int32</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  output_type_id <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">string</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  value <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">int32</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  model_id <span class="op">=</span> <span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">string</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mod_out_con</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect_hub.html">connect_model_output</a></span><span class="op">(</span><span class="va">model_output_dir</span>, file_format <span class="op">=</span> <span class="st">"csv"</span>,</span>
+<span>                                    schema <span class="op">=</span> <span class="va">model_output_schema</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `arrow::open_dataset()`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Invalid: No non-null segments were available for field 'model_id'; couldn't infer type</span></span></code></pre></div>
+<p>Beware that <code>arrow</code> errors can be somewhat misleading at
+times so if you do get such a non-informative error, a good place to
+start would be to check your schema matches the columns and your data
+can be coerced to the data types specified in the schema.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

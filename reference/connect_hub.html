@@ -12,7 +12,7 @@ Data can be stored in a local directory or in the cloud on AWS or GCS."><meta pr
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,11 +61,19 @@ Data can be stored in a local directory or in the cloud on AWS or GCS.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">connect_hub</span><span class="op">(</span><span class="va">hub_path</span>, file_format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"csv"</span>, <span class="st">"parquet"</span>, <span class="st">"arrow"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">connect_hub</span><span class="op">(</span></span>
+<span>  <span class="va">hub_path</span>,</span>
+<span>  file_format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"csv"</span>, <span class="st">"parquet"</span>, <span class="st">"arrow"</span><span class="op">)</span>,</span>
+<span>  output_type_id_datatype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"character"</span>, <span class="st">"double"</span>, <span class="st">"integer"</span>, <span class="st">"logical"</span>,</span>
+<span>    <span class="st">"Date"</span><span class="op">)</span>,</span>
+<span>  partitions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>model_id <span class="op">=</span> <span class="fu">arrow</span><span class="fu">::</span><span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">utf8</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">connect_model_output</span><span class="op">(</span></span>
 <span>  <span class="va">model_output_dir</span>,</span>
-<span>  file_format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"csv"</span>, <span class="st">"parquet"</span>, <span class="st">"arrow"</span><span class="op">)</span></span>
+<span>  file_format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"csv"</span>, <span class="st">"parquet"</span>, <span class="st">"arrow"</span><span class="op">)</span>,</span>
+<span>  partition_names <span class="op">=</span> <span class="st">"model_id"</span>,</span>
+<span>  schema <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -91,6 +99,22 @@ For connection to a fully configured hub, accessed through <code>hub_path</code>
 If supplied, it will override hub configuration setting. Multiple formats can be supplied to <code>connect_hub</code> but only a single file format can be supplied to <code>connect_mod_out</code>.</p></dd>
 
 
+<dt>output_type_id_datatype</dt>
+<dd><p>character string. One of <code>"auto"</code>, <code>"character"</code>,
+<code>"double"</code>, <code>"integer"</code>, <code>"logical"</code>, <code>"Date"</code>. Defaults to <code>"auto"</code> indicating
+that <code>output_type_id</code> will be determined automatically from the <code>tasks.json</code>
+config file. Other data type values can be used to override automatic determination.
+Note that attempting to coerce <code>output_type_id</code> to a data type that is not possible
+(e.g. trying to coerce to <code>"double"</code> when the data contains <code>"character"</code> values)
+will likely result in an error or potentially unexpected behaviour so use with
+care.</p></dd>
+
+
+<dt>partitions</dt>
+<dd><p>a named list specifying the arrow data types of any
+partitioning column.</p></dd>
+
+
 <dt>model_output_dir</dt>
 <dd><p>Either a character string path to a local directory
 containing model output data
@@ -100,6 +124,17 @@ directory containing model output data stored in the cloud.
 For more details consult the
 <a href="https://arrow.apache.org/docs/r/articles/fs.html" class="external-link">Using cloud storage (S3, GCS)</a>
 in the <code>arrow</code> package.</p></dd>
+
+
+<dt>partition_names</dt>
+<dd><p>character vector that defines the field names to which
+recursive directory names correspond to. Defaults to a single <code>model_id</code> field
+which reflects the standard expected structure of a <code>model-output</code> directory.</p></dd>
+
+
+<dt>schema</dt>
+<dd><p>An <a href="https://arrow.apache.org/docs/r/reference/Schema.html" class="external-link">arrow::Schema</a> object for the Dataset.
+If NULL (the default), the schema will be inferred from the data sources.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -133,7 +168,7 @@ model output directory which is not part of a fully configured hub.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> hub_name: <span style="color: #0000BB;">"Simple Forecast Hub"</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> hub_path: <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> file_format: <span style="color: #0000BB;">"csv"</span> and <span style="color: #0000BB;">"parquet"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> file_format: <span style="color: #0000BB;">"csv(3)"</span> and <span style="color: #0000BB;">"parquet(1)"</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> file_system: <span style="color: #0000BB;">"LocalFileSystem"</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> model_output_dir:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/home/runner/work/_temp/Library/hubUtils/testhubs/simple/model-output"</span></span>
@@ -151,6 +186,31 @@ model output directory which is not part of a fully configured hub.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> value: int32</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> model_id: string</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> age_group: string</span>
+<span class="r-in"><span><span class="va">hub_con</span> <span class="op">&lt;-</span> <span class="fu">connect_hub</span><span class="op">(</span><span class="va">hub_path</span>, output_type_id_datatype <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">hub_con</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="color: #0000BB; font-weight: bold;">&lt;hub_connection/UnionDataset&gt;</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> hub_name: <span style="color: #0000BB;">"Simple Forecast Hub"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> hub_path: <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> file_format: <span style="color: #0000BB;">"csv(3)"</span> and <span style="color: #0000BB;">"parquet(1)"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> file_system: <span style="color: #0000BB;">"LocalFileSystem"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> model_output_dir:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/home/runner/work/_temp/Library/hubUtils/testhubs/simple/model-output"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> config_admin: <span style="color: #0000BB;">hub-config/admin.json</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> config_tasks: <span style="color: #0000BB;">hub-config/tasks.json</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── Connection schema </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> hub_connection</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> origin_date: date32[day]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> target: string</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> horizon: int32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> location: string</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> output_type: string</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> output_type_id: string</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> value: int32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> model_id: string</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> age_group: string</span>
 <span class="r-in"><span><span class="co"># Connect directly to a local `model-output` directory</span></span></span>
 <span class="r-in"><span><span class="va">mod_out_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/model-output"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod_out_con</span> <span class="op">&lt;-</span> <span class="fu">connect_model_output</span><span class="op">(</span><span class="va">mod_out_path</span><span class="op">)</span></span></span>
@@ -158,7 +218,7 @@ model output directory which is not part of a fully configured hub.</p></li>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="color: #0000BB; font-weight: bold;">&lt;mod_out_connection/FileSystemDataset&gt;</span> ──</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> file_format: <span style="color: #0000BB;">"csv"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> file_format: <span style="color: #0000BB;">"csv(3)"</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> file_system: <span style="color: #0000BB;">"LocalFileSystem"</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> model_output_dir:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB;">"/home/runner/work/_temp/Library/hubUtils/testhubs/simple/model-output"</span></span>
@@ -191,17 +251,17 @@ model output directory which is not part of a fully configured hub.</p></li>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html" class="external-link">collect</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 69 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    origin_date target horizon location output_type output_type_id value model_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2022-10-08  wk in…       2 US       quantile             0.01    135 baseline</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2022-10-08  wk in…       2 US       quantile             0.025   137 baseline</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2022-10-08  wk in…       2 US       quantile             0.05    139 baseline</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2022-10-08  wk in…       2 US       quantile             0.1     140 baseline</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2022-10-08  wk in…       2 US       quantile             0.15    141 baseline</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2022-10-08  wk in…       2 US       quantile             0.2     141 baseline</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2022-10-08  wk in…       2 US       quantile             0.25    142 baseline</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2022-10-08  wk in…       2 US       quantile             0.3     143 baseline</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2022-10-08  wk in…       2 US       quantile             0.35    144 baseline</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2022-10-08  wk in…       2 US       quantile             0.4     145 baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2022-10-08  wk in…       2 US       quantile    0.01             135 baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2022-10-08  wk in…       2 US       quantile    0.025            137 baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2022-10-08  wk in…       2 US       quantile    0.05             139 baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2022-10-08  wk in…       2 US       quantile    0.1              140 baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2022-10-08  wk in…       2 US       quantile    0.15             141 baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2022-10-08  wk in…       2 US       quantile    0.2              141 baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2022-10-08  wk in…       2 US       quantile    0.25             142 baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2022-10-08  wk in…       2 US       quantile    0.3              143 baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2022-10-08  wk in…       2 US       quantile    0.35             144 baseline</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2022-10-08  wk in…       2 US       quantile    0.4              145 baseline</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 59 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: age_group &lt;chr&gt;</span></span>
 <span class="r-in"><span><span class="va">mod_out_con</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
