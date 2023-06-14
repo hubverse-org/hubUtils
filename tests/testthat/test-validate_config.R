@@ -69,6 +69,12 @@ test_that("Dynamic config errors detected successfully by custom R validation", 
   expect_false(out)
 })
 
+test_that("Reserved hub variable task id name detected correctly", {
+  config_path <- testthat::test_path("testdata", "tasks-errors-rval-reserved.json")
+  out <- suppressWarnings(validate_config(config_path = config_path))
+  expect_snapshot(out)
+  expect_false(out)
+})
 
 test_that("NULL target keys validated successfully", {
   config_path <- testthat::test_path("testdata", "tasks_null_rval.json")
@@ -78,8 +84,8 @@ test_that("NULL target keys validated successfully", {
 
 
 test_that("Bad schema_version URL errors successfully", {
-     config_path <- testthat::test_path("testdata", "schema_version-errors.json")
-    expect_error(validate_config(config_path = config_path))
+  config_path <- testthat::test_path("testdata", "schema_version-errors.json")
+  expect_error(validate_config(config_path = config_path))
 })
 
 

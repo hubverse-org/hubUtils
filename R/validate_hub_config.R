@@ -55,8 +55,8 @@ validate_hub_config <- function(hub_path = ".",
     )
   ) %>%
     purrr::set_names(names(config_paths)) %>%
-      suppressMessages() %>%
-      suppressWarnings()
+    suppressMessages() %>%
+    suppressWarnings()
 
 
 
@@ -101,9 +101,9 @@ validate_hub_config <- function(hub_path = ".",
     ))
   } else {
     cli::cli_alert_success(
-        "Hub correctly configured!
+      "Hub correctly configured!
          Both {.path admin.json} and {.path tasks.json} valid."
-        )
+    )
   }
 
   config_dir_path <- ifelse(
@@ -119,10 +119,11 @@ validate_hub_config <- function(hub_path = ".",
   ) %>%
     unique()
   attr(validations, "schema_url") <- gsub(
-      "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/",
-      "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/tree/",
-      unique(schema_url_dirnames),
-      fixed = TRUE)
+    "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/",
+    "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/tree/",
+    unique(schema_url_dirnames),
+    fixed = TRUE
+  )
 
   return(validations)
 }

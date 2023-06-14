@@ -18,85 +18,89 @@
 #' mod_out_con <- connect_model_output(mod_out_path)
 #' print(mod_out_con)
 print.hub_connection <- function(x, verbose = FALSE, ...) {
-    cli::cli_h2("{.cls {class(x)[1:2]}}")
+  cli::cli_h2("{.cls {class(x)[1:2]}}")
 
-    print_msg <- NULL
+  print_msg <- NULL
 
 
-    if (!is.null(attr(x, "hub_path"))) {
-        print_msg <- c(print_msg,
-                       "*" = "hub_name: {.val {attr(x, 'hub_name')}}",
-                       "*" = "hub_path: {.file {attr(x, 'hub_path')}}"
-        )
-    }
-    if (!is.null(attr(x, "file_format"))) {
-        print_msg <- c(print_msg,
-                       "*" = "file_format: {.val {attr(x, 'file_format')}}"
-        )
-    }
-    if (!is.null(attr(x, "file_system"))) {
-        print_msg <- c(print_msg,
-                       "*" = "file_system: {.val {attr(x, 'file_system')[1]}}"
-        )
-    }
+  if (!is.null(attr(x, "hub_path"))) {
     print_msg <- c(print_msg,
-                   "*" = "model_output_dir: {.val {attr(x, 'model_output_dir')}}"
+      "*" = "hub_name: {.val {attr(x, 'hub_name')}}",
+      "*" = "hub_path: {.file {attr(x, 'hub_path')}}"
     )
+  }
+  if (!is.null(attr(x, "file_format"))) {
+    print_msg <- c(print_msg,
+      "*" = "file_format: {.val
+                       {paste0(names(attr(x, 'file_format')),
+                       '(', attr(x, 'file_format'), ')')}}"
+    )
+  }
+  if (!is.null(attr(x, "file_system"))) {
+    print_msg <- c(print_msg,
+      "*" = "file_system: {.val {attr(x, 'file_system')[1]}}"
+    )
+  }
+  print_msg <- c(print_msg,
+    "*" = "model_output_dir: {.val {attr(x, 'model_output_dir')}}"
+  )
 
-    if (!is.null(attr(x, "config_admin"))) {
-        print_msg <- c(print_msg,
-                       "*" = "config_admin: {.path hub-config/admin.json}"
-        )
-    }
-    if (!is.null(attr(x, "config_tasks"))) {
-        print_msg <- c(print_msg,
-                       "*" = "config_tasks: {.path hub-config/tasks.json}"
-        )
-    }
+  if (!is.null(attr(x, "config_admin"))) {
+    print_msg <- c(print_msg,
+      "*" = "config_admin: {.path hub-config/admin.json}"
+    )
+  }
+  if (!is.null(attr(x, "config_tasks"))) {
+    print_msg <- c(print_msg,
+      "*" = "config_tasks: {.path hub-config/tasks.json}"
+    )
+  }
 
-    cli::cli_bullets(print_msg)
+  cli::cli_bullets(print_msg)
 
-    if (inherits(x, "ArrowObject")) {
-        cli::cli_h3("Connection schema")
-        x$print()
-    }
+  if (inherits(x, "ArrowObject")) {
+    cli::cli_h3("Connection schema")
+    x$print()
+  }
 
-    if (verbose) {
-        utils::str(x)
-    }
-    invisible(x)
+  if (verbose) {
+    utils::str(x)
+  }
+  invisible(x)
 }
 
 #' @export
 #' @describeIn print.hub_connection print a `<mod_out_connection>` object.
 print.mod_out_connection <- function(x, verbose = FALSE, ...) {
-    cli::cli_h2("{.cls {class(x)[1:2]}}")
+  cli::cli_h2("{.cls {class(x)[1:2]}}")
 
-    print_msg <- NULL
+  print_msg <- NULL
 
-    if (!is.null(attr(x, "file_format"))) {
-        print_msg <- c(print_msg,
-                       "*" = "file_format: {.val {attr(x, 'file_format')}}"
-        )
-    }
-    if (!is.null(attr(x, "file_system"))) {
-        print_msg <- c(print_msg,
-                       "*" = "file_system: {.val {attr(x, 'file_system')}}"
-        )
-    }
+  if (!is.null(attr(x, "file_format"))) {
     print_msg <- c(print_msg,
-                   "*" = "model_output_dir: {.val {attr(x, 'model_output_dir')}}"
+      "*" = "file_format: {.val
+                       {paste0(names(attr(x, 'file_format')),
+                       '(', attr(x, 'file_format'), ')')}}"
     )
+  }
+  if (!is.null(attr(x, "file_system"))) {
+    print_msg <- c(print_msg,
+      "*" = "file_system: {.val {attr(x, 'file_system')}}"
+    )
+  }
+  print_msg <- c(print_msg,
+    "*" = "model_output_dir: {.val {attr(x, 'model_output_dir')}}"
+  )
 
-    cli::cli_bullets(print_msg)
+  cli::cli_bullets(print_msg)
 
-    if (inherits(x, "ArrowObject")) {
-        cli::cli_h3("Connection schema")
-        x$print()
-    }
+  if (inherits(x, "ArrowObject")) {
+    cli::cli_h3("Connection schema")
+    x$print()
+  }
 
-    if (verbose) {
-        utils::str(x)
-    }
-    invisible(x)
+  if (verbose) {
+    utils::str(x)
+  }
+  invisible(x)
 }

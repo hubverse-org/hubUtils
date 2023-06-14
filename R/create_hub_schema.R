@@ -1,32 +1,36 @@
 #' Create a Hub arrow schema
 #'
-#' Create an arrow schema from a the `tasks.json` config file for using when
+#' Create an arrow schema from a `tasks.json` config file. For use when
 #' opening an arrow dataset.
 #' @param config_tasks a list version of the content's of a hub's `tasks.json`
 #' config file created using function [read_config()].
-#' @param format the hub file format.
 #' @param partitions a named list specifying the arrow data types of any
-#' partitioning column. Only relevant for opening `"parquet"` or `"arrow"` format datasets.
-#' Ignored for all other formats.
+#' partitioning column.
+#' @param output_type_id_datatype character string. One of `"auto"`, `"character"`,
+#' `"double"`, `"integer"`, `"logical"`, `"Date"`. Defaults to `"auto"` indicating
+#' that `output_type_id` will be determined automatically from the `tasks.json`
+#' config file. Other data type values can be used to override automatic determination.
+#' Note that attempting to coerce `output_type_id` to a data type that is not possible
+#' (e.g. trying to coerce to `"double"` when the data contains `"character"` values)
+#' will likely result in an error or potentially unexpected behaviour so use with
+#' care.
 #'
 #' @return an arrow schema object that can be used to define column datatypes when
-#' opening model output data. If the schema is being created for a `parquet`/`arrow` hub,
-#' the partitioning variable data type is included in the schema while for `csv` hubs
-#' the partitioning variable is not as it causes errors when opening.
+#' opening model output data.
 #' @export
 #'
 #' @examples
 #' hub_path <- system.file("testhubs/simple", package = "hubUtils")
 #' config_tasks <- read_config(hub_path, "tasks")
-#' schema_csv <- create_hub_schema(config_tasks, format = "csv")
-#' schema_parquet <- create_hub_schema(config_tasks, format = "parquet")
+#' schema <- create_hub_schema(config_tasks)
 create_hub_schema <- function(config_tasks,
-                              format = c("csv", "parquet", "arrow"),
-                              partitions = list(model_id = arrow::utf8())) {
-  format <- rlang::arg_match(format)
-  if (format == "csv") {
-    partitions <- NULL
-  }
+                              partitions = list(model_id = arrow::utf8()),
+                              output_type_id_datatype = c(
+                                "auto", "character",
+                                "double", "integer",
+                                "logical", "Date"
+                              )) {
+  output_type_id_datatype <- rlang::arg_match(output_type_id_datatype)
 
   task_id_names <- get_task_id_names(config_tasks)
 
@@ -49,9 +53,15 @@ create_hub_schema <- function(config_tasks,
   task_id_arrow_types <- arrow_datatypes[task_id_types] %>%
     stats::setNames(task_id_names)
 
+  if (output_type_id_datatype == "auto") {
+    output_type_id_type <- arrow_datatypes[[get_output_type_id_type(config_tasks)]]
+  } else {
+    output_type_id_type <- arrow_datatypes[[output_type_id_datatype]]
+  }
+
   c(task_id_arrow_types,
     output_type = arrow::utf8(),
-    output_type_id = arrow_datatypes[[get_output_type_id_type(config_tasks)]],
+    output_type_id = output_type_id_type,
     value = arrow_datatypes[[get_value_type(config_tasks)]],
     partitions
   ) %>%
@@ -116,7 +126,8 @@ get_output_type_id_type <- function(config_tasks) {
   values <- purrr::map(
     config_tasks[["rounds"]],
     ~ .x[["model_tasks"]]
-  ) %>% unlist(recursive = FALSE) %>%
+  ) %>%
+    unlist(recursive = FALSE) %>%
     purrr::map(~ .x[["output_type"]]) %>%
     unlist(recursive = FALSE) %>%
     purrr::map(~ purrr::pluck(.x, "type_id")) %>%
@@ -130,7 +141,8 @@ get_value_type <- function(config_tasks) {
   types <- purrr::map(
     config_tasks[["rounds"]],
     ~ .x[["model_tasks"]]
-  ) %>% unlist(recursive = FALSE) %>%
+  ) %>%
+    unlist(recursive = FALSE) %>%
     purrr::map(~ .x[["output_type"]]) %>%
     purrr::flatten() %>%
     purrr::map(~ purrr::pluck(.x, "value", "type")) %>%

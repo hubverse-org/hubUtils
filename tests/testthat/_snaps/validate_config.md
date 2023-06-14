@@ -209,6 +209,62 @@
       3                    task_id.target_outcome values: flu hosp, wk inc flu hosp, flu case;\ntarget_key.target_outcome value: flu hospitalisation
       4 task_id.target_outcome unique values: flu hospitalisation, flu case;\ntarget_key.target_outcome unique values: flu hospitalisation, flu case
 
+# Reserved hub variable task id name detected correctly
+
+    Code
+      out
+    Output
+      [1] FALSE
+      attr(,"config_path")
+      [1] "testdata/tasks-errors-rval-reserved.json"
+      attr(,"schema_version")
+      [1] "v0.0.1"
+      attr(,"schema_url")
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json
+      attr(,"errors")
+                                                                instancePath
+      1 /rounds/0/model_tasks/1/target_metadata/0/target_keys/target_measure
+      2 /rounds/0/model_tasks/1/target_metadata/1/target_keys/target_measure
+      3 /rounds/0/model_tasks/1/target_metadata/0/target_keys/target_outcome
+      4                      /rounds/0/model_tasks/1/task_ids/target_outcome
+      5                                    /rounds/0/model_tasks/0/task_ids/
+      6                                    /rounds/0/model_tasks/1/task_ids/
+                                                                                                            schemaPath
+      1 #/properties/rounds/items/properties/model_tasks/items/properties/target_metadata/items/properties/target_keys
+      2 #/properties/rounds/items/properties/model_tasks/items/properties/target_metadata/items/properties/target_keys
+      3 #/properties/rounds/items/properties/model_tasks/items/properties/target_metadata/items/properties/target_keys
+      4                                     #/properties/rounds/items/properties/model_tasks/items/properties/task_ids
+      5                                     #/properties/rounds/items/properties/model_tasks/items/properties/task_ids
+      6                                     #/properties/rounds/items/properties/model_tasks/items/properties/task_ids
+                   keyword
+      1  target_keys names
+      2  target_keys names
+      3 target_keys values
+      4     task_id values
+      5      task_id names
+      6      task_id names
+                                                                                                              message
+      1                                 target_key(s) 'target_measure' not properties of modeling task group task IDs
+      2                                 target_key(s) 'target_measure' not properties of modeling task group task IDs
+      3 target_key value 'flu hospitalisation' does not match any values in corresponding modeling task group task_id
+      4                     task_id value(s) 'flu hosp, wk inc flu hosp' not defined in any corresponding target_key.
+      5                                        task_id name(s) 'model_id' must not match reserved hub variable names.
+      6                                           task_id name(s) 'value' must not match reserved hub variable names.
+        schema
+      1       
+      2       
+      3       
+      4       
+      5       
+      6       
+                                                                                                                                                            data
+      1                            task_id names: origin_date, target_outcome, target_mesures, horizon, value;\ntarget_key names: target_measure, target_outcome
+      2                            task_id names: origin_date, target_outcome, target_mesures, horizon, value;\ntarget_key names: target_measure, target_outcome
+      3                                task_id.target_outcome values: flu hosp, wk inc flu hosp, flu case;\ntarget_key.target_outcome value: flu hospitalisation
+      4             task_id.target_outcome unique values: flu hospitalisation, flu case;\ntarget_key.target_outcome unique values: flu hospitalisation, flu case
+      5                      task_id names: origin_date, target, horizon & model_id;\nreserved hub variable names: model_id, output_type, output_type_id & value
+      6 task_id names: origin_date, target_outcome, target_mesures, horizon & value;\nreserved hub variable names: model_id, output_type, output_type_id & value
+
 # Additional properties error successfully
 
     Code

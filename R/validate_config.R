@@ -296,20 +296,65 @@ perform_dynamic_config_validations <- function(validation) {
 val_round <- function(round, round_i, schema) {
   model_task_grps <- round[["model_tasks"]]
 
-  purrr::imap(
-    model_task_grps,
-    ~ val_model_task_grp(
-      model_task_grp = .x, model_task_i = .y,
-      round_i = round_i, schema = schema
+  c(
+    purrr::imap(
+      model_task_grps,
+      ~ val_model_task_grp_target_metadata(
+        model_task_grp = .x, model_task_i = .y,
+        round_i = round_i, schema = schema
+      )
+    ),
+    purrr::imap(
+      model_task_grps,
+      ~ val_task_id_names(
+        model_task_grp = .x, model_task_i = .y,
+        round_i = round_i, schema = schema
+      )
     )
   ) %>%
     purrr::list_rbind()
 }
 
+# Validate that no task id names match reserved hub variable names
+val_task_id_names <- function(model_task_grp, model_task_i, round_i, schema) {
+  reserved_hub_vars <- c(
+    "model_id", "output_type",
+    "output_type_id", "value"
+  )
+  task_id_names <- names(model_task_grp$task_ids)
+  check_task_id_names <- task_id_names %in% reserved_hub_vars
 
+  if (any(check_task_id_names)) {
+    invalid_task_id_values <- task_id_names[check_task_id_names]
 
-val_model_task_grp <- function(model_task_grp, model_task_i,
-                               round_i, schema) {
+    error_row <- data.frame(
+      instancePath = paste0(
+        glue::glue(
+          get_error_path(schema, "task_ids", "instance")
+        ), "/",
+        names(invalid_task_id_values)
+      ),
+      schemaPath = get_error_path(schema, "task_ids", "schema"),
+      keyword = "task_id names",
+      message = glue::glue(
+        "task_id name(s) '{invalid_task_id_values}'",
+        " must not match reserved hub variable names."
+      ),
+      schema = "",
+      data = glue::glue(
+        'task_id names: {glue::glue_collapse(task_id_names, ", ", last = " & ")};
+        reserved hub variable names:',
+        ' {glue::glue_collapse(reserved_hub_vars, ", ", last = " & ")}'
+      )
+    )
+    return(error_row)
+  }
+
+  return(NULL)
+}
+
+val_model_task_grp_target_metadata <- function(model_task_grp, model_task_i,
+                                               round_i, schema) {
   grp_target_keys <- get_grp_target_keys(model_task_grp)
 
   # If all target keys are NULL, exit checks
@@ -434,9 +479,6 @@ val_target_key_names <- function(target_keys, model_task_grp,
   }
 }
 
-
-
-
 val_target_key_values <- function(target_keys, model_task_grp,
                                   target_key_i, model_task_i,
                                   round_i, schema) {
@@ -477,9 +519,6 @@ val_target_key_values <- function(target_keys, model_task_grp,
     return(NULL)
   }
 }
-
-
-
 
 val_target_key_task_id_values <- function(grp_target_keys,
                                           model_task_grp,

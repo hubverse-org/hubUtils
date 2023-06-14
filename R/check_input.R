@@ -281,7 +281,7 @@ check_oneof_input <- function(input, property = c("required", "optional"),
 
   oneof_schema <- purrr::map(
     oneof_schema,
-    function(x){
+    function(x) {
       type <- x$type
       if (length(type) > 1L) {
         x <- rep(list(x), length(type))
