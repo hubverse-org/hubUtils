@@ -31,7 +31,7 @@ connect_model_output.default <- function(model_output_dir,
             format = file_format,
             partitioning = partition_names,
             col_types = schema,
-            unify_schemas = FALSE,
+            unify_schemas = TRUE,
             strings_can_be_null = TRUE,
             factory_options = list(exclude_invalid_files = TRUE)
         )
@@ -41,7 +41,7 @@ connect_model_output.default <- function(model_output_dir,
             format = file_format,
             partitioning = partition_names,
             schema = schema,
-            unify_schemas = FALSE,
+            unify_schemas = TRUE,
             factory_options = list(exclude_invalid_files = TRUE)
         )
     }
