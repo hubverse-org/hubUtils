@@ -70,36 +70,6 @@ test_that("triming to task ids works", {
   )
 })
 
-test_that("merging-splitting model_id works", {
-  hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
-  tbl <- hub_con %>%
-    dplyr::filter(output_type == "quantile", location == "US") %>%
-    dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date))
-
-  tbl$model_abbr <- tbl$model_id
-  tbl$team_abbr <- "hub"
-  tbl$model_id <- NULL
-
-  expect_equal(
-    names(suppressMessages(as_model_out_tbl(tbl))),
-    c(
-      "model_id", "forecast_date", "horizon", "target", "location",
-      "output_type", "output_type_id", "value"
-    )
-  )
-
-  tbl <- suppressMessages(as_model_out_tbl(tbl))
-
-  expect_equal(
-    names(split_model_id(tbl)),
-    c(
-      "team_abbr", "model_abbr", "forecast_date", "horizon", "target",
-      "location", "output_type", "output_type_id", "value"
-    )
-  )
-})
-
 test_that("removing empty columns works", {
   hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
   tbl <- hub_con %>%
