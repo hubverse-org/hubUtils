@@ -54,7 +54,7 @@ as_model_out_tbl <- function(tbl, model_id_col = NULL, output_type_col = NULL,
 
   if (!"model_id" %in% names(tbl)) {
     cli::cli_alert_warning("{.arg model_id} column missing. Attempting to create automatically.")
-    tbl <- merge_model_id(tbl, sep = sep)
+    tbl <- model_id_merge(tbl, sep = sep)
   }
 
   if (trim_to_task_ids) {

@@ -1,7 +1,7 @@
 # merging-splitting model_id works
 
     Code
-      split_model_id(tbl) %>% dplyr::arrange(rev(model_abbr))
+      model_id_split(tbl) %>% dplyr::arrange(rev(model_abbr))
     Output
       # A tibble: 92 x 9
          team_abbr model_abbr forecast_date horizon target        location output_type
@@ -22,7 +22,7 @@
 ---
 
     Code
-      split_model_id(tbl)
+      model_id_split(tbl)
     Error <rlang_error>
       x Cannot split `model_id` column.
       ! Required column "model_id" missing from `tbl`.
@@ -30,7 +30,7 @@
 ---
 
     Code
-      merge_model_id(tbl)
+      model_id_merge(tbl)
     Error <rlang_error>
       x Cannot create `model_id` column.
       ! Required columns "model_abbr" and "team_abbr" missing from `tbl`.
