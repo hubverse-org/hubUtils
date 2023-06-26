@@ -1,3 +1,9 @@
+# hubUtils 0.0.0.9009
+
+* Added `as_model_out_tbl()` function to standardise model output data by converting to a `model_out_tbl` S3 class object. (#32, #33, #63, #64, #66)
+* To support back-compatibility with model output data in older hubs, added functions `merge_model_id()` and `split_model_id()` to create `model_id` column from separate `team_abbr` and `model_abbr` columns and vice versa (#63).
+
+
 # hubUtils 0.0.0.9008
 
 * Added argument `output_type_id_datatype` to `connect_hub()` to allow overriding default behaviour of automatically detecting the `output_type_id` column data type from the `tasks.json` config file (#70).
