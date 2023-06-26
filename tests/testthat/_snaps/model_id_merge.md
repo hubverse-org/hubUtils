@@ -1,7 +1,7 @@
 # merging-splitting model_id works
 
     Code
-      model_id_split(tbl) %>% dplyr::arrange(rev(model_abbr))
+      model_id_split(tbl) %>% dplyr::arrange(dplyr::desc(model_abbr))
     Output
       # A tibble: 92 x 9
          team_abbr model_abbr forecast_date horizon target        location output_type

@@ -7,7 +7,7 @@ test_that("merging-splitting model_id works", {
 
   # Test splitting
   expect_snapshot(model_id_split(tbl) %>%
-    dplyr::arrange(rev(model_abbr)))
+    dplyr::arrange(dplyr::desc(model_abbr)))
   tbl <- model_id_split(tbl)
   expect_equal(
     names(tbl),
