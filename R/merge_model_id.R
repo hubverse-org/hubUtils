@@ -18,7 +18,20 @@
 #'     dplyr::filter(output_type == "quantile", location == "US") %>%
 #'     dplyr::collect() %>%
 #'     dplyr::filter(forecast_date == max(forecast_date))
+#' tbl_split <- split_model_id(tbl)
+#' tbl_split
 #'
+#' # Merge model_id
+#' tbl_merged <- merge_model_id(tbl_split)
+#' tbl_merged
+#'
+#' # Split / Merge using custom separator
+#' tbl_sep <- tbl
+#' tbl_sep$model_id <- gsub("-", "_", tbl_sep$model_id)
+#' tbl_sep <- split_model_id(tbl_sep, sep = "_")
+#' tbl_sep
+#' tbl_sep <- merge_model_id(tbl_sep, sep = "_")
+#' tbl_sep
 merge_model_id <- function(tbl, sep = "-") {
     # check all required columns present
     if (!all(c("model_abbr", "team_abbr") %in% names(tbl))) {
