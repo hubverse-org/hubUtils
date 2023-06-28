@@ -70,8 +70,7 @@ as_model_out_tbl <- function(tbl, model_id_col = NULL, output_type_col = NULL,
     tbl <- remove_model_out_tbl_empty(tbl)
   }
 
-  tbl <- std_col_order_model_out_tbl(tbl) %>%
-    std_row_order_model_out_tbl()
+  tbl <- std_col_order_model_out_tbl(tbl)
 
   structure(tbl,
     class = c("model_out_tbl", class(tbl))
@@ -227,7 +226,4 @@ std_col_order_model_out_tbl <- function(tbl) {
       std_colnames[-1]
     )
   ]
-}
-std_row_order_model_out_tbl <- function(tbl) {
-  tbl[order(tbl$model_id), ]
 }
