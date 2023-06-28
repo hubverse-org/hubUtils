@@ -72,14 +72,30 @@ as_model_out_tbl <- function(tbl, model_id_col = NULL, output_type_col = NULL,
   tbl <- std_col_order_model_out_tbl(tbl) %>%
     std_row_order_model_out_tbl()
 
-  validate_model_out_tbl(tbl)
-
   structure(tbl,
     class = c("model_out_tbl", class(tbl))
-  )
+  ) %>%
+    validate_model_out_tbl()
 }
 
-# --- Unexported Utilities ----
+#' Validate a `model_out_tbl` object.
+#'
+#' @param tbl a `model_out_tbl` S3 class object.
+#'
+#' @return If valid, retunrs `tbl`. Otherwise throws an error.
+#' @export
+#'
+#' @examples
+#' library(dplyr)
+#' hub_path <- system.file("testhubs/flusight", package = "hubUtils")
+#' hub_con <- connect_hub(hub_path)
+#' md_out <- hub_con %>%
+#'   filter(output_type == "quantile", location == "US") %>%
+#'   collect() %>%
+#'   filter(forecast_date == max(forecast_date)) %>%
+#'   as_model_out_tbl()
+#'
+#' validate_model_out_tbl(md_out)
 validate_model_out_tbl <- function(tbl) {
   if (!all(std_colnames %in% names(tbl))) {
     cli::cli_abort(
@@ -95,9 +111,11 @@ validate_model_out_tbl <- function(tbl) {
   if (nrow(tbl) == 0) {
     cli::cli_warn(c("!" = "{.arg tbl} has zero rows."))
   }
-  invisible(TRUE)
+
+  return(tbl)
 }
 
+# --- Unexported Utilities ----
 rename_columns <- function(tbl, model_id_col, output_type_col, output_type_id_col,
                            value_col, call = rlang::caller_env()) {
   old_names <- names(tbl)
