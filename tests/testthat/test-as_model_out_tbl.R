@@ -4,7 +4,9 @@ test_that("column renaming works", {
   x <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
     dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date))
+    dplyr::filter(forecast_date == max(forecast_date)) %>%
+    dplyr::arrange(model_id)
+
   names(x)[names(x) == "output_type"] <- "output_type_rename"
 
   output_type_col <- "output_type_rename"
@@ -43,7 +45,8 @@ test_that("triming to task ids works", {
   tbl <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
     dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date))
+    dplyr::filter(forecast_date == max(forecast_date)) %>%
+    dplyr::arrange(model_id)
 
   tbl$age_group <- NA
   expect_equal(
@@ -75,12 +78,23 @@ test_that("removing empty columns works", {
   tbl <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
     dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date))
+    dplyr::filter(forecast_date == max(forecast_date)) %>%
+    dplyr::arrange(model_id)
 
   tbl$age_group <- NA
 
   expect_equal(
-    names(suppressMessages(as_model_out_tbl(tbl, remove_empty = TRUE))),
+    names(as_model_out_tbl(tbl, remove_empty = TRUE)),
+    c(
+      "model_id", "forecast_date", "horizon", "target", "location",
+      "output_type", "output_type_id", "value"
+    )
+  )
+
+  # Ensure std_cols are not removed
+  tbl$output_type_id <- NA
+  expect_equal(
+    names(as_model_out_tbl(tbl, remove_empty = TRUE)),
     c(
       "model_id", "forecast_date", "horizon", "target", "location",
       "output_type", "output_type_id", "value"

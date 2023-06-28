@@ -211,7 +211,10 @@ trim_tbl_to_task_ids <- function(tbl, task_id_cols, hub_con,
 }
 
 remove_model_out_tbl_empty <- function(tbl) {
-  tbl[, purrr::map_lgl(tbl, ~ !all(is.na(.x)))]
+  non_na_cols <- purrr::map_lgl(tbl, ~ !all(is.na(.x)))
+  non_na_cols[names(non_na_cols) %in% std_colnames] <- TRUE
+
+  tbl[, non_na_cols]
 }
 
 std_col_order_model_out_tbl <- function(tbl) {
