@@ -1,8 +1,8 @@
-#' Convert model output to a `as_model_out_tbl` class object.
+#' Convert model output to a `model_out_tbl` class object.
 #'
 #' @param tbl a `data.frame` or `tibble` of model output data returned from a query
 #' to a `<hub_connection>` object.
-#' @param model_id_col character string. If an `model_id` column does not
+#' @param model_id_col character string. If a `model_id` column does not
 #' already exist in `tbl`, the `tbl` column name containing `model_id` data.
 #' Alternatively, if both a `team_abbr` and a `model_abbr` column exist, these will
 #' be merged automatically to create a single `model_id` column.
@@ -10,7 +10,7 @@
 #' already exist in `tbl`, the `tbl` column name containing `output_type` data.
 #' @param output_type_id_col character string. If an `output_type_id` column does not
 #' already exist in `tbl`, the `tbl` column name containing `output_type_id` data.
-#' @param value_col character string. If an `value` column does not
+#' @param value_col character string. If a `value` column does not
 #' already exist in `tbl`, the `tbl` column name containing `value` data.
 #' @param sep character string. Character used as separator when concatenating
 #' `team_abbr` and `model_abbr` column values into a single `model_id` string. Only

@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_model_out_tbl.R
 \name{as_model_out_tbl}
 \alias{as_model_out_tbl}
-\title{Convert model output to a \code{as_model_out_tbl} class object.}
+\title{Convert model output to a \code{model_out_tbl} class object.}
 \usage{
 as_model_out_tbl(
   tbl,
@@ -21,7 +21,7 @@ as_model_out_tbl(
 \item{tbl}{a \code{data.frame} or \code{tibble} of model output data returned from a query
 to a \verb{<hub_connection>} object.}
 
-\item{model_id_col}{character string. If an \code{model_id} column does not
+\item{model_id_col}{character string. If a \code{model_id} column does not
 already exist in \code{tbl}, the \code{tbl} column name containing \code{model_id} data.
 Alternatively, if both a \code{team_abbr} and a \code{model_abbr} column exist, these will
 be merged automatically to create a single \code{model_id} column.}
@@ -32,7 +32,7 @@ already exist in \code{tbl}, the \code{tbl} column name containing \code{output_
 \item{output_type_id_col}{character string. If an \code{output_type_id} column does not
 already exist in \code{tbl}, the \code{tbl} column name containing \code{output_type_id} data.}
 
-\item{value_col}{character string. If an \code{value} column does not
+\item{value_col}{character string. If a \code{value} column does not
 already exist in \code{tbl}, the \code{tbl} column name containing \code{value} data.}
 
 \item{sep}{character string. Character used as separator when concatenating
@@ -56,7 +56,7 @@ Overrides \code{hub_con} argument if provided.}
 A \code{model_out_tbl} class object.
 }
 \description{
-Convert model output to a \code{as_model_out_tbl} class object.
+Convert model output to a \code{model_out_tbl} class object.
 }
 \examples{
 library(dplyr)
