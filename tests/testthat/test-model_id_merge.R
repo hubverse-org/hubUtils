@@ -3,11 +3,11 @@ test_that("merging-splitting model_id works", {
   tbl <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
     dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date))
+    dplyr::filter(forecast_date == max(forecast_date)) %>%
+    dplyr::arrange(model_id)
 
   # Test splitting
-  expect_snapshot(model_id_split(tbl) %>%
-    dplyr::arrange(dplyr::desc(model_abbr)))
+  expect_snapshot(model_id_split(tbl))
   tbl <- model_id_split(tbl)
   expect_equal(
     names(tbl),
