@@ -66,6 +66,7 @@ as_model_out_tbl <- function(tbl, model_id_col = NULL, output_type_col = NULL,
   }
 
   if (remove_empty) {
+    # Remove any non std_colnames columns that only contain NAs
     tbl <- remove_model_out_tbl_empty(tbl)
   }
 
