@@ -186,26 +186,27 @@ trim_tbl_to_task_ids <- function(tbl, task_id_cols, hub_con,
       ),
       call = call
     )
-  } else {
-    if (!is.null(task_id_cols)) {
-      if (!all(task_id_cols %in% names(tbl))) {
-        cli::cli_alert_warning(
-          "{.arg task_id_cols} value{?s} {.val
+  }
+
+  if (is.null(task_id_cols)) {
+    if (!inherits(hub_con, "hub_connection")) {
+      cli::cli_abort("{.arg hub_con} must be a valid object of
+                                   class {.cls hub_connection}",
+        call = call
+      )
+    }
+    task_id_cols <- get_task_id_names(attr(hub_con, "config_tasks"))
+  }
+
+  # Ensure only task_id_cols present in table are subset
+  if (!all(task_id_cols %in% names(tbl))) {
+    cli::cli_alert_warning(
+      "{.arg task_id_cols} value{?s} {.val
                   {task_id_cols[!task_id_cols %in% names(tbl)]}
                   } not a valid {.arg tbl} column name. Ignored."
-        )
-      }
-      task_id_cols <- task_id_cols[task_id_cols %in% names(tbl)]
-    } else {
-      if (!inherits(hub_con, "hub_connection")) {
-        cli::cli_abort("{.arg hub_con} must be a valid object of
-                                   class {.cls hub_connection}",
-          call = call
-        )
-      }
-      task_id_cols <- get_task_id_names(attr(hub_con, "config_tasks"))
-    }
+    )
   }
+  task_id_cols <- task_id_cols[task_id_cols %in% names(tbl)]
 
   return(tbl[, c(task_id_cols, std_colnames)])
 }

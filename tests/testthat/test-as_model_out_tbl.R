@@ -71,6 +71,14 @@ test_that("triming to task ids works", {
       "output_type", "output_type_id", "value"
     )
   )
+
+  tbl$location <- NULL
+  expect_snapshot(
+    names(as_model_out_tbl(tbl,
+                           trim_to_task_ids = TRUE,
+                           hub_con = hub_con
+    ))
+  )
 })
 
 test_that("removing empty columns works", {
