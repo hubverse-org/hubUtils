@@ -109,3 +109,18 @@ test_that("removing empty columns works", {
     )
   )
 })
+
+test_that("validating model_out_tbl std column datatypes works", {
+  hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+  tbl <- hub_con %>%
+    dplyr::filter(output_type == "quantile", location == "US") %>%
+    dplyr::collect() %>%
+    dplyr::filter(forecast_date == max(forecast_date)) %>%
+    dplyr::arrange(model_id)
+
+  tbl$model_id <- as.factor(tbl$model_id)
+  tbl$output_type <- seq_along(tbl$output_type)
+  tbl$value <- as.character(tbl$value)
+
+  expect_snapshot(as_model_out_tbl(tbl), error = TRUE)
+})

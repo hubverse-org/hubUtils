@@ -108,6 +108,8 @@ validate_model_out_tbl <- function(tbl) {
       )
     )
   }
+  check_std_coltypes(tbl)
+
   if (nrow(tbl) == 0) {
     cli::cli_warn(c("!" = "{.arg tbl} has zero rows."))
   }
@@ -227,4 +229,40 @@ std_col_order_model_out_tbl <- function(tbl) {
       std_colnames[-1]
     )
   ]
+}
+
+check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
+  error_df <- data.frame(
+    colname = names(std_col_datatypes),
+    correct_datatype = std_col_datatypes,
+    actual_datatype = purrr::map_chr(
+      tbl[, names(std_col_datatypes)],
+      ~ class(.x)
+    ),
+    is_wrong_datatype = purrr::map2_lgl(
+      .x = tbl[, names(std_col_datatypes)],
+      .y = std_col_datatypes,
+      ~ !get(paste0("is.", .y))(.x)
+    )
+  )
+
+  if (any(error_df$is_wrong_datatype)) {
+    error_df <- error_df[, error_df$is_wrong_datatype]
+
+    compose_error_msg <- function(i) {
+      paste0(
+        "Column {.arg {error_df$colname[", i, "]}} should be ",
+        "{.cls {error_df$correct_datatype[", i, "]}},",
+        " not {.cls {error_df$actual_datatype[", i, "]}}."
+      )
+    }
+
+    error_msg <- c("x" = "Wrong datatypes detected in standard columns:")
+
+    for (i in 1:nrow(error_df)) {
+      error_msg <- c(error_msg, "!" = compose_error_msg(i))
+    }
+    cli::cli_abort(error_msg, call = call)
+  }
+  invisible(tbl)
 }

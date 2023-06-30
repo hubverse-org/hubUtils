@@ -31,3 +31,13 @@
       [1] "model_id"       "forecast_date"  "target"         "horizon"       
       [5] "output_type"    "output_type_id" "value"         
 
+# validating model_out_tbl std column datatypes works
+
+    Code
+      as_model_out_tbl(tbl)
+    Error <rlang_error>
+      x Wrong datatypes detected in standard columns:
+      ! Column `model_id` should be <character>, not <factor>.
+      ! Column `output_type` should be <character>, not <integer>.
+      ! Column `value` should be <numeric>, not <character>.
+
