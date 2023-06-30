@@ -65,3 +65,34 @@ test_that("merging-splitting model_id works", {
     c("hub_baseline", "hub_ensemble")
   )
 })
+
+test_that("Splitting model_id fails if seperator detected", {
+  hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+  tbl <- hub_con %>%
+    dplyr::filter(output_type == "quantile", location == "US") %>%
+    dplyr::collect() %>%
+    dplyr::filter(forecast_date == max(forecast_date)) %>%
+    dplyr::arrange(model_id)
+
+  tbl$model_id[c(1, 7, 10)] <- "hub-base-line"
+
+  # Test splitting
+  expect_snapshot(model_id_split(tbl), error = TRUE)
+
+})
+
+test_that("Merging model_id fails if seperator detected", {
+  hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+  tbl <- hub_con %>%
+    dplyr::filter(output_type == "quantile", location == "US") %>%
+    dplyr::collect() %>%
+    dplyr::filter(forecast_date == max(forecast_date)) %>%
+    dplyr::arrange(model_id)
+
+  tbl <- model_id_split(tbl)
+
+  tbl$model_abbr[c(1, 7, 10)] <- "base-line"
+  tbl$team_abbr[78] <- "h-ub"
+
+  expect_snapshot(model_id_merge(tbl), error = TRUE)
+})

@@ -35,3 +35,20 @@
       x Cannot create `model_id` column.
       ! Required columns "model_abbr" and "team_abbr" missing from `tbl`.
 
+# Splitting model_id fails if seperator detected
+
+    Code
+      model_id_split(tbl)
+    Error <rlang_error>
+      x All `model_id` values must only contain a single separator character "-".
+      ! Values "hub-base-line" containing more than one separator character detected in rows 1, 7, and 10.
+
+# Merging model_id fails if seperator detected
+
+    Code
+      model_id_merge(tbl)
+    Error <rlang_error>
+      x `model_abbr` and `team_abbr` values must not contain separator character "-".
+      ! Values "base-line" containing separator character detected in `model_abbr` rows 1, 7, and 10.
+      ! Values "h-ub" containing separator character detected in `team_abbr` rows 78.
+

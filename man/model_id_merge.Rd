@@ -38,9 +38,9 @@ and \code{model_abbr} columns.
 \examples{
 hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
 tbl <- hub_con \%>\%
-    dplyr::filter(output_type == "quantile", location == "US") \%>\%
-    dplyr::collect() \%>\%
-    dplyr::filter(forecast_date == max(forecast_date))
+  dplyr::filter(output_type == "quantile", location == "US") \%>\%
+  dplyr::collect() \%>\%
+  dplyr::filter(forecast_date == max(forecast_date))
 
 tbl_split <- model_id_split(tbl)
 tbl_split
