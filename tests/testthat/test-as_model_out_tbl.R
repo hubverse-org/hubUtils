@@ -111,6 +111,7 @@ test_that("removing empty columns works", {
 })
 
 test_that("validating model_out_tbl std column datatypes works", {
+  # test that correct data types succeed
   hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
   tbl <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
@@ -118,6 +119,12 @@ test_that("validating model_out_tbl std column datatypes works", {
     dplyr::filter(forecast_date == max(forecast_date)) %>%
     dplyr::arrange(model_id)
 
+  expect_s3_class(as_model_out_tbl(tbl), "model_out_tbl")
+
+  tbl$value <- as.integer(tbl$value)
+  expect_s3_class(as_model_out_tbl(tbl), "model_out_tbl")
+
+  # test that wrong data types throw error.
   tbl$model_id <- as.factor(tbl$model_id)
   tbl$output_type <- seq_along(tbl$output_type)
   tbl$value <- as.character(tbl$value)
