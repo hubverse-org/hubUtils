@@ -87,6 +87,11 @@ get_task_id_values <- function(config_tasks,
       config_tasks[["rounds"]],
       ~ .x[["model_tasks"]]
     )
+  } else if (is.integer(round)) {
+    model_tasks <- purrr::map(
+      config_tasks[["rounds"]][round],
+      ~ .x[["model_tasks"]]
+    )
   } else {
     round_idx <- which(
       purrr::map_chr(
@@ -100,12 +105,11 @@ get_task_id_values <- function(config_tasks,
     )
   }
 
+    model_tasks %>%
+      purrr::map(~ .x %>%
+                   purrr::map( ~.x[["task_ids"]][[task_id_name]])) %>%
+      unlist(recursive = FALSE)
 
-  purrr::map(
-    config_tasks[["rounds"]],
-    ~ .x[["model_tasks"]]
-  ) %>%
-    purrr::map(~ .x[[1]][["task_ids"]][[task_id_name]])
 }
 
 get_task_id_type <- function(config_tasks,
