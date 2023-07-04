@@ -8,7 +8,8 @@ create_hub_schema(
   config_tasks,
   partitions = list(model_id = arrow::utf8()),
   output_type_id_datatype = c("auto", "character", "double", "integer", "logical",
-    "Date")
+    "Date"),
+  r_schema = FALSE
 )
 }
 \arguments{
@@ -26,10 +27,13 @@ Note that attempting to coerce \code{output_type_id} to a data type that is not 
 (e.g. trying to coerce to \code{"double"} when the data contains \code{"character"} values)
 will likely result in an error or potentially unexpected behaviour so use with
 care.}
+
+\item{r_schema}{Logical. If \code{FALSE} (default), return an \code{\link[arrow:Schema]{arrow::schema()}} object.
+If \code{TRUE}, return a character vector of R data types.}
 }
 \value{
 an arrow schema object that can be used to define column datatypes when
-opening model output data.
+opening model output data. If \code{r_schema = TRUE}, a character vector of R data types.
 }
 \description{
 Create an arrow schema from a \code{tasks.json} config file. For use when
