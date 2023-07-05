@@ -31,7 +31,8 @@ Task ID and related output type ID required values.}
 \item{include_opt_cols}{Logical. If \code{FALSE} (default) and \code{required_only = TRUE},
 task IDs or output_type IDs where all values are optional are excluded
 from the output.
-If \code{TRUE}, columns of \code{NA}s are included instead.}
+If \code{TRUE}, columns of \code{NA}s are included instead.
+Ignored when \code{required_only = FALSE}.}
 }
 \value{
 a tibble template containing an expanded grid of valid task ID and

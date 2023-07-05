@@ -6,6 +6,7 @@
 #' task IDs or output_type IDs where all values are optional are excluded
 #' from the output.
 #' If `TRUE`, columns of `NA`s are included instead.
+#' Ignored when `required_only = FALSE`.
 #'
 #' @return a tibble template containing an expanded grid of valid task ID and
 #' output type ID value combinations for a given submission round (if applicable)
