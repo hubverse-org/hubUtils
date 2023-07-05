@@ -54,7 +54,9 @@ specified in \code{round_id} property of \code{config_tasks}) is set to the valu
 \code{round_id} argument in the returned output.
 }
 \examples{
-hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+hub_con <- connect_hub(
+  system.file("testhubs/flusight", package = "hubUtils")
+)
 create_model_out_submit_tmpl(hub_con)
 create_model_out_submit_tmpl(hub_con, required_only = TRUE)
 create_model_out_submit_tmpl(hub_con,
@@ -62,7 +64,9 @@ create_model_out_submit_tmpl(hub_con,
   include_opt_cols = TRUE
 )
 # Specifying a round in a hub with multiple rounds
-hub_con <- connect_hub(system.file("testhubs/simple", package = "hubUtils"))
+hub_con <- connect_hub(
+  system.file("testhubs/simple", package = "hubUtils")
+)
 create_model_out_submit_tmpl(hub_con, round_id = "2022-10-01")
 create_model_out_submit_tmpl(hub_con, round_id = "2022-10-29")
 create_model_out_submit_tmpl(hub_con,

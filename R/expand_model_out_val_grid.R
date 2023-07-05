@@ -24,12 +24,16 @@
 #' @export
 #'
 #' @examples
-#' hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+#' hub_con <- connect_hub(
+#'   system.file("testhubs/flusight", package = "hubUtils")
+#' )
 #' config_tasks <- attr(hub_con, "config_tasks")
 #' expand_model_out_val_grid(config_tasks)
 #' expand_model_out_val_grid(config_tasks, required_only = TRUE)
 #' # Specifying a round in a hub with multiple rounds
-#' hub_con <- connect_hub(system.file("testhubs/simple", package = "hubUtils"))
+#' hub_con <- connect_hub(
+#'   system.file("testhubs/simple", package = "hubUtils")
+#' )
 #' config_tasks <- attr(hub_con, "config_tasks")
 #' expand_model_out_val_grid(config_tasks, round_id = "2022-10-01")
 #' expand_model_out_val_grid(config_tasks, round_id = "2022-10-29")
@@ -108,8 +112,10 @@ fix_round_id <- function(x, round_id, round_config, round_ids) {
       x,
       ~ .x %>%
         purrr::imap(~ if (.y == round_id_var) {
-          list(required = round_id, optional = NULL)}
-          else {.x})
+          list(required = round_id, optional = NULL)
+        } else {
+          .x
+        })
     )
   } else {
     x
