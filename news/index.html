@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,11 @@
       <small>Source: <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.0.9009" id="hubutils-0009009">hubUtils 0.0.0.9009<a class="anchor" aria-label="anchor" href="#hubutils-0009009"></a></h2>
+<ul><li>Added <code><a href="../reference/as_model_out_tbl.html">as_model_out_tbl()</a></code> function to standardise model output data by converting to a <code>model_out_tbl</code> S3 class object. (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/32" class="external-link">#32</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/33" class="external-link">#33</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/63" class="external-link">#63</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/64" class="external-link">#64</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/66" class="external-link">#66</a>)</li>
+<li>To support back-compatibility with model output data in older hubs, added functions <code><a href="../reference/model_id_merge.html">model_id_merge()</a></code> and <code><a href="../reference/model_id_merge.html">model_id_split()</a></code> to create <code>model_id</code> column from separate <code>team_abbr</code> and <code>model_abbr</code> columns and vice versa (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/63" class="external-link">#63</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9008" id="hubutils-0009008">hubUtils 0.0.0.9008<a class="anchor" aria-label="anchor" href="#hubutils-0009008"></a></h2>
 <ul><li>Added argument <code>output_type_id_datatype</code> to <code><a href="../reference/connect_hub.html">connect_hub()</a></code> to allow overriding default behaviour of automatically detecting the <code>output_type_id</code> column data type from the <code>tasks.json</code> config file (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/70" class="external-link">#70</a>).</li>

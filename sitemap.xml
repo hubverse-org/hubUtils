@@ -34,6 +34,9 @@
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/news/index.html</loc>
   </url>
   <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/as_model_out_tbl.html</loc>
+  </url>
+  <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/connect_hub.html</loc>
   </url>
   <url>
@@ -91,6 +94,9 @@
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/model_id_merge.html</loc>
+  </url>
+  <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/pipe.html</loc>
   </url>
   <url>
@@ -107,6 +113,9 @@
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_hub_config.html</loc>
+  </url>
+  <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_model_out_tbl.html</loc>
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/view_config_val_errors.html</loc>
