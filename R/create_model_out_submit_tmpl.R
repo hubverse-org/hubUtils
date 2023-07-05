@@ -135,12 +135,14 @@ message_opt_tasks <- function(opt_task_ids, n_mt, include_opt_cols) {
   if (n_mt > 1L) {
     msg <- c(
       msg,
-      "!" = "Round contains more than one modeling task ({.val {n_mt}})",
-      "i" = "See Hub's {.path tasks.json} file or {.cls hub_connection} attribute
-          {.val config_tasks} for details of optional task ID value combinations for
-                    each modeling task."
+      "!" = "Round contains more than one modeling task ({.val {n_mt}})"
     )
-    }
-    cli::cli_bullets(msg)
-
+  }
+  msg <- c(
+    msg,
+    "i" = "See Hub's {.path tasks.json} file or {.cls hub_connection} attribute
+          {.val config_tasks} for details of optional
+    task ID/output_type/output_type ID value combinations."
+  )
+  cli::cli_bullets(msg)
 }

@@ -53,7 +53,7 @@
       ! Task ID "target" whose values are all optional not included in template.
       ! Round contains more than one modeling task (2)
       i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
-        details of optional task ID value combinations for each modeling task.
+        details of optional task ID/output_type/output_type ID value combinations.
     Output
       tibble [29 x 5] (S3: tbl_df/tbl/data.frame)
        $ forecast_date : chr [1:29] "2023-01-16" "2023-01-16" "2023-01-16" "2023-01-16" ...
@@ -80,7 +80,7 @@
       ! Task ID "target" whose values are all optional included as "NA" column.
       ! Round contains more than one modeling task (2)
       i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
-        details of optional task ID value combinations for each modeling task.
+        details of optional task ID/output_type/output_type ID value combinations.
     Output
       tibble [29 x 6] (S3: tbl_df/tbl/data.frame)
        $ forecast_date : chr [1:29] "2023-01-16" "2023-01-16" "2023-01-16" "2023-01-16" ...
@@ -119,6 +119,8 @@
         required_only = TRUE))
     Message <cliMessage>
       ! Task ID "location" whose values are all optional not included in template.
+      i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
+        details of optional task ID/output_type/output_type ID value combinations.
     Output
       tibble [24 x 5] (S3: tbl_df/tbl/data.frame)
        $ origin_date   : chr [1:24] "2022-10-01" "2022-10-01" "2022-10-01" "2022-10-01" ...
@@ -134,6 +136,8 @@
         required_only = TRUE))
     Message <cliMessage>
       ! Task ID "location" whose values are all optional not included in template.
+      i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
+        details of optional task ID/output_type/output_type ID value combinations.
     Output
       tibble [24 x 6] (S3: tbl_df/tbl/data.frame)
        $ origin_date   : chr [1:24] "2022-10-29" "2022-10-29" "2022-10-29" "2022-10-29" ...
@@ -150,6 +154,8 @@
         required_only = TRUE, include_opt_cols = TRUE))
     Message <cliMessage>
       ! Task ID "location" whose values are all optional included as "NA" column.
+      i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
+        details of optional task ID/output_type/output_type ID value combinations.
     Output
       tibble [24 x 7] (S3: tbl_df/tbl/data.frame)
        $ origin_date   : chr [1:24] "2022-10-29" "2022-10-29" "2022-10-29" "2022-10-29" ...
