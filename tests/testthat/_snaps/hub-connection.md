@@ -876,7 +876,7 @@
         .. .. .. .. ..$ task_ids       :List of 5
         .. .. .. .. .. ..$ origin_date:List of 2
         .. .. .. .. .. .. ..$ required: NULL
-        .. .. .. .. .. .. ..$ optional: chr [1:4] "2022-10-15" "2022-10-15" "2022-10-22" "2022-10-29"
+        .. .. .. .. .. .. ..$ optional: chr [1:3] "2022-10-15" "2022-10-22" "2022-10-29"
         .. .. .. .. .. ..$ target     :List of 2
         .. .. .. .. .. .. ..$ required: chr "wk inc flu hosp"
         .. .. .. .. .. .. ..$ optional: NULL
