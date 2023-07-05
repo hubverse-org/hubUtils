@@ -10,9 +10,9 @@ json_datatypes <- c(
 std_colnames <- c("model_id", "output_type", "output_type_id", "value")
 
 ## code to prepare `std_col_datatypes` dataset goes here
-std_col_datatypes <- c(
-    model_id = "character",
-    output_type = "character",
+std_col_datatypes <- list(
+    model_id = c("character", "factor"),
+    output_type = c("character", "factor"),
     value = "numeric"
 )
 

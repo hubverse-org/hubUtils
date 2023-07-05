@@ -232,9 +232,9 @@ std_col_order_model_out_tbl <- function(tbl) {
 }
 
 check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
-  error_df <- data.frame(
+  error_df <- tibble::tibble(
     colname = names(std_col_datatypes),
-    correct_datatype = std_col_datatypes,
+    correct_datatype = purrr::map_chr(std_col_datatypes, ~paste(.x, collapse = "/")),
     actual_datatype = purrr::map_chr(
       tbl[, names(std_col_datatypes)],
       ~ class(.x)
@@ -242,22 +242,27 @@ check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
     is_wrong_datatype = purrr::map2_lgl(
       .x = tbl[, names(std_col_datatypes)],
       .y = std_col_datatypes,
-      ~ !get(paste0("is.", .y))(.x)
-    )
+      function(x = .x, data_type = .y) {
+        !any(purrr::map_lgl(
+          data_type,
+          ~get(paste0("is.", .x))(x)))}
+    ),
+    n_correct_datatypes = lengths(std_col_datatypes)
   )
 
   if (any(error_df$is_wrong_datatype)) {
-    error_df <- error_df[, error_df$is_wrong_datatype]
+    error_df <- error_df[error_df$is_wrong_datatype, ]
 
     compose_error_msg <- function(i) {
       paste0(
         "Column {.arg {error_df$colname[", i, "]}} should be ",
+        "{cli::qty(error_df$n_correct_datatypes[", i, "])} {?one of }",
         "{.cls {error_df$correct_datatype[", i, "]}},",
         " not {.cls {error_df$actual_datatype[", i, "]}}."
       )
     }
 
-    error_msg <- c("x" = "Wrong datatypes detected in standard columns:")
+    error_msg <- c("x" = "{cli::qty(nrow(error_df))} Wrong datatype{?s} detected in standard column{?s}:")
 
     for (i in 1:nrow(error_df)) {
       error_msg <- c(error_msg, "!" = compose_error_msg(i))
