@@ -140,6 +140,7 @@ message_opt_tasks <- function(opt_task_ids, n_mt, include_opt_cols) {
           {.val config_tasks} for details of optional task ID value combinations for
                     each modeling task."
     )
+    }
     cli::cli_bullets(msg)
-  }
+
 }

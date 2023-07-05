@@ -99,6 +99,16 @@ test_that("create_model_out_submit_tmpl works correctly", {
             required_only = TRUE
         )
     ))
+
+
+    expect_snapshot(str(
+        create_model_out_submit_tmpl(
+            hub_con,
+            round_id = "2022-10-29",
+            required_only = TRUE,
+            include_opt_cols = TRUE
+        )
+    ))
 })
 
 test_that("create_model_out_submit_tmpl errors correctly", {
