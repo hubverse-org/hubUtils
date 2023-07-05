@@ -4,13 +4,23 @@
 #' config file, accessed through the `"config_tasks"` attribute of a `<hub_connection>`
 #' object or function [read_config()].
 #' @param round_id Character string. Round identifier. If the round is set to
-#' `round_id_from_variable: true`, IDs are values of the task ID defined in
-#' `round_id`. Otherwise should match config `round_id` values. Ignored if hub
+#' `round_id_from_variable: true`, IDs are values of the task ID defined in the round's
+#' `round_id` property of `config_tasks`.
+#' Otherwise should match round's `round_id` value in config. Ignored if hub
 #' contains only a single round.
-#' @param required_only Logical. Whether to return combinations of required values only.
+#' @param required_only Logical. Whether to return only combinations of
+#' Task ID and related output type ID required values.
 #'
 #' @return a tibble containing all possible task ID and related output type ID
 #' value combinations.
+#' If `required_only = TRUE`, values are limited to the combinations of required
+#' values only.
+#' @details
+#' If `round_id` is specified and the round is set to `round_id_from_variable: true`,
+#' the value of the task ID from which round IDs are derived (i.e. the task ID
+#' specified in `round_id` property of `config_tasks`) is set to the value of the
+#' `round_id` argument in the returned output.
+#'
 #' @export
 #'
 #' @examples

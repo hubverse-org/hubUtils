@@ -20,29 +20,38 @@ config file, accessed through the \code{"config_tasks"} attribute of a \verb{<hu
 object or function \code{\link[=read_config]{read_config()}}.}
 
 \item{round_id}{Character string. Round identifier. If the round is set to
-\code{round_id_from_variable: true}, IDs are values of the task ID defined in
-\code{round_id}. Otherwise should match config \code{round_id} values. Ignored if hub
+\code{round_id_from_variable: true}, IDs are values of the task ID defined in the round's
+\code{round_id} property of \code{config_tasks}.
+Otherwise should match round's \code{round_id} value in config. Ignored if hub
 contains only a single round.}
 
-\item{required_only}{Logical. Whether to return combinations of required values only.}
+\item{required_only}{Logical. Whether to return only combinations of
+Task ID and related output type ID required values.}
 
 \item{include_opt_cols}{Logical. If \code{FALSE} (default) and \code{required_only = TRUE},
-task IDs or output_type_ids where all values are optional are excluded
+task IDs or output_type IDs where all values are optional are excluded
 from the output.
 If \code{TRUE}, columns of \code{NA}s are included instead.}
 }
 \value{
 a tibble template containing an expanded grid of valid task ID and
-output type value combinations for a given submission round (if applicable).
+output type ID value combinations for a given submission round (if applicable)
+and output type.
 If \code{required_only = TRUE}, values are limited to the combination of required
 values only.
-
-For task IDs or output_type_ids where all values are optional, by default, columns
-are excluded from the output. To include them as columns of \code{NA}s, use
-\code{include_opt_cols = FALSE}.
 }
 \description{
 Create a model output submission file template
+}
+\details{
+For task IDs or output_type_ids where all values are optional, by default, columns
+are excluded from the output. To include them as columns of \code{NA}s, use
+\code{include_opt_cols = FALSE}.
+
+If \code{round_id} is specified and the round is set to \code{round_id_from_variable: true},
+the value of the task ID from which round IDs are derived (i.e. the task ID
+specified in \code{round_id} property of \code{config_tasks}) is set to the value of the
+\code{round_id} argument in the returned output.
 }
 \examples{
 hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))

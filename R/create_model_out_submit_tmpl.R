@@ -3,18 +3,25 @@
 #' @param hub_con A `⁠<hub_connection`>⁠ class object.
 #' @inheritParams expand_model_out_val_grid
 #' @param include_opt_cols Logical. If `FALSE` (default) and `required_only = TRUE`,
-#' task IDs or output_type_ids where all values are optional are excluded
+#' task IDs or output_type IDs where all values are optional are excluded
 #' from the output.
 #' If `TRUE`, columns of `NA`s are included instead.
 #'
 #' @return a tibble template containing an expanded grid of valid task ID and
-#' output type value combinations for a given submission round (if applicable).
+#' output type ID value combinations for a given submission round (if applicable)
+#' and output type.
 #' If `required_only = TRUE`, values are limited to the combination of required
 #' values only.
 #'
+#' @details
 #' For task IDs or output_type_ids where all values are optional, by default, columns
 #' are excluded from the output. To include them as columns of `NA`s, use
 #' `include_opt_cols = FALSE`.
+#'
+#' If `round_id` is specified and the round is set to `round_id_from_variable: true`,
+#' the value of the task ID from which round IDs are derived (i.e. the task ID
+#' specified in `round_id` property of `config_tasks`) is set to the value of the
+#' `round_id` argument in the returned output.
 #' @export
 #'
 #' @examples
