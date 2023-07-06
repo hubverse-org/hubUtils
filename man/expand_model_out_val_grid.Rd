@@ -15,7 +15,8 @@ object or function \code{\link[=read_config]{read_config()}}.}
 \code{round_id_from_variable: true}, IDs are values of the task ID defined in the round's
 \code{round_id} property of \code{config_tasks}.
 Otherwise should match round's \code{round_id} value in config. Ignored if hub
-contains only a single round.}
+contains only a single round. Must be specified if \code{config_tasks} contains
+more than one round.}
 
 \item{required_only}{Logical. Whether to return only combinations of
 Task ID and related output type ID required values.}

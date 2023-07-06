@@ -14,16 +14,16 @@
 # Get round integer index using a round_id
 #' get_round_idx(config_tasks, "2022-10-01")
 #' get_round_idx(config_tasks, "2022-10-29")
-get_round_idx <- function(config_tasks, round_id) {
-  if (!rlang::is_missing(round_id) && length(config_tasks[["rounds"]]) > 1L) {
+get_round_idx <- function(config_tasks, round_id = NULL) {
+  if (is.null(round_id) && length(config_tasks[["rounds"]]) == 1L) {
+    1L
+  } else {
     round_id <- rlang::arg_match(round_id,
-      values = get_round_ids(config_tasks)
+                                 values = get_round_ids(config_tasks)
     )
     get_round_ids(config_tasks, flatten = FALSE) %>%
       purrr::map_lgl(~ round_id %in% .x) %>%
       which()
-  } else {
-    1L
   }
 }
 
@@ -44,11 +44,12 @@ get_round_ids <- function(config_tasks, flatten = TRUE) {
   if (flatten) unlist(round_ids) else round_ids
 }
 
-get_round_ids_from_taskid <- function(x) {
+get_round_ids_from_taskid <- function(x, flatten = TRUE) {
   round_id_task_id <- x[["round_id"]]
   purrr::map(
     x[["model_tasks"]],
     ~ .x[["task_ids"]][[round_id_task_id]]
   ) %>%
-    unlist(use.names = FALSE)
+    unlist(use.names = FALSE) %>%
+    unique()
 }
