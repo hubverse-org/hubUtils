@@ -44,7 +44,7 @@ get_round_ids <- function(config_tasks, flatten = TRUE) {
   if (flatten) unlist(round_ids) else round_ids
 }
 
-get_round_ids_from_taskid <- function(x, flatten = TRUE) {
+get_round_ids_from_taskid <- function(x) {
   round_id_task_id <- x[["round_id"]]
   purrr::map(
     x[["model_tasks"]],
