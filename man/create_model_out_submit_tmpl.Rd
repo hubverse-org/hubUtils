@@ -9,7 +9,7 @@ create_model_out_submit_tmpl(
   config_tasks,
   round_id = NULL,
   required_vals_only = FALSE,
-  include_opt_cols = FALSE
+  remove_empty_cols = FALSE
 )
 }
 \arguments{
@@ -29,10 +29,10 @@ more than one round.}
 \item{required_vals_only}{Logical. Whether to return only combinations of
 Task ID and related output type ID required values.}
 
-\item{include_opt_cols}{Logical. If \code{FALSE} (default) and \code{required_vals_only = TRUE},
-task IDs or output_type IDs where all values are optional are excluded
-from the output.
-If \code{TRUE}, columns of \code{NA}s are included instead.
+\item{remove_empty_cols}{Logical. If \code{FALSE} (default) and \code{required_vals_only = TRUE},
+task IDs or output_type IDs where all values are optional are included as
+columns of \code{NA}s.
+If \code{TRUE}, such columns are excluded from the output.
 Ignored when \code{required_vals_only = FALSE}.}
 }
 \value{
@@ -47,8 +47,8 @@ Create a model output submission file template
 }
 \details{
 For task IDs or output_type_ids where all values are optional, by default, columns
-are excluded from the output. To include them as columns of \code{NA}s, use
-\code{include_opt_cols = FALSE}.
+are included as columns of \code{NA}s. To exclude them from the output use
+\code{remove_empty_cols = TRUE}.
 
 If \code{round_id} is specified and the round is set to \code{round_id_from_variable: true},
 the value of the task ID from which round IDs are derived (i.e. the task ID
@@ -63,7 +63,7 @@ create_model_out_submit_tmpl(hub_con)
 create_model_out_submit_tmpl(hub_con, required_vals_only = TRUE)
 create_model_out_submit_tmpl(hub_con,
   required_vals_only = TRUE,
-  include_opt_cols = TRUE
+  remove_empty_cols = TRUE
 )
 # Specifying a round in a hub with multiple rounds
 hub_con <- connect_hub(
@@ -78,6 +78,6 @@ create_model_out_submit_tmpl(hub_con,
 create_model_out_submit_tmpl(hub_con,
   round_id = "2022-10-29",
   required_vals_only = TRUE,
-  include_opt_cols = TRUE
+  remove_empty_cols = TRUE
 )
 }

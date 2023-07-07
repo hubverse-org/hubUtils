@@ -2,10 +2,10 @@
 #'
 #' @param hub_con A `⁠<hub_connection`>⁠ class object.
 #' @inheritParams expand_model_out_val_grid
-#' @param include_opt_cols Logical. If `FALSE` (default) and `required_vals_only = TRUE`,
-#' task IDs or output_type IDs where all values are optional are excluded
-#' from the output.
-#' If `TRUE`, columns of `NA`s are included instead.
+#' @param remove_empty_cols Logical. If `FALSE` (default) and `required_vals_only = TRUE`,
+#' task IDs or output_type IDs where all values are optional are included as
+#' columns of `NA`s.
+#' If `TRUE`, such columns are excluded from the output.
 #' Ignored when `required_vals_only = FALSE`.
 #'
 #' @return a tibble template containing an expanded grid of valid task ID and
@@ -16,8 +16,8 @@
 #'
 #' @details
 #' For task IDs or output_type_ids where all values are optional, by default, columns
-#' are excluded from the output. To include them as columns of `NA`s, use
-#' `include_opt_cols = FALSE`.
+#' are included as columns of `NA`s. To exclude them from the output use
+#' `remove_empty_cols = TRUE`.
 #'
 #' If `round_id` is specified and the round is set to `round_id_from_variable: true`,
 #' the value of the task ID from which round IDs are derived (i.e. the task ID
@@ -33,7 +33,7 @@
 #' create_model_out_submit_tmpl(hub_con, required_vals_only = TRUE)
 #' create_model_out_submit_tmpl(hub_con,
 #'   required_vals_only = TRUE,
-#'   include_opt_cols = TRUE
+#'   remove_empty_cols = TRUE
 #' )
 #' # Specifying a round in a hub with multiple rounds
 #' hub_con <- connect_hub(
@@ -48,12 +48,12 @@
 #' create_model_out_submit_tmpl(hub_con,
 #'   round_id = "2022-10-29",
 #'   required_vals_only = TRUE,
-#'   include_opt_cols = TRUE
+#'   remove_empty_cols = TRUE
 #' )
 create_model_out_submit_tmpl <- function(hub_con, config_tasks,
                                          round_id = NULL,
                                          required_vals_only = FALSE,
-                                         include_opt_cols = FALSE) {
+                                         remove_empty_cols = FALSE) {
   switch(rlang::check_exclusive(hub_con, config_tasks),
     hub_con = {
       checkmate::assert_class(hub_con, classes = "hub_connection")
@@ -76,9 +76,11 @@ create_model_out_submit_tmpl <- function(hub_con, config_tasks,
 
   if (required_vals_only && length(opt_task_ids) > 0L) {
     n_mt <- n_model_tasks(config_tasks, round_id)
-    message_opt_tasks(opt_task_ids, n_mt, include_opt_cols)
+    message_opt_tasks(opt_task_ids, n_mt, remove_empty_cols)
 
-    if (include_opt_cols) {
+    if (remove_empty_cols) {
+      return(tmpl_df)
+      } else {
       conv_opt_task_ids <- create_hub_schema(
         config_tasks,
         partitions = NULL,
@@ -124,13 +126,13 @@ get_round_task_id_names <- function(config_tasks, round_id) {
     unique()
 }
 
-message_opt_tasks <- function(opt_task_ids, n_mt, include_opt_cols) {
-  if (include_opt_cols) {
-    action <- "included as {.val NA} column{?s}."
-  } else {
+message_opt_tasks <- function(opt_task_ids, n_mt, remove_empty_cols) {
+  if (remove_empty_cols) {
     action <- "not included in template."
+  } else {
+    action <- "included as all {.code NA} column{?s}."
   }
-  msg <- c("!" = paste("Task ID{?s} {.val {opt_task_ids}} whose values are all
+  msg <- c("!" = paste("Column{?s} {.val {opt_task_ids}} whose values are all
                  optional", action))
   if (n_mt > 1L) {
     msg <- c(

@@ -57,7 +57,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
             hub_con,
             round_id = "2023-01-16",
             required_vals_only = TRUE,
-            include_opt_cols = TRUE
+            remove_empty_cols = TRUE
         )
     ))
 
@@ -67,7 +67,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
                 hub_con,
                 round_id = "2022-12-19",
                 required_vals_only = TRUE,
-                include_opt_cols = TRUE
+                remove_empty_cols = TRUE
             )$forecast_date
         )),
         "2022-12-19"
@@ -106,7 +106,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
             hub_con,
             round_id = "2022-10-29",
             required_vals_only = TRUE,
-            include_opt_cols = TRUE
+            remove_empty_cols = TRUE
         )
     ))
 })
