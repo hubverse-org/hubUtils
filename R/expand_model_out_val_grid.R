@@ -9,12 +9,12 @@
 #' Otherwise should match round's `round_id` value in config. Ignored if hub
 #' contains only a single round. Must be specified if `config_tasks` contains
 #' more than one round.
-#' @param required_only Logical. Whether to return only combinations of
+#' @param required_vals_only Logical. Whether to return only combinations of
 #' Task ID and related output type ID required values.
 #'
 #' @return a tibble containing all possible task ID and related output type ID
 #' value combinations.
-#' If `required_only = TRUE`, values are limited to the combinations of required
+#' If `required_vals_only = TRUE`, values are limited to the combinations of required
 #' values only.
 #' @details
 #' If `round_id` is specified and the round is set to `round_id_from_variable: true`,
@@ -30,7 +30,7 @@
 #' )
 #' config_tasks <- attr(hub_con, "config_tasks")
 #' expand_model_out_val_grid(config_tasks)
-#' expand_model_out_val_grid(config_tasks, required_only = TRUE)
+#' expand_model_out_val_grid(config_tasks, required_vals_only = TRUE)
 #' # Specifying a round in a hub with multiple rounds
 #' hub_con <- connect_hub(
 #'   system.file("testhubs/simple", package = "hubUtils")
@@ -40,7 +40,7 @@
 #' expand_model_out_val_grid(config_tasks, round_id = "2022-10-29")
 expand_model_out_val_grid <- function(config_tasks,
                                       round_id = NULL,
-                                      required_only = FALSE) {
+                                      required_vals_only = FALSE) {
   round_idx <- get_round_idx(config_tasks, round_id)
 
   round_config <- purrr::pluck(
@@ -58,14 +58,14 @@ expand_model_out_val_grid <- function(config_tasks,
       round_config = round_config,
       round_ids = get_round_ids(config_tasks)
     ) %>%
-    process_grid_inputs(required_only = required_only)
+    process_grid_inputs(required_vals_only = required_vals_only)
 
   output_type_l <- purrr::map(
     round_config[["model_tasks"]],
     ~ .x[["output_type"]]
   ) %>%
     purrr::map(~ .x %>% purrr::map(~ .x[["type_id"]])) %>%
-    process_grid_inputs(required_only = required_only)
+    process_grid_inputs(required_vals_only = required_vals_only)
 
   output_type_grid_l <- purrr::map2(
     task_id_l, output_type_l,
@@ -81,8 +81,8 @@ expand_model_out_val_grid <- function(config_tasks,
 
 
 
-process_grid_inputs <- function(x, required_only = FALSE) {
-  if (required_only) {
+process_grid_inputs <- function(x, required_vals_only = FALSE) {
+  if (required_vals_only) {
     purrr::map(x, ~ .x %>% purrr::map(~ .x[["required"]]))
   } else {
     purrr::modify_depth(x, .depth = 2, ~ unlist(.x, use.names = FALSE))

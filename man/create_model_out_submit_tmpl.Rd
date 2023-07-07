@@ -8,7 +8,7 @@ create_model_out_submit_tmpl(
   hub_con,
   config_tasks,
   round_id = NULL,
-  required_only = FALSE,
+  required_vals_only = FALSE,
   include_opt_cols = FALSE
 )
 }
@@ -26,20 +26,20 @@ Otherwise should match round's \code{round_id} value in config. Ignored if hub
 contains only a single round. Must be specified if \code{config_tasks} contains
 more than one round.}
 
-\item{required_only}{Logical. Whether to return only combinations of
+\item{required_vals_only}{Logical. Whether to return only combinations of
 Task ID and related output type ID required values.}
 
-\item{include_opt_cols}{Logical. If \code{FALSE} (default) and \code{required_only = TRUE},
+\item{include_opt_cols}{Logical. If \code{FALSE} (default) and \code{required_vals_only = TRUE},
 task IDs or output_type IDs where all values are optional are excluded
 from the output.
 If \code{TRUE}, columns of \code{NA}s are included instead.
-Ignored when \code{required_only = FALSE}.}
+Ignored when \code{required_vals_only = FALSE}.}
 }
 \value{
 a tibble template containing an expanded grid of valid task ID and
 output type ID value combinations for a given submission round (if applicable)
 and output type.
-If \code{required_only = TRUE}, values are limited to the combination of required
+If \code{required_vals_only = TRUE}, values are limited to the combination of required
 values only.
 }
 \description{
@@ -60,9 +60,9 @@ hub_con <- connect_hub(
   system.file("testhubs/flusight", package = "hubUtils")
 )
 create_model_out_submit_tmpl(hub_con)
-create_model_out_submit_tmpl(hub_con, required_only = TRUE)
+create_model_out_submit_tmpl(hub_con, required_vals_only = TRUE)
 create_model_out_submit_tmpl(hub_con,
-  required_only = TRUE,
+  required_vals_only = TRUE,
   include_opt_cols = TRUE
 )
 # Specifying a round in a hub with multiple rounds
@@ -73,11 +73,11 @@ create_model_out_submit_tmpl(hub_con, round_id = "2022-10-01")
 create_model_out_submit_tmpl(hub_con, round_id = "2022-10-29")
 create_model_out_submit_tmpl(hub_con,
   round_id = "2022-10-29",
-  required_only = TRUE
+  required_vals_only = TRUE
 )
 create_model_out_submit_tmpl(hub_con,
   round_id = "2022-10-29",
-  required_only = TRUE,
+  required_vals_only = TRUE,
   include_opt_cols = TRUE
 )
 }

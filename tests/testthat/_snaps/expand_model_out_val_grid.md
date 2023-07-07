@@ -24,7 +24,7 @@
 ---
 
     Code
-      str(expand_model_out_val_grid(config_tasks, required_only = TRUE))
+      str(expand_model_out_val_grid(config_tasks, required_vals_only = TRUE))
     Output
       tibble [29 x 4] (S3: tbl_df/tbl/data.frame)
        $ horizon       : int [1:29] 2 2 2 2 2 2 2 2 2 2 ...
@@ -57,7 +57,7 @@
 
     Code
       str(expand_model_out_val_grid(config_tasks, round_id = "2022-10-01",
-        required_only = TRUE))
+        required_vals_only = TRUE))
     Output
       tibble [24 x 5] (S3: tbl_df/tbl/data.frame)
        $ origin_date   : chr [1:24] "2022-10-01" "2022-10-01" "2022-10-01" "2022-10-01" ...
@@ -70,7 +70,7 @@
 
     Code
       str(expand_model_out_val_grid(config_tasks, round_id = "2022-10-29",
-        required_only = TRUE))
+        required_vals_only = TRUE))
     Output
       tibble [24 x 6] (S3: tbl_df/tbl/data.frame)
        $ origin_date   : chr [1:24] "2022-10-29" "2022-10-29" "2022-10-29" "2022-10-29" ...

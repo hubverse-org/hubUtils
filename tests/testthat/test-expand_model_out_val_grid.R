@@ -10,7 +10,7 @@ test_that("expand_model_out_val_grid works correctly", {
     expect_snapshot(str(
         expand_model_out_val_grid(
             config_tasks,
-            required_only = TRUE
+            required_vals_only = TRUE
         )
     ))
 
@@ -31,14 +31,14 @@ test_that("expand_model_out_val_grid works correctly", {
         expand_model_out_val_grid(
             config_tasks,
             round_id = "2022-10-01",
-            required_only = TRUE
+            required_vals_only = TRUE
         )
     ))
     expect_snapshot(str(
         expand_model_out_val_grid(
             config_tasks,
             round_id = "2022-10-29",
-            required_only = TRUE
+            required_vals_only = TRUE
         )
     ))
 })
@@ -62,7 +62,7 @@ test_that("Setting of round_id value works correctly", {
         unique(
             expand_model_out_val_grid(
                 config_tasks,
-                required_only = TRUE,
+                required_vals_only = TRUE,
                 round_id = "2022-10-29"
             )$origin_date
         ),
@@ -80,7 +80,7 @@ test_that("Setting of round_id value works correctly", {
         unique(
             expand_model_out_val_grid(
                 config_tasks,
-                required_only = TRUE,
+                required_vals_only = TRUE,
                 round_id = "2023-01-30"
             )$forecast_date
         ),
@@ -90,7 +90,7 @@ test_that("Setting of round_id value works correctly", {
         "forecast_date" %in% names(
             expand_model_out_val_grid(
                 config_tasks,
-                required_only = TRUE
+                required_vals_only = TRUE
             )
         )
     )

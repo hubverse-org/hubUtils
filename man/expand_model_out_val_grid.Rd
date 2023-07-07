@@ -4,7 +4,11 @@
 \alias{expand_model_out_val_grid}
 \title{Create expanded grid of valid task ID and output type value combinations}
 \usage{
-expand_model_out_val_grid(config_tasks, round_id = NULL, required_only = FALSE)
+expand_model_out_val_grid(
+  config_tasks,
+  round_id = NULL,
+  required_vals_only = FALSE
+)
 }
 \arguments{
 \item{config_tasks}{a list version of the content's of a hub's \code{tasks.json}
@@ -18,13 +22,13 @@ Otherwise should match round's \code{round_id} value in config. Ignored if hub
 contains only a single round. Must be specified if \code{config_tasks} contains
 more than one round.}
 
-\item{required_only}{Logical. Whether to return only combinations of
+\item{required_vals_only}{Logical. Whether to return only combinations of
 Task ID and related output type ID required values.}
 }
 \value{
 a tibble containing all possible task ID and related output type ID
 value combinations.
-If \code{required_only = TRUE}, values are limited to the combinations of required
+If \code{required_vals_only = TRUE}, values are limited to the combinations of required
 values only.
 }
 \description{
@@ -42,7 +46,7 @@ hub_con <- connect_hub(
 )
 config_tasks <- attr(hub_con, "config_tasks")
 expand_model_out_val_grid(config_tasks)
-expand_model_out_val_grid(config_tasks, required_only = TRUE)
+expand_model_out_val_grid(config_tasks, required_vals_only = TRUE)
 # Specifying a round in a hub with multiple rounds
 hub_con <- connect_hub(
   system.file("testhubs/simple", package = "hubUtils")

@@ -37,7 +37,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
         create_model_out_submit_tmpl(
             hub_con,
             round_id = "2023-01-16",
-            required_only = TRUE
+            required_vals_only = TRUE
         )
     ))
     expect_equal(
@@ -45,7 +45,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
             create_model_out_submit_tmpl(
                 hub_con,
                 round_id = "2022-12-19",
-                required_only = TRUE
+                required_vals_only = TRUE
             )$forecast_date
         )),
         "2022-12-19"
@@ -56,7 +56,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
         create_model_out_submit_tmpl(
             hub_con,
             round_id = "2023-01-16",
-            required_only = TRUE,
+            required_vals_only = TRUE,
             include_opt_cols = TRUE
         )
     ))
@@ -66,7 +66,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
             create_model_out_submit_tmpl(
                 hub_con,
                 round_id = "2022-12-19",
-                required_only = TRUE,
+                required_vals_only = TRUE,
                 include_opt_cols = TRUE
             )$forecast_date
         )),
@@ -89,14 +89,14 @@ test_that("create_model_out_submit_tmpl works correctly", {
         create_model_out_submit_tmpl(
             hub_con,
             round_id = "2022-10-01",
-            required_only = TRUE
+            required_vals_only = TRUE
         )
     ))
     expect_snapshot(str(
         create_model_out_submit_tmpl(
             hub_con,
             round_id = "2022-10-29",
-            required_only = TRUE
+            required_vals_only = TRUE
         )
     ))
 
@@ -105,7 +105,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
         create_model_out_submit_tmpl(
             hub_con,
             round_id = "2022-10-29",
-            required_only = TRUE,
+            required_vals_only = TRUE,
             include_opt_cols = TRUE
         )
     ))

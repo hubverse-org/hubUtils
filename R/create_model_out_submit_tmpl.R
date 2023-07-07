@@ -2,16 +2,16 @@
 #'
 #' @param hub_con A `⁠<hub_connection`>⁠ class object.
 #' @inheritParams expand_model_out_val_grid
-#' @param include_opt_cols Logical. If `FALSE` (default) and `required_only = TRUE`,
+#' @param include_opt_cols Logical. If `FALSE` (default) and `required_vals_only = TRUE`,
 #' task IDs or output_type IDs where all values are optional are excluded
 #' from the output.
 #' If `TRUE`, columns of `NA`s are included instead.
-#' Ignored when `required_only = FALSE`.
+#' Ignored when `required_vals_only = FALSE`.
 #'
 #' @return a tibble template containing an expanded grid of valid task ID and
 #' output type ID value combinations for a given submission round (if applicable)
 #' and output type.
-#' If `required_only = TRUE`, values are limited to the combination of required
+#' If `required_vals_only = TRUE`, values are limited to the combination of required
 #' values only.
 #'
 #' @details
@@ -30,9 +30,9 @@
 #'   system.file("testhubs/flusight", package = "hubUtils")
 #' )
 #' create_model_out_submit_tmpl(hub_con)
-#' create_model_out_submit_tmpl(hub_con, required_only = TRUE)
+#' create_model_out_submit_tmpl(hub_con, required_vals_only = TRUE)
 #' create_model_out_submit_tmpl(hub_con,
-#'   required_only = TRUE,
+#'   required_vals_only = TRUE,
 #'   include_opt_cols = TRUE
 #' )
 #' # Specifying a round in a hub with multiple rounds
@@ -43,16 +43,16 @@
 #' create_model_out_submit_tmpl(hub_con, round_id = "2022-10-29")
 #' create_model_out_submit_tmpl(hub_con,
 #'   round_id = "2022-10-29",
-#'   required_only = TRUE
+#'   required_vals_only = TRUE
 #' )
 #' create_model_out_submit_tmpl(hub_con,
 #'   round_id = "2022-10-29",
-#'   required_only = TRUE,
+#'   required_vals_only = TRUE,
 #'   include_opt_cols = TRUE
 #' )
 create_model_out_submit_tmpl <- function(hub_con, config_tasks,
                                          round_id = NULL,
-                                         required_only = FALSE,
+                                         required_vals_only = FALSE,
                                          include_opt_cols = FALSE) {
   switch(rlang::check_exclusive(hub_con, config_tasks),
     hub_con = {
@@ -69,12 +69,12 @@ create_model_out_submit_tmpl <- function(hub_con, config_tasks,
 
   tmpl_df <- expand_model_out_val_grid(config_tasks,
     round_id = round_id,
-    required_only = required_only
+    required_vals_only = required_vals_only
   )
 
   opt_task_ids <- round_task_ids[!round_task_ids %in% names(tmpl_df)]
 
-  if (required_only && length(opt_task_ids) > 0L) {
+  if (required_vals_only && length(opt_task_ids) > 0L) {
     n_mt <- n_model_tasks(config_tasks, round_id)
     message_opt_tasks(opt_task_ids, n_mt, include_opt_cols)
 

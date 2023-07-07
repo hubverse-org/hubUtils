@@ -48,7 +48,7 @@
 
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2023-01-16",
-        required_only = TRUE))
+        required_vals_only = TRUE))
     Message <cliMessage>
       ! Task ID "target" whose values are all optional not included in template.
       ! Round contains more than one modeling task (2)
@@ -75,7 +75,7 @@
 
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2023-01-16",
-        required_only = TRUE, include_opt_cols = TRUE))
+        required_vals_only = TRUE, include_opt_cols = TRUE))
     Message <cliMessage>
       ! Task ID "target" whose values are all optional included as "NA" column.
       ! Round contains more than one modeling task (2)
@@ -116,7 +116,7 @@
 
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2022-10-01",
-        required_only = TRUE))
+        required_vals_only = TRUE))
     Message <cliMessage>
       ! Task ID "location" whose values are all optional not included in template.
       i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
@@ -133,7 +133,7 @@
 
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2022-10-29",
-        required_only = TRUE))
+        required_vals_only = TRUE))
     Message <cliMessage>
       ! Task ID "location" whose values are all optional not included in template.
       i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
@@ -151,7 +151,7 @@
 
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2022-10-29",
-        required_only = TRUE, include_opt_cols = TRUE))
+        required_vals_only = TRUE, include_opt_cols = TRUE))
     Message <cliMessage>
       ! Task ID "location" whose values are all optional included as "NA" column.
       i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
