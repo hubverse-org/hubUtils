@@ -1,20 +1,20 @@
 # create_model_out_submit_tmpl works correctly
 
     Code
-      str(create_model_out_submit_tmpl(hub_con))
+      str(create_model_out_submit_tmpl(hub_con, round_id = "2023-01-30"))
     Output
-      tibble [72,036 x 6] (S3: tbl_df/tbl/data.frame)
-       $ forecast_date : chr [1:72036] "2022-12-12" "2022-12-19" "2022-12-26" "2023-01-02" ...
-       $ target        : chr [1:72036] "wk flu hosp rate change" "wk flu hosp rate change" "wk flu hosp rate change" "wk flu hosp rate change" ...
-       $ horizon       : int [1:72036] 2 2 2 2 2 2 2 2 2 2 ...
-       $ location      : chr [1:72036] "US" "US" "US" "US" ...
-       $ output_type   : chr [1:72036] "pmf" "pmf" "pmf" "pmf" ...
-       $ output_type_id: chr [1:72036] "large_decrease" "large_decrease" "large_decrease" "large_decrease" ...
+      tibble [3,132 x 6] (S3: tbl_df/tbl/data.frame)
+       $ forecast_date : chr [1:3132] "2023-01-30" "2023-01-30" "2023-01-30" "2023-01-30" ...
+       $ target        : chr [1:3132] "wk flu hosp rate change" "wk flu hosp rate change" "wk flu hosp rate change" "wk flu hosp rate change" ...
+       $ horizon       : int [1:3132] 2 1 2 1 2 1 2 1 2 1 ...
+       $ location      : chr [1:3132] "US" "US" "01" "01" ...
+       $ output_type   : chr [1:3132] "pmf" "pmf" "pmf" "pmf" ...
+       $ output_type_id: chr [1:3132] "large_decrease" "large_decrease" "large_decrease" "large_decrease" ...
        - attr(*, "out.attrs")=List of 2
-        ..$ dim     : Named int [1:6] 23 1 2 54 1 5
+        ..$ dim     : Named int [1:6] 1 1 2 54 1 5
         .. ..- attr(*, "names")= chr [1:6] "forecast_date" "target" "horizon" "location" ...
         ..$ dimnames:List of 6
-        .. ..$ forecast_date : chr [1:23] "forecast_date=2022-12-12" "forecast_date=2022-12-19" "forecast_date=2022-12-26" "forecast_date=2023-01-02" ...
+        .. ..$ forecast_date : chr "forecast_date=2023-01-30"
         .. ..$ target        : chr "target=wk flu hosp rate change"
         .. ..$ horizon       : chr [1:2] "horizon=2" "horizon=1"
         .. ..$ location      : chr [1:54] "location=US" "location=01" "location=02" "location=04" ...
@@ -171,13 +171,27 @@
 
     Code
       create_model_out_submit_tmpl(hub_con, round_id = "random_round_id")
-    Error <simpleError>
-      Assertion on 'hub_con' failed: Must inherit from class 'hub_connection', but has class 'NULL'.
+    Error <rlang_error>
+      `round_id` must be one of "2022-10-01", "2022-10-08", "2022-10-15", "2022-10-22", or "2022-10-29", not "random_round_id".
 
 ---
 
     Code
       create_model_out_submit_tmpl(hub_con)
+    Error <rlang_error>
+      `round_id` must be a character vector, not absent.
+
+---
+
+    Code
+      create_model_out_submit_tmpl(hub_con)
+    Error <rlang_error>
+      `round_id` must be a character vector, not absent.
+
+---
+
+    Code
+      create_model_out_submit_tmpl(list())
     Error <simpleError>
-      Assertion on 'hub_con' failed: Must inherit from class 'hub_connection', but has class 'NULL'.
+      Assertion on 'hub_con' failed: Must inherit from class 'hub_connection', but has class 'list'.
 

@@ -7,8 +7,7 @@
 #' `round_id_from_variable: true`, IDs are values of the task ID defined in the round's
 #' `round_id` property of `config_tasks`.
 #' Otherwise should match round's `round_id` value in config. Ignored if hub
-#' contains only a single round. Must be specified if `config_tasks` contains
-#' more than one round.
+#' contains only a single round.
 #' @param required_vals_only Logical. Whether to return only combinations of
 #' Task ID and related output type ID required values.
 #'
@@ -17,7 +16,7 @@
 #' If `required_vals_only = TRUE`, values are limited to the combinations of required
 #' values only.
 #' @details
-#' If `round_id` is specified and the round is set to `round_id_from_variable: true`,
+#' When a round is set to `round_id_from_variable: true`,
 #' the value of the task ID from which round IDs are derived (i.e. the task ID
 #' specified in `round_id` property of `config_tasks`) is set to the value of the
 #' `round_id` argument in the returned output.
@@ -29,17 +28,22 @@
 #'   system.file("testhubs/flusight", package = "hubUtils")
 #' )
 #' config_tasks <- attr(hub_con, "config_tasks")
-#' expand_model_out_val_grid(config_tasks)
-#' expand_model_out_val_grid(config_tasks, required_vals_only = TRUE)
-#' # Specifying a round in a hub with multiple rounds
+#' expand_model_out_val_grid(config_tasks, round_id = "2023-01-02")
+#' expand_model_out_val_grid(
+#'   config_tasks,
+#'   round_id = "2023-01-02",
+#'   required_vals_only = TRUE
+#' )
+#' # Specifying a round in a hub with multiple round configurations.
 #' hub_con <- connect_hub(
 #'   system.file("testhubs/simple", package = "hubUtils")
 #' )
 #' config_tasks <- attr(hub_con, "config_tasks")
 #' expand_model_out_val_grid(config_tasks, round_id = "2022-10-01")
+#' # Later round_id maps to round config that includes additional task ID 'age_group'.
 #' expand_model_out_val_grid(config_tasks, round_id = "2022-10-29")
 expand_model_out_val_grid <- function(config_tasks,
-                                      round_id = NULL,
+                                      round_id,
                                       required_vals_only = FALSE) {
   round_idx <- get_round_idx(config_tasks, round_id)
 

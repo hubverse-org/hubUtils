@@ -19,7 +19,7 @@
 #' are included as columns of `NA`s. To exclude them from the output use
 #' `remove_empty_cols = TRUE`.
 #'
-#' If `round_id` is specified and the round is set to `round_id_from_variable: true`,
+#' When a round is set to `round_id_from_variable: true`,
 #' the value of the task ID from which round IDs are derived (i.e. the task ID
 #' specified in `round_id` property of `config_tasks`) is set to the value of the
 #' `round_id` argument in the returned output.
@@ -29,9 +29,15 @@
 #' hub_con <- connect_hub(
 #'   system.file("testhubs/flusight", package = "hubUtils")
 #' )
-#' create_model_out_submit_tmpl(hub_con)
-#' create_model_out_submit_tmpl(hub_con, required_vals_only = TRUE)
-#' create_model_out_submit_tmpl(hub_con,
+#' create_model_out_submit_tmpl(hub_con, round_id = "2023-01-02")
+#' create_model_out_submit_tmpl(
+#'   hub_con,
+#'   round_id = "2023-01-02",
+#'   required_vals_only = TRUE
+#' )
+#' create_model_out_submit_tmpl(
+#'   hub_con,
+#'   round_id = "2023-01-02",
 #'   required_vals_only = TRUE,
 #'   remove_empty_cols = TRUE
 #' )
@@ -50,8 +56,7 @@
 #'   required_vals_only = TRUE,
 #'   remove_empty_cols = TRUE
 #' )
-create_model_out_submit_tmpl <- function(hub_con, config_tasks,
-                                         round_id = NULL,
+create_model_out_submit_tmpl <- function(hub_con, config_tasks, round_id,
                                          required_vals_only = FALSE,
                                          remove_empty_cols = FALSE) {
   switch(rlang::check_exclusive(hub_con, config_tasks),
@@ -80,7 +85,7 @@ create_model_out_submit_tmpl <- function(hub_con, config_tasks,
 
     if (remove_empty_cols) {
       return(tmpl_df)
-      } else {
+    } else {
       conv_opt_task_ids <- create_hub_schema(
         config_tasks,
         partitions = NULL,

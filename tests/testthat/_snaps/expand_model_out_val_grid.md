@@ -1,20 +1,20 @@
 # expand_model_out_val_grid works correctly
 
     Code
-      str(expand_model_out_val_grid(config_tasks))
+      str(expand_model_out_val_grid(config_tasks, round_id = "2023-01-02"))
     Output
-      tibble [72,036 x 6] (S3: tbl_df/tbl/data.frame)
-       $ forecast_date : chr [1:72036] "2022-12-12" "2022-12-19" "2022-12-26" "2023-01-02" ...
-       $ target        : chr [1:72036] "wk flu hosp rate change" "wk flu hosp rate change" "wk flu hosp rate change" "wk flu hosp rate change" ...
-       $ horizon       : int [1:72036] 2 2 2 2 2 2 2 2 2 2 ...
-       $ location      : chr [1:72036] "US" "US" "US" "US" ...
-       $ output_type   : chr [1:72036] "pmf" "pmf" "pmf" "pmf" ...
-       $ output_type_id: chr [1:72036] "large_decrease" "large_decrease" "large_decrease" "large_decrease" ...
+      tibble [3,132 x 6] (S3: tbl_df/tbl/data.frame)
+       $ forecast_date : chr [1:3132] "2023-01-02" "2023-01-02" "2023-01-02" "2023-01-02" ...
+       $ target        : chr [1:3132] "wk flu hosp rate change" "wk flu hosp rate change" "wk flu hosp rate change" "wk flu hosp rate change" ...
+       $ horizon       : int [1:3132] 2 1 2 1 2 1 2 1 2 1 ...
+       $ location      : chr [1:3132] "US" "US" "01" "01" ...
+       $ output_type   : chr [1:3132] "pmf" "pmf" "pmf" "pmf" ...
+       $ output_type_id: chr [1:3132] "large_decrease" "large_decrease" "large_decrease" "large_decrease" ...
        - attr(*, "out.attrs")=List of 2
-        ..$ dim     : Named int [1:6] 23 1 2 54 1 5
+        ..$ dim     : Named int [1:6] 1 1 2 54 1 5
         .. ..- attr(*, "names")= chr [1:6] "forecast_date" "target" "horizon" "location" ...
         ..$ dimnames:List of 6
-        .. ..$ forecast_date : chr [1:23] "forecast_date=2022-12-12" "forecast_date=2022-12-19" "forecast_date=2022-12-26" "forecast_date=2023-01-02" ...
+        .. ..$ forecast_date : chr "forecast_date=2023-01-02"
         .. ..$ target        : chr "target=wk flu hosp rate change"
         .. ..$ horizon       : chr [1:2] "horizon=2" "horizon=1"
         .. ..$ location      : chr [1:54] "location=US" "location=01" "location=02" "location=04" ...
@@ -24,17 +24,20 @@
 ---
 
     Code
-      str(expand_model_out_val_grid(config_tasks, required_vals_only = TRUE))
+      str(expand_model_out_val_grid(config_tasks, round_id = "2023-01-02",
+        required_vals_only = TRUE))
     Output
-      tibble [29 x 4] (S3: tbl_df/tbl/data.frame)
+      tibble [29 x 5] (S3: tbl_df/tbl/data.frame)
+       $ forecast_date : chr [1:29] "2023-01-02" "2023-01-02" "2023-01-02" "2023-01-02" ...
        $ horizon       : int [1:29] 2 2 2 2 2 2 2 2 2 2 ...
        $ location      : chr [1:29] "US" "US" "US" "US" ...
        $ output_type   : chr [1:29] "pmf" "pmf" "pmf" "pmf" ...
        $ output_type_id: chr [1:29] "large_decrease" "decrease" "stable" "increase" ...
        - attr(*, "out.attrs")=List of 2
-        ..$ dim     : Named int [1:4] 1 1 1 5
-        .. ..- attr(*, "names")= chr [1:4] "horizon" "location" "output_type" "output_type_id"
-        ..$ dimnames:List of 4
+        ..$ dim     : Named int [1:5] 1 1 1 1 5
+        .. ..- attr(*, "names")= chr [1:5] "forecast_date" "horizon" "location" "output_type" ...
+        ..$ dimnames:List of 5
+        .. ..$ forecast_date : chr "forecast_date=2023-01-02"
         .. ..$ horizon       : chr "horizon=2"
         .. ..$ location      : chr "location=US"
         .. ..$ output_type   : chr "output_type=pmf"
@@ -92,5 +95,12 @@
     Code
       expand_model_out_val_grid(config_tasks)
     Error <rlang_error>
-      `round_id` must be a character vector, not `NULL`.
+      `round_id` must be a character vector, not absent.
+
+---
+
+    Code
+      expand_model_out_val_grid(config_tasks)
+    Error <rlang_error>
+      `round_id` must be a character vector, not absent.
 

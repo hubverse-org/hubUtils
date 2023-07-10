@@ -4,11 +4,7 @@
 \alias{expand_model_out_val_grid}
 \title{Create expanded grid of valid task ID and output type value combinations}
 \usage{
-expand_model_out_val_grid(
-  config_tasks,
-  round_id = NULL,
-  required_vals_only = FALSE
-)
+expand_model_out_val_grid(config_tasks, round_id, required_vals_only = FALSE)
 }
 \arguments{
 \item{config_tasks}{a list version of the content's of a hub's \code{tasks.json}
@@ -19,8 +15,7 @@ object or function \code{\link[=read_config]{read_config()}}.}
 \code{round_id_from_variable: true}, IDs are values of the task ID defined in the round's
 \code{round_id} property of \code{config_tasks}.
 Otherwise should match round's \code{round_id} value in config. Ignored if hub
-contains only a single round. Must be specified if \code{config_tasks} contains
-more than one round.}
+contains only a single round.}
 
 \item{required_vals_only}{Logical. Whether to return only combinations of
 Task ID and related output type ID required values.}
@@ -35,7 +30,7 @@ values only.
 Create expanded grid of valid task ID and output type value combinations
 }
 \details{
-If \code{round_id} is specified and the round is set to \code{round_id_from_variable: true},
+When a round is set to \code{round_id_from_variable: true},
 the value of the task ID from which round IDs are derived (i.e. the task ID
 specified in \code{round_id} property of \code{config_tasks}) is set to the value of the
 \code{round_id} argument in the returned output.
@@ -45,13 +40,18 @@ hub_con <- connect_hub(
   system.file("testhubs/flusight", package = "hubUtils")
 )
 config_tasks <- attr(hub_con, "config_tasks")
-expand_model_out_val_grid(config_tasks)
-expand_model_out_val_grid(config_tasks, required_vals_only = TRUE)
-# Specifying a round in a hub with multiple rounds
+expand_model_out_val_grid(config_tasks, round_id = "2023-01-02")
+expand_model_out_val_grid(
+  config_tasks,
+  round_id = "2023-01-02",
+  required_vals_only = TRUE
+)
+# Specifying a round in a hub with multiple round configurations.
 hub_con <- connect_hub(
   system.file("testhubs/simple", package = "hubUtils")
 )
 config_tasks <- attr(hub_con, "config_tasks")
 expand_model_out_val_grid(config_tasks, round_id = "2022-10-01")
+# Later round_id maps to round config that includes additional task ID 'age_group'.
 expand_model_out_val_grid(config_tasks, round_id = "2022-10-29")
 }

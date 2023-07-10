@@ -60,12 +60,12 @@
     Code
       get_round_idx(config_tasks)
     Error <rlang_error>
-      `round_id` must be a character vector, not `NULL`.
+      `round_id` must be a character vector, not absent.
 
 ---
 
     Code
-      get_round_idx(config_tasks)
+      get_round_idx(config_tasks, round_id = "2023-01-02")
     Output
       [1] 1
 
@@ -73,6 +73,6 @@
 
     Code
       get_round_idx(config_tasks)
-    Output
-      [1] 1
+    Error <rlang_error>
+      `round_id` must be a character vector, not absent.
 

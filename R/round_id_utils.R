@@ -14,17 +14,13 @@
 # Get round integer index using a round_id
 #' get_round_idx(config_tasks, "2022-10-01")
 #' get_round_idx(config_tasks, "2022-10-29")
-get_round_idx <- function(config_tasks, round_id = NULL) {
-  if (is.null(round_id) && length(config_tasks[["rounds"]]) == 1L) {
-    1L
-  } else {
+get_round_idx <- function(config_tasks, round_id) {
     round_id <- rlang::arg_match(round_id,
                                  values = get_round_ids(config_tasks)
     )
     get_round_ids(config_tasks, flatten = FALSE) %>%
       purrr::map_lgl(~ round_id %in% .x) %>%
       which()
-  }
 }
 
 #' @inheritParams expand_model_out_val_grid

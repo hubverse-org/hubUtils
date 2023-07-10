@@ -5,11 +5,13 @@ test_that("expand_model_out_val_grid works correctly", {
     config_tasks <- attr(hub_con, "config_tasks")
 
     expect_snapshot(str(
-        expand_model_out_val_grid(config_tasks)
+        expand_model_out_val_grid(config_tasks,
+                                  round_id = "2023-01-02")
     ))
     expect_snapshot(str(
         expand_model_out_val_grid(
             config_tasks,
+            round_id = "2023-01-02",
             required_vals_only = TRUE
         )
     ))
@@ -86,14 +88,6 @@ test_that("Setting of round_id value works correctly", {
         ),
         "2023-01-30"
     )
-    expect_false(
-        "forecast_date" %in% names(
-            expand_model_out_val_grid(
-                config_tasks,
-                required_vals_only = TRUE
-            )
-        )
-    )
 })
 
 
@@ -109,6 +103,16 @@ test_that("expand_model_out_val_grid errors correctly", {
         ),
         error = TRUE
     )
+    expect_snapshot(
+        expand_model_out_val_grid(config_tasks),
+        error = TRUE
+    )
+
+    hub_con <- connect_hub(
+        system.file("testhubs/flusight", package = "hubUtils")
+    )
+    config_tasks <- attr(hub_con, "config_tasks")
+
     expect_snapshot(
         expand_model_out_val_grid(config_tasks),
         error = TRUE
