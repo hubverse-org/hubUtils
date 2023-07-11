@@ -7,7 +7,10 @@
 \usage{
 get_round_idx(config_tasks, round_id)
 
-get_round_ids(config_tasks, flatten = TRUE)
+get_round_ids(
+  config_tasks,
+  flatten = c("all", "model_task", "task_id", "none")
+)
 }
 \arguments{
 \item{config_tasks}{a list version of the content's of a hub's \code{tasks.json}
@@ -20,8 +23,30 @@ object or function \code{\link[=read_config]{read_config()}}.}
 Otherwise should match round's \code{round_id} value in config. Ignored if hub
 contains only a single round.}
 
-\item{flatten}{Logical. Whether to flatten output to character vector of
-round IDs.}
+\item{flatten}{Character. Whether and how much to flatten output.
+\itemize{
+\item \code{"all"}: Complete flattening.
+Returns a character vector of unique round IDs across all rounds.
+\item \code{"model_task"}: Flatten model tasks.
+Returns a list with an element for each round.
+Each round element contains a character vector of unique round IDs
+across all round model tasks.
+Only applicable if \code{round_id_from_variable} is \code{TRUE}.
+\item \code{"task_id"}: Flatten task ID.
+Returns a nested list with an element for each round.
+Each round element contains a list with an element for each model task.
+Each model task element contains a character vector of unique round IDs.
+across \code{required} and \code{optional} properties.
+Only applicable if \code{round_id_from_variable} is \code{TRUE}
+\item \code{"none"}: No flattening.
+If \code{round_id_from_variable} is \code{TRUE},
+returns a nested list with an element for each round.
+Each round element contains a nested element for each model task.
+Each model task element contains a nested list of \code{required} and \code{optional}
+character vectors of round IDs.
+If \code{round_id_from_variable} is \code{FALSE},a list with a round ID for each round
+is returned.
+}}
 }
 \description{
 Utilities for accessing round ID metadata
@@ -32,6 +57,10 @@ Utilities for accessing round ID metadata
 \code{config_tasks$rounds} that a character round identifier maps to.
 
 \item \code{get_round_ids()}: Get a list or character vector of hub round IDs.
+For each round, if \code{round_id_from_variable} is \code{TRUE}, round IDs returned are the values of
+the task ID defined in the \code{round_id} property. Otherwise, if
+\code{round_id_from_variable} is \code{FALSE}, the value of the \code{round_id} property is
+returned.
 
 }}
 \examples{
@@ -39,7 +68,9 @@ hub_con <- connect_hub(system.file("testhubs/simple", package = "hubUtils"))
 config_tasks <- attr(hub_con, "config_tasks")
 # Get round IDs
 get_round_ids(config_tasks)
-get_round_ids(config_tasks, flatten = FALSE)
+get_round_ids(config_tasks, flatten = "model_task")
+get_round_ids(config_tasks, flatten = "task_id")
+get_round_ids(config_tasks, flatten = "none")
 get_round_idx(config_tasks, "2022-10-01")
 get_round_idx(config_tasks, "2022-10-29")
 }
