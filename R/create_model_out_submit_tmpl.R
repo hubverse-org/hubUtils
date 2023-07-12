@@ -67,39 +67,45 @@ create_model_out_submit_tmpl <- function(hub_con, config_tasks, round_id,
     config_tasks = checkmate::assert_list(config_tasks)
   )
 
-  round_task_ids <- get_round_task_id_names(
-    config_tasks,
-    round_id
-  )
-
   tmpl_df <- expand_model_out_val_grid(config_tasks,
     round_id = round_id,
     required_vals_only = required_vals_only
   )
 
-  opt_task_ids <- round_task_ids[!round_task_ids %in% names(tmpl_df)]
+  tmpl_cols <- c(
+    get_round_task_id_names(
+      config_tasks,
+      round_id
+    ),
+    std_colnames[names(std_colnames) != "model_id"]
+  )
 
-  if (required_vals_only && length(opt_task_ids) > 0L) {
-    n_mt <- n_model_tasks(config_tasks, round_id)
-    message_opt_tasks(opt_task_ids, n_mt, remove_empty_cols)
+  opt_cols <- tmpl_cols[!tmpl_cols %in% names(tmpl_df)]
+
+  if (length(opt_cols) > 0L) {
+    if (any(opt_cols != std_colnames["value"])) {
+      n_mt <- n_model_tasks(config_tasks, round_id)
+      message_opt_tasks(opt_cols, n_mt, remove_empty_cols)
+    }
 
     if (remove_empty_cols) {
       return(tmpl_df)
     } else {
-      conv_opt_task_ids <- create_hub_schema(
+      tmpl_schema <- create_hub_schema(
         config_tasks,
         partitions = NULL,
         r_schema = TRUE
-      )[opt_task_ids]
+      )
+      convert_opt_cols <- tmpl_schema[opt_cols]
 
-      tmpl_df[, opt_task_ids] <- NA
-      tmpl_df[, names(conv_opt_task_ids)] <- purrr::map2(
-        .x = names(conv_opt_task_ids),
-        .y = conv_opt_task_ids,
+      tmpl_df[, opt_cols] <- NA
+      tmpl_df[, names(convert_opt_cols)] <- purrr::map2(
+        .x = names(convert_opt_cols),
+        .y = convert_opt_cols,
         ~ get(paste0("as.", .y))(tmpl_df[[.x]])
       )
 
-      tmpl_df <- tmpl_df[, c(round_task_ids, "output_type", "output_type_id")]
+      tmpl_df <- tmpl_df[, tmpl_cols]
     }
   }
   tmpl_df
@@ -131,14 +137,16 @@ get_round_task_id_names <- function(config_tasks, round_id) {
     unique()
 }
 
-message_opt_tasks <- function(opt_task_ids, n_mt, remove_empty_cols) {
+message_opt_tasks <- function(opt_cols, n_mt, remove_empty_cols) {
   if (remove_empty_cols) {
-    action <- "not included in template."
+    action <- "and std column {.val {std_colnames['value']}} not included in template."
   } else {
     action <- "included as all {.code NA} column{?s}."
   }
-  msg <- c("!" = paste("Column{?s} {.val {opt_task_ids}} whose values are all
-                 optional", action))
+  opt_cols <- opt_cols[opt_cols != "value"]
+
+  msg <- c("!" = paste("{cli::qty(length(opt_cols))}Column{?s} {.val {opt_cols}}
+                       whose values are all optional", action))
   if (n_mt > 1L) {
     msg <- c(
       msg,
