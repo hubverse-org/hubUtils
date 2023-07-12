@@ -6,9 +6,6 @@ json_datatypes <- c(
   number = "double"
 )
 
-## code to prepare `std_colnames` dataset goes here
-std_colnames <- c("model_id", "output_type", "output_type_id", "value")
-
 ## code to prepare `std_col_datatypes` dataset goes here
 std_col_datatypes <- c(
     model_id = "character",
@@ -16,5 +13,5 @@ std_col_datatypes <- c(
     value = "numeric"
 )
 
-usethis::use_data(json_datatypes, std_colnames, std_col_datatypes,
+usethis::use_data(json_datatypes, std_col_datatypes,
                   overwrite = TRUE, internal = TRUE)

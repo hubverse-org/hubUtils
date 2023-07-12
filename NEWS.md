@@ -5,6 +5,11 @@
     * `expand_model_out_val_grid()` for creating an expanded grid of valid task ID and output type ID across round modeling tasks and output types.
     * `get_round_idx()`: for getting an integer index of the element in `config_tasks$rounds` that a character round identifier maps to.
     * `get_round_ids()`: for getting a list or character vector of Hub round IDs.
+* Added additional `tasks.json` validation checks via `validate_config()`:
+    * Check that all task_id and output_type_id values are unique across `required` and `optional` properties.
+    * In rounds where `round_id_from_variable` is `TRUE`, check that the specification of the task_id set as `round_id` is consistent across modelling tasks.
+    * Check that `round_id` values are unique across rounds.
+* Exported object `std_colnames` which contains standard column names used in hubverse model output data files, for use in other hubverse packages (#88).
 
 
 # hubUtils 0.0.0.9009
