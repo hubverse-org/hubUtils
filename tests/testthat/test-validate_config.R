@@ -95,3 +95,46 @@ test_that("Additional properties error successfully", {
   expect_snapshot(out)
   expect_false(out)
 })
+
+
+test_that("Duplicate values in individual array error successfully", {
+  config_path <- testthat::test_path("testdata", "dup-in-array.json")
+  out <- suppressWarnings(validate_config(config_path = config_path,
+                                          schema_version = "v2.0.0",
+                                          branch = "br-v2.0.0"))
+  expect_snapshot(out)
+  expect_false(out)
+})
+
+test_that("Duplicate values across property error successfully", {
+  config_path <- testthat::test_path("testdata", "dup-in-property.json")
+  out <- suppressWarnings(validate_config(config_path = config_path,
+                                          schema_version = "v2.0.0",
+                                          branch = "br-v2.0.0"))
+  expect_snapshot(out)
+  expect_false(out)
+})
+
+test_that("Inconsistent round ID variables across model tasks error successfully", {
+  config_path <- testthat::test_path("testdata", "round-id-inconsistent.json")
+  out <- suppressWarnings(validate_config(config_path = config_path))
+  expect_snapshot(out)
+  expect_false(out)
+
+  config_path <- testthat::test_path("testdata", "round-id-inconsistent2.json")
+  out <- suppressWarnings(validate_config(config_path = config_path,
+                                          schema_version = "v2.0.0",
+                                          branch = "br-v2.0.0"))
+  expect_snapshot(out)
+  expect_false(out)
+})
+
+
+test_that("Duplicate round ID values across rounds error successfully", {
+  config_path <- testthat::test_path("testdata", "dup-in-round-id.json")
+  out <- suppressWarnings(validate_config(config_path = config_path,
+                                          schema_version = "v2.0.0",
+                                          branch = "br-v2.0.0"))
+  expect_snapshot(out)
+  expect_false(out)
+})

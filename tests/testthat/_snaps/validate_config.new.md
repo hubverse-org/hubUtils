@@ -582,12 +582,12 @@
     Output
       [1] FALSE
       attr(,"errors")
-                                                         instancePath
-      1         /rounds/1/model_tasks/0/task_ids/origin_date/optional
-      2 /rounds/1/model_tasks/0/output_type/quantile/type_id/required
-                                                                                                                                                  schemaPath
-      1                    #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/origin_date/properties/optional/uniqueItems
-      2 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile/properties/type_id/properties/required/uniqueItems
+                                                                instancePath
+      1                /rounds/1/model_tasks/0/task_ids/origin_date/optional
+      2 /rounds/1/model_tasks/0/output_type/quantile/output_type_id/required
+                                                                                                                                                         schemaPath
+      1                           #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/origin_date/properties/optional/uniqueItems
+      2 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile/properties/output_type_id/properties/required/uniqueItems
             keyword params.i params.j
       1 uniqueItems        2        3
       2 uniqueItems       15       16
@@ -609,15 +609,15 @@
                                                                                                                                                                                  data
       1                                                                                                                                2022-10-15, 2022-10-22, 2022-10-29, 2022-10-29
       2 0.010, 0.025, 0.050, 0.050, 0.100, 0.150, 0.200, 0.250, 0.300, 0.350, 0.400, 0.450, 0.500, 0.550, 0.600, 0.650, 0.650, 0.700, 0.750, 0.800, 0.850, 0.900, 0.950, 0.975, 0.990
-                                                             dataPath
-      1         /rounds/1/model_tasks/0/task_ids/origin_date/optional
-      2 /rounds/1/model_tasks/0/output_type/quantile/type_id/required
+                                                                    dataPath
+      1                /rounds/1/model_tasks/0/task_ids/origin_date/optional
+      2 /rounds/1/model_tasks/0/output_type/quantile/output_type_id/required
       attr(,"config_path")
       [1] "testdata/dup-in-array.json"
       attr(,"schema_version")
-      [1] "v1.0.1"
+      [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v1.0.1/v1.0.1/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json
 
 # Duplicate values across property error successfully
 
@@ -628,30 +628,25 @@
       attr(,"config_path")
       [1] "testdata/dup-in-property.json"
       attr(,"schema_version")
-      [1] "v1.0.1"
+      [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v1.0.1/v1.0.1/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json
       attr(,"errors")
-                                        instancePath
-      1     /rounds/0/model_tasks/0/task_ids/horizon
-      2   /rounds/1/model_tasks/0/task_ids/age_group
-      3 /rounds/1/model_tasks/0/output_type/quantile
-                                                                           schemaPath
-      1    #/properties/rounds/items/properties/model_tasks/items/properties/task_ids
-      2    #/properties/rounds/items/properties/model_tasks/items/properties/task_ids
-      3 #/properties/rounds/items/properties/model_tasks/items/properties/output_type
-                        keyword
-      1    task_ids uniqueItems
-      2    task_ids uniqueItems
-      3 output_type uniqueItems
-                                                                                                                                          message
-      1                         must NOT have duplicate items across 'required' and 'optional' properties. Task ID 'horizon' contains duplicates.
-      2                       must NOT have duplicate items across 'required' and 'optional' properties. Task ID 'age_group' contains duplicates.
-      3 must NOT have duplicate items across 'required' and 'optional' properties. Output type IDs of output type 'quantile' contains duplicates.
-        schema                   data
-      1           duplicate values: 2
-      2         duplicate values: 65+
-      3        duplicate values: 0.99
+                                      instancePath
+      1   /rounds/0/model_tasks/0/task_ids/horizon
+      2 /rounds/1/model_tasks/0/task_ids/age_group
+                                                                        schemaPath
+      1 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids
+      2 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids
+                     keyword
+      1 task_ids uniqueItems
+      2 task_ids uniqueItems
+                                                                                                                    message
+      1   must NOT have duplicate items across 'required' and 'optional' properties. Task ID 'horizon' contains duplicates.
+      2 must NOT have duplicate items across 'required' and 'optional' properties. Task ID 'age_group' contains duplicates.
+        schema                  data
+      1          duplicate values: 2
+      2        duplicate values: 65+
 
 # Inconsistent round ID variables across model tasks error successfully
 
@@ -717,41 +712,277 @@
       out
     Output
       [1] FALSE
+      attr(,"errors")
+                                        instancePath
+      1     /rounds/0/model_tasks/0/output_type/mean
+      2 /rounds/0/model_tasks/0/output_type/quantile
+      3     /rounds/1/model_tasks/0/output_type/mean
+      4 /rounds/1/model_tasks/0/output_type/quantile
+      5     /rounds/2/model_tasks/0/output_type/mean
+      6 /rounds/2/model_tasks/0/output_type/quantile
+                                                                                                        schemaPath
+      1     #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/required
+      2 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile/required
+      3     #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/required
+      4 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile/required
+      5     #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/required
+      6 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile/required
+         keyword missingProperty                                      message
+      1 required  output_type_id must have required property 'output_type_id'
+      2 required  output_type_id must have required property 'output_type_id'
+      3 required  output_type_id must have required property 'output_type_id'
+      4 required  output_type_id must have required property 'output_type_id'
+      5 required  output_type_id must have required property 'output_type_id'
+      6 required  output_type_id must have required property 'output_type_id'
+                       schema parentSchema.type
+      1 output_type_id, value            object
+      2 output_type_id, value            object
+      3 output_type_id, value            object
+      4 output_type_id, value            object
+      5 output_type_id, value            object
+      6 output_type_id, value            object
+                                                         parentSchema.description
+      1      Object defining the mean of the predictive distribution output type.
+      2 Object defining the quantiles of the predictive distribution output type.
+      3      Object defining the mean of the predictive distribution output type.
+      4 Object defining the quantiles of the predictive distribution output type.
+      5      Object defining the mean of the predictive distribution output type.
+      6 Object defining the quantiles of the predictive distribution output type.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             parentSchema.properties.output_type_id.description
+      1 output_type_id is not meaningful for a mean output_type. The property is primarily used to determine whether mean is a required or optional output type through properties required and optional. If mean is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If mean is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null
+      2                                                                                                                                                                                                                                                                                                                                                                                      Object containing required and optional arrays defining the probability levels at which quantiles of the predictive distribution will be recorded.
+      3 output_type_id is not meaningful for a mean output_type. The property is primarily used to determine whether mean is a required or optional output type through properties required and optional. If mean is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If mean is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null
+      4                                                                                                                                                                                                                                                                                                                                                                                      Object containing required and optional arrays defining the probability levels at which quantiles of the predictive distribution will be recorded.
+      5 output_type_id is not meaningful for a mean output_type. The property is primarily used to determine whether mean is a required or optional output type through properties required and optional. If mean is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If mean is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null
+      6                                                                                                                                                                                                                                                                                                                                                                                      Object containing required and optional arrays defining the probability levels at which quantiles of the predictive distribution will be recorded.
+                         parentSchema.properties.output_type_id.examples
+      1                                                           NA, NA
+      2 0.25, 0.50, 0.75, 0.10, 0.20, 0.30, 0.40, 0.60, 0.70, 0.80, 0.90
+      3                                                           NA, NA
+      4 0.25, 0.50, 0.75, 0.10, 0.20, 0.30, 0.40, 0.60, 0.70, 0.80, 0.90
+      5                                                           NA, NA
+      6 0.25, 0.50, 0.75, 0.10, 0.20, 0.30, 0.40, 0.60, 0.70, 0.80, 0.90
+        parentSchema.properties.output_type_id.type
+      1                                      object
+      2                                      object
+      3                                      object
+      4                                      object
+      5                                      object
+      6                                      object
+                                                                                                                                                                                                                                                parentSchema.properties.output_type_id.oneOf
+      1 When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1
+      2                                                                                                                                                                                                                                                                                 NULL
+      3 When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1
+      4                                                                                                                                                                                                                                                                                 NULL
+      5 When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1
+      6                                                                                                                                                                                                                                                                                 NULL
+        parentSchema.properties.output_type_id.required
+      1                              required, optional
+      2                              required, optional
+      3                              required, optional
+      4                              required, optional
+      5                              required, optional
+      6                              required, optional
+                                                                                                                                                                parentSchema.properties.output_type_id.properties.required.description
+      1                                                                                                                                                                                                                           <NA>
+      2 Array of unique probability levels between 0 and 1 that must be present for submission to be valid. Can be null if no probability levels are required and all valid probability levels are specified in the optional property.
+      3                                                                                                                                                                                                                           <NA>
+      4 Array of unique probability levels between 0 and 1 that must be present for submission to be valid. Can be null if no probability levels are required and all valid probability levels are specified in the optional property.
+      5                                                                                                                                                                                                                           <NA>
+      6 Array of unique probability levels between 0 and 1 that must be present for submission to be valid. Can be null if no probability levels are required and all valid probability levels are specified in the optional property.
+        parentSchema.properties.output_type_id.properties.required.type
+      1                                                            NULL
+      2                                                     array, null
+      3                                                            NULL
+      4                                                     array, null
+      5                                                            NULL
+      6                                                     array, null
+        parentSchema.properties.output_type_id.properties.required.uniqueItems
+      1                                                                     NA
+      2                                                                   TRUE
+      3                                                                     NA
+      4                                                                   TRUE
+      5                                                                     NA
+      6                                                                   TRUE
+        parentSchema.properties.output_type_id.properties.required.items.type
+      1                                                                  <NA>
+      2                                                                number
+      3                                                                  <NA>
+      4                                                                number
+      5                                                                  <NA>
+      6                                                                number
+        parentSchema.properties.output_type_id.properties.required.items.minimum
+      1                                                                       NA
+      2                                                                        0
+      3                                                                       NA
+      4                                                                        0
+      5                                                                       NA
+      6                                                                        0
+        parentSchema.properties.output_type_id.properties.required.items.maximum
+      1                                                                       NA
+      2                                                                        1
+      3                                                                       NA
+      4                                                                        1
+      5                                                                       NA
+      6                                                                        1
+                                                                                           parentSchema.properties.output_type_id.properties.optional.description
+      1                                                                                                                                                      <NA>
+      2 Array of valid but not required unique probability levels. Can be null if all probability levels are required and are specified in the required property.
+      3                                                                                                                                                      <NA>
+      4 Array of valid but not required unique probability levels. Can be null if all probability levels are required and are specified in the required property.
+      5                                                                                                                                                      <NA>
+      6 Array of valid but not required unique probability levels. Can be null if all probability levels are required and are specified in the required property.
+        parentSchema.properties.output_type_id.properties.optional.type
+      1                                                            NULL
+      2                                                     array, null
+      3                                                            NULL
+      4                                                     array, null
+      5                                                            NULL
+      6                                                     array, null
+        parentSchema.properties.output_type_id.properties.optional.uniqueItems
+      1                                                                     NA
+      2                                                                   TRUE
+      3                                                                     NA
+      4                                                                   TRUE
+      5                                                                     NA
+      6                                                                   TRUE
+        parentSchema.properties.output_type_id.properties.optional.items.type
+      1                                                                  <NA>
+      2                                                                number
+      3                                                                  <NA>
+      4                                                                number
+      5                                                                  <NA>
+      6                                                                number
+        parentSchema.properties.output_type_id.properties.optional.items.minimum
+      1                                                                       NA
+      2                                                                        0
+      3                                                                       NA
+      4                                                                        0
+      5                                                                       NA
+      6                                                                        0
+        parentSchema.properties.output_type_id.properties.optional.items.maximum
+      1                                                                       NA
+      2                                                                        1
+      3                                                                       NA
+      4                                                                        1
+      5                                                                       NA
+      6                                                                        1
+        parentSchema.properties.value.type
+      1                             object
+      2                             object
+      3                             object
+      4                             object
+      5                             object
+      6                             object
+                                                                                  parentSchema.properties.value.description
+      1                                                           Object defining the characteristics of valid mean values.
+      2 Object defining the characteristics of valid quantiles of the predictive distribution at a given probability level.
+      3                                                           Object defining the characteristics of valid mean values.
+      4 Object defining the characteristics of valid quantiles of the predictive distribution at a given probability level.
+      5                                                           Object defining the characteristics of valid mean values.
+      6 Object defining the characteristics of valid quantiles of the predictive distribution at a given probability level.
+        parentSchema.properties.value.examples
+      1                              double, 0
+      2                                   NULL
+      3                              double, 0
+      4                                   NULL
+      5                              double, 0
+      6                                   NULL
+        parentSchema.properties.value.properties.type.description
+      1                                 Data type of mean values.
+      2                             Data type of quantile values.
+      3                                 Data type of mean values.
+      4                             Data type of quantile values.
+      5                                 Data type of mean values.
+      6                             Data type of quantile values.
+        parentSchema.properties.value.properties.type.type
+      1                                             string
+      2                                             string
+      3                                             string
+      4                                             string
+      5                                             string
+      6                                             string
+        parentSchema.properties.value.properties.type.enum
+      1                                    double, integer
+      2                                    double, integer
+      3                                    double, integer
+      4                                    double, integer
+      5                                    double, integer
+      6                                    double, integer
+        parentSchema.properties.value.properties.type.examples
+      1                                                   NULL
+      2                                                 double
+      3                                                   NULL
+      4                                                 double
+      5                                                   NULL
+      6                                                 double
+        parentSchema.properties.value.properties.minimum.description
+      1                       The minimum inclusive valid mean value
+      2       The minimum inclusive valid quantile value (optional).
+      3                       The minimum inclusive valid mean value
+      4       The minimum inclusive valid quantile value (optional).
+      5                       The minimum inclusive valid mean value
+      6       The minimum inclusive valid quantile value (optional).
+        parentSchema.properties.value.properties.minimum.type
+      1                                       number, integer
+      2                                       number, integer
+      3                                       number, integer
+      4                                       number, integer
+      5                                       number, integer
+      6                                       number, integer
+        parentSchema.properties.value.properties.minimum.examples
+      1                                                      NULL
+      2                                                         0
+      3                                                      NULL
+      4                                                         0
+      5                                                      NULL
+      6                                                         0
+        parentSchema.properties.value.properties.maximum.description
+      1                       the maximum inclusive valid mean value
+      2       The maximum inclusive valid quantile value (optional).
+      3                       the maximum inclusive valid mean value
+      4       The maximum inclusive valid quantile value (optional).
+      5                       the maximum inclusive valid mean value
+      6       The maximum inclusive valid quantile value (optional).
+        parentSchema.properties.value.properties.maximum.type
+      1                                       number, integer
+      2                                       number, integer
+      3                                       number, integer
+      4                                       number, integer
+      5                                       number, integer
+      6                                       number, integer
+        parentSchema.properties.value.required parentSchema.required
+      1                                   type output_type_id, value
+      2                                   type output_type_id, value
+      3                                   type output_type_id, value
+      4                                   type output_type_id, value
+      5                                   type output_type_id, value
+      6                                   type output_type_id, value
+                                                                                                                                                  data.type_id.required
+      1                                                                                                                                                            NULL
+      2 0.010, 0.025, 0.050, 0.100, 0.150, 0.200, 0.250, 0.300, 0.350, 0.400, 0.450, 0.500, 0.550, 0.600, 0.650, 0.700, 0.750, 0.800, 0.850, 0.900, 0.950, 0.975, 0.990
+      3                                                                                                                                                            NULL
+      4 0.010, 0.025, 0.050, 0.100, 0.150, 0.200, 0.250, 0.300, 0.350, 0.400, 0.450, 0.500, 0.550, 0.600, 0.650, 0.700, 0.750, 0.800, 0.850, 0.900, 0.950, 0.975, 0.990
+      5                                                                                                                                                            NULL
+      6 0.010, 0.025, 0.050, 0.100, 0.150, 0.200, 0.250, 0.300, 0.350, 0.400, 0.450, 0.500, 0.550, 0.600, 0.650, 0.700, 0.750, 0.800, 0.850, 0.900, 0.950, 0.975, 0.990
+        data.type_id.optional data.value.type data.value.minimum
+      1                    NA         integer                  0
+      2                  NULL         integer                  0
+      3                    NA         integer                  0
+      4                  NULL         integer                  0
+      5                    NA         integer                  0
+      6                  NULL         integer                  0
+                                            dataPath
+      1     /rounds/0/model_tasks/0/output_type/mean
+      2 /rounds/0/model_tasks/0/output_type/quantile
+      3     /rounds/1/model_tasks/0/output_type/mean
+      4 /rounds/1/model_tasks/0/output_type/quantile
+      5     /rounds/2/model_tasks/0/output_type/mean
+      6 /rounds/2/model_tasks/0/output_type/quantile
       attr(,"config_path")
       [1] "testdata/dup-in-round-id.json"
       attr(,"schema_version")
-      [1] "v1.0.1"
+      [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v1.0.1/v1.0.1/tasks-schema.json
-      attr(,"errors")
-                                        instancePath
-      1 /rounds/1/model_tasks/0/task_ids/origin_date
-      2 /rounds/1/model_tasks/0/task_ids/origin_date
-      3 /rounds/2/model_tasks/0/task_ids/origin_date
-      4 /rounds/2/model_tasks/0/task_ids/origin_date
-      5 /rounds/2/model_tasks/0/task_ids/origin_date
-                                                                                               schemaPath
-      1 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/origin_date
-      2 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/origin_date
-      3 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/origin_date
-      4 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/origin_date
-      5 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/origin_date
-                     keyword
-      1 round_id uniqueItems
-      2 round_id uniqueItems
-      3 round_id uniqueItems
-      4 round_id uniqueItems
-      5 round_id uniqueItems
-                                                          message schema
-      1 must NOT contains duplicate round ID values across rounds       
-      2 must NOT contains duplicate round ID values across rounds       
-      3 must NOT contains duplicate round ID values across rounds       
-      4 must NOT contains duplicate round ID values across rounds       
-      5 must NOT contains duplicate round ID values across rounds       
-                               data
-      1 duplicate value: 2022-10-08
-      2 duplicate value: 2022-10-15
-      3 duplicate value: 2022-10-15
-      4 duplicate value: 2022-10-22
-      5 duplicate value: 2022-10-29
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json
 
