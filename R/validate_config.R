@@ -784,8 +784,8 @@ validate_mt_property_unique_vals <- function(model_task_grp,
     purrr::imap(
       dup_properties,
       ~ data.frame(
-        instancePath = glue::glue(get_error_path(schema, property, "instance"), "/{.y}"),
-        schemaPath = get_error_path(schema, property, "schema"),
+        instancePath = glue::glue(get_error_path(schema, .y, "instance")),
+        schemaPath = get_error_path(schema, .y, "schema"),
         keyword = glue::glue("{property} uniqueItems"),
         message = glue::glue("must NOT have duplicate items across 'required' and 'optional' properties. {property_text} '{.y}' contains duplicates."),
         schema = "",
@@ -826,9 +826,7 @@ validate_round_ids_consistent <- function(round, round_i,
     ~ tibble::tibble(
       instancePath = glue::glue_data(
         list(model_task_i = as.integer(.y)),
-        get_error_path(schema, "task_ids", "instance"),
-        "/{round_id_var}"
-      ),
+        get_error_path(schema, round_id_var, "instance")),
       schemaPath = get_error_path(schema, round_id_var, "schema"),
       keyword = "round_id var",
       message = glue::glue(
@@ -836,7 +834,7 @@ validate_round_ids_consistent <- function(round, round_i,
         " consistent across modeling task items"
       ),
       schema = "",
-      data = glue::glue("{.x} compared to model task 1")
+      data = glue::glue("{.x} compared to first model task item")
     )
   ) %>%
     purrr::list_rbind() %>%

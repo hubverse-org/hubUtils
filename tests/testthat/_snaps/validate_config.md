@@ -636,10 +636,10 @@
       1     /rounds/0/model_tasks/0/task_ids/horizon
       2   /rounds/1/model_tasks/0/task_ids/age_group
       3 /rounds/1/model_tasks/0/output_type/quantile
-                                                                           schemaPath
-      1    #/properties/rounds/items/properties/model_tasks/items/properties/task_ids
-      2    #/properties/rounds/items/properties/model_tasks/items/properties/task_ids
-      3 #/properties/rounds/items/properties/model_tasks/items/properties/output_type
+                                                                                               schemaPath
+      1     #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/horizon
+      2   #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/age_group
+      3 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile
                         keyword
       1    task_ids uniqueItems
       2    task_ids uniqueItems
@@ -675,9 +675,9 @@
         schema
       1       
       2       
-                                                                                                       data
-      1 Component "optional": Lengths (23, 22) differ (string compare on first 22) compared to model task 1
-      2                                    Component "optional": 1 string mismatch compared to model task 1
+                                                                                                                data
+      1 Component "optional": Lengths (23, 22) differ (string compare on first 22) compared to first model task item
+      2                                    Component "optional": 1 string mismatch compared to first model task item
 
 ---
 
@@ -707,9 +707,9 @@
         schema
       1       
       2       
-                                                                                                       data
-      1 Component "optional": Lengths (23, 22) differ (string compare on first 22) compared to model task 1
-      2                                    Component "optional": 1 string mismatch compared to model task 1
+                                                                                                                data
+      1 Component "optional": Lengths (23, 22) differ (string compare on first 22) compared to first model task item
+      2                                    Component "optional": 1 string mismatch compared to first model task item
 
 # Duplicate round ID values across rounds error successfully
 
