@@ -755,7 +755,13 @@ validate_mt_property_unique_vals <- function(model_task_grp,
       c("quantile", "cdf", "pmf", "sample")
     ] %>%
       purrr::compact() %>%
-      purrr::map(~ .x[["type_id"]])
+      purrr::map(
+        ~ if ("type_id" %in% names(.x)) {
+          .x[["type_id"]]
+        } else {
+          .x[["output_type_id"]]
+        }
+      )
   )
 
   dup_properties <- purrr::map(
@@ -873,7 +879,9 @@ dup_round_id_error_df <- function(dup_round_id,
   dup_mt_idx <- purrr::map(
     dup_round_idx,
     ~ get_round_ids(config_tasks, flatten = "task_id")[[.x]] %>%
-      purrr::imap_int(~{if (dup_round_id %in% .x) .y else NULL}) %>%
+      purrr::imap_int(~ {
+        if (dup_round_id %in% .x) .y else NULL
+      }) %>%
       purrr::compact()
   )
 
@@ -887,10 +895,13 @@ dup_round_id_error_df <- function(dup_round_id,
           model_task_i = .y
         ),
         get_error_path(schema, get_round_id_var(.x, config_tasks), "instance",
-                       append_item_n = TRUE)
+          append_item_n = TRUE
+        )
       ),
-      schemaPath = get_error_path(schema, get_round_id_var(.x, config_tasks),
-        "schema"),
+      schemaPath = get_error_path(
+        schema, get_round_id_var(.x, config_tasks),
+        "schema"
+      ),
       keyword = "round_id uniqueItems",
       message = glue::glue(
         "must NOT contains duplicate round ID values across rounds"

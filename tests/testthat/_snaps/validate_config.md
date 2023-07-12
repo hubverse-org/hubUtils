@@ -582,12 +582,12 @@
     Output
       [1] FALSE
       attr(,"errors")
-                                                         instancePath
-      1         /rounds/1/model_tasks/0/task_ids/origin_date/optional
-      2 /rounds/1/model_tasks/0/output_type/quantile/type_id/required
-                                                                                                                                                  schemaPath
-      1                    #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/origin_date/properties/optional/uniqueItems
-      2 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile/properties/type_id/properties/required/uniqueItems
+                                                                instancePath
+      1                /rounds/1/model_tasks/0/task_ids/origin_date/optional
+      2 /rounds/1/model_tasks/0/output_type/quantile/output_type_id/required
+                                                                                                                                                         schemaPath
+      1                           #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/origin_date/properties/optional/uniqueItems
+      2 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile/properties/output_type_id/properties/required/uniqueItems
             keyword params.i params.j
       1 uniqueItems        2        3
       2 uniqueItems       15       16
@@ -609,15 +609,15 @@
                                                                                                                                                                                  data
       1                                                                                                                                2022-10-15, 2022-10-22, 2022-10-29, 2022-10-29
       2 0.010, 0.025, 0.050, 0.050, 0.100, 0.150, 0.200, 0.250, 0.300, 0.350, 0.400, 0.450, 0.500, 0.550, 0.600, 0.650, 0.650, 0.700, 0.750, 0.800, 0.850, 0.900, 0.950, 0.975, 0.990
-                                                             dataPath
-      1         /rounds/1/model_tasks/0/task_ids/origin_date/optional
-      2 /rounds/1/model_tasks/0/output_type/quantile/type_id/required
+                                                                    dataPath
+      1                /rounds/1/model_tasks/0/task_ids/origin_date/optional
+      2 /rounds/1/model_tasks/0/output_type/quantile/output_type_id/required
       attr(,"config_path")
       [1] "testdata/dup-in-array.json"
       attr(,"schema_version")
-      [1] "v1.0.1"
+      [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v1.0.1/v1.0.1/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json
 
 # Duplicate values across property error successfully
 
@@ -628,9 +628,9 @@
       attr(,"config_path")
       [1] "testdata/dup-in-property.json"
       attr(,"schema_version")
-      [1] "v1.0.1"
+      [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v1.0.1/v1.0.1/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json
       attr(,"errors")
                                         instancePath
       1     /rounds/0/model_tasks/0/task_ids/horizon
@@ -720,9 +720,9 @@
       attr(,"config_path")
       [1] "testdata/dup-in-round-id.json"
       attr(,"schema_version")
-      [1] "v1.0.1"
+      [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v1.0.1/v1.0.1/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json
       attr(,"errors")
                                         instancePath
       1 /rounds/1/model_tasks/0/task_ids/origin_date
