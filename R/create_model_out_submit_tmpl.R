@@ -9,7 +9,7 @@
 #' Ignored when `required_vals_only = FALSE`.
 #'
 #' @return a tibble template containing an expanded grid of valid task ID and
-#' output type ID value combinations for a given submission round (if applicable)
+#' output type ID value combinations for a given submission round
 #' and output type.
 #' If `required_vals_only = TRUE`, values are limited to the combination of required
 #' values only.

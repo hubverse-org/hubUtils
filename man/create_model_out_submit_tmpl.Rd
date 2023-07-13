@@ -36,7 +36,7 @@ Ignored when \code{required_vals_only = FALSE}.}
 }
 \value{
 a tibble template containing an expanded grid of valid task ID and
-output type ID value combinations for a given submission round (if applicable)
+output type ID value combinations for a given submission round
 and output type.
 If \code{required_vals_only = TRUE}, values are limited to the combination of required
 values only.
