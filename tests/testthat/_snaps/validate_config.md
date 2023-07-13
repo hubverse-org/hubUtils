@@ -695,9 +695,9 @@
                                           instancePath
       1 /rounds/0/model_tasks/1/task_ids/forecast_date
       2 /rounds/0/model_tasks/1/task_ids/forecast_date
-                                                                                             schemaPath
-      1 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/additionalProperties
-      2 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/additionalProperties
+                                                                                                 schemaPath
+      1 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/forecast_date
+      2 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/forecast_date
              keyword
       1 round_id var
       2 round_id var
