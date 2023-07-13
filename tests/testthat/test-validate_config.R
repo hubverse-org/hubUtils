@@ -1,6 +1,6 @@
 test_that("version from file handled successfully", {
   expect_equal(
-    get_config_schema_version(
+    get_config_file_schema_version(
       system.file(
         "testhubs/simple/hub-config/tasks.json",
         package = "hubUtils"
@@ -11,7 +11,7 @@ test_that("version from file handled successfully", {
   )
 
   expect_error(
-    get_config_schema_version(
+    get_config_file_schema_version(
       testthat::test_path("testdata", "empty.json"),
       config = "tasks"
     )

@@ -64,7 +64,7 @@ validate_config <- function(hub_path = ".",
   checkmate::assert_file_exists(config_path, extension = "json")
 
   if (schema_version == "from_config") {
-    schema_version <- get_config_schema_version(config_path, config)
+    schema_version <- get_config_file_schema_version(config_path, config)
   }
 
   # Get the latest version available in our GitHub schema repo
@@ -150,7 +150,7 @@ get_schema_valid_versions <- function(branch = "main") {
 }
 
 
-get_config_schema_version <- function(config_path, config) {
+get_config_file_schema_version <- function(config_path, config) {
   config_schema_version <- jsonlite::read_json(config_path)$schema_version
 
   if (is.null(config_schema_version)) {
