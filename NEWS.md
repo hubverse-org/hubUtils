@@ -1,5 +1,6 @@
 # hubUtils 0.0.0.9010
 
+* **Support for Hubs using schema earlier than v2.0.0 deprecated**. Currently a warning is issued when interacting with such Hubs. Support will eventually be retired completely and errors will be produced with Hubs using older config schema.
 * Added `create_model_out_submit_tmpl()` for generating round specific model output template tibbles (#82).
 * Added lower level utilities:
     * `expand_model_out_val_grid()` for creating an expanded grid of valid task ID and output type ID across round modeling tasks and output types.
