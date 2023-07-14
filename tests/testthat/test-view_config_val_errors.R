@@ -24,7 +24,7 @@ test_that("length 1 paths and related type & enum errors handled correctly", {
   validation <- suppressWarnings(
     validate_config(
       config_path = config_path, config = "admin",
-      branch = "br-v1.0.0", schema_version = "v1.0.0"
+      branch = "main", schema_version = "v1.0.0"
     )
   )
   set.seed(1)

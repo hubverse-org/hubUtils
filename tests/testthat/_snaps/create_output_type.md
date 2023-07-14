@@ -9,11 +9,11 @@
     Output
       $output_type
       $output_type$mean
-      $output_type$mean$type_id
-      $output_type$mean$type_id$required
+      $output_type$mean$output_type_id
+      $output_type$mean$output_type_id$required
       [1] NA
       
-      $output_type$mean$type_id$optional
+      $output_type$mean$output_type_id$optional
       NULL
       
       
@@ -27,11 +27,11 @@
       
       
       $output_type$median
-      $output_type$median$type_id
-      $output_type$median$type_id$required
+      $output_type$median$output_type_id
+      $output_type$median$output_type_id$required
       NULL
       
-      $output_type$median$type_id$optional
+      $output_type$median$output_type_id$optional
       [1] NA
       
       
@@ -42,11 +42,11 @@
       
       
       $output_type$quantile
-      $output_type$quantile$type_id
-      $output_type$quantile$type_id$required
+      $output_type$quantile$output_type_id
+      $output_type$quantile$output_type_id$required
       [1] 0.25 0.50 0.75
       
-      $output_type$quantile$type_id$optional
+      $output_type$quantile$output_type_id$optional
       [1] 0.1 0.2 0.3 0.4 0.6 0.7 0.8 0.9
       
       
@@ -65,7 +65,7 @@
       attr(,"n")
       [1] 3
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 # create_output_type functions error correctly
 

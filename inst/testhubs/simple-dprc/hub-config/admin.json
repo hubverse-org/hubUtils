@@ -1,5 +1,5 @@
 {
-    "schema_version": "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json",
+    "schema_version": "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/admin-schema.json",
     "name": "Simple Forecast Hub",
     "maintainer": "Consortium of Infectious Disease Modeling Hubs",
     "contact": {
@@ -12,6 +12,6 @@
         "model_abbr": "baseline",
         "model_type": "baseline"
     }],
-    "file_format": ["csvs"],
-    "timezone": ["US/Eastern"]
+    "file_format": ["csv", "parquet", "arrow"],
+    "timezone": "US/Eastern"
 }

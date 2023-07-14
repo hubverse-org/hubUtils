@@ -7,7 +7,7 @@ test_that("version from file handled successfully", {
       ),
       config = "tasks"
     ),
-    "v0.0.1"
+    "v2.0.0"
   )
 
   expect_error(
@@ -50,6 +50,21 @@ test_that("Config validated successfully", {
     ),
     config = "tasks"
   )))
+  # Test deprecated version
+  expect_warning(suppressMessages(validate_config(
+    hub_path = system.file(
+      "testhubs/simple-dprc/",
+      package = "hubUtils"
+    ),
+    config = "tasks"
+  )))
+  expect_true(suppressWarnings(suppressMessages(validate_config(
+    hub_path = system.file(
+      "testhubs/simple-dprc/",
+      package = "hubUtils"
+    ),
+    config = "tasks"
+  ))))
 })
 
 
@@ -99,18 +114,14 @@ test_that("Additional properties error successfully", {
 
 test_that("Duplicate values in individual array error successfully", {
   config_path <- testthat::test_path("testdata", "dup-in-array.json")
-  out <- suppressWarnings(validate_config(config_path = config_path,
-                                          schema_version = "v2.0.0",
-                                          branch = "br-v2.0.0"))
+  out <- suppressWarnings(validate_config(config_path = config_path))
   expect_snapshot(out)
   expect_false(out)
 })
 
 test_that("Duplicate values across property error successfully", {
   config_path <- testthat::test_path("testdata", "dup-in-property.json")
-  out <- suppressWarnings(validate_config(config_path = config_path,
-                                          schema_version = "v2.0.0",
-                                          branch = "br-v2.0.0"))
+  out <- suppressWarnings(validate_config(config_path = config_path))
   expect_snapshot(out)
   expect_false(out)
 })
@@ -122,9 +133,7 @@ test_that("Inconsistent round ID variables across model tasks error successfully
   expect_false(out)
 
   config_path <- testthat::test_path("testdata", "round-id-inconsistent2.json")
-  out <- suppressWarnings(validate_config(config_path = config_path,
-                                          schema_version = "v2.0.0",
-                                          branch = "br-v2.0.0"))
+  out <- suppressWarnings(validate_config(config_path = config_path))
   expect_snapshot(out)
   expect_false(out)
 })
@@ -132,9 +141,7 @@ test_that("Inconsistent round ID variables across model tasks error successfully
 
 test_that("Duplicate round ID values across rounds error successfully", {
   config_path <- testthat::test_path("testdata", "dup-in-round-id.json")
-  out <- suppressWarnings(validate_config(config_path = config_path,
-                                          schema_version = "v2.0.0",
-                                          branch = "br-v2.0.0"))
+  out <- suppressWarnings(validate_config(config_path = config_path))
   expect_snapshot(out)
   expect_false(out)
 })

@@ -174,9 +174,9 @@
       attr(,"config_path")
       [1] "testdata/tasks-errors-rval.json"
       attr(,"schema_version")
-      [1] "v0.0.1"
+      [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json
       attr(,"errors")
                                                                 instancePath
       1 /rounds/0/model_tasks/1/target_metadata/0/target_keys/target_measure
@@ -218,9 +218,9 @@
       attr(,"config_path")
       [1] "testdata/tasks-errors-rval-reserved.json"
       attr(,"schema_version")
-      [1] "v0.0.1"
+      [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json
       attr(,"errors")
                                                                 instancePath
       1 /rounds/0/model_tasks/1/target_metadata/0/target_keys/target_measure
@@ -280,22 +280,22 @@
       1 additionalProperties    target_metadata must NOT have additional properties
         schema parentSchema.type
       1  FALSE            object
-                                                                                                                                                                                                                                                                                                                             parentSchema.description
-      1 Object defining valid model output types for a given modeling task. The name of each property corresponds to valid values in column 'type' while the 'type_id' property of each output type defines the valid values of the 'type_id' column and the 'value' property defines the valid values of the 'value' column for a given output type.
+                                                                                                                                                                                                                                                                                                                                                  parentSchema.description
+      1 Object defining valid model output types for a given modeling task. The name of each property corresponds to valid values in column 'output_type' while the 'output_type_id' property of each output type defines the valid values of the 'output_type_id' column and the 'value' property defines the valid values of the 'value' column for a given output type.
         parentSchema.properties.mean.type
       1                            object
                                     parentSchema.properties.mean.description
       1 Object defining the mean of the predictive distribution output type.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                             parentSchema.properties.mean.properties.type_id.description
-      1 type_id is not meaningful for a mean output_type. The property is primarily used to determine whether mean is a required or optional output type through properties required and optional. If mean is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If mean is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null
-        parentSchema.properties.mean.properties.type_id.examples
-      1                                                   NA, NA
-        parentSchema.properties.mean.properties.type_id.type
-      1                                               object
-                                                                                                                                                                                                                                       parentSchema.properties.mean.properties.type_id.oneOf
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                             parentSchema.properties.mean.properties.output_type_id.description
+      1 output_type_id is not meaningful for a mean output_type. The property is primarily used to determine whether mean is a required or optional output type through properties required and optional. If mean is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If mean is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null
+        parentSchema.properties.mean.properties.output_type_id.examples
+      1                                                          NA, NA
+        parentSchema.properties.mean.properties.output_type_id.type
+      1                                                      object
+                                                                                                                                                                                                                                parentSchema.properties.mean.properties.output_type_id.oneOf
       1 When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1
-        parentSchema.properties.mean.properties.type_id.required
-      1                                       required, optional
+        parentSchema.properties.mean.properties.output_type_id.required
+      1                                              required, optional
         parentSchema.properties.mean.properties.value.type
       1                                             object
         parentSchema.properties.mean.properties.value.description
@@ -319,19 +319,19 @@
         parentSchema.properties.mean.properties.value.required
       1                                                   type
         parentSchema.properties.mean.required parentSchema.properties.median.type
-      1                        type_id, value                              object
+      1                 output_type_id, value                              object
                                    parentSchema.properties.median.description
       1 Object defining the median of the predictive distribution output type
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   parentSchema.properties.median.properties.type_id.description
-      1 type_id is not meaningful for a median output_type. The property is primarily used to determine whether median is a required or optional output type through properties required and optional. If median is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If median is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null
-        parentSchema.properties.median.properties.type_id.examples
-      1                                                     NA, NA
-        parentSchema.properties.median.properties.type_id.type
-      1                                                 object
-                                                                                                                                                                                                                                             parentSchema.properties.median.properties.type_id.oneOf
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   parentSchema.properties.median.properties.output_type_id.description
+      1 output_type_id is not meaningful for a median output_type. The property is primarily used to determine whether median is a required or optional output type through properties required and optional. If median is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If median is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null
+        parentSchema.properties.median.properties.output_type_id.examples
+      1                                                            NA, NA
+        parentSchema.properties.median.properties.output_type_id.type
+      1                                                        object
+                                                                                                                                                                                                                                      parentSchema.properties.median.properties.output_type_id.oneOf
       1 When median is required, property set to single element 'NA' array, When median is optional, property set to null, array, null, NA, NA, 1, NA, When median is required, property set to null, When median is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1
-        parentSchema.properties.median.properties.type_id.required
-      1                                         required, optional
+        parentSchema.properties.median.properties.output_type_id.required
+      1                                                required, optional
         parentSchema.properties.median.properties.value.type
       1                                               object
         parentSchema.properties.median.properties.value.description
@@ -355,39 +355,43 @@
         parentSchema.properties.median.properties.value.required
       1                                                     type
         parentSchema.properties.median.required
-      1                          type_id, value
+      1                   output_type_id, value
                                      parentSchema.properties.quantile.description
       1 Object defining the quantiles of the predictive distribution output type.
         parentSchema.properties.quantile.type
       1                                object
-                                                                                           parentSchema.properties.quantile.properties.type_id.description
+                                                                                    parentSchema.properties.quantile.properties.output_type_id.description
       1 Object containing required and optional arrays defining the probability levels at which quantiles of the predictive distribution will be recorded.
-            parentSchema.properties.quantile.properties.type_id.examples
-      1 0.25, 0.50, 0.75, 0.10, 0.20, 0.30, 0.40, 0.60, 0.70, 0.80, 0.90
-        parentSchema.properties.quantile.properties.type_id.type
-      1                                                   object
-                                                                                                                                                   parentSchema.properties.quantile.properties.type_id.properties.required.description
+        parentSchema.properties.quantile.properties.output_type_id.examples
+      1    0.25, 0.50, 0.75, 0.10, 0.20, 0.30, 0.40, 0.60, 0.70, 0.80, 0.90
+        parentSchema.properties.quantile.properties.output_type_id.type
+      1                                                          object
+                                                                                                                                            parentSchema.properties.quantile.properties.output_type_id.properties.required.description
       1 Array of unique probability levels between 0 and 1 that must be present for submission to be valid. Can be null if no probability levels are required and all valid probability levels are specified in the optional property.
-        parentSchema.properties.quantile.properties.type_id.properties.required.type
-      1                                                                  array, null
-        parentSchema.properties.quantile.properties.type_id.properties.required.items.type
-      1                                                                             number
-        parentSchema.properties.quantile.properties.type_id.properties.required.items.minimum
-      1                                                                                     0
-        parentSchema.properties.quantile.properties.type_id.properties.required.items.maximum
-      1                                                                                     1
-                                                                              parentSchema.properties.quantile.properties.type_id.properties.optional.description
+        parentSchema.properties.quantile.properties.output_type_id.properties.required.type
+      1                                                                         array, null
+        parentSchema.properties.quantile.properties.output_type_id.properties.required.uniqueItems
+      1                                                                                       TRUE
+        parentSchema.properties.quantile.properties.output_type_id.properties.required.items.type
+      1                                                                                    number
+        parentSchema.properties.quantile.properties.output_type_id.properties.required.items.minimum
+      1                                                                                            0
+        parentSchema.properties.quantile.properties.output_type_id.properties.required.items.maximum
+      1                                                                                            1
+                                                                       parentSchema.properties.quantile.properties.output_type_id.properties.optional.description
       1 Array of valid but not required unique probability levels. Can be null if all probability levels are required and are specified in the required property.
-        parentSchema.properties.quantile.properties.type_id.properties.optional.type
-      1                                                                  array, null
-        parentSchema.properties.quantile.properties.type_id.properties.optional.items.type
-      1                                                                             number
-        parentSchema.properties.quantile.properties.type_id.properties.optional.items.minimum
-      1                                                                                     0
-        parentSchema.properties.quantile.properties.type_id.properties.optional.items.maximum
-      1                                                                                     1
-        parentSchema.properties.quantile.properties.type_id.required
-      1                                           required, optional
+        parentSchema.properties.quantile.properties.output_type_id.properties.optional.type
+      1                                                                         array, null
+        parentSchema.properties.quantile.properties.output_type_id.properties.optional.uniqueItems
+      1                                                                                       TRUE
+        parentSchema.properties.quantile.properties.output_type_id.properties.optional.items.type
+      1                                                                                    number
+        parentSchema.properties.quantile.properties.output_type_id.properties.optional.items.minimum
+      1                                                                                            0
+        parentSchema.properties.quantile.properties.output_type_id.properties.optional.items.maximum
+      1                                                                                            1
+        parentSchema.properties.quantile.properties.output_type_id.required
+      1                                                  required, optional
         parentSchema.properties.quantile.properties.value.type
       1                                                 object
                                                               parentSchema.properties.quantile.properties.value.description
@@ -413,31 +417,35 @@
         parentSchema.properties.quantile.properties.value.required
       1                                                       type
         parentSchema.properties.quantile.required
-      1                            type_id, value
+      1                     output_type_id, value
                                                                  parentSchema.properties.cdf.description
       1 Object defining the cumulative distribution function of the predictive distribution output type.
         parentSchema.properties.cdf.type
       1                           object
-                                                                                                                                                     parentSchema.properties.cdf.properties.type_id.description
+                                                                                                                                              parentSchema.properties.cdf.properties.output_type_id.description
       1 Object containing required and optional arrays defining possible values of the target variable at which values of the cumulative distribution function of the predictive distribution will be recorded.
-                                               parentSchema.properties.cdf.properties.type_id.examples
+                                        parentSchema.properties.cdf.properties.output_type_id.examples
       1 10, 20, EW202240, EW202241, EW202242, EW202243, EW202244, EW202245, EW202246, EW202247, NA, NA
-        parentSchema.properties.cdf.properties.type_id.type
-      1                                              object
-                                                                                                                         parentSchema.properties.cdf.properties.type_id.properties.required.description
+        parentSchema.properties.cdf.properties.output_type_id.type
+      1                                                     object
+                                                                                                                  parentSchema.properties.cdf.properties.output_type_id.properties.required.description
       1 Array of unique target values that must be present for submission to be valid. Can be null if no target values are required and all valid target values are specified in the optional property.
-        parentSchema.properties.cdf.properties.type_id.properties.required.type
-      1                                                             array, null
-        parentSchema.properties.cdf.properties.type_id.properties.required.oneOf
-      1            number, integer, string, 0, NA, NA, ^EW[0-9]{6}, NA, 8, NA, 8
-                                                                         parentSchema.properties.cdf.properties.type_id.properties.optional.description
+        parentSchema.properties.cdf.properties.output_type_id.properties.required.type
+      1                                                                    array, null
+        parentSchema.properties.cdf.properties.output_type_id.properties.required.uniqueItems
+      1                                                                                  TRUE
+        parentSchema.properties.cdf.properties.output_type_id.properties.required.oneOf
+      1                   number, integer, string, 0, NA, NA, ^EW[0-9]{6}, NA, 8, NA, 8
+                                                                  parentSchema.properties.cdf.properties.output_type_id.properties.optional.description
       1 Array of valid but not required unique target values. Can be null if all target values are required and are specified in the required property.
-        parentSchema.properties.cdf.properties.type_id.properties.optional.type
-      1                                                             array, null
-        parentSchema.properties.cdf.properties.type_id.properties.optional.oneOf
-      1            number, integer, string, 0, NA, NA, ^EW[0-9]{6}, NA, 8, NA, 8
-        parentSchema.properties.cdf.properties.type_id.required
-      1                                      required, optional
+        parentSchema.properties.cdf.properties.output_type_id.properties.optional.type
+      1                                                                    array, null
+        parentSchema.properties.cdf.properties.output_type_id.properties.optional.uniqueItems
+      1                                                                                  TRUE
+        parentSchema.properties.cdf.properties.output_type_id.properties.optional.oneOf
+      1                   number, integer, string, 0, NA, NA, ^EW[0-9]{6}, NA, 8, NA, 8
+        parentSchema.properties.cdf.properties.output_type_id.required
+      1                                             required, optional
         parentSchema.properties.cdf.properties.value.type
       1                                            object
                                                                     parentSchema.properties.cdf.properties.value.description
@@ -459,31 +467,35 @@
         parentSchema.properties.cdf.properties.value.required
       1                                type, minimum, maximum
         parentSchema.properties.cdf.required
-      1                       type_id, value
+      1                output_type_id, value
                                                                                                       parentSchema.properties.pmf.description
       1 Object defining a probability mass function for a discrete variable output type. Includes nominal, binary and ordinal variable types.
         parentSchema.properties.pmf.type
       1                           object
-                                                parentSchema.properties.pmf.properties.type_id.description
+                                         parentSchema.properties.pmf.properties.output_type_id.description
       1 Object containing required and optional arrays specifying valid categories of a discrete variable.
-        parentSchema.properties.pmf.properties.type_id.examples
-      1                        NA, low, moderate, high, extreme
-        parentSchema.properties.pmf.properties.type_id.type
-      1                                              object
-                                                                                                                                       parentSchema.properties.pmf.properties.type_id.properties.required.description
+        parentSchema.properties.pmf.properties.output_type_id.examples
+      1                               NA, low, moderate, high, extreme
+        parentSchema.properties.pmf.properties.output_type_id.type
+      1                                                     object
+                                                                                                                                parentSchema.properties.pmf.properties.output_type_id.properties.required.description
       1 Array of unique categories of a discrete variable that must be present for submission to be valid. Can be null if no categories are required and all valid categories are specified in the optional property.
-        parentSchema.properties.pmf.properties.type_id.properties.required.type
-      1                                                             array, null
-        parentSchema.properties.pmf.properties.type_id.properties.required.type
-      1                                                                  string
-                                                                                          parentSchema.properties.pmf.properties.type_id.properties.optional.description
+        parentSchema.properties.pmf.properties.output_type_id.properties.required.type
+      1                                                                    array, null
+        parentSchema.properties.pmf.properties.output_type_id.properties.required.uniqueItems
+      1                                                                                  TRUE
+        parentSchema.properties.pmf.properties.output_type_id.properties.required.type
+      1                                                                         string
+                                                                                   parentSchema.properties.pmf.properties.output_type_id.properties.optional.description
       1 Array of valid but not required unique categories of a discrete variable. Can be null if all categories are required and are specified in the required property.
-        parentSchema.properties.pmf.properties.type_id.properties.optional.type
-      1                                                             array, null
-        parentSchema.properties.pmf.properties.type_id.properties.optional.type
-      1                                                                  string
-        parentSchema.properties.pmf.properties.type_id.required
-      1                                      required, optional
+        parentSchema.properties.pmf.properties.output_type_id.properties.optional.type
+      1                                                                    array, null
+        parentSchema.properties.pmf.properties.output_type_id.properties.optional.uniqueItems
+      1                                                                                  TRUE
+        parentSchema.properties.pmf.properties.output_type_id.properties.optional.type
+      1                                                                         string
+        parentSchema.properties.pmf.properties.output_type_id.required
+      1                                             required, optional
         parentSchema.properties.pmf.properties.value.type
       1                                            object
                                                                                                  parentSchema.properties.pmf.properties.value.description
@@ -505,39 +517,43 @@
         parentSchema.properties.pmf.properties.value.required
       1                                type, minimum, maximum
         parentSchema.properties.pmf.required
-      1                       type_id, value
+      1                output_type_id, value
         parentSchema.properties.sample.description
       1      Object defining a sample output type.
         parentSchema.properties.sample.type
       1                              object
-                         parentSchema.properties.sample.properties.type_id.description
+                  parentSchema.properties.sample.properties.output_type_id.description
       1 Object containing required and optional arrays specifying valid sample values.
-        parentSchema.properties.sample.properties.type_id.examples
-      1          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-        parentSchema.properties.sample.properties.type_id.type
-      1                                                 object
-                                                                                                                         parentSchema.properties.sample.properties.type_id.properties.required.description
+        parentSchema.properties.sample.properties.output_type_id.examples
+      1                 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+        parentSchema.properties.sample.properties.output_type_id.type
+      1                                                        object
+                                                                                                                  parentSchema.properties.sample.properties.output_type_id.properties.required.description
       1 Array of unique sample indexes that must be present for submission to be valid. Can be null if no sample indexes are required and all valid sample indexes are specified in the optional property.
-        parentSchema.properties.sample.properties.type_id.properties.required.type
-      1                                                                array, null
-        parentSchema.properties.sample.properties.type_id.properties.required.items.type
-      1                                                                          integer
-        parentSchema.properties.sample.properties.type_id.properties.required.items.minimum
-      1                                                                                   1
-                                                                        parentSchema.properties.sample.properties.type_id.properties.optional.description
+        parentSchema.properties.sample.properties.output_type_id.properties.required.type
+      1                                                                       array, null
+        parentSchema.properties.sample.properties.output_type_id.properties.required.uniqueItems
+      1                                                                                     TRUE
+        parentSchema.properties.sample.properties.output_type_id.properties.required.items.type
+      1                                                                                 integer
+        parentSchema.properties.sample.properties.output_type_id.properties.required.items.minimum
+      1                                                                                          1
+                                                                 parentSchema.properties.sample.properties.output_type_id.properties.optional.description
       1 Array of valid but not required unique sample indexes. Can be null if all sample indexes are required and are specified in the required property.
-        parentSchema.properties.sample.properties.type_id.properties.optional.type
-      1                                                                array, null
-        parentSchema.properties.sample.properties.type_id.properties.optional.items.type
-      1                                                                          integer
-        parentSchema.properties.sample.properties.type_id.properties.optional.items.minimum
-      1                                                                                   1
-        parentSchema.properties.sample.properties.type_id.required
-      1                                         required, optional
+        parentSchema.properties.sample.properties.output_type_id.properties.optional.type
+      1                                                                       array, null
+        parentSchema.properties.sample.properties.output_type_id.properties.optional.uniqueItems
+      1                                                                                     TRUE
+        parentSchema.properties.sample.properties.output_type_id.properties.optional.items.type
+      1                                                                                 integer
+        parentSchema.properties.sample.properties.output_type_id.properties.optional.items.minimum
+      1                                                                                          1
+        parentSchema.properties.sample.properties.output_type_id.required
+      1                                                required, optional
         parentSchema.properties.sample.properties.value.type
       1                                               object
-                                                                                                                                                                                                                                                                                           parentSchema.properties.sample.properties.value.description
-      1 Object defining valid values of samples from the predictive distribution for a given sample index.  Depending on the Hub specification, samples with the same sample index (specified by the type_id) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. See Hub documentation for details.
+                                                                                                                                                                                                                                                                                                  parentSchema.properties.sample.properties.value.description
+      1 Object defining valid values of samples from the predictive distribution for a given sample index.  Depending on the Hub specification, samples with the same sample index (specified by the output_type_id) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. See Hub documentation for details.
         parentSchema.properties.sample.properties.value.properties.type.description
       1                 Data type of sample value from the predictive distribution.
         parentSchema.properties.sample.properties.value.properties.type.examples
@@ -553,15 +569,15 @@
         parentSchema.properties.sample.properties.value.required
       1                                                     type
         parentSchema.properties.sample.required parentSchema.additionalProperties
-      1                          type_id, value                             FALSE
-        data.mean.type_id.required data.mean.type_id.optional data.mean.value.type
-      1                         NA                         NA              integer
-        data.mean.value.minimum
-      1                       0
-                                                                                                                                         data.quantile.type_id.required
+      1                   output_type_id, value                             FALSE
+        data.mean.output_type_id.required data.mean.output_type_id.optional
+      1                                NA                                NA
+        data.mean.value.type data.mean.value.minimum
+      1              integer                       0
+                                                                                                                                  data.quantile.output_type_id.required
       1 0.010, 0.025, 0.050, 0.100, 0.150, 0.200, 0.250, 0.300, 0.350, 0.400, 0.450, 0.500, 0.550, 0.600, 0.650, 0.700, 0.750, 0.800, 0.850, 0.900, 0.950, 0.975, 0.990
-        data.quantile.type_id.optional data.quantile.value.type
-      1                             NA                  integer
+        data.quantile.output_type_id.optional data.quantile.value.type
+      1                                    NA                  integer
         data.quantile.value.minimum
       1                           0
                                                                                                                                                                               data.target_metadata
@@ -571,9 +587,9 @@
       attr(,"config_path")
       [1] "testdata/tasks-addprop.json"
       attr(,"schema_version")
-      [1] "v1.0.0"
+      [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json
 
 # Duplicate values in individual array error successfully
 
@@ -617,7 +633,7 @@
       attr(,"schema_version")
       [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json
 
 # Duplicate values across property error successfully
 
@@ -630,7 +646,7 @@
       attr(,"schema_version")
       [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json
       attr(,"errors")
                                         instancePath
       1     /rounds/0/model_tasks/0/task_ids/horizon
@@ -690,7 +706,7 @@
       attr(,"schema_version")
       [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json
       attr(,"errors")
                                           instancePath
       1 /rounds/0/model_tasks/1/task_ids/forecast_date
@@ -722,7 +738,7 @@
       attr(,"schema_version")
       [1] "v2.0.0"
       attr(,"schema_url")
-      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json
+      https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json
       attr(,"errors")
                                         instancePath
       1 /rounds/1/model_tasks/0/task_ids/origin_date

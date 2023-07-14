@@ -1,5 +1,5 @@
 {
-    "schema_version": "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json",
+    "schema_version": "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json",
     "rounds": [{
             "round_id_from_variable": true,
             "round_id": "origin_date",
@@ -7,7 +7,7 @@
                 "task_ids": {
                     "origin_date": {
                         "required": null,
-                        "optional": ["2022-10-01", "2022-10-08", "2022-10-15", "2022-10-22", "2022-10-29"]
+                        "optional": ["2022-10-01", "2022-10-08"]
                     },
                     "target": {
                         "required": ["wk inc flu hosp"],
@@ -79,7 +79,7 @@
                 },
                 "output_type": {
                     "mean": {
-                        "output_type_id": {
+                        "type_id": {
                             "required": null,
                             "optional": ["NA"]
                         },
@@ -89,7 +89,7 @@
                         }
                     },
                     "quantile": {
-                        "output_type_id": {
+                        "type_id": {
                             "required": [
                                 0.010,
                                 0.025,
@@ -122,20 +122,35 @@
                             "minimum": 0
                         }
                     }
-                }
-            },
-            {
+                },
+                "target_metadata": [{
+                    "target_id": "wk inc flu hosp",
+                    "target_name": "Weekly incident influenza hospitalizations",
+                    "target_units": "count",
+                    "target_keys": {
+                        "target": "wk inc flu hosp"
+                    },
+                    "target_type": "continuous",
+                    "is_step_ahead": true,
+                    "time_unit": "week"
+                }]
+            }],
+            "submissions_due": {
+                "relative_to": "origin_date",
+                "start": -6,
+                "end": 1
+            }
+        },{
+            "round_id_from_variable": true,
+            "round_id": "origin_date",
+            "model_tasks": [{
                 "task_ids": {
                     "origin_date": {
                         "required": null,
-                        "optional": ["2022-10-01", "2022-10-08", "2022-10-15", "2022-10-22", "2022-10-29"]
+                        "optional": ["2022-10-15", "2022-10-22", "2022-10-29"]
                     },
-                    "target_outcome": {
-                        "required": ["flu hosp"],
-                        "optional": ["wk inc flu hosp", "flu case"]
-                    },
-                    "target_mesures": {
-                        "required": ["wk inc"],
+                    "target": {
+                        "required": ["wk inc flu hosp"],
                         "optional": null
                     },
                     "horizon": {
@@ -200,11 +215,22 @@
                             "72",
                             "78"
                         ]
+                    },
+                     "age_group": {
+                        "required": [
+                             "65+"
+                        ],
+                        "optional": [
+                            "0-5",
+                            "6-18",
+                            "19-24",
+                            "25-64"
+                        ]
                     }
                 },
                 "output_type": {
                     "mean": {
-                        "output_type_id": {
+                        "type_id": {
                             "required": null,
                             "optional": ["NA"]
                         },
@@ -214,7 +240,7 @@
                         }
                     },
                     "quantile": {
-                        "output_type_id": {
+                        "type_id": {
                             "required": [
                                 0.010,
                                 0.025,
@@ -248,26 +274,12 @@
                         }
                     }
                 },
-                "target_metadata": [
-                {
+                "target_metadata": [{
                     "target_id": "wk inc flu hosp",
                     "target_name": "Weekly incident influenza hospitalizations",
                     "target_units": "count",
                     "target_keys": {
-                        "target_measure": "wk inc",
-                        "target_outcome": "flu hospitalisation"
-                    },
-                    "target_type": "continuous",
-                    "is_step_ahead": true,
-                    "time_unit": "week"
-                },
-                                {
-                    "target_id": "wk inc flu case",
-                    "target_name": "Weekly incident influenza cases",
-                    "target_units": "count",
-                    "target_keys": {
-                        "target_measure": "wk inc",
-                        "target_outcome": "flu case"
+                        "target": "wk inc flu hosp"
                     },
                     "target_type": "continuous",
                     "is_step_ahead": true,
@@ -280,6 +292,5 @@
                 "end": 1
             }
         }
-
     ]
 }

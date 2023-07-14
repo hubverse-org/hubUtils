@@ -36,11 +36,11 @@ test_that("Hub with config errors fails validation", {
 
   expect_equal(
     attr(val, "schema_url"),
-    "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/tree/main/v0.0.1"
+    "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/tree/main/v2.0.0"
   )
 
   expect_equal(
     attr(val, "schema_version"),
-    "v0.0.1"
+    "v2.0.0"
   )
 })
