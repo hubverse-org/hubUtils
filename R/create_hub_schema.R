@@ -142,6 +142,11 @@ get_task_id_type <- function(config_tasks,
 
 
 get_output_type_id_type <- function(config_tasks) {
+  # Get output type id property according to config schema version
+  # TODO: remove back-compatibility with schema versions < v2.0.0 when support
+  # retired
+  config_tid <- get_config_tid(config_tasks = config_tasks)
+
   values <- purrr::map(
     config_tasks[["rounds"]],
     ~ .x[["model_tasks"]]
@@ -149,7 +154,7 @@ get_output_type_id_type <- function(config_tasks) {
     unlist(recursive = FALSE) %>%
     purrr::map(~ .x[["output_type"]]) %>%
     unlist(recursive = FALSE) %>%
-    purrr::map(~ purrr::pluck(.x, "type_id")) %>%
+    purrr::map(~ purrr::pluck(.x, config_tid)) %>%
     unlist()
 
   get_data_type(values)
@@ -209,5 +214,12 @@ get_partition_r_datatype <- function(partitions, arrow_datatypes) {
   purrr::map_chr(
     str_partitions,
     ~ names(str_arrow_datatypes)[.x == str_arrow_datatypes]
+  )
+}
+
+extract_schema_version <- function(schema_version_url) {
+  stringr::str_extract(
+    schema_version_url,
+    "v([0-9]\\.){2}[0-9](\\.[0-9]+)?"
   )
 }
