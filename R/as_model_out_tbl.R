@@ -232,6 +232,12 @@ std_col_order_model_out_tbl <- function(tbl) {
 }
 
 check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
+  test_datatype <- function(x, data_type) {
+    !any(purrr::map_lgl(
+      data_type,
+      ~get(paste0("is.", .x))(x)))
+    }
+
   error_df <- tibble::tibble(
     colname = names(std_col_datatypes),
     correct_datatype = purrr::map_chr(std_col_datatypes, ~paste(.x, collapse = "/")),
@@ -242,10 +248,7 @@ check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
     is_wrong_datatype = purrr::map2_lgl(
       .x = tbl[, names(std_col_datatypes)],
       .y = std_col_datatypes,
-      function(x = .x, data_type = .y) {
-        !any(purrr::map_lgl(
-          data_type,
-          ~get(paste0("is.", .x))(x)))}
+      ~ test_datatype(x = .x, data_type = .y)
     ),
     n_correct_datatypes = lengths(std_col_datatypes)
   )
