@@ -19,6 +19,14 @@ test_that("create_output_type_point functions work correctly", {
       value_type = "double"
     )
   )
+  # Test back-compatibility
+  expect_snapshot(
+    create_output_type_median(
+      is_required = FALSE,
+      value_type = "double",
+      schema_version = "v1.0.0"
+    )
+  )
 })
 
 
@@ -96,6 +104,20 @@ test_that("create_output_type_dist functions work correctly", {
     create_output_type_sample(
       required = 1:10, optional = 11:15,
       value_type = "double"
+    )
+  )
+
+  # Test back-compatibility
+  expect_snapshot(
+    create_output_type_quantile(
+      required = c(0.25, 0.5, 0.75),
+      optional = c(
+        0.1, 0.2, 0.3, 0.4, 0.6,
+        0.7, 0.8, 0.9
+      ),
+      value_type = "double",
+      value_minimum = 0,
+      schema_version = "v1.0.0"
     )
   )
 })

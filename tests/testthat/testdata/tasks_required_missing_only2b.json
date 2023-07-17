@@ -1,5 +1,5 @@
 {
-    "schema_version": "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json",
+    "schema_version": "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json",
     "rounds": [{
             "round_id_from_variable": true,
             "round_id": "origin_date",
@@ -7,7 +7,7 @@
                 "task_ids": {
                     "origin_date": {
                         "required": null,
-                        "optional": ["2022-10-01", "2022-10-08", "2022-10-15", "2022-10-15", "2022-10-22", "2022-10-29"]
+                        "optional": ["2022-10-01", "2022-10-08", "2022-10-15", "2022-10-22", "2022-10-29"]
                     },
                     "target": {
                         "required": ["wk inc flu hosp"],
@@ -82,7 +82,7 @@
                 "task_ids": {
                     "origin_date": {
                         "required": null,
-                        "optional": ["2022-10-01", "2022-10-08", "2022-10-15", "2022-10-15", "2022-10-22", "2022-10-29"]
+                        "optional": ["2022-10-01", "2022-10-08", "2022-10-15", "2022-10-22", "2022-10-29"]
                     },
                     "target_outcome": {
                         "required": ["flu hosp"],
@@ -158,7 +158,7 @@
                 },
                 "output_type": {
                     "mean": {
-                        "type_id": {
+                        "output_type_id": {
                             "required": null,
                             "optional": ["NA"]
                         },
@@ -168,7 +168,7 @@
                         }
                     },
                     "quantile": {
-                        "type_id": {
+                        "output_type_id": {
                             "required": [
                                 0.010,
                                 0.025,

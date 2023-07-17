@@ -43,11 +43,11 @@
       
       $rounds[[1]]$model_tasks[[1]]$output_type
       $rounds[[1]]$model_tasks[[1]]$output_type$mean
-      $rounds[[1]]$model_tasks[[1]]$output_type$mean$type_id
-      $rounds[[1]]$model_tasks[[1]]$output_type$mean$type_id$required
+      $rounds[[1]]$model_tasks[[1]]$output_type$mean$output_type_id
+      $rounds[[1]]$model_tasks[[1]]$output_type$mean$output_type_id$required
       [1] NA
       
-      $rounds[[1]]$model_tasks[[1]]$output_type$mean$type_id$optional
+      $rounds[[1]]$model_tasks[[1]]$output_type$mean$output_type_id$optional
       NULL
       
       
@@ -106,7 +106,7 @@
       attr(,"n")
       [1] 1
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 ---
 
@@ -174,11 +174,11 @@
       
       $rounds[[1]]$model_tasks[[1]]$output_type
       $rounds[[1]]$model_tasks[[1]]$output_type$mean
-      $rounds[[1]]$model_tasks[[1]]$output_type$mean$type_id
-      $rounds[[1]]$model_tasks[[1]]$output_type$mean$type_id$required
+      $rounds[[1]]$model_tasks[[1]]$output_type$mean$output_type_id
+      $rounds[[1]]$model_tasks[[1]]$output_type$mean$output_type_id$required
       [1] NA
       
-      $rounds[[1]]$model_tasks[[1]]$output_type$mean$type_id$optional
+      $rounds[[1]]$model_tasks[[1]]$output_type$mean$output_type_id$optional
       NULL
       
       
@@ -268,11 +268,11 @@
       
       $rounds[[2]]$model_tasks[[1]]$output_type
       $rounds[[2]]$model_tasks[[1]]$output_type$mean
-      $rounds[[2]]$model_tasks[[1]]$output_type$mean$type_id
-      $rounds[[2]]$model_tasks[[1]]$output_type$mean$type_id$required
+      $rounds[[2]]$model_tasks[[1]]$output_type$mean$output_type_id
+      $rounds[[2]]$model_tasks[[1]]$output_type$mean$output_type_id$required
       [1] NA
       
-      $rounds[[2]]$model_tasks[[1]]$output_type$mean$type_id$optional
+      $rounds[[2]]$model_tasks[[1]]$output_type$mean$output_type_id$optional
       NULL
       
       
@@ -331,7 +331,7 @@
       attr(,"n")
       [1] 2
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 # create_round errors correctly
 

@@ -5,11 +5,11 @@
         value_minimum = 0L)
     Output
       $mean
-      $mean$type_id
-      $mean$type_id$required
+      $mean$output_type_id
+      $mean$output_type_id$required
       [1] NA
       
-      $mean$type_id$optional
+      $mean$output_type_id$optional
       NULL
       
       
@@ -25,7 +25,7 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 ---
 
@@ -34,11 +34,11 @@
         value_maximum = 0L)
     Output
       $mean
-      $mean$type_id
-      $mean$type_id$required
+      $mean$output_type_id
+      $mean$output_type_id$required
       NULL
       
-      $mean$type_id$optional
+      $mean$output_type_id$optional
       [1] NA
       
       
@@ -54,12 +54,41 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 ---
 
     Code
       create_output_type_median(is_required = FALSE, value_type = "double")
+    Output
+      $median
+      $median$output_type_id
+      $median$output_type_id$required
+      NULL
+      
+      $median$output_type_id$optional
+      [1] NA
+      
+      
+      $median$value
+      $median$value$type
+      [1] "double"
+      
+      
+      
+      attr(,"class")
+      [1] "output_type_item" "list"            
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
+
+---
+
+    Code
+      create_output_type_median(is_required = FALSE, value_type = "double",
+        schema_version = "v1.0.0")
+    Warning <lifecycle_warning_deprecated>
+      Hub configured using schema version v1.0.0. Support for schema earlier than v2.0.0 was deprecated in hubUtils 0.0.0.9010.
+      i Please upgrade Hub config files to conform to, at minimum, version v2.0.0 as soon as possible.
     Output
       $median
       $median$type_id
@@ -123,11 +152,11 @@
         0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9), value_type = "double", value_minimum = 0)
     Output
       $quantile
-      $quantile$type_id
-      $quantile$type_id$required
+      $quantile$output_type_id
+      $quantile$output_type_id$required
       [1] 0.25 0.50 0.75
       
-      $quantile$type_id$optional
+      $quantile$output_type_id$optional
       [1] 0.1 0.2 0.3 0.4 0.6 0.7 0.8 0.9
       
       
@@ -143,7 +172,7 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 ---
 
@@ -151,11 +180,11 @@
       create_output_type_cdf(required = c(10, 20), optional = NULL, value_type = "double")
     Output
       $cdf
-      $cdf$type_id
-      $cdf$type_id$required
+      $cdf$output_type_id
+      $cdf$output_type_id$required
       [1] 10 20
       
-      $cdf$type_id$optional
+      $cdf$output_type_id$optional
       NULL
       
       
@@ -174,7 +203,7 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 ---
 
@@ -183,11 +212,11 @@
         "EW202242"), value_type = "double")
     Output
       $cdf
-      $cdf$type_id
-      $cdf$type_id$required
+      $cdf$output_type_id
+      $cdf$output_type_id$required
       NULL
       
-      $cdf$type_id$optional
+      $cdf$output_type_id$optional
       [1] "EW202240" "EW202241" "EW202242"
       
       
@@ -206,7 +235,7 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 ---
 
@@ -215,11 +244,11 @@
         "extreme"), value_type = "double")
     Output
       $pmf
-      $pmf$type_id
-      $pmf$type_id$required
+      $pmf$output_type_id
+      $pmf$output_type_id$required
       NULL
       
-      $pmf$type_id$optional
+      $pmf$output_type_id$optional
       [1] "low"      "moderate" "high"     "extreme" 
       
       
@@ -238,7 +267,7 @@
       attr(,"class")
       [1] "output_type_item" "list"            
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 ---
 
@@ -246,17 +275,50 @@
       create_output_type_sample(required = 1:10, optional = 11:15, value_type = "double")
     Output
       $sample
-      $sample$type_id
-      $sample$type_id$required
+      $sample$output_type_id
+      $sample$output_type_id$required
        [1]  1  2  3  4  5  6  7  8  9 10
       
-      $sample$type_id$optional
+      $sample$output_type_id$optional
       [1] 11 12 13 14 15
       
       
       $sample$value
       $sample$value$type
       [1] "double"
+      
+      
+      
+      attr(,"class")
+      [1] "output_type_item" "list"            
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
+
+---
+
+    Code
+      create_output_type_quantile(required = c(0.25, 0.5, 0.75), optional = c(0.1,
+        0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9), value_type = "double", value_minimum = 0,
+      schema_version = "v1.0.0")
+    Warning <lifecycle_warning_deprecated>
+      Hub configured using schema version v1.0.0. Support for schema earlier than v2.0.0 was deprecated in hubUtils 0.0.0.9010.
+      i Please upgrade Hub config files to conform to, at minimum, version v2.0.0 as soon as possible.
+    Output
+      $quantile
+      $quantile$type_id
+      $quantile$type_id$required
+      [1] 0.25 0.50 0.75
+      
+      $quantile$type_id$optional
+      [1] 0.1 0.2 0.3 0.4 0.6 0.7 0.8 0.9
+      
+      
+      $quantile$value
+      $quantile$value$type
+      [1] "double"
+      
+      $quantile$value$minimum
+      [1] 0
       
       
       

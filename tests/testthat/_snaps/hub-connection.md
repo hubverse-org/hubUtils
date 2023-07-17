@@ -30,7 +30,7 @@
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
        - attr(*, "config_admin")=List of 8
-        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/admin-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json"
         ..$ name          : chr "Simple Forecast Hub"
         ..$ maintainer    : chr "Consortium of Infectious Disease Modeling Hubs"
         ..$ contact       :List of 2
@@ -45,7 +45,7 @@
         ..$ file_format   : chr [1:3] "csv" "parquet" "arrow"
         ..$ timezone      : chr "US/Eastern"
        - attr(*, "config_tasks")=List of 2
-        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
         ..$ rounds        :List of 2
         .. ..$ :List of 4
         .. .. ..$ round_id_from_variable: logi TRUE
@@ -67,17 +67,17 @@
         .. .. .. .. .. .. ..$ optional: chr [1:54] "US" "01" "02" "04" ...
         .. .. .. .. ..$ output_type    :List of 2
         .. .. .. .. .. ..$ mean    :List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: NULL
         .. .. .. .. .. .. .. ..$ optional: logi NA
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. .. ..$ quantile:List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
         .. .. .. .. .. .. .. ..$ optional: NULL
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. ..$ target_metadata:List of 1
@@ -102,7 +102,7 @@
         .. .. .. .. ..$ task_ids       :List of 5
         .. .. .. .. .. ..$ origin_date:List of 2
         .. .. .. .. .. .. ..$ required: NULL
-        .. .. .. .. .. .. ..$ optional: chr [1:4] "2022-10-15" "2022-10-15" "2022-10-22" "2022-10-29"
+        .. .. .. .. .. .. ..$ optional: chr [1:3] "2022-10-15" "2022-10-22" "2022-10-29"
         .. .. .. .. .. ..$ target     :List of 2
         .. .. .. .. .. .. ..$ required: chr "wk inc flu hosp"
         .. .. .. .. .. .. ..$ optional: NULL
@@ -117,17 +117,17 @@
         .. .. .. .. .. .. ..$ optional: chr [1:4] "0-5" "6-18" "19-24" "25-64"
         .. .. .. .. ..$ output_type    :List of 2
         .. .. .. .. .. ..$ mean    :List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: NULL
         .. .. .. .. .. .. .. ..$ optional: logi NA
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. .. ..$ quantile:List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
         .. .. .. .. .. .. .. ..$ optional: NULL
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. ..$ target_metadata:List of 1
@@ -177,7 +177,7 @@
        - attr(*, "hub_path")= chr "flusight"
        - attr(*, "model_output_dir")= chr "forecasts"
        - attr(*, "config_admin")=List of 9
-        ..$ schema_version  : chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/admin-schema.json"
+        ..$ schema_version  : chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json"
         ..$ name            : chr "US CDC FluSight"
         ..$ maintainer      : chr "US CDC"
         ..$ contact         :List of 2
@@ -189,7 +189,7 @@
         ..$ timezone        : chr "US/Eastern"
         ..$ model_output_dir: chr "forecasts"
        - attr(*, "config_tasks")=List of 2
-        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
         ..$ rounds        :List of 1
         .. ..$ :List of 4
         .. .. ..$ round_id_from_variable: logi TRUE
@@ -211,10 +211,10 @@
         .. .. .. .. .. .. ..$ optional: chr [1:53] "01" "02" "04" "05" ...
         .. .. .. .. ..$ output_type    :List of 1
         .. .. .. .. .. ..$ pmf:List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: chr [1:5] "large_decrease" "decrease" "stable" "increase" ...
         .. .. .. .. .. .. .. ..$ optional: NULL
-        .. .. .. .. .. .. ..$ value  :List of 3
+        .. .. .. .. .. .. ..$ value         :List of 3
         .. .. .. .. .. .. .. ..$ type   : chr "double"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. .. .. .. ..$ maximum: int 1
@@ -245,17 +245,17 @@
         .. .. .. .. .. .. ..$ optional: chr [1:53] "01" "02" "04" "05" ...
         .. .. .. .. ..$ output_type    :List of 2
         .. .. .. .. .. ..$ quantile:List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
         .. .. .. .. .. .. .. ..$ optional: NULL
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. .. ..$ mean    :List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: NULL
         .. .. .. .. .. .. .. ..$ optional: logi NA
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "double"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. ..$ target_metadata:List of 1
@@ -321,7 +321,7 @@
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
        - attr(*, "config_admin")=List of 9
-        ..$ schema_version  : chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/admin-schema.json"
+        ..$ schema_version  : chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json"
         ..$ name            : chr "US CDC FluSight"
         ..$ maintainer      : chr "US CDC"
         ..$ contact         :List of 2
@@ -333,7 +333,7 @@
         ..$ timezone        : chr "US/Eastern"
         ..$ model_output_dir: chr "forecasts"
        - attr(*, "config_tasks")=List of 2
-        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
         ..$ rounds        :List of 1
         .. ..$ :List of 4
         .. .. ..$ round_id_from_variable: logi TRUE
@@ -355,10 +355,10 @@
         .. .. .. .. .. .. ..$ optional: chr [1:53] "01" "02" "04" "05" ...
         .. .. .. .. ..$ output_type    :List of 1
         .. .. .. .. .. ..$ pmf:List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: chr [1:5] "large_decrease" "decrease" "stable" "increase" ...
         .. .. .. .. .. .. .. ..$ optional: NULL
-        .. .. .. .. .. .. ..$ value  :List of 3
+        .. .. .. .. .. .. ..$ value         :List of 3
         .. .. .. .. .. .. .. ..$ type   : chr "double"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. .. .. .. ..$ maximum: int 1
@@ -389,17 +389,17 @@
         .. .. .. .. .. .. ..$ optional: chr [1:53] "01" "02" "04" "05" ...
         .. .. .. .. ..$ output_type    :List of 2
         .. .. .. .. .. ..$ quantile:List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
         .. .. .. .. .. .. .. ..$ optional: NULL
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. .. ..$ mean    :List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: NULL
         .. .. .. .. .. .. .. ..$ optional: logi NA
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "double"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. ..$ target_metadata:List of 1
@@ -583,7 +583,7 @@
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
        - attr(*, "config_admin")=List of 8
-        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/admin-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json"
         ..$ name          : chr "Simple Forecast Hub"
         ..$ maintainer    : chr "Consortium of Infectious Disease Modeling Hubs"
         ..$ contact       :List of 2
@@ -598,7 +598,7 @@
         ..$ file_format   : chr [1:3] "csv" "parquet" "arrow"
         ..$ timezone      : chr "US/Eastern"
        - attr(*, "config_tasks")=List of 2
-        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
         ..$ rounds        :List of 2
         .. ..$ :List of 4
         .. .. ..$ round_id_from_variable: logi TRUE
@@ -620,17 +620,17 @@
         .. .. .. .. .. .. ..$ optional: chr [1:54] "US" "01" "02" "04" ...
         .. .. .. .. ..$ output_type    :List of 2
         .. .. .. .. .. ..$ mean    :List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: NULL
         .. .. .. .. .. .. .. ..$ optional: logi NA
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. .. ..$ quantile:List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
         .. .. .. .. .. .. .. ..$ optional: NULL
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. ..$ target_metadata:List of 1
@@ -655,7 +655,7 @@
         .. .. .. .. ..$ task_ids       :List of 5
         .. .. .. .. .. ..$ origin_date:List of 2
         .. .. .. .. .. .. ..$ required: NULL
-        .. .. .. .. .. .. ..$ optional: chr [1:4] "2022-10-15" "2022-10-15" "2022-10-22" "2022-10-29"
+        .. .. .. .. .. .. ..$ optional: chr [1:3] "2022-10-15" "2022-10-22" "2022-10-29"
         .. .. .. .. .. ..$ target     :List of 2
         .. .. .. .. .. .. ..$ required: chr "wk inc flu hosp"
         .. .. .. .. .. .. ..$ optional: NULL
@@ -670,17 +670,17 @@
         .. .. .. .. .. .. ..$ optional: chr [1:4] "0-5" "6-18" "19-24" "25-64"
         .. .. .. .. ..$ output_type    :List of 2
         .. .. .. .. .. ..$ mean    :List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: NULL
         .. .. .. .. .. .. .. ..$ optional: logi NA
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. .. ..$ quantile:List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
         .. .. .. .. .. .. .. ..$ optional: NULL
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. ..$ target_metadata:List of 1
@@ -804,7 +804,7 @@
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
        - attr(*, "config_admin")=List of 8
-        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/admin-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json"
         ..$ name          : chr "Simple Forecast Hub"
         ..$ maintainer    : chr "Consortium of Infectious Disease Modeling Hubs"
         ..$ contact       :List of 2
@@ -819,7 +819,7 @@
         ..$ file_format   : chr [1:3] "csv" "parquet" "arrow"
         ..$ timezone      : chr "US/Eastern"
        - attr(*, "config_tasks")=List of 2
-        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
         ..$ rounds        :List of 2
         .. ..$ :List of 4
         .. .. ..$ round_id_from_variable: logi TRUE
@@ -841,17 +841,17 @@
         .. .. .. .. .. .. ..$ optional: chr [1:54] "US" "01" "02" "04" ...
         .. .. .. .. ..$ output_type    :List of 2
         .. .. .. .. .. ..$ mean    :List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: NULL
         .. .. .. .. .. .. .. ..$ optional: logi NA
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. .. ..$ quantile:List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
         .. .. .. .. .. .. .. ..$ optional: NULL
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. ..$ target_metadata:List of 1
@@ -891,17 +891,17 @@
         .. .. .. .. .. .. ..$ optional: chr [1:4] "0-5" "6-18" "19-24" "25-64"
         .. .. .. .. ..$ output_type    :List of 2
         .. .. .. .. .. ..$ mean    :List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: NULL
         .. .. .. .. .. .. .. ..$ optional: logi NA
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. .. ..$ quantile:List of 2
-        .. .. .. .. .. .. ..$ type_id:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
         .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
         .. .. .. .. .. .. .. ..$ optional: NULL
-        .. .. .. .. .. .. ..$ value  :List of 2
+        .. .. .. .. .. .. ..$ value         :List of 2
         .. .. .. .. .. .. .. ..$ type   : chr "integer"
         .. .. .. .. .. .. .. ..$ minimum: int 0
         .. .. .. .. ..$ target_metadata:List of 1

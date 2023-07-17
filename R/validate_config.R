@@ -64,7 +64,7 @@ validate_config <- function(hub_path = ".",
   checkmate::assert_file_exists(config_path, extension = "json")
 
   if (schema_version == "from_config") {
-    schema_version <- get_config_schema_version(config_path, config)
+    schema_version <- get_config_file_schema_version(config_path, config)
   }
 
   # Get the latest version available in our GitHub schema repo
@@ -73,6 +73,13 @@ validate_config <- function(hub_path = ".",
       sort() %>%
       utils::tail(1)
   }
+
+  # TODO: Remove notification when back-compatibility retired
+  check_deprecated_schema(
+    config_version = get_config_file_schema_version(config_path, config),
+    valid_version = "v2.0.0",
+    hubUtils_version = "0.0.0.9010"
+  )
 
   schema_url <- get_schema_url(
     config = config,
@@ -150,7 +157,7 @@ get_schema_valid_versions <- function(branch = "main") {
 }
 
 
-get_config_schema_version <- function(config_path, config) {
+get_config_file_schema_version <- function(config_path, config) {
   config_schema_version <- jsonlite::read_json(config_path)$schema_version
 
   if (is.null(config_schema_version)) {
@@ -178,7 +185,6 @@ get_config_schema_version <- function(config_path, config) {
 
   version
 }
-
 
 validate_schema_version <- function(schema_version, branch) {
   valid_versions <- get_schema_valid_versions(branch = branch)
@@ -270,12 +276,17 @@ perform_dynamic_config_validations <- function(validation) {
   schema <- get_schema(attr(validation, "schema_url"))
 
 
-  errors_tbl <- purrr::imap(
-    config_json[["rounds"]],
-    ~ val_round(
-      round = .x, round_i = .y,
-      schema = schema
-    )
+  errors_tbl <- c(
+    # Map over Round level validations
+    purrr::imap(
+      config_json[["rounds"]],
+      ~ val_round(
+        round = .x, round_i = .y,
+        schema = schema
+      )
+    ),
+    # Perform config level validation
+    list(validate_round_ids_unique(config_json, schema))
   ) %>%
     purrr::list_rbind()
 
@@ -309,6 +320,29 @@ val_round <- function(round, round_i, schema) {
       ~ val_task_id_names(
         model_task_grp = .x, model_task_i = .y,
         round_i = round_i, schema = schema
+      )
+    ),
+    purrr::imap(
+      model_task_grps,
+      ~ validate_mt_property_unique_vals(
+        model_task_grp = .x, model_task_i = .y,
+        round_i = round_i, property = "task_ids",
+        schema = schema
+      )
+    ),
+    purrr::imap(
+      model_task_grps,
+      ~ validate_mt_property_unique_vals(
+        model_task_grp = .x, model_task_i = .y,
+        round_i = round_i, property = "output_type",
+        schema = schema
+      )
+    ),
+    list(
+      validate_round_ids_consistent(
+        round = round,
+        round_i = round_i,
+        schema = schema
       )
     )
   ) %>%
@@ -431,7 +465,6 @@ val_model_task_grp_target_metadata <- function(model_task_grp, model_task_i,
     errors_check_4
   )
 }
-
 
 val_target_key_names_const <- function(grp_target_keys, model_task_grp,
                                        model_task_i, round_i, schema) {
@@ -608,40 +641,7 @@ find_invalid_target_keys <- function(target_keys, model_task_grp) {
 }
 
 
-get_error_path <- function(schema, element = "target_metadata",
-                           type = c("schema", "instance")) {
-  type <- rlang::arg_match(type)
 
-  schema_paths <- schema %>%
-    jsonlite::fromJSON(simplifyDataFrame = FALSE) %>%
-    unlist(recursive = TRUE, use.names = TRUE) %>%
-    names() %>%
-    gsub("\\.", "/", .) %>%
-    paste0("/", .)
-
-  path <- grep(paste0(".*", element, "/type([0-9])?$"), schema_paths, value = TRUE) %>%
-    gsub("/type([0-9])?", "", .) %>%
-    unique()
-
-  switch(type,
-    schema = paste0("#", path),
-    instance = generate_instance_path_glue(path)
-  )
-}
-
-generate_instance_path_glue <- function(path) {
-  split_path <- gsub("properties/", "", path) %>%
-    strsplit("/") %>%
-    unlist()
-
-  is_item <- split_path == "items"
-  split_path[is_item] <- c(
-    "{round_i - 1}",
-    "{model_task_i - 1}",
-    "{target_key_i - 1}"
-  )[1:sum(is_item)]
-  paste(split_path, collapse = "/")
-}
 
 check_config_schema_version <- function(schema_version, config = c("tasks", "admin")) {
   config <- rlang::arg_match(config)
@@ -738,4 +738,190 @@ validate_schema_version_property <- function(validation, config = c("tasks", "ad
   }
 
   return(validation)
+}
+
+validate_mt_property_unique_vals <- function(model_task_grp,
+                                             model_task_i,
+                                             round_i,
+                                             property = c(
+                                               "task_ids",
+                                               "output_type"
+                                             ),
+                                             schema) {
+  property <- rlang::arg_match(property)
+  property_text <- c(
+    task_ids = "Task ID",
+    output_type = "Output type IDs of output type"
+  )[property]
+
+
+  val_properties <- switch(property,
+    task_ids = model_task_grp[["task_ids"]],
+    output_type = model_task_grp[["output_type"]][
+      c("quantile", "cdf", "pmf", "sample")
+    ] %>%
+      purrr::compact() %>%
+      purrr::map(
+        ~ if ("type_id" %in% names(.x)) {
+          .x[["type_id"]]
+        } else {
+          .x[["output_type_id"]]
+        }
+      )
+  )
+
+  dup_properties <- purrr::map(
+    val_properties,
+    ~ {
+      x <- unlist(.x, use.names = FALSE)
+      dups <- x[duplicated(x)]
+      if (length(dups) == 0L) {
+        NULL
+      } else {
+        dups
+      }
+    }
+  ) %>%
+    purrr::compact()
+
+  if (length(dup_properties) == 0L) {
+    return(NULL)
+  } else {
+    purrr::imap(
+      dup_properties,
+      ~ data.frame(
+        instancePath = glue::glue(get_error_path(schema, .y, "instance")),
+        schemaPath = get_error_path(schema, .y, "schema"),
+        keyword = glue::glue("{property} uniqueItems"),
+        message = glue::glue("must NOT have duplicate items across 'required' and 'optional' properties. {property_text} '{.y}' contains duplicates."),
+        schema = "",
+        data = glue::glue("duplicate values: {paste(.x, collapse = ', ')}")
+      )
+    ) %>% purrr::list_rbind()
+  }
+}
+
+validate_round_ids_consistent <- function(round, round_i,
+                                          schema) {
+  n_mt <- length(round[["model_tasks"]])
+
+  if (!round[["round_id_from_variable"]] || n_mt == 1L) {
+    return(NULL)
+  }
+
+  round_id_var <- round[["round_id"]]
+
+  mt <- purrr::map(
+    round[["model_tasks"]],
+    ~ purrr::pluck(.x, "task_ids", round_id_var)
+  )
+
+  checks <- purrr::map(
+    .x = purrr::set_names(seq_along(mt)[-1]),
+    ~ {
+      check <- all.equal(mt[[1]], mt[[.x]])
+      if (is.logical(check) && check) NULL else check
+    }
+  ) %>% purrr::compact()
+
+  if (length(checks) == 0L) {
+    return(NULL)
+  }
+  purrr::imap(
+    checks,
+    ~ tibble::tibble(
+      instancePath = glue::glue_data(
+        list(model_task_i = as.integer(.y)),
+        get_error_path(schema, round_id_var, "instance")),
+      schemaPath = get_error_path(schema, round_id_var, "schema"),
+      keyword = "round_id var",
+      message = glue::glue(
+        "round_id var '{round_id_var}' property MUST be",
+        " consistent across modeling task items"
+      ),
+      schema = "",
+      data = glue::glue("{.x} compared to first model task item")
+    )
+  ) %>%
+    purrr::list_rbind() %>%
+    as.data.frame()
+}
+
+# Validate that round IDs are unique across all rounds in config file
+validate_round_ids_unique <- function(config_tasks, schema) {
+  round_ids <- get_round_ids(config_tasks)
+
+  if (!any(duplicated(round_ids))) {
+    return(NULL)
+  }
+
+  dup_round_ids <- unique(round_ids[duplicated(round_ids)])
+
+  purrr::map(
+    purrr::set_names(dup_round_ids),
+    ~ dup_round_id_error_df(
+      .x,
+      config_tasks = config_tasks,
+      schema = schema
+    )
+  ) %>% purrr::list_rbind()
+}
+
+dup_round_id_error_df <- function(dup_round_id,
+                                  config_tasks,
+                                  schema) {
+  dup_round_idx <- purrr::imap(
+    get_round_ids(config_tasks, flatten = "model_task"),
+    ~ {
+      if (dup_round_id %in% .x) .y else NULL
+    }
+  ) %>%
+    purrr::compact() %>%
+    unlist() %>%
+    `[`(-1L)
+
+  dup_mt_idx <- purrr::map(
+    dup_round_idx,
+    ~ get_round_ids(config_tasks, flatten = "task_id")[[.x]] %>%
+      purrr::imap_int(~ {
+        if (dup_round_id %in% .x) .y else NULL
+      }) %>%
+      purrr::compact()
+  )
+
+  purrr::map2(
+    .x = dup_round_idx,
+    .y = dup_mt_idx,
+    ~ tibble::tibble(
+      instancePath = glue::glue_data(
+        list(
+          round_i = .x,
+          model_task_i = .y
+        ),
+        get_error_path(schema, get_round_id_var(.x, config_tasks), "instance",
+          append_item_n = TRUE
+        )
+      ),
+      schemaPath = get_error_path(
+        schema, get_round_id_var(.x, config_tasks),
+        "schema"
+      ),
+      keyword = "round_id uniqueItems",
+      message = glue::glue(
+        "must NOT contains duplicate round ID values across rounds"
+      ),
+      schema = "",
+      data = glue::glue("duplicate value: {dup_round_id}")
+    )
+  ) %>%
+    purrr::list_rbind() %>%
+    as.data.frame()
+}
+
+get_round_id_var <- function(idx, config_tasks) {
+  if (config_tasks[["rounds"]][[idx]][["round_id_from_variable"]]) {
+    config_tasks[["rounds"]][[idx]][["round_id"]]
+  } else {
+    "rounds"
+  }
 }

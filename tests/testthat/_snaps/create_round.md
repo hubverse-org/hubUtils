@@ -41,11 +41,11 @@
       
       $model_tasks[[1]]$output_type
       $model_tasks[[1]]$output_type$mean
-      $model_tasks[[1]]$output_type$mean$type_id
-      $model_tasks[[1]]$output_type$mean$type_id$required
+      $model_tasks[[1]]$output_type$mean$output_type_id
+      $model_tasks[[1]]$output_type$mean$output_type_id$required
       [1] NA
       
-      $model_tasks[[1]]$output_type$mean$type_id$optional
+      $model_tasks[[1]]$output_type$mean$output_type_id$optional
       NULL
       
       
@@ -102,7 +102,7 @@
       attr(,"round_id")
       [1] "round_1"
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 ---
 
@@ -147,11 +147,11 @@
       
       $model_tasks[[1]]$output_type
       $model_tasks[[1]]$output_type$mean
-      $model_tasks[[1]]$output_type$mean$type_id
-      $model_tasks[[1]]$output_type$mean$type_id$required
+      $model_tasks[[1]]$output_type$mean$output_type_id
+      $model_tasks[[1]]$output_type$mean$output_type_id$required
       [1] NA
       
-      $model_tasks[[1]]$output_type$mean$type_id$optional
+      $model_tasks[[1]]$output_type$mean$output_type_id$optional
       NULL
       
       
@@ -211,7 +211,7 @@
       attr(,"round_id")
       [1] "origin_date"
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 # create_round name matching works correctly
 

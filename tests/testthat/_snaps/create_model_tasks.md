@@ -42,11 +42,11 @@
       
       $model_tasks[[1]]$output_type
       $model_tasks[[1]]$output_type$mean
-      $model_tasks[[1]]$output_type$mean$type_id
-      $model_tasks[[1]]$output_type$mean$type_id$required
+      $model_tasks[[1]]$output_type$mean$output_type_id
+      $model_tasks[[1]]$output_type$mean$output_type_id$required
       [1] NA
       
-      $model_tasks[[1]]$output_type$mean$type_id$optional
+      $model_tasks[[1]]$output_type$mean$output_type_id$optional
       NULL
       
       
@@ -92,7 +92,7 @@
       attr(,"n")
       [1] 1
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 ---
 
@@ -164,11 +164,11 @@
       
       $model_tasks[[1]]$output_type
       $model_tasks[[1]]$output_type$mean
-      $model_tasks[[1]]$output_type$mean$type_id
-      $model_tasks[[1]]$output_type$mean$type_id$required
+      $model_tasks[[1]]$output_type$mean$output_type_id
+      $model_tasks[[1]]$output_type$mean$output_type_id$required
       [1] NA
       
-      $model_tasks[[1]]$output_type$mean$type_id$optional
+      $model_tasks[[1]]$output_type$mean$output_type_id$optional
       NULL
       
       
@@ -182,11 +182,11 @@
       
       
       $model_tasks[[1]]$output_type$median
-      $model_tasks[[1]]$output_type$median$type_id
-      $model_tasks[[1]]$output_type$median$type_id$required
+      $model_tasks[[1]]$output_type$median$output_type_id
+      $model_tasks[[1]]$output_type$median$output_type_id$required
       NULL
       
-      $model_tasks[[1]]$output_type$median$type_id$optional
+      $model_tasks[[1]]$output_type$median$output_type_id$optional
       [1] NA
       
       
@@ -197,11 +197,11 @@
       
       
       $model_tasks[[1]]$output_type$quantile
-      $model_tasks[[1]]$output_type$quantile$type_id
-      $model_tasks[[1]]$output_type$quantile$type_id$required
+      $model_tasks[[1]]$output_type$quantile$output_type_id
+      $model_tasks[[1]]$output_type$quantile$output_type_id$required
       [1] 0.25 0.50 0.75
       
-      $model_tasks[[1]]$output_type$quantile$type_id$optional
+      $model_tasks[[1]]$output_type$quantile$output_type_id$optional
       [1] 0.1 0.2 0.3 0.4 0.6 0.7 0.8 0.9
       
       
@@ -305,12 +305,12 @@
       
       $model_tasks[[2]]$output_type
       $model_tasks[[2]]$output_type$pmf
-      $model_tasks[[2]]$output_type$pmf$type_id
-      $model_tasks[[2]]$output_type$pmf$type_id$required
+      $model_tasks[[2]]$output_type$pmf$output_type_id
+      $model_tasks[[2]]$output_type$pmf$output_type_id$required
       [1] "large_decrease" "decrease"       "stable"         "increase"      
       [5] "large_increase"
       
-      $model_tasks[[2]]$output_type$pmf$type_id$optional
+      $model_tasks[[2]]$output_type$pmf$output_type_id$optional
       NULL
       
       
@@ -361,7 +361,7 @@
       attr(,"n")
       [1] 2
       attr(,"schema_id")
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
 
 # create_model_tasks functions error correctly
 
@@ -391,5 +391,5 @@
       x `schema_id` attributes are not consistent across all items.
       Item `schema_id` attributes:
       * Item 1 : invalid_schema_id
-      * Item 2 : https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json
+      * Item 2 : https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json
 

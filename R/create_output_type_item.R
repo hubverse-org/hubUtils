@@ -69,22 +69,30 @@ create_output_type_point <- function(output_type = c("mean", "median"),
     ))
   }
   output_type <- rlang::arg_match(output_type)
-
+  # Get output type id property according to config schema version
+  # TODO: remove back-compatibility with schema versions < v2.0.0 when support
+  # retired
+  config_tid <- get_config_tid(
+    config_version = get_schema_version_latest(schema_version, branch)
+  )
 
   schema <- download_schema(schema_version, branch)
 
-  # create type_id
+  # create output_type_id
   if (is_required) {
-    type_id <- list(type_id = list(
+    output_type_id <- list(output_type_id = list(
       required = NA_character_,
       optional = NULL
     ))
   } else {
-    type_id <- list(type_id = list(
+    output_type_id <- list(output_type_id = list(
       required = NULL,
       optional = NA_character_
     ))
   }
+
+  # TODO: Remove when support for versions < 2.0.0 retired
+  names(output_type_id) <- config_tid
 
   output_type_schema <- get_schema_output_type(schema,
     output_type = output_type
@@ -118,7 +126,7 @@ create_output_type_point <- function(output_type = c("mean", "median"),
   )
 
   structure(
-    list(c(type_id, list(value = value))),
+    list(c(output_type_id, list(value = value))),
     class = c("output_type_item", "list"),
     names = output_type,
     schema_id = schema$`$id`
@@ -251,25 +259,30 @@ create_output_type_dist <- function(output_type = c(
   rlang::check_required(required)
   rlang::check_required(optional)
   output_type <- rlang::arg_match(output_type)
-
+  # Get output type id property according to config schema version
+  # TODO: remove back-compatibility with schema versions < v2.0.0 when support
+  # retired
+  config_tid <- get_config_tid(
+    config_version = get_schema_version_latest(schema_version, branch)
+    )
 
   schema <- download_schema(schema_version, branch)
   output_type_schema <- get_schema_output_type(schema, output_type)
-  type_id_schema <- purrr::pluck(
+  output_type_id_schema <- purrr::pluck(
     output_type_schema,
     "properties",
-    "type_id",
+    config_tid,
     "properties"
   )
 
-  # Check and create type_id
+  # Check and create output_type_id
   if (output_type == "cdf") {
     purrr::walk(
       c("required", "optional"),
       ~ check_oneof_input(
         input = get(.x),
         property = .x,
-        type_id_schema,
+        output_type_id_schema,
         call = call
       )
     )
@@ -279,8 +292,8 @@ create_output_type_dist <- function(output_type = c(
       ~ check_input(
         input = get(.x),
         property = .x,
-        type_id_schema,
-        parent_property = "type_id",
+        output_type_id_schema,
+        parent_property = config_tid,
         call = call
       )
     )
@@ -290,10 +303,13 @@ create_output_type_dist <- function(output_type = c(
   check_prop_type_const(required, optional)
   check_prop_dups(required, optional)
 
-  type_id <- list(type_id = list(
+  output_type_id <- list(output_type_id = list(
     required = required,
     optional = optional
   ))
+
+  # TODO: Remove when support for versions < 2.0.0 retired
+  names(output_type_id) <- config_tid
 
   # Check and create value
   value <- list(
@@ -323,7 +339,7 @@ create_output_type_dist <- function(output_type = c(
   )
 
   structure(
-    list(c(type_id, list(value = value))),
+    list(c(output_type_id, list(value = value))),
     class = c("output_type_item", "list"),
     names = output_type,
     schema_id = schema$`$id`

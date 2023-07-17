@@ -1,6 +1,6 @@
 Package: hubUtils
 Title: Utility functions for Infectious Disease Modeling Hubs
-Version: 0.0.0.9009
+Version: 0.0.0.9010
 Authors@R: 
     person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2378-4915"))
@@ -22,6 +22,7 @@ Imports:
     gt,
     jsonlite,
     jsonvalidate,
+    lifecycle,
     magrittr,
     memoise,
     purrr,
@@ -40,3 +41,4 @@ Suggests:
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
+LazyData: true

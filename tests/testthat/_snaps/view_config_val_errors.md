@@ -90,8 +90,8 @@
        $ instancePath: chr [1:2] "**rounds** \n └**1** \n └─**model_tasks** \n └──**1**" "**rounds** \n └**1** \n └─**model_tasks** \n └──**1** \n └───**output_type** \n └────**mean** \n └─────**value*"| __truncated__
        $ schemaPath  : chr [1:2] "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────**required**" "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────properties "| __truncated__
        $ keyword     : chr [1:2] "required" "type"
-       $ message     : chr [1:2] "❌ must have required property 'target_metadata'" "❌ must be integer"
-       $ schema      : chr [1:2] "task_ids, output_type, target_metadata" "integer"
+       $ message     : chr [1:2] "❌ must have required property 'target_metadata'" "❌ must be number,integer"
+       $ schema      : chr [1:2] "task_ids, output_type, target_metadata" "number, integer"
        $ data        : chr [1:2] "" "0"
 
 ---
@@ -153,7 +153,7 @@
     Output
       tibble [4 x 7] (S3: tbl_df/tbl/data.frame)
        $ fileName    : chr [1:4] "tasks.json" "tasks.json" "tasks.json" "tasks.json"
-       $ instancePath: chr [1:4] "**rounds** \n └**1** \n └─**model_tasks** \n └──**1**" "**rounds** \n └**1** \n └─**model_tasks** \n └──**1** \n └───**task_ids** \n └────**target** \n └─────**required**" "**rounds** \n └**1** \n └─**model_tasks** \n └──**1** \n └───**output_type** \n └────**mean** \n └─────**type_id**" "**rounds** \n └**1** \n └─**submissions_due**"
+       $ instancePath: chr [1:4] "**rounds** \n └**1** \n └─**model_tasks** \n └──**1**" "**rounds** \n └**1** \n └─**model_tasks** \n └──**1** \n └───**task_ids** \n └────**target** \n └─────**required**" "**rounds** \n └**1** \n └─**model_tasks** \n └──**1** \n └───**output_type** \n └────**mean** \n └─────**output_type_id**" "**rounds** \n └**1** \n └─**submissions_due**"
        $ schemaPath  : chr [1:4] "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────**required**" "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────properties "| __truncated__ "properties \n └**rounds** \n └─items \n └──properties \n └───**model_tasks** \n └────items \n └─────properties "| __truncated__ "properties \n └**rounds** \n └─items \n └──properties \n └───**submissions_due** \n └────**oneOf**"
        $ keyword     : chr [1:4] "required" "type" "oneOf" "oneOf"
        $ message     : chr [1:4] "❌ must have required property 'target_metadata'" "❌ must be array,null" "❌ must match exactly one schema in oneOf" "❌ must match exactly one schema in oneOf"

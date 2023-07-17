@@ -1,3 +1,18 @@
+# hubUtils 0.0.0.9010
+
+* **Support for Hubs using schema earlier than v2.0.0 deprecated**. Currently a warning is issued when interacting with such Hubs. Support will eventually be retired completely and errors will be produced with Hubs using older config schema.
+* Added `create_model_out_submit_tmpl()` for generating round specific model output template tibbles (#82).
+* Added lower level utilities:
+    * `expand_model_out_val_grid()` for creating an expanded grid of valid task ID and output type ID across round modeling tasks and output types.
+    * `get_round_idx()`: for getting an integer index of the element in `config_tasks$rounds` that a character round identifier maps to.
+    * `get_round_ids()`: for getting a list or character vector of Hub round IDs.
+* Added additional `tasks.json` validation checks via `validate_config()`:
+    * Check that all task_id and output_type_id values are unique across `required` and `optional` properties.
+    * In rounds where `round_id_from_variable` is `TRUE`, check that the specification of the task_id set as `round_id` is consistent across modelling tasks.
+    * Check that `round_id` values are unique across rounds.
+* Exported object `std_colnames` which contains standard column names used in hubverse model output data files, for use in other hubverse packages (#88).
+
+
 # hubUtils 0.0.0.9009
 
 * Added `as_model_out_tbl()` function to standardise model output data by converting to a `model_out_tbl` S3 class object. (#32, #33, #63, #64, #66)

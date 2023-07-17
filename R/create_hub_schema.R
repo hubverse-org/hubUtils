@@ -2,6 +2,7 @@
 #'
 #' Create an arrow schema from a `tasks.json` config file. For use when
 #' opening an arrow dataset.
+#'
 #' @param config_tasks a list version of the content's of a hub's `tasks.json`
 #' config file created using function [read_config()].
 #' @param partitions a named list specifying the arrow data types of any
@@ -14,9 +15,11 @@
 #' (e.g. trying to coerce to `"double"` when the data contains `"character"` values)
 #' will likely result in an error or potentially unexpected behaviour so use with
 #' care.
+#' @param r_schema Logical. If `FALSE` (default), return an [arrow::schema()] object.
+#' If `TRUE`, return a character vector of R data types.
 #'
 #' @return an arrow schema object that can be used to define column datatypes when
-#' opening model output data.
+#' opening model output data. If `r_schema = TRUE`, a character vector of R data types.
 #' @export
 #'
 #' @examples
@@ -29,13 +32,13 @@ create_hub_schema <- function(config_tasks,
                                 "auto", "character",
                                 "double", "integer",
                                 "logical", "Date"
-                              )) {
+                              ), r_schema = FALSE) {
   output_type_id_datatype <- rlang::arg_match(output_type_id_datatype)
 
   task_id_names <- get_task_id_names(config_tasks)
 
   task_id_types <- purrr::map_chr(
-    task_id_names,
+    purrr::set_names(task_id_names),
     ~ get_task_id_type(
       config_tasks,
       .x
@@ -50,19 +53,32 @@ create_hub_schema <- function(config_tasks,
     Date = arrow::date32()
   )
 
-  task_id_arrow_types <- arrow_datatypes[task_id_types] %>%
-    stats::setNames(task_id_names)
-
   if (output_type_id_datatype == "auto") {
-    output_type_id_type <- arrow_datatypes[[get_output_type_id_type(config_tasks)]]
+    output_type_id_type <- get_output_type_id_type(config_tasks)
   } else {
-    output_type_id_type <- arrow_datatypes[[output_type_id_datatype]]
+    output_type_id_type <- output_type_id_datatype
   }
 
-  c(task_id_arrow_types,
-    output_type = arrow::utf8(),
+  hub_datatypes <- c(task_id_types,
+    output_type = "character",
     output_type_id = output_type_id_type,
-    value = arrow_datatypes[[get_value_type(config_tasks)]],
+    value = get_value_type(config_tasks)
+  )
+
+  if (r_schema) {
+    return(
+      c(
+        hub_datatypes,
+        get_partition_r_datatype(partitions, arrow_datatypes)
+      )
+    )
+  }
+
+  c(
+    purrr::set_names(
+      arrow_datatypes[hub_datatypes],
+      names(hub_datatypes)
+    ),
     partitions
   ) %>%
     arrow::schema()
@@ -87,6 +103,11 @@ get_task_id_values <- function(config_tasks,
       config_tasks[["rounds"]],
       ~ .x[["model_tasks"]]
     )
+  } else if (is.integer(round)) {
+    model_tasks <- purrr::map(
+      config_tasks[["rounds"]][round],
+      ~ .x[["model_tasks"]]
+    )
   } else {
     round_idx <- which(
       purrr::map_chr(
@@ -100,12 +121,10 @@ get_task_id_values <- function(config_tasks,
     )
   }
 
-
-  purrr::map(
-    config_tasks[["rounds"]],
-    ~ .x[["model_tasks"]]
-  ) %>%
-    purrr::map(~ .x[[1]][["task_ids"]][[task_id_name]])
+  model_tasks %>%
+    purrr::map(~ .x %>%
+      purrr::map(~ .x[["task_ids"]][[task_id_name]])) %>%
+    unlist(recursive = FALSE)
 }
 
 get_task_id_type <- function(config_tasks,
@@ -123,6 +142,11 @@ get_task_id_type <- function(config_tasks,
 
 
 get_output_type_id_type <- function(config_tasks) {
+  # Get output type id property according to config schema version
+  # TODO: remove back-compatibility with schema versions < v2.0.0 when support
+  # retired
+  config_tid <- get_config_tid(config_tasks = config_tasks)
+
   values <- purrr::map(
     config_tasks[["rounds"]],
     ~ .x[["model_tasks"]]
@@ -130,7 +154,7 @@ get_output_type_id_type <- function(config_tasks) {
     unlist(recursive = FALSE) %>%
     purrr::map(~ .x[["output_type"]]) %>%
     unlist(recursive = FALSE) %>%
-    purrr::map(~ purrr::pluck(.x, "type_id")) %>%
+    purrr::map(~ purrr::pluck(.x, config_tid)) %>%
     unlist()
 
   get_data_type(values)
@@ -178,4 +202,24 @@ coerce_datatype <- function(types) {
 
 test_iso_date <- function(x) {
   class(try(as.Date(x), silent = TRUE)) == "Date"
+}
+
+get_partition_r_datatype <- function(partitions, arrow_datatypes) {
+  if (is.null(partitions)) {
+    return(NULL)
+  }
+
+  str_arrow_datatypes <- purrr::map_chr(arrow_datatypes, ~ .x$ToString())
+  str_partitions <- purrr::map(partitions, ~ .x$ToString())
+  purrr::map_chr(
+    str_partitions,
+    ~ names(str_arrow_datatypes)[.x == str_arrow_datatypes]
+  )
+}
+
+extract_schema_version <- function(schema_version_url) {
+  stringr::str_extract(
+    schema_version_url,
+    "v([0-9]\\.){2}[0-9](\\.[0-9]+)?"
+  )
 }
