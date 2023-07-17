@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,178 +137,389 @@ the errors table use <code>attr(x, "errors")</code> where <code>x</code> is the 
 <span class="r-in"><span>  config <span class="op">=</span> <span class="st">"tasks"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: jsonvalidate</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"config_path")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> /home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_version")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "v0.0.1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "v2.0.0"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_url")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json</span>
 <span class="r-in"><span><span class="co"># Config file with errors</span></span></span>
 <span class="r-in"><span><span class="va">config_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"error-schema/tasks-errors.json"</span>,</span></span>
 <span class="r-in"><span>  package <span class="op">=</span> <span class="st">"hubUtils"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">validate_config</span><span class="op">(</span>config_path <span class="op">=</span> <span class="va">config_path</span>, config <span class="op">=</span> <span class="st">"tasks"</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Hub configured using schema version <span style="color: #00BB00;">v0.0.0.9</span>. Support for schema earlier than</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">v2.0.0</span> was deprecated in hubUtils 0.0.0.9010.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please upgrade Hub config files to conform to, at minimum, version <span style="color: #00BB00;">v2.0.0</span> as</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   soon as possible.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Schema errors detected in config file</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/error-schema/tasks-errors.json</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> validated against schema</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"errors")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                instancePath</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          /rounds/0/model_tasks/0/task_ids/target/required</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 /rounds/0/model_tasks/0/output_type/mean/type_id/optional</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 /rounds/0/model_tasks/0/output_type/mean/type_id/required</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          /rounds/0/model_tasks/0/output_type/mean/type_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                 /rounds/0/submissions_due</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                           /rounds/0/submissions_due/start</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                             /rounds/0/submissions_due/end</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                 /rounds/0/submissions_due</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                          schemaPath</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                             #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/target/properties/required/type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/properties/type_id/oneOf/0/properties/optional/type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/properties/type_id/oneOf/1/properties/required/type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                            #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/properties/type_id/oneOf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                             #/properties/rounds/items/properties/submissions_due/oneOf/0/required</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                #/properties/rounds/items/properties/submissions_due/oneOf/1/properties/start/type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                  #/properties/rounds/items/properties/submissions_due/oneOf/1/properties/end/type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                                                        #/properties/rounds/items/properties/submissions_due/oneOf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    keyword params.type params.passingSchemas params.missingProperty</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     type array, null                    NA                   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     type        null                    NA                   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     type        null                    NA                   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    oneOf        NULL                    NA                   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 required        NULL                    NA            relative_to</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     type      string                    NA                   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     type      string                    NA                   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    oneOf        NULL                    NA                   &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                       instancePath</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 /rounds/0/model_tasks/0/task_ids/target/required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         /rounds/0/model_tasks/0/output_type/mean</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     /rounds/0/model_tasks/0/output_type/quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                        /rounds/0/submissions_due</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                  /rounds/0/submissions_due/start</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                    /rounds/0/submissions_due/end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                        /rounds/0/submissions_due</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                              schemaPath</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/target/properties/required/type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile/required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                 #/properties/rounds/items/properties/submissions_due/oneOf/0/required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                    #/properties/rounds/items/properties/submissions_due/oneOf/1/properties/start/type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                      #/properties/rounds/items/properties/submissions_due/oneOf/1/properties/end/type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                            #/properties/rounds/items/properties/submissions_due/oneOf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    keyword params.type params.missingProperty params.passingSchemas</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     type array, null                   &lt;NA&gt;                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 required        NULL                type_id                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 required        NULL                type_id                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 required        NULL            relative_to                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     type      string                   &lt;NA&gt;                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     type      string                   &lt;NA&gt;                    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    oneOf        NULL                   &lt;NA&gt;                    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                     message</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                        must be array,null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                              must be null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                              must be null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    must match exactly one schema in oneOf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 must have required property 'relative_to'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     must have required property 'type_id'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     must have required property 'type_id'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 must have required property 'relative_to'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                            must be string</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                            must be string</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                            must be string</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    must match exactly one schema in oneOf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    must match exactly one schema in oneOf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                      schema</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                                                                                                                                                                                                               array, null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                                                                                                                                                                                                                                                      null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                                                                                                                                                                                                                                                                      null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                      When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                                                                                                                                                                                   relative_to, start, end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                                                                                                                                                                                                                                            type_id, value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                                                                                                                                                                                                                                                            type_id, value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                                                                                                                                                                                                                                                   relative_to, start, end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                                                                                                                                                                                                    string</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                                                                                                                                                                                                                                                    string</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                                                                                                                                                                                                                                                                    string</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 Name of task id variable in relation to which submission start and end dates are calculated., NA, string, NA, Difference in days between start and origin date., Submission start date., integer, string, NA, date, Difference in days between end and origin date., Submission end date., integer, string, NA, date, relative_to, start, end, start, end</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           parentSchema.description</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                                                                                                                                                                                                         Array of target unique identifiers that must be present for submission to be valid. Can be null if no targets are required and all valid targets are specified in the optional property.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      When mean is required, property set to null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      When mean is optional, property set to null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 type_id is not meaningful for a mean output_type. The property is primarily used to determine whether mean is a required or optional output type through properties required and optional. If mean is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If mean is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Submission start date.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Submission end date.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                                                                                                                                                                                                                                                                                                                                                                                                                 Object defining the dates by which model forecasts must be submitted to the hub.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 Name of task id variable in relation to which submission start and end dates are calculated., NA, string, NA, Difference in days between start and origin date., Submission start date., integer, string, NA, date, Difference in days between end and origin date., Submission end date., integer, string, NA, date, relative_to, start, end, start, end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                   parentSchema.description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Array of target unique identifiers that must be present for submission to be valid. Can be null if no targets are required and all valid targets are specified in the optional property.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                     Object defining the mean of the predictive distribution output type.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                                Object defining the quantiles of the predictive distribution output type.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                                                                                                     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                   Submission start date.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                                                                     Submission end date.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                         Object defining the dates by which model forecasts must be submitted to the hub.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.type parentSchema.type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       array, null            string</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2              null              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3              null              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4            object              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5              NULL              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2            object              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            object              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4              NULL              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5            string              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6            string              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7            string              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8            object              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            parentSchema.examples</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                           NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                           NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                           NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                         NA, NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                           NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                           NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                           NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 2022-06-07, -4, 2022-07-20, 2, NA, origin_date</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                          parentSchema.oneOf</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                                                                                                                                                                                                                      NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                                                                                                                                                                                                                                                      NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                                                                                                                                                                                                                                                                      NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                      When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                                                                                                                                                                                                      NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                                                                                                                                                                                                                                                      NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                                                                                                                                                                                                                                                                      NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 Name of task id variable in relation to which submission start and end dates are calculated., NA, string, NA, Difference in days between start and origin date., Submission start date., integer, string, NA, date, Difference in days between end and origin date., Submission end date., integer, string, NA, date, relative_to, start, end, start, end</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     parentSchema.required</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                    NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                    NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                    NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      required, optional</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 relative_to, start, end</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                    NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                    NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8              start, end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7            object              &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        parentSchema.properties.type_id.description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 type_id is not meaningful for a mean output_type. The property is primarily used to determine whether mean is a required or optional output type through properties required and optional. If mean is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If mean is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                                                                                                                                                                                                                                                                                               Object containing required and optional arrays defining the probability levels at which quantiles of the predictive distribution will be recorded.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           parentSchema.properties.type_id.examples</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                             NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                           NA, NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.25, 0.50, 0.75, 0.10, 0.20, 0.30, 0.40, 0.60, 0.70, 0.80, 0.90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                             NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                             NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                             NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                             NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.type_id.type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                               object</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                               object</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                  parentSchema.properties.type_id.oneOf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                                                                                                                                                 NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                                                                                                                                                                                                 NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                                                                                                                                                                                                 NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                                                                                                                                 NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                                                                                                                                                                                 NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                                                                                                                                                                                                 NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.type_id.required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       required, optional</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                       required, optional</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                  parentSchema.properties.type_id.properties.required.description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                                                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                                                                                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Array of unique probability levels between 0 and 1 that must be present for submission to be valid. Can be null if no probability levels are required and all valid probability levels are specified in the optional property.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                                                                                                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                                                                                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                                                                                                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.type_id.properties.required.type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                              array, null</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.type_id.properties.required.items.type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                         number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.type_id.properties.required.items.minimum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.type_id.properties.required.items.maximum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                             parentSchema.properties.type_id.properties.optional.description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                                                      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Array of valid but not required unique probability levels. Can be null if all probability levels are required and are specified in the required property.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                                                                      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                                                      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                                                                      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.type_id.properties.optional.type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                              array, null</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                     NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.type_id.properties.optional.items.type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                         number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.type_id.properties.optional.items.minimum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.type_id.properties.optional.items.maximum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                               &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                             object</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                             object</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                               &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                               &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                               &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                               &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             parentSchema.properties.value.description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                           Object defining the characteristics of valid mean values.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Object defining the characteristics of valid quantiles of the predictive distribution at a given probability level.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.examples</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                             numeric, 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.properties.type.description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                 Data type of mean values.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                             Data type of quantile values.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                      &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.properties.type.type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                               &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                             string</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                             string</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                               &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                               &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                               &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                               &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.properties.type.enum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                               NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                           numeric, double, integer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                           numeric, double, integer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                               NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                               NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                               NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                               NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.properties.type.examples</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                numeric</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.properties.minimum.description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       The minimum inclusive valid mean value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       The minimum inclusive valid quantile value (optional).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.properties.minimum.type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                               integer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.properties.minimum.examples</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.properties.maximum.description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       the maximum inclusive valid mean value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       The maximum inclusive valid quantile value (optional).</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.properties.maximum.type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                               integer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                  &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.value.required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                   type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                   type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                   NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                   NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                parentSchema.properties.relative_to.description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                         &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                         &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Name of task id variable in relation to which submission start and end dates are calculated.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Name of task id variable in relation to which submission start and end dates are calculated.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                         &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                         &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                                                         &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.relative_to.type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                     &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                     &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                   string</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                   string</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                     &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                                     &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7                                     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                     &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           parentSchema.properties.start.description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Difference in days between start and origin date.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Difference in days between start and origin date.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                                              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7                                              &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.start.type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                               &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                               &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                               &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                               &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                            integer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                            integer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                               &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                               &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7                               &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                               &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           parentSchema.properties.end.description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                            &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                            &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                            &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                            &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Difference in days between end and origin date.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Difference in days between end and origin date.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                            &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                                            &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7                                            &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                            &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.end.type parentSchema.format            data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                             &lt;NA&gt;                &lt;NA&gt; wk inc flu hosp</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                             &lt;NA&gt;                &lt;NA&gt;              NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                             &lt;NA&gt;                &lt;NA&gt;              NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                             &lt;NA&gt;                &lt;NA&gt;          NA, NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                          integer                &lt;NA&gt;           -6, 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                             &lt;NA&gt;                date              -6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                             &lt;NA&gt;                date               1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                             &lt;NA&gt;                &lt;NA&gt;           -6, 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                    dataPath</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          /rounds/0/model_tasks/0/task_ids/target/required</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 /rounds/0/model_tasks/0/output_type/mean/type_id/optional</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 /rounds/0/model_tasks/0/output_type/mean/type_id/required</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          /rounds/0/model_tasks/0/output_type/mean/type_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                 /rounds/0/submissions_due</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                           /rounds/0/submissions_due/start</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                             /rounds/0/submissions_due/end</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                 /rounds/0/submissions_due</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   parentSchema.properties.end.type   parentSchema.required parentSchema.format</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                             &lt;NA&gt;                    NULL                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                             &lt;NA&gt;          type_id, value                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                             &lt;NA&gt;          type_id, value                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                          integer relative_to, start, end                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                             &lt;NA&gt;                    NULL                date</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                             &lt;NA&gt;                    NULL                date</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                             &lt;NA&gt;              start, end                &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            parentSchema.examples</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                           NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                           NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                           NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                           NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                           NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                           NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2022-06-07, -4, 2022-07-20, 2, NA, origin_date</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                          parentSchema.oneOf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                                                                                                                                                                                                                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                                                                                                                                                                                                                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                                                                                                                                                                                                                                                                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                                                                                                                                                                                                                                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                                                                                                                                                                                                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                                                                                                                                                                                                                                                      NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 Name of task id variable in relation to which submission start and end dates are calculated., NA, string, NA, Difference in days between start and origin date., Submission start date., integer, string, NA, date, Difference in days between end and origin date., Submission end date., integer, string, NA, date, relative_to, start, end, start, end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                            data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                                                                               wk inc flu hosp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                                                                            NA, NA, integer, 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.01, 0.025, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 0.975, 0.99, integer, 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                                                                                         -6, 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                                                                                            -6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                                                                                             1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                                                                                         -6, 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                           dataPath</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 /rounds/0/model_tasks/0/task_ids/target/required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         /rounds/0/model_tasks/0/output_type/mean</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     /rounds/0/model_tasks/0/output_type/quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                        /rounds/0/submissions_due</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                  /rounds/0/submissions_due/start</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                    /rounds/0/submissions_due/end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                        /rounds/0/submissions_due</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"config_path")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/home/runner/work/_temp/Library/hubUtils/error-schema/tasks-errors.json"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_version")</span>

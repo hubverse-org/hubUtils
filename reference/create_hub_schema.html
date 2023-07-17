@@ -12,7 +12,7 @@ opening an arrow dataset."><meta property="og:image" content="https://infectious
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,8 @@ opening an arrow dataset.</p>
 <span>  <span class="va">config_tasks</span>,</span>
 <span>  partitions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>model_id <span class="op">=</span> <span class="fu">arrow</span><span class="fu">::</span><span class="fu"><a href="https://arrow.apache.org/docs/r/reference/data-type.html" class="external-link">utf8</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  output_type_id_datatype <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"character"</span>, <span class="st">"double"</span>, <span class="st">"integer"</span>, <span class="st">"logical"</span>,</span>
-<span>    <span class="st">"Date"</span><span class="op">)</span></span>
+<span>    <span class="st">"Date"</span><span class="op">)</span>,</span>
+<span>  r_schema <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -91,13 +92,18 @@ Note that attempting to coerce <code>output_type_id</code> to a data type that i
 will likely result in an error or potentially unexpected behaviour so use with
 care.</p></dd>
 
+
+<dt>r_schema</dt>
+<dd><p>Logical. If <code>FALSE</code> (default), return an <code><a href="https://arrow.apache.org/docs/r/reference/Schema.html" class="external-link">arrow::schema()</a></code> object.
+If <code>TRUE</code>, return a character vector of R data types.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
 <p>an arrow schema object that can be used to define column datatypes when
-opening model output data.</p>
+opening model output data. If <code>r_schema = TRUE</code>, a character vector of R data types.</p>
     </div>
 
     <div class="section level2">

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,26 @@
       <small>Source: <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.0.9010" id="hubutils-0009010">hubUtils 0.0.0.9010<a class="anchor" aria-label="anchor" href="#hubutils-0009010"></a></h2>
+<ul><li>
+<strong>Support for Hubs using schema earlier than v2.0.0 deprecated</strong>. Currently a warning is issued when interacting with such Hubs. Support will eventually be retired completely and errors will be produced with Hubs using older config schema.</li>
+<li>Added <code><a href="../reference/create_model_out_submit_tmpl.html">create_model_out_submit_tmpl()</a></code> for generating round specific model output template tibbles (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/82" class="external-link">#82</a>).</li>
+<li>Added lower level utilities:
+<ul><li>
+<code><a href="../reference/expand_model_out_val_grid.html">expand_model_out_val_grid()</a></code> for creating an expanded grid of valid task ID and output type ID across round modeling tasks and output types.</li>
+<li>
+<code><a href="../reference/get_round_idx.html">get_round_idx()</a></code>: for getting an integer index of the element in <code>config_tasks$rounds</code> that a character round identifier maps to.</li>
+<li>
+<code><a href="../reference/get_round_idx.html">get_round_ids()</a></code>: for getting a list or character vector of Hub round IDs.</li>
+</ul></li>
+<li>Added additional <code>tasks.json</code> validation checks via <code><a href="../reference/validate_config.html">validate_config()</a></code>:
+<ul><li>Check that all task_id and output_type_id values are unique across <code>required</code> and <code>optional</code> properties.</li>
+<li>In rounds where <code>round_id_from_variable</code> is <code>TRUE</code>, check that the specification of the task_id set as <code>round_id</code> is consistent across modelling tasks.</li>
+<li>Check that <code>round_id</code> values are unique across rounds.</li>
+</ul></li>
+<li>Exported object <code>std_colnames</code> which contains standard column names used in hubverse model output data files, for use in other hubverse packages (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/88" class="external-link">#88</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9009" id="hubutils-0009009">hubUtils 0.0.0.9009<a class="anchor" aria-label="anchor" href="#hubutils-0009009"></a></h2>
 <ul><li>Added <code><a href="../reference/as_model_out_tbl.html">as_model_out_tbl()</a></code> function to standardise model output data by converting to a <code>model_out_tbl</code> S3 class object. (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/32" class="external-link">#32</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/33" class="external-link">#33</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/63" class="external-link">#63</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/64" class="external-link">#64</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/66" class="external-link">#66</a>)</li>

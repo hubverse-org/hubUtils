@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -142,14 +142,14 @@ config file being validated.</p>
 <span>    config <span class="op">=</span> <span class="st">"tasks"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required namespace: jsonvalidate</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json&gt;</span></span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span><span class="co">#&gt; attr(,"config_path")</span></span>
 <span><span class="co">#&gt; /home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span></span>
 <span><span class="co">#&gt; attr(,"schema_version")</span></span>
-<span><span class="co">#&gt; [1] "v0.0.1"</span></span>
+<span><span class="co">#&gt; [1] "v2.0.0"</span></span>
 <span><span class="co">#&gt; attr(,"schema_url")</span></span>
-<span><span class="co">#&gt; https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json</span></span></code></pre></div>
+<span><span class="co">#&gt; https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json</span></span></code></pre></div>
 <p>If validation succeeds, the function returns <code>TRUE</code>. The
 path to the config file validated and the version and URL of the schema
 used for validation are also attached as attributes
@@ -168,8 +168,192 @@ branch (e.g. an upcoming development version) through argument
 <span>    config <span class="op">=</span> <span class="st">"tasks"</span>,</span>
 <span>    schema_version <span class="op">=</span> <span class="st">"v0.0.0.9"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json&gt;</span></span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="co">#&gt; Warning: Schema errors detected in config file</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span></span></span>
+<span><span class="co">#&gt; validated against schema</span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json&gt;</span></span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span><span class="co">#&gt; attr(,"errors")</span></span>
+<span><span class="co">#&gt;                                   instancePath</span></span>
+<span><span class="co">#&gt; 1     /rounds/0/model_tasks/0/output_type/mean</span></span>
+<span><span class="co">#&gt; 2 /rounds/0/model_tasks/0/output_type/quantile</span></span>
+<span><span class="co">#&gt; 3     /rounds/1/model_tasks/0/output_type/mean</span></span>
+<span><span class="co">#&gt; 4 /rounds/1/model_tasks/0/output_type/quantile</span></span>
+<span><span class="co">#&gt;                                                                                                   schemaPath</span></span>
+<span><span class="co">#&gt; 1     #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/required</span></span>
+<span><span class="co">#&gt; 2 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile/required</span></span>
+<span><span class="co">#&gt; 3     #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/required</span></span>
+<span><span class="co">#&gt; 4 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile/required</span></span>
+<span><span class="co">#&gt;    keyword missingProperty                               message         schema</span></span>
+<span><span class="co">#&gt; 1 required         type_id must have required property 'type_id' type_id, value</span></span>
+<span><span class="co">#&gt; 2 required         type_id must have required property 'type_id' type_id, value</span></span>
+<span><span class="co">#&gt; 3 required         type_id must have required property 'type_id' type_id, value</span></span>
+<span><span class="co">#&gt; 4 required         type_id must have required property 'type_id' type_id, value</span></span>
+<span><span class="co">#&gt;   parentSchema.type</span></span>
+<span><span class="co">#&gt; 1            object</span></span>
+<span><span class="co">#&gt; 2            object</span></span>
+<span><span class="co">#&gt; 3            object</span></span>
+<span><span class="co">#&gt; 4            object</span></span>
+<span><span class="co">#&gt;                                                    parentSchema.description</span></span>
+<span><span class="co">#&gt; 1      Object defining the mean of the predictive distribution output type.</span></span>
+<span><span class="co">#&gt; 2 Object defining the quantiles of the predictive distribution output type.</span></span>
+<span><span class="co">#&gt; 3      Object defining the mean of the predictive distribution output type.</span></span>
+<span><span class="co">#&gt; 4 Object defining the quantiles of the predictive distribution output type.</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        parentSchema.properties.type_id.description</span></span>
+<span><span class="co">#&gt; 1 type_id is not meaningful for a mean output_type. The property is primarily used to determine whether mean is a required or optional output type through properties required and optional. If mean is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If mean is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null</span></span>
+<span><span class="co">#&gt; 2                                                                                                                                                                                                                                                                                                                                                                               Object containing required and optional arrays defining the probability levels at which quantiles of the predictive distribution will be recorded.</span></span>
+<span><span class="co">#&gt; 3 type_id is not meaningful for a mean output_type. The property is primarily used to determine whether mean is a required or optional output type through properties required and optional. If mean is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If mean is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null</span></span>
+<span><span class="co">#&gt; 4                                                                                                                                                                                                                                                                                                                                                                               Object containing required and optional arrays defining the probability levels at which quantiles of the predictive distribution will be recorded.</span></span>
+<span><span class="co">#&gt;                           parentSchema.properties.type_id.examples</span></span>
+<span><span class="co">#&gt; 1                                                           NA, NA</span></span>
+<span><span class="co">#&gt; 2 0.25, 0.50, 0.75, 0.10, 0.20, 0.30, 0.40, 0.60, 0.70, 0.80, 0.90</span></span>
+<span><span class="co">#&gt; 3                                                           NA, NA</span></span>
+<span><span class="co">#&gt; 4 0.25, 0.50, 0.75, 0.10, 0.20, 0.30, 0.40, 0.60, 0.70, 0.80, 0.90</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.type</span></span>
+<span><span class="co">#&gt; 1                               object</span></span>
+<span><span class="co">#&gt; 2                               object</span></span>
+<span><span class="co">#&gt; 3                               object</span></span>
+<span><span class="co">#&gt; 4                               object</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                                                                                                  parentSchema.properties.type_id.oneOf</span></span>
+<span><span class="co">#&gt; 1 When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1</span></span>
+<span><span class="co">#&gt; 2                                                                                                                                                                                                                                                                                 NULL</span></span>
+<span><span class="co">#&gt; 3 When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1</span></span>
+<span><span class="co">#&gt; 4                                                                                                                                                                                                                                                                                 NULL</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.required</span></span>
+<span><span class="co">#&gt; 1                       required, optional</span></span>
+<span><span class="co">#&gt; 2                       required, optional</span></span>
+<span><span class="co">#&gt; 3                       required, optional</span></span>
+<span><span class="co">#&gt; 4                       required, optional</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                  parentSchema.properties.type_id.properties.required.description</span></span>
+<span><span class="co">#&gt; 1                                                                                                                                                                                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2 Array of unique probability levels between 0 and 1 that must be present for submission to be valid. Can be null if no probability levels are required and all valid probability levels are specified in the optional property.</span></span>
+<span><span class="co">#&gt; 3                                                                                                                                                                                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 4 Array of unique probability levels between 0 and 1 that must be present for submission to be valid. Can be null if no probability levels are required and all valid probability levels are specified in the optional property.</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.required.type</span></span>
+<span><span class="co">#&gt; 1                                                     NULL</span></span>
+<span><span class="co">#&gt; 2                                              array, null</span></span>
+<span><span class="co">#&gt; 3                                                     NULL</span></span>
+<span><span class="co">#&gt; 4                                              array, null</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.required.items.type</span></span>
+<span><span class="co">#&gt; 1                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                                                         number</span></span>
+<span><span class="co">#&gt; 3                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 4                                                         number</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.required.items.minimum</span></span>
+<span><span class="co">#&gt; 1                                                                NA</span></span>
+<span><span class="co">#&gt; 2                                                                 0</span></span>
+<span><span class="co">#&gt; 3                                                                NA</span></span>
+<span><span class="co">#&gt; 4                                                                 0</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.required.items.maximum</span></span>
+<span><span class="co">#&gt; 1                                                                NA</span></span>
+<span><span class="co">#&gt; 2                                                                 1</span></span>
+<span><span class="co">#&gt; 3                                                                NA</span></span>
+<span><span class="co">#&gt; 4                                                                 1</span></span>
+<span><span class="co">#&gt;                                                                                             parentSchema.properties.type_id.properties.optional.description</span></span>
+<span><span class="co">#&gt; 1                                                                                                                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2 Array of valid but not required unique probability levels. Can be null if all probability levels are required and are specified in the required property.</span></span>
+<span><span class="co">#&gt; 3                                                                                                                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 4 Array of valid but not required unique probability levels. Can be null if all probability levels are required and are specified in the required property.</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.optional.type</span></span>
+<span><span class="co">#&gt; 1                                                     NULL</span></span>
+<span><span class="co">#&gt; 2                                              array, null</span></span>
+<span><span class="co">#&gt; 3                                                     NULL</span></span>
+<span><span class="co">#&gt; 4                                              array, null</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.optional.items.type</span></span>
+<span><span class="co">#&gt; 1                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                                                         number</span></span>
+<span><span class="co">#&gt; 3                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 4                                                         number</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.optional.items.minimum</span></span>
+<span><span class="co">#&gt; 1                                                                NA</span></span>
+<span><span class="co">#&gt; 2                                                                 0</span></span>
+<span><span class="co">#&gt; 3                                                                NA</span></span>
+<span><span class="co">#&gt; 4                                                                 0</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.optional.items.maximum</span></span>
+<span><span class="co">#&gt; 1                                                                NA</span></span>
+<span><span class="co">#&gt; 2                                                                 1</span></span>
+<span><span class="co">#&gt; 3                                                                NA</span></span>
+<span><span class="co">#&gt; 4                                                                 1</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.type</span></span>
+<span><span class="co">#&gt; 1                             object</span></span>
+<span><span class="co">#&gt; 2                             object</span></span>
+<span><span class="co">#&gt; 3                             object</span></span>
+<span><span class="co">#&gt; 4                             object</span></span>
+<span><span class="co">#&gt;                                                                             parentSchema.properties.value.description</span></span>
+<span><span class="co">#&gt; 1                                                           Object defining the characteristics of valid mean values.</span></span>
+<span><span class="co">#&gt; 2 Object defining the characteristics of valid quantiles of the predictive distribution at a given probability level.</span></span>
+<span><span class="co">#&gt; 3                                                           Object defining the characteristics of valid mean values.</span></span>
+<span><span class="co">#&gt; 4 Object defining the characteristics of valid quantiles of the predictive distribution at a given probability level.</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.examples</span></span>
+<span><span class="co">#&gt; 1                             numeric, 0</span></span>
+<span><span class="co">#&gt; 2                                   NULL</span></span>
+<span><span class="co">#&gt; 3                             numeric, 0</span></span>
+<span><span class="co">#&gt; 4                                   NULL</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.type.description</span></span>
+<span><span class="co">#&gt; 1                                 Data type of mean values.</span></span>
+<span><span class="co">#&gt; 2                             Data type of quantile values.</span></span>
+<span><span class="co">#&gt; 3                                 Data type of mean values.</span></span>
+<span><span class="co">#&gt; 4                             Data type of quantile values.</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.type.type</span></span>
+<span><span class="co">#&gt; 1                                             string</span></span>
+<span><span class="co">#&gt; 2                                             string</span></span>
+<span><span class="co">#&gt; 3                                             string</span></span>
+<span><span class="co">#&gt; 4                                             string</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.type.enum</span></span>
+<span><span class="co">#&gt; 1                           numeric, double, integer</span></span>
+<span><span class="co">#&gt; 2                           numeric, double, integer</span></span>
+<span><span class="co">#&gt; 3                           numeric, double, integer</span></span>
+<span><span class="co">#&gt; 4                           numeric, double, integer</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.type.examples</span></span>
+<span><span class="co">#&gt; 1                                                   NULL</span></span>
+<span><span class="co">#&gt; 2                                                numeric</span></span>
+<span><span class="co">#&gt; 3                                                   NULL</span></span>
+<span><span class="co">#&gt; 4                                                numeric</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.minimum.description</span></span>
+<span><span class="co">#&gt; 1                       The minimum inclusive valid mean value</span></span>
+<span><span class="co">#&gt; 2       The minimum inclusive valid quantile value (optional).</span></span>
+<span><span class="co">#&gt; 3                       The minimum inclusive valid mean value</span></span>
+<span><span class="co">#&gt; 4       The minimum inclusive valid quantile value (optional).</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.minimum.type</span></span>
+<span><span class="co">#&gt; 1                                               integer</span></span>
+<span><span class="co">#&gt; 2                                                number</span></span>
+<span><span class="co">#&gt; 3                                               integer</span></span>
+<span><span class="co">#&gt; 4                                                number</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.minimum.examples</span></span>
+<span><span class="co">#&gt; 1                                                      NULL</span></span>
+<span><span class="co">#&gt; 2                                                         0</span></span>
+<span><span class="co">#&gt; 3                                                      NULL</span></span>
+<span><span class="co">#&gt; 4                                                         0</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.maximum.description</span></span>
+<span><span class="co">#&gt; 1                       the maximum inclusive valid mean value</span></span>
+<span><span class="co">#&gt; 2       The maximum inclusive valid quantile value (optional).</span></span>
+<span><span class="co">#&gt; 3                       the maximum inclusive valid mean value</span></span>
+<span><span class="co">#&gt; 4       The maximum inclusive valid quantile value (optional).</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.maximum.type</span></span>
+<span><span class="co">#&gt; 1                                               integer</span></span>
+<span><span class="co">#&gt; 2                                                number</span></span>
+<span><span class="co">#&gt; 3                                               integer</span></span>
+<span><span class="co">#&gt; 4                                                number</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.required parentSchema.required</span></span>
+<span><span class="co">#&gt; 1                                   type        type_id, value</span></span>
+<span><span class="co">#&gt; 2                                   type        type_id, value</span></span>
+<span><span class="co">#&gt; 3                                   type        type_id, value</span></span>
+<span><span class="co">#&gt; 4                                   type        type_id, value</span></span>
+<span><span class="co">#&gt;                                                                                                                                      data.output_type_id.required</span></span>
+<span><span class="co">#&gt; 1                                                                                                                                                            NULL</span></span>
+<span><span class="co">#&gt; 2 0.010, 0.025, 0.050, 0.100, 0.150, 0.200, 0.250, 0.300, 0.350, 0.400, 0.450, 0.500, 0.550, 0.600, 0.650, 0.700, 0.750, 0.800, 0.850, 0.900, 0.950, 0.975, 0.990</span></span>
+<span><span class="co">#&gt; 3                                                                                                                                                            NULL</span></span>
+<span><span class="co">#&gt; 4 0.010, 0.025, 0.050, 0.100, 0.150, 0.200, 0.250, 0.300, 0.350, 0.400, 0.450, 0.500, 0.550, 0.600, 0.650, 0.700, 0.750, 0.800, 0.850, 0.900, 0.950, 0.975, 0.990</span></span>
+<span><span class="co">#&gt;   data.output_type_id.optional data.value.type data.value.minimum</span></span>
+<span><span class="co">#&gt; 1                           NA         integer                  0</span></span>
+<span><span class="co">#&gt; 2                         NULL         integer                  0</span></span>
+<span><span class="co">#&gt; 3                           NA         integer                  0</span></span>
+<span><span class="co">#&gt; 4                         NULL         integer                  0</span></span>
+<span><span class="co">#&gt;                                       dataPath</span></span>
+<span><span class="co">#&gt; 1     /rounds/0/model_tasks/0/output_type/mean</span></span>
+<span><span class="co">#&gt; 2 /rounds/0/model_tasks/0/output_type/quantile</span></span>
+<span><span class="co">#&gt; 3     /rounds/1/model_tasks/0/output_type/mean</span></span>
+<span><span class="co">#&gt; 4 /rounds/1/model_tasks/0/output_type/quantile</span></span>
 <span><span class="co">#&gt; attr(,"config_path")</span></span>
 <span><span class="co">#&gt; /home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span></span>
 <span><span class="co">#&gt; attr(,"schema_version")</span></span>
@@ -182,14 +366,14 @@ branch (e.g. an upcoming development version) through argument
 <span>    config <span class="op">=</span> <span class="st">"tasks"</span>,</span>
 <span>    schema_version <span class="op">=</span> <span class="st">"latest"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json&gt;</span></span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span><span class="co">#&gt; attr(,"config_path")</span></span>
 <span><span class="co">#&gt; /home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span></span>
 <span><span class="co">#&gt; attr(,"schema_version")</span></span>
-<span><span class="co">#&gt; [1] "v1.0.0"</span></span>
+<span><span class="co">#&gt; [1] "v2.0.0"</span></span>
 <span><span class="co">#&gt; attr(,"schema_url")</span></span>
-<span><span class="co">#&gt; https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json</span></span></code></pre></div>
+<span><span class="co">#&gt; https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="validation-returning-errors">Validation returning errors<a class="anchor" aria-label="anchor" href="#validation-returning-errors"></a>
 </h3>
@@ -202,165 +386,379 @@ attribute <code>"errors"</code>.</p>
 <span>                           package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_config.html">validate_config</a></span><span class="op">(</span>config_path <span class="op">=</span> <span class="va">config_path</span>, config <span class="op">=</span> <span class="st">"tasks"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Hub configured using schema version <span style="color: #00BB00;">v0.0.0.9</span>. Support for schema earlier than</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">v2.0.0</span> was deprecated in hubUtils 0.0.0.9010.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please upgrade Hub config files to conform to, at minimum, version <span style="color: #00BB00;">v2.0.0</span> as</span></span>
+<span><span class="co">#&gt;   soon as possible.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
 <span><span class="co">#&gt; Warning: Schema errors detected in config file</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/error-schema/tasks-errors.json</span></span></span>
 <span><span class="co">#&gt; validated against schema</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json&gt;</span></span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span>
 <span><span class="co">#&gt; attr(,"errors")</span></span>
-<span><span class="co">#&gt;                                                instancePath</span></span>
-<span><span class="co">#&gt; 1          /rounds/0/model_tasks/0/task_ids/target/required</span></span>
-<span><span class="co">#&gt; 2 /rounds/0/model_tasks/0/output_type/mean/type_id/optional</span></span>
-<span><span class="co">#&gt; 3 /rounds/0/model_tasks/0/output_type/mean/type_id/required</span></span>
-<span><span class="co">#&gt; 4          /rounds/0/model_tasks/0/output_type/mean/type_id</span></span>
-<span><span class="co">#&gt; 5                                 /rounds/0/submissions_due</span></span>
-<span><span class="co">#&gt; 6                           /rounds/0/submissions_due/start</span></span>
-<span><span class="co">#&gt; 7                             /rounds/0/submissions_due/end</span></span>
-<span><span class="co">#&gt; 8                                 /rounds/0/submissions_due</span></span>
-<span><span class="co">#&gt;                                                                                                                                          schemaPath</span></span>
-<span><span class="co">#&gt; 1                             #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/target/properties/required/type</span></span>
-<span><span class="co">#&gt; 2 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/properties/type_id/oneOf/0/properties/optional/type</span></span>
-<span><span class="co">#&gt; 3 #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/properties/type_id/oneOf/1/properties/required/type</span></span>
-<span><span class="co">#&gt; 4                            #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/properties/type_id/oneOf</span></span>
-<span><span class="co">#&gt; 5                                                                             #/properties/rounds/items/properties/submissions_due/oneOf/0/required</span></span>
-<span><span class="co">#&gt; 6                                                                #/properties/rounds/items/properties/submissions_due/oneOf/1/properties/start/type</span></span>
-<span><span class="co">#&gt; 7                                                                  #/properties/rounds/items/properties/submissions_due/oneOf/1/properties/end/type</span></span>
-<span><span class="co">#&gt; 8                                                                                        #/properties/rounds/items/properties/submissions_due/oneOf</span></span>
-<span><span class="co">#&gt;    keyword params.type params.passingSchemas params.missingProperty</span></span>
-<span><span class="co">#&gt; 1     type array, null                    NA                   &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 2     type        null                    NA                   &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3     type        null                    NA                   &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4    oneOf        NULL                    NA                   &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5 required        NULL                    NA            relative_to</span></span>
-<span><span class="co">#&gt; 6     type      string                    NA                   &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 7     type      string                    NA                   &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 8    oneOf        NULL                    NA                   &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;                                       instancePath</span></span>
+<span><span class="co">#&gt; 1 /rounds/0/model_tasks/0/task_ids/target/required</span></span>
+<span><span class="co">#&gt; 2         /rounds/0/model_tasks/0/output_type/mean</span></span>
+<span><span class="co">#&gt; 3     /rounds/0/model_tasks/0/output_type/quantile</span></span>
+<span><span class="co">#&gt; 4                        /rounds/0/submissions_due</span></span>
+<span><span class="co">#&gt; 5                  /rounds/0/submissions_due/start</span></span>
+<span><span class="co">#&gt; 6                    /rounds/0/submissions_due/end</span></span>
+<span><span class="co">#&gt; 7                        /rounds/0/submissions_due</span></span>
+<span><span class="co">#&gt;                                                                                                              schemaPath</span></span>
+<span><span class="co">#&gt; 1 #/properties/rounds/items/properties/model_tasks/items/properties/task_ids/properties/target/properties/required/type</span></span>
+<span><span class="co">#&gt; 2                #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/required</span></span>
+<span><span class="co">#&gt; 3            #/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/quantile/required</span></span>
+<span><span class="co">#&gt; 4                                                 #/properties/rounds/items/properties/submissions_due/oneOf/0/required</span></span>
+<span><span class="co">#&gt; 5                                    #/properties/rounds/items/properties/submissions_due/oneOf/1/properties/start/type</span></span>
+<span><span class="co">#&gt; 6                                      #/properties/rounds/items/properties/submissions_due/oneOf/1/properties/end/type</span></span>
+<span><span class="co">#&gt; 7                                                            #/properties/rounds/items/properties/submissions_due/oneOf</span></span>
+<span><span class="co">#&gt;    keyword params.type params.missingProperty params.passingSchemas</span></span>
+<span><span class="co">#&gt; 1     type array, null                   &lt;NA&gt;                    NA</span></span>
+<span><span class="co">#&gt; 2 required        NULL                type_id                    NA</span></span>
+<span><span class="co">#&gt; 3 required        NULL                type_id                    NA</span></span>
+<span><span class="co">#&gt; 4 required        NULL            relative_to                    NA</span></span>
+<span><span class="co">#&gt; 5     type      string                   &lt;NA&gt;                    NA</span></span>
+<span><span class="co">#&gt; 6     type      string                   &lt;NA&gt;                    NA</span></span>
+<span><span class="co">#&gt; 7    oneOf        NULL                   &lt;NA&gt;                    NA</span></span>
 <span><span class="co">#&gt;                                     message</span></span>
 <span><span class="co">#&gt; 1                        must be array,null</span></span>
-<span><span class="co">#&gt; 2                              must be null</span></span>
-<span><span class="co">#&gt; 3                              must be null</span></span>
-<span><span class="co">#&gt; 4    must match exactly one schema in oneOf</span></span>
-<span><span class="co">#&gt; 5 must have required property 'relative_to'</span></span>
+<span><span class="co">#&gt; 2     must have required property 'type_id'</span></span>
+<span><span class="co">#&gt; 3     must have required property 'type_id'</span></span>
+<span><span class="co">#&gt; 4 must have required property 'relative_to'</span></span>
+<span><span class="co">#&gt; 5                            must be string</span></span>
 <span><span class="co">#&gt; 6                            must be string</span></span>
-<span><span class="co">#&gt; 7                            must be string</span></span>
-<span><span class="co">#&gt; 8    must match exactly one schema in oneOf</span></span>
+<span><span class="co">#&gt; 7    must match exactly one schema in oneOf</span></span>
 <span><span class="co">#&gt;                                                                                                                                                                                                                                                                                                                                                      schema</span></span>
 <span><span class="co">#&gt; 1                                                                                                                                                                                                                                                                                                                                               array, null</span></span>
-<span><span class="co">#&gt; 2                                                                                                                                                                                                                                                                                                                                                      null</span></span>
-<span><span class="co">#&gt; 3                                                                                                                                                                                                                                                                                                                                                      null</span></span>
-<span><span class="co">#&gt; 4                                                                      When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1</span></span>
-<span><span class="co">#&gt; 5                                                                                                                                                                                                                                                                                                                                   relative_to, start, end</span></span>
+<span><span class="co">#&gt; 2                                                                                                                                                                                                                                                                                                                                            type_id, value</span></span>
+<span><span class="co">#&gt; 3                                                                                                                                                                                                                                                                                                                                            type_id, value</span></span>
+<span><span class="co">#&gt; 4                                                                                                                                                                                                                                                                                                                                   relative_to, start, end</span></span>
+<span><span class="co">#&gt; 5                                                                                                                                                                                                                                                                                                                                                    string</span></span>
 <span><span class="co">#&gt; 6                                                                                                                                                                                                                                                                                                                                                    string</span></span>
-<span><span class="co">#&gt; 7                                                                                                                                                                                                                                                                                                                                                    string</span></span>
-<span><span class="co">#&gt; 8 Name of task id variable in relation to which submission start and end dates are calculated., NA, string, NA, Difference in days between start and origin date., Submission start date., integer, string, NA, date, Difference in days between end and origin date., Submission end date., integer, string, NA, date, relative_to, start, end, start, end</span></span>
-<span><span class="co">#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           parentSchema.description</span></span>
-<span><span class="co">#&gt; 1                                                                                                                                                                                                                                                                                                                                         Array of target unique identifiers that must be present for submission to be valid. Can be null if no targets are required and all valid targets are specified in the optional property.</span></span>
-<span><span class="co">#&gt; 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      When mean is required, property set to null</span></span>
-<span><span class="co">#&gt; 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      When mean is optional, property set to null</span></span>
-<span><span class="co">#&gt; 4 type_id is not meaningful for a mean output_type. The property is primarily used to determine whether mean is a required or optional output type through properties required and optional. If mean is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If mean is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null</span></span>
-<span><span class="co">#&gt; 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           Submission start date.</span></span>
-<span><span class="co">#&gt; 7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             Submission end date.</span></span>
-<span><span class="co">#&gt; 8                                                                                                                                                                                                                                                                                                                                                                                                                                                 Object defining the dates by which model forecasts must be submitted to the hub.</span></span>
+<span><span class="co">#&gt; 7 Name of task id variable in relation to which submission start and end dates are calculated., NA, string, NA, Difference in days between start and origin date., Submission start date., integer, string, NA, date, Difference in days between end and origin date., Submission end date., integer, string, NA, date, relative_to, start, end, start, end</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                   parentSchema.description</span></span>
+<span><span class="co">#&gt; 1 Array of target unique identifiers that must be present for submission to be valid. Can be null if no targets are required and all valid targets are specified in the optional property.</span></span>
+<span><span class="co">#&gt; 2                                                                                                                     Object defining the mean of the predictive distribution output type.</span></span>
+<span><span class="co">#&gt; 3                                                                                                                Object defining the quantiles of the predictive distribution output type.</span></span>
+<span><span class="co">#&gt; 4                                                                                                                                                                                     &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                                                                                                                                   Submission start date.</span></span>
+<span><span class="co">#&gt; 6                                                                                                                                                                     Submission end date.</span></span>
+<span><span class="co">#&gt; 7                                                                                                         Object defining the dates by which model forecasts must be submitted to the hub.</span></span>
 <span><span class="co">#&gt;   parentSchema.type parentSchema.type</span></span>
 <span><span class="co">#&gt; 1       array, null            string</span></span>
-<span><span class="co">#&gt; 2              null              &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 3              null              &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4            object              &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5              NULL              &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2            object              &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3            object              &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 4              NULL              &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5            string              &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 6            string              &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 7            string              &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 8            object              &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;                            parentSchema.examples</span></span>
-<span><span class="co">#&gt; 1                                           NULL</span></span>
-<span><span class="co">#&gt; 2                                           NULL</span></span>
-<span><span class="co">#&gt; 3                                           NULL</span></span>
-<span><span class="co">#&gt; 4                                         NA, NA</span></span>
-<span><span class="co">#&gt; 5                                           NULL</span></span>
-<span><span class="co">#&gt; 6                                           NULL</span></span>
-<span><span class="co">#&gt; 7                                           NULL</span></span>
-<span><span class="co">#&gt; 8 2022-06-07, -4, 2022-07-20, 2, NA, origin_date</span></span>
-<span><span class="co">#&gt;                                                                                                                                                                                                                                                                                                                                          parentSchema.oneOf</span></span>
-<span><span class="co">#&gt; 1                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
-<span><span class="co">#&gt; 2                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
-<span><span class="co">#&gt; 3                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
-<span><span class="co">#&gt; 4                                                                      When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1</span></span>
-<span><span class="co">#&gt; 5                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
-<span><span class="co">#&gt; 6                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
-<span><span class="co">#&gt; 7                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
-<span><span class="co">#&gt; 8 Name of task id variable in relation to which submission start and end dates are calculated., NA, string, NA, Difference in days between start and origin date., Submission start date., integer, string, NA, date, Difference in days between end and origin date., Submission end date., integer, string, NA, date, relative_to, start, end, start, end</span></span>
-<span><span class="co">#&gt;     parentSchema.required</span></span>
-<span><span class="co">#&gt; 1                    NULL</span></span>
-<span><span class="co">#&gt; 2                    NULL</span></span>
-<span><span class="co">#&gt; 3                    NULL</span></span>
-<span><span class="co">#&gt; 4      required, optional</span></span>
-<span><span class="co">#&gt; 5 relative_to, start, end</span></span>
-<span><span class="co">#&gt; 6                    NULL</span></span>
-<span><span class="co">#&gt; 7                    NULL</span></span>
-<span><span class="co">#&gt; 8              start, end</span></span>
+<span><span class="co">#&gt; 7            object              &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        parentSchema.properties.type_id.description</span></span>
+<span><span class="co">#&gt; 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2 type_id is not meaningful for a mean output_type. The property is primarily used to determine whether mean is a required or optional output type through properties required and optional. If mean is a required output type, the required property must be an array containing the single string element 'NA' and the optional property must be set to null. If mean is an optional output type, the optional property must be an array containing the single string element 'NA' and the required property must be set to null</span></span>
+<span><span class="co">#&gt; 3                                                                                                                                                                                                                                                                                                                                                                               Object containing required and optional arrays defining the probability levels at which quantiles of the predictive distribution will be recorded.</span></span>
+<span><span class="co">#&gt; 4                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;                           parentSchema.properties.type_id.examples</span></span>
+<span><span class="co">#&gt; 1                                                             NULL</span></span>
+<span><span class="co">#&gt; 2                                                           NA, NA</span></span>
+<span><span class="co">#&gt; 3 0.25, 0.50, 0.75, 0.10, 0.20, 0.30, 0.40, 0.60, 0.70, 0.80, 0.90</span></span>
+<span><span class="co">#&gt; 4                                                             NULL</span></span>
+<span><span class="co">#&gt; 5                                                             NULL</span></span>
+<span><span class="co">#&gt; 6                                                             NULL</span></span>
+<span><span class="co">#&gt; 7                                                             NULL</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.type</span></span>
+<span><span class="co">#&gt; 1                                 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                               object</span></span>
+<span><span class="co">#&gt; 3                               object</span></span>
+<span><span class="co">#&gt; 4                                 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                 &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                                                                                                  parentSchema.properties.type_id.oneOf</span></span>
+<span><span class="co">#&gt; 1                                                                                                                                                                                                                                                                                 NULL</span></span>
+<span><span class="co">#&gt; 2 When mean is required, property set to single element 'NA' array, When mean is optional, property set to null, array, null, NA, NA, 1, NA, When mean is required, property set to null, When mean is optional, property set to single element 'NA' array, null, array, NA, NA, NA, 1</span></span>
+<span><span class="co">#&gt; 3                                                                                                                                                                                                                                                                                 NULL</span></span>
+<span><span class="co">#&gt; 4                                                                                                                                                                                                                                                                                 NULL</span></span>
+<span><span class="co">#&gt; 5                                                                                                                                                                                                                                                                                 NULL</span></span>
+<span><span class="co">#&gt; 6                                                                                                                                                                                                                                                                                 NULL</span></span>
+<span><span class="co">#&gt; 7                                                                                                                                                                                                                                                                                 NULL</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.required</span></span>
+<span><span class="co">#&gt; 1                                     NULL</span></span>
+<span><span class="co">#&gt; 2                       required, optional</span></span>
+<span><span class="co">#&gt; 3                       required, optional</span></span>
+<span><span class="co">#&gt; 4                                     NULL</span></span>
+<span><span class="co">#&gt; 5                                     NULL</span></span>
+<span><span class="co">#&gt; 6                                     NULL</span></span>
+<span><span class="co">#&gt; 7                                     NULL</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                  parentSchema.properties.type_id.properties.required.description</span></span>
+<span><span class="co">#&gt; 1                                                                                                                                                                                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                                                                                                                                                                                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3 Array of unique probability levels between 0 and 1 that must be present for submission to be valid. Can be null if no probability levels are required and all valid probability levels are specified in the optional property.</span></span>
+<span><span class="co">#&gt; 4                                                                                                                                                                                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                                                                                                                                                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                                                                                                                                                                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                                                                                                                                                                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.required.type</span></span>
+<span><span class="co">#&gt; 1                                                     NULL</span></span>
+<span><span class="co">#&gt; 2                                                     NULL</span></span>
+<span><span class="co">#&gt; 3                                              array, null</span></span>
+<span><span class="co">#&gt; 4                                                     NULL</span></span>
+<span><span class="co">#&gt; 5                                                     NULL</span></span>
+<span><span class="co">#&gt; 6                                                     NULL</span></span>
+<span><span class="co">#&gt; 7                                                     NULL</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.required.items.type</span></span>
+<span><span class="co">#&gt; 1                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3                                                         number</span></span>
+<span><span class="co">#&gt; 4                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.required.items.minimum</span></span>
+<span><span class="co">#&gt; 1                                                                NA</span></span>
+<span><span class="co">#&gt; 2                                                                NA</span></span>
+<span><span class="co">#&gt; 3                                                                 0</span></span>
+<span><span class="co">#&gt; 4                                                                NA</span></span>
+<span><span class="co">#&gt; 5                                                                NA</span></span>
+<span><span class="co">#&gt; 6                                                                NA</span></span>
+<span><span class="co">#&gt; 7                                                                NA</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.required.items.maximum</span></span>
+<span><span class="co">#&gt; 1                                                                NA</span></span>
+<span><span class="co">#&gt; 2                                                                NA</span></span>
+<span><span class="co">#&gt; 3                                                                 1</span></span>
+<span><span class="co">#&gt; 4                                                                NA</span></span>
+<span><span class="co">#&gt; 5                                                                NA</span></span>
+<span><span class="co">#&gt; 6                                                                NA</span></span>
+<span><span class="co">#&gt; 7                                                                NA</span></span>
+<span><span class="co">#&gt;                                                                                             parentSchema.properties.type_id.properties.optional.description</span></span>
+<span><span class="co">#&gt; 1                                                                                                                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                                                                                                                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3 Array of valid but not required unique probability levels. Can be null if all probability levels are required and are specified in the required property.</span></span>
+<span><span class="co">#&gt; 4                                                                                                                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                                                                                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                                                                                                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                                                                                                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.optional.type</span></span>
+<span><span class="co">#&gt; 1                                                     NULL</span></span>
+<span><span class="co">#&gt; 2                                                     NULL</span></span>
+<span><span class="co">#&gt; 3                                              array, null</span></span>
+<span><span class="co">#&gt; 4                                                     NULL</span></span>
+<span><span class="co">#&gt; 5                                                     NULL</span></span>
+<span><span class="co">#&gt; 6                                                     NULL</span></span>
+<span><span class="co">#&gt; 7                                                     NULL</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.optional.items.type</span></span>
+<span><span class="co">#&gt; 1                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3                                                         number</span></span>
+<span><span class="co">#&gt; 4                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                                           &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.optional.items.minimum</span></span>
+<span><span class="co">#&gt; 1                                                                NA</span></span>
+<span><span class="co">#&gt; 2                                                                NA</span></span>
+<span><span class="co">#&gt; 3                                                                 0</span></span>
+<span><span class="co">#&gt; 4                                                                NA</span></span>
+<span><span class="co">#&gt; 5                                                                NA</span></span>
+<span><span class="co">#&gt; 6                                                                NA</span></span>
+<span><span class="co">#&gt; 7                                                                NA</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.type_id.properties.optional.items.maximum</span></span>
+<span><span class="co">#&gt; 1                                                                NA</span></span>
+<span><span class="co">#&gt; 2                                                                NA</span></span>
+<span><span class="co">#&gt; 3                                                                 1</span></span>
+<span><span class="co">#&gt; 4                                                                NA</span></span>
+<span><span class="co">#&gt; 5                                                                NA</span></span>
+<span><span class="co">#&gt; 6                                                                NA</span></span>
+<span><span class="co">#&gt; 7                                                                NA</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.type</span></span>
+<span><span class="co">#&gt; 1                               &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                             object</span></span>
+<span><span class="co">#&gt; 3                             object</span></span>
+<span><span class="co">#&gt; 4                               &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                               &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                               &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                               &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;                                                                             parentSchema.properties.value.description</span></span>
+<span><span class="co">#&gt; 1                                                                                                                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                                                           Object defining the characteristics of valid mean values.</span></span>
+<span><span class="co">#&gt; 3 Object defining the characteristics of valid quantiles of the predictive distribution at a given probability level.</span></span>
+<span><span class="co">#&gt; 4                                                                                                                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                                                                                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                                                                                                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                                                                                                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.examples</span></span>
+<span><span class="co">#&gt; 1                                   NULL</span></span>
+<span><span class="co">#&gt; 2                             numeric, 0</span></span>
+<span><span class="co">#&gt; 3                                   NULL</span></span>
+<span><span class="co">#&gt; 4                                   NULL</span></span>
+<span><span class="co">#&gt; 5                                   NULL</span></span>
+<span><span class="co">#&gt; 6                                   NULL</span></span>
+<span><span class="co">#&gt; 7                                   NULL</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.type.description</span></span>
+<span><span class="co">#&gt; 1                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                                 Data type of mean values.</span></span>
+<span><span class="co">#&gt; 3                             Data type of quantile values.</span></span>
+<span><span class="co">#&gt; 4                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                                      &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.type.type</span></span>
+<span><span class="co">#&gt; 1                                               &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                                             string</span></span>
+<span><span class="co">#&gt; 3                                             string</span></span>
+<span><span class="co">#&gt; 4                                               &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                               &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                               &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                               &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.type.enum</span></span>
+<span><span class="co">#&gt; 1                                               NULL</span></span>
+<span><span class="co">#&gt; 2                           numeric, double, integer</span></span>
+<span><span class="co">#&gt; 3                           numeric, double, integer</span></span>
+<span><span class="co">#&gt; 4                                               NULL</span></span>
+<span><span class="co">#&gt; 5                                               NULL</span></span>
+<span><span class="co">#&gt; 6                                               NULL</span></span>
+<span><span class="co">#&gt; 7                                               NULL</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.type.examples</span></span>
+<span><span class="co">#&gt; 1                                                   NULL</span></span>
+<span><span class="co">#&gt; 2                                                   NULL</span></span>
+<span><span class="co">#&gt; 3                                                numeric</span></span>
+<span><span class="co">#&gt; 4                                                   NULL</span></span>
+<span><span class="co">#&gt; 5                                                   NULL</span></span>
+<span><span class="co">#&gt; 6                                                   NULL</span></span>
+<span><span class="co">#&gt; 7                                                   NULL</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.minimum.description</span></span>
+<span><span class="co">#&gt; 1                                                         &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                       The minimum inclusive valid mean value</span></span>
+<span><span class="co">#&gt; 3       The minimum inclusive valid quantile value (optional).</span></span>
+<span><span class="co">#&gt; 4                                                         &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                         &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                                         &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                                         &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.minimum.type</span></span>
+<span><span class="co">#&gt; 1                                                  &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                                               integer</span></span>
+<span><span class="co">#&gt; 3                                                number</span></span>
+<span><span class="co">#&gt; 4                                                  &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                  &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                                  &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                                  &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.minimum.examples</span></span>
+<span><span class="co">#&gt; 1                                                      NULL</span></span>
+<span><span class="co">#&gt; 2                                                      NULL</span></span>
+<span><span class="co">#&gt; 3                                                         0</span></span>
+<span><span class="co">#&gt; 4                                                      NULL</span></span>
+<span><span class="co">#&gt; 5                                                      NULL</span></span>
+<span><span class="co">#&gt; 6                                                      NULL</span></span>
+<span><span class="co">#&gt; 7                                                      NULL</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.maximum.description</span></span>
+<span><span class="co">#&gt; 1                                                         &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                       the maximum inclusive valid mean value</span></span>
+<span><span class="co">#&gt; 3       The maximum inclusive valid quantile value (optional).</span></span>
+<span><span class="co">#&gt; 4                                                         &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                         &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                                         &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                                         &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.properties.maximum.type</span></span>
+<span><span class="co">#&gt; 1                                                  &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                                               integer</span></span>
+<span><span class="co">#&gt; 3                                                number</span></span>
+<span><span class="co">#&gt; 4                                                  &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                                                  &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6                                                  &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7                                                  &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.value.required</span></span>
+<span><span class="co">#&gt; 1                                   NULL</span></span>
+<span><span class="co">#&gt; 2                                   type</span></span>
+<span><span class="co">#&gt; 3                                   type</span></span>
+<span><span class="co">#&gt; 4                                   NULL</span></span>
+<span><span class="co">#&gt; 5                                   NULL</span></span>
+<span><span class="co">#&gt; 6                                   NULL</span></span>
+<span><span class="co">#&gt; 7                                   NULL</span></span>
 <span><span class="co">#&gt;                                                parentSchema.properties.relative_to.description</span></span>
 <span><span class="co">#&gt; 1                                                                                         &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 2                                                                                         &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 3                                                                                         &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4                                                                                         &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5 Name of task id variable in relation to which submission start and end dates are calculated.</span></span>
+<span><span class="co">#&gt; 4 Name of task id variable in relation to which submission start and end dates are calculated.</span></span>
+<span><span class="co">#&gt; 5                                                                                         &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 6                                                                                         &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 7                                                                                         &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 8                                                                                         &lt;NA&gt;</span></span>
 <span><span class="co">#&gt;   parentSchema.properties.relative_to.type</span></span>
 <span><span class="co">#&gt; 1                                     &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 2                                     &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 3                                     &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4                                     &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5                                   string</span></span>
+<span><span class="co">#&gt; 4                                   string</span></span>
+<span><span class="co">#&gt; 5                                     &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 6                                     &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 7                                     &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 8                                     &lt;NA&gt;</span></span>
 <span><span class="co">#&gt;           parentSchema.properties.start.description</span></span>
 <span><span class="co">#&gt; 1                                              &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 2                                              &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 3                                              &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4                                              &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5 Difference in days between start and origin date.</span></span>
+<span><span class="co">#&gt; 4 Difference in days between start and origin date.</span></span>
+<span><span class="co">#&gt; 5                                              &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 6                                              &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 7                                              &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 8                                              &lt;NA&gt;</span></span>
 <span><span class="co">#&gt;   parentSchema.properties.start.type</span></span>
 <span><span class="co">#&gt; 1                               &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 2                               &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 3                               &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4                               &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5                            integer</span></span>
+<span><span class="co">#&gt; 4                            integer</span></span>
+<span><span class="co">#&gt; 5                               &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 6                               &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 7                               &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 8                               &lt;NA&gt;</span></span>
 <span><span class="co">#&gt;           parentSchema.properties.end.description</span></span>
 <span><span class="co">#&gt; 1                                            &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 2                                            &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 3                                            &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 4                                            &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 5 Difference in days between end and origin date.</span></span>
+<span><span class="co">#&gt; 4 Difference in days between end and origin date.</span></span>
+<span><span class="co">#&gt; 5                                            &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 6                                            &lt;NA&gt;</span></span>
 <span><span class="co">#&gt; 7                                            &lt;NA&gt;</span></span>
-<span><span class="co">#&gt; 8                                            &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   parentSchema.properties.end.type parentSchema.format            data</span></span>
-<span><span class="co">#&gt; 1                             &lt;NA&gt;                &lt;NA&gt; wk inc flu hosp</span></span>
-<span><span class="co">#&gt; 2                             &lt;NA&gt;                &lt;NA&gt;              NA</span></span>
-<span><span class="co">#&gt; 3                             &lt;NA&gt;                &lt;NA&gt;              NA</span></span>
-<span><span class="co">#&gt; 4                             &lt;NA&gt;                &lt;NA&gt;          NA, NA</span></span>
-<span><span class="co">#&gt; 5                          integer                &lt;NA&gt;           -6, 1</span></span>
-<span><span class="co">#&gt; 6                             &lt;NA&gt;                date              -6</span></span>
-<span><span class="co">#&gt; 7                             &lt;NA&gt;                date               1</span></span>
-<span><span class="co">#&gt; 8                             &lt;NA&gt;                &lt;NA&gt;           -6, 1</span></span>
-<span><span class="co">#&gt;                                                    dataPath</span></span>
-<span><span class="co">#&gt; 1          /rounds/0/model_tasks/0/task_ids/target/required</span></span>
-<span><span class="co">#&gt; 2 /rounds/0/model_tasks/0/output_type/mean/type_id/optional</span></span>
-<span><span class="co">#&gt; 3 /rounds/0/model_tasks/0/output_type/mean/type_id/required</span></span>
-<span><span class="co">#&gt; 4          /rounds/0/model_tasks/0/output_type/mean/type_id</span></span>
-<span><span class="co">#&gt; 5                                 /rounds/0/submissions_due</span></span>
-<span><span class="co">#&gt; 6                           /rounds/0/submissions_due/start</span></span>
-<span><span class="co">#&gt; 7                             /rounds/0/submissions_due/end</span></span>
-<span><span class="co">#&gt; 8                                 /rounds/0/submissions_due</span></span>
+<span><span class="co">#&gt;   parentSchema.properties.end.type   parentSchema.required parentSchema.format</span></span>
+<span><span class="co">#&gt; 1                             &lt;NA&gt;                    NULL                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2                             &lt;NA&gt;          type_id, value                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3                             &lt;NA&gt;          type_id, value                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 4                          integer relative_to, start, end                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5                             &lt;NA&gt;                    NULL                date</span></span>
+<span><span class="co">#&gt; 6                             &lt;NA&gt;                    NULL                date</span></span>
+<span><span class="co">#&gt; 7                             &lt;NA&gt;              start, end                &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;                            parentSchema.examples</span></span>
+<span><span class="co">#&gt; 1                                           NULL</span></span>
+<span><span class="co">#&gt; 2                                           NULL</span></span>
+<span><span class="co">#&gt; 3                                           NULL</span></span>
+<span><span class="co">#&gt; 4                                           NULL</span></span>
+<span><span class="co">#&gt; 5                                           NULL</span></span>
+<span><span class="co">#&gt; 6                                           NULL</span></span>
+<span><span class="co">#&gt; 7 2022-06-07, -4, 2022-07-20, 2, NA, origin_date</span></span>
+<span><span class="co">#&gt;                                                                                                                                                                                                                                                                                                                                          parentSchema.oneOf</span></span>
+<span><span class="co">#&gt; 1                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
+<span><span class="co">#&gt; 2                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
+<span><span class="co">#&gt; 3                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
+<span><span class="co">#&gt; 4                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
+<span><span class="co">#&gt; 5                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
+<span><span class="co">#&gt; 6                                                                                                                                                                                                                                                                                                                                                      NULL</span></span>
+<span><span class="co">#&gt; 7 Name of task id variable in relation to which submission start and end dates are calculated., NA, string, NA, Difference in days between start and origin date., Submission start date., integer, string, NA, date, Difference in days between end and origin date., Submission end date., integer, string, NA, date, relative_to, start, end, start, end</span></span>
+<span><span class="co">#&gt;                                                                                                                                            data</span></span>
+<span><span class="co">#&gt; 1                                                                                                                               wk inc flu hosp</span></span>
+<span><span class="co">#&gt; 2                                                                                                                            NA, NA, integer, 0</span></span>
+<span><span class="co">#&gt; 3 0.01, 0.025, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 0.975, 0.99, integer, 0</span></span>
+<span><span class="co">#&gt; 4                                                                                                                                         -6, 1</span></span>
+<span><span class="co">#&gt; 5                                                                                                                                            -6</span></span>
+<span><span class="co">#&gt; 6                                                                                                                                             1</span></span>
+<span><span class="co">#&gt; 7                                                                                                                                         -6, 1</span></span>
+<span><span class="co">#&gt;                                           dataPath</span></span>
+<span><span class="co">#&gt; 1 /rounds/0/model_tasks/0/task_ids/target/required</span></span>
+<span><span class="co">#&gt; 2         /rounds/0/model_tasks/0/output_type/mean</span></span>
+<span><span class="co">#&gt; 3     /rounds/0/model_tasks/0/output_type/quantile</span></span>
+<span><span class="co">#&gt; 4                        /rounds/0/submissions_due</span></span>
+<span><span class="co">#&gt; 5                  /rounds/0/submissions_due/start</span></span>
+<span><span class="co">#&gt; 6                    /rounds/0/submissions_due/end</span></span>
+<span><span class="co">#&gt; 7                        /rounds/0/submissions_due</span></span>
 <span><span class="co">#&gt; attr(,"config_path")</span></span>
 <span><span class="co">#&gt; [1] "/home/runner/work/_temp/Library/hubUtils/error-schema/tasks-errors.json"</span></span>
 <span><span class="co">#&gt; attr(,"schema_version")</span></span>
@@ -378,23 +776,23 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
 <span><span class="co">#&gt; validated against schema</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json&gt;</span></span></span>
 <span><span class="fu"><a href="../reference/view_config_val_errors.html">view_config_val_errors</a></span><span class="op">(</span><span class="va">validation</span><span class="op">)</span></span></code></pre></div>
-<div id="vzdignmxev" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vzdignmxev table {
+<div id="warcnfehts" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#warcnfehts table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vzdignmxev thead, #vzdignmxev tbody, #vzdignmxev tfoot, #vzdignmxev tr, #vzdignmxev td, #vzdignmxev th {
+#warcnfehts thead, #warcnfehts tbody, #warcnfehts tfoot, #warcnfehts tr, #warcnfehts td, #warcnfehts th {
   border-style: none;
 }
 
-#vzdignmxev p {
+#warcnfehts p {
   margin: 0;
   padding: 0;
 }
 
-#vzdignmxev .gt_table {
+#warcnfehts .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -420,12 +818,12 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-left-color: #D3D3D3;
 }
 
-#vzdignmxev .gt_caption {
+#warcnfehts .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vzdignmxev .gt_title {
+#warcnfehts .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -437,7 +835,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-bottom-width: 0;
 }
 
-#vzdignmxev .gt_subtitle {
+#warcnfehts .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -449,7 +847,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-top-width: 0;
 }
 
-#vzdignmxev .gt_heading {
+#warcnfehts .gt_heading {
   background-color: #F0F3F5;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -461,13 +859,13 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-right-color: #D3D3D3;
 }
 
-#vzdignmxev .gt_bottom_border {
+#warcnfehts .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vzdignmxev .gt_col_headings {
+#warcnfehts .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -482,7 +880,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-right-color: #D3D3D3;
 }
 
-#vzdignmxev .gt_col_heading {
+#warcnfehts .gt_col_heading {
   color: #333333;
   background-color: #F0F3F5;
   font-size: 100%;
@@ -502,7 +900,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   overflow-x: hidden;
 }
 
-#vzdignmxev .gt_column_spanner_outer {
+#warcnfehts .gt_column_spanner_outer {
   color: #333333;
   background-color: #F0F3F5;
   font-size: 100%;
@@ -514,15 +912,15 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 4px;
 }
 
-#vzdignmxev .gt_column_spanner_outer:first-child {
+#warcnfehts .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vzdignmxev .gt_column_spanner_outer:last-child {
+#warcnfehts .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vzdignmxev .gt_column_spanner {
+#warcnfehts .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -534,11 +932,11 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   width: 100%;
 }
 
-#vzdignmxev .gt_spanner_row {
+#warcnfehts .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vzdignmxev .gt_group_heading {
+#warcnfehts .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -564,7 +962,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   text-align: left;
 }
 
-#vzdignmxev .gt_empty_group_heading {
+#warcnfehts .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -579,15 +977,15 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   vertical-align: middle;
 }
 
-#vzdignmxev .gt_from_md > :first-child {
+#warcnfehts .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vzdignmxev .gt_from_md > :last-child {
+#warcnfehts .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vzdignmxev .gt_row {
+#warcnfehts .gt_row {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -606,7 +1004,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   overflow-x: hidden;
 }
 
-#vzdignmxev .gt_stub {
+#warcnfehts .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -619,7 +1017,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 5px;
 }
 
-#vzdignmxev .gt_stub_row_group {
+#warcnfehts .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -633,15 +1031,15 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   vertical-align: top;
 }
 
-#vzdignmxev .gt_row_group_first td {
+#warcnfehts .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vzdignmxev .gt_row_group_first th {
+#warcnfehts .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vzdignmxev .gt_summary_row {
+#warcnfehts .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -651,16 +1049,16 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 5px;
 }
 
-#vzdignmxev .gt_first_summary_row {
+#warcnfehts .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vzdignmxev .gt_first_summary_row.thick {
+#warcnfehts .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vzdignmxev .gt_last_summary_row {
+#warcnfehts .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -670,7 +1068,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#vzdignmxev .gt_grand_summary_row {
+#warcnfehts .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -680,7 +1078,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 5px;
 }
 
-#vzdignmxev .gt_first_grand_summary_row {
+#warcnfehts .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -690,7 +1088,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-top-color: #D3D3D3;
 }
 
-#vzdignmxev .gt_last_grand_summary_row_top {
+#warcnfehts .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -700,11 +1098,11 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#vzdignmxev .gt_striped {
+#warcnfehts .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vzdignmxev .gt_table_body {
+#warcnfehts .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -713,7 +1111,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#vzdignmxev .gt_footnotes {
+#warcnfehts .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -727,7 +1125,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-right-color: #D3D3D3;
 }
 
-#vzdignmxev .gt_footnote {
+#warcnfehts .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -736,7 +1134,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 5px;
 }
 
-#vzdignmxev .gt_sourcenotes {
+#warcnfehts .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -750,7 +1148,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-right-color: #D3D3D3;
 }
 
-#vzdignmxev .gt_sourcenote {
+#warcnfehts .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -758,63 +1156,63 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 5px;
 }
 
-#vzdignmxev .gt_left {
+#warcnfehts .gt_left {
   text-align: left;
 }
 
-#vzdignmxev .gt_center {
+#warcnfehts .gt_center {
   text-align: center;
 }
 
-#vzdignmxev .gt_right {
+#warcnfehts .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vzdignmxev .gt_font_normal {
+#warcnfehts .gt_font_normal {
   font-weight: normal;
 }
 
-#vzdignmxev .gt_font_bold {
+#warcnfehts .gt_font_bold {
   font-weight: bold;
 }
 
-#vzdignmxev .gt_font_italic {
+#warcnfehts .gt_font_italic {
   font-style: italic;
 }
 
-#vzdignmxev .gt_super {
+#warcnfehts .gt_super {
   font-size: 65%;
 }
 
-#vzdignmxev .gt_footnote_marks {
+#warcnfehts .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vzdignmxev .gt_asterisk {
+#warcnfehts .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vzdignmxev .gt_indent_1 {
+#warcnfehts .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vzdignmxev .gt_indent_2 {
+#warcnfehts .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vzdignmxev .gt_indent_3 {
+#warcnfehts .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vzdignmxev .gt_indent_4 {
+#warcnfehts .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vzdignmxev .gt_indent_5 {
+#warcnfehts .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -896,8 +1294,7 @@ schema version <a href="https://raw.githubusercontent.com/Infectious-Disease-Mod
 └─<strong>model_tasks</strong>
 └──<strong>1</strong>
 └───<strong>output_type</strong>
-└────<strong>mean</strong>
-└─────<strong>type_id</strong></p>
+└────<strong>mean</strong></p>
 </div></td>
 <td headers="schemaPath" class="gt_row gt_left" style="white-space: pre;"><div class="gt_from_md">
 <p>properties
@@ -910,29 +1307,43 @@ schema version <a href="https://raw.githubusercontent.com/Infectious-Disease-Mod
 └──────<strong>output_type</strong>
 └───────properties
 └────────<strong>mean</strong>
-└─────────properties
-└──────────<strong>type_id</strong>
-└───────────<strong>oneOf</strong></p>
+└─────────<strong>required</strong></p>
 </div></td>
-<td headers="keyword" class="gt_row gt_center">oneOf</td>
-<td headers="message" class="gt_row gt_center" style="background-color: #F9E3D6; font-weight: bold;">❌ must match exactly one schema in oneOf</td>
+<td headers="keyword" class="gt_row gt_center">required</td>
+<td headers="message" class="gt_row gt_center" style="background-color: #F9E3D6; font-weight: bold;">❌ must have required property 'type_id'</td>
 <td headers="schema" class="gt_row gt_left" style="white-space: pre-wrap;"><div class="gt_from_md">
-<p><strong>1</strong>
-<strong>required-description:</strong> When mean is required, property set to single element ‘NA’ array
-<strong>required-type:</strong> array
-<strong>required-items-const:</strong>‘NA’
-<strong>required-items-maxItems:</strong> 1
-<strong>optional-description:</strong> When mean is required, property set to null
-<strong>optional-type:</strong> null</p>
-<p><strong>2</strong>
-<strong>required-description:</strong> When mean is optional, property set to null
-<strong>required-type:</strong> null
-<strong>optional-description:</strong> When mean is optional, property set to single element ‘NA’ array
-<strong>optional-type:</strong> array
-<strong>optional-items-const:</strong>‘NA’
-<strong>optional-items-maxItems:</strong> 1</p>
+<p>type_id, value</p>
 </div></td>
-<td headers="data" class="gt_row gt_center" style="background-color: #F9E3D6; font-weight: bold;">required: NA, optional: NA</td>
+<td headers="data" class="gt_row gt_center" style="background-color: #F9E3D6; font-weight: bold;"></td>
+</tr>
+<tr>
+<td headers="instancePath" class="gt_row gt_left" style="white-space: pre;"><div class="gt_from_md">
+<p><strong>rounds</strong>
+└<strong>1</strong>
+└─<strong>model_tasks</strong>
+└──<strong>1</strong>
+└───<strong>output_type</strong>
+└────<strong>quantile</strong></p>
+</div></td>
+<td headers="schemaPath" class="gt_row gt_left" style="white-space: pre;"><div class="gt_from_md">
+<p>properties
+└<strong>rounds</strong>
+└─items
+└──properties
+└───<strong>model_tasks</strong>
+└────items
+└─────properties
+└──────<strong>output_type</strong>
+└───────properties
+└────────<strong>quantile</strong>
+└─────────<strong>required</strong></p>
+</div></td>
+<td headers="keyword" class="gt_row gt_center">required</td>
+<td headers="message" class="gt_row gt_center" style="background-color: #F9E3D6; font-weight: bold;">❌ must have required property 'type_id'</td>
+<td headers="schema" class="gt_row gt_left" style="white-space: pre-wrap;"><div class="gt_from_md">
+<p>type_id, value</p>
+</div></td>
+<td headers="data" class="gt_row gt_center" style="background-color: #F9E3D6; font-weight: bold;"></td>
 </tr>
 <tr>
 <td headers="instancePath" class="gt_row gt_left" style="white-space: pre;"><div class="gt_from_md">
@@ -1029,25 +1440,25 @@ using the same schema version.</p>
 <span><span class="co">#&gt; attr(,"config_path")</span></span>
 <span><span class="co">#&gt; /home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span></span>
 <span><span class="co">#&gt; attr(,"schema_version")</span></span>
-<span><span class="co">#&gt; [1] "v0.0.1"</span></span>
+<span><span class="co">#&gt; [1] "v2.0.0"</span></span>
 <span><span class="co">#&gt; attr(,"schema_url")</span></span>
-<span><span class="co">#&gt; https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json</span></span>
+<span><span class="co">#&gt; https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; $admin</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span><span class="co">#&gt; attr(,"config_path")</span></span>
 <span><span class="co">#&gt; /home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/admin.json</span></span>
 <span><span class="co">#&gt; attr(,"schema_version")</span></span>
-<span><span class="co">#&gt; [1] "v0.0.1"</span></span>
+<span><span class="co">#&gt; [1] "v2.0.0"</span></span>
 <span><span class="co">#&gt; attr(,"schema_url")</span></span>
-<span><span class="co">#&gt; https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/admin-schema.json</span></span>
+<span><span class="co">#&gt; https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attr(,"config_dir")</span></span>
 <span><span class="co">#&gt; [1] "/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config"</span></span>
 <span><span class="co">#&gt; attr(,"schema_version")</span></span>
-<span><span class="co">#&gt; [1] "v0.0.1"</span></span>
+<span><span class="co">#&gt; [1] "v2.0.0"</span></span>
 <span><span class="co">#&gt; attr(,"schema_url")</span></span>
-<span><span class="co">#&gt; [1] "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/tree/main/v0.0.1"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/tree/main/v2.0.0"</span></span></code></pre></div>
 <p>You can also use the function to validate a Hub’s config against the
 latest version of the schema.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -1055,14 +1466,14 @@ latest version of the schema.</p>
 <span>    hub_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span>,</span>
 <span>    schema_version <span class="op">=</span> <span class="st">"latest"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json&gt;</span></span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span><span class="co">#&gt; attr(,"config_path")</span></span>
 <span><span class="co">#&gt; /home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span></span>
 <span><span class="co">#&gt; attr(,"schema_version")</span></span>
-<span><span class="co">#&gt; [1] "v1.0.0"</span></span>
+<span><span class="co">#&gt; [1] "v2.0.0"</span></span>
 <span><span class="co">#&gt; attr(,"schema_url")</span></span>
-<span><span class="co">#&gt; https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v1.0.0/tasks-schema.json</span></span></code></pre></div>
+<span><span class="co">#&gt; https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json</span></span></code></pre></div>
 <p>You can also use <code><a href="../reference/view_config_val_errors.html">view_config_val_errors()</a></code> on the output
 of <code><a href="../reference/validate_hub_config.html">validate_hub_config()</a></code> to review any detected validation
 errors.</p>

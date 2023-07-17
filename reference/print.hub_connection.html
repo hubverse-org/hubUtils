@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -190,7 +190,7 @@ Defaults to <code>FALSE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "hub_path")= chr "/home/runner/work/_temp/Library/hubUtils/testhubs/simple"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "model_output_dir")= chr "/home/runner/work/_temp/Library/hubUtils/testhubs/simple/model-output"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "config_admin")=List of 8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/admin-schema.json"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ name          : chr "Simple Forecast Hub"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ maintainer    : chr "Consortium of Infectious Disease Modeling Hubs"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ contact       :List of 2</span>
@@ -205,7 +205,7 @@ Defaults to <code>FALSE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ file_format   : chr [1:3] "csv" "parquet" "arrow"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ timezone      : chr "US/Eastern"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "config_tasks")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ rounds        :List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ :List of 4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ round_id_from_variable: logi TRUE</span>
@@ -227,17 +227,17 @@ Defaults to <code>FALSE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ optional: chr [1:54] "US" "01" "02" "04" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ output_type    :List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. ..$ mean    :List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ type_id:List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ output_type_id:List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ required: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ optional: logi NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ value  :List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ value         :List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ type   : chr "integer"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ minimum: int 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. ..$ quantile:List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ type_id:List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ output_type_id:List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ optional: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ value  :List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ value         :List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ type   : chr "integer"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ minimum: int 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ target_metadata:List of 1</span>
@@ -262,7 +262,7 @@ Defaults to <code>FALSE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ task_ids       :List of 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. ..$ origin_date:List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ required: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ optional: chr [1:4] "2022-10-15" "2022-10-15" "2022-10-22" "2022-10-29"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ optional: chr [1:3] "2022-10-15" "2022-10-22" "2022-10-29"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. ..$ target     :List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ required: chr "wk inc flu hosp"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ optional: NULL</span>
@@ -277,17 +277,17 @@ Defaults to <code>FALSE</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ optional: chr [1:4] "0-5" "6-18" "19-24" "25-64"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ output_type    :List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. ..$ mean    :List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ type_id:List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ output_type_id:List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ required: NULL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ optional: logi NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ value  :List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ value         :List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ type   : chr "integer"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ minimum: int 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. ..$ quantile:List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ type_id:List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ output_type_id:List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ optional: NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ value  :List of 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. ..$ value         :List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ type   : chr "integer"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. .. .. .. ..$ minimum: int 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ target_metadata:List of 1</span>
