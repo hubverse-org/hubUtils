@@ -141,7 +141,7 @@ get_round_task_id_names <- function(config_tasks, round_id) {
     unique()
 }
 
-message_opt_tasks <- function(na_cols, n_mt, remove_empty_cols) {
+message_opt_tasks <- function(na_cols, n_mt) {
   na_cols <- na_cols[na_cols != "value"]
   msg <- c("!" = "{cli::qty(length(na_cols))}Column{?s} {.val {na_cols}}
            whose values are all optional included as all {.code NA} column{?s}.")
@@ -166,8 +166,8 @@ subset_complete_cases <- function(tmpl_df) {
   cols <- !names(tmpl_df) %in% std_colnames[c("value", "model_id")]
   compl_cases <- stats::complete.cases(tmpl_df[, cols])
 
-  # As 'mean' and 'median' output types have valid 'NA' entries in 'output_type'
-  # column indicating that they are required, ovewrite the initial check for
+  # As 'mean' and 'median' output types have valid 'NA' entries in 'output_type_id'
+  # column when they are required, ovewrite the initial check for
   # complete cases by performing the check again only on rows where output type is
   # mean/median and using all columns except 'value' and 'output_type'.
   na_output_type_idx <- which(
