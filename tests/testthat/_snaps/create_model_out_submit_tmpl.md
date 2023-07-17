@@ -51,20 +51,15 @@
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2023-01-16",
         required_vals_only = TRUE))
-    Message <cliMessage>
-      ! Column "target" whose values are all optional included as all `NA` column.
-      ! Round contains more than one modeling task (2)
-      i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
-        details of optional task ID/output_type/output_type ID value combinations.
     Output
-      tibble [29 x 7] (S3: tbl_df/tbl/data.frame)
-       $ forecast_date : chr [1:29] "2023-01-16" "2023-01-16" "2023-01-16" "2023-01-16" ...
-       $ target        : chr [1:29] NA NA NA NA ...
-       $ horizon       : int [1:29] 2 2 2 2 2 2 2 2 2 2 ...
-       $ location      : chr [1:29] "US" "US" "US" "US" ...
-       $ output_type   : chr [1:29] "pmf" "pmf" "pmf" "pmf" ...
-       $ output_type_id: chr [1:29] "large_decrease" "decrease" "stable" "increase" ...
-       $ value         : num [1:29] NA NA NA NA NA NA NA NA NA NA ...
+      tibble [0 x 7] (S3: tbl_df/tbl/data.frame)
+       $ forecast_date : chr(0) 
+       $ target        : chr(0) 
+       $ horizon       : int(0) 
+       $ location      : chr(0) 
+       $ output_type   : chr(0) 
+       $ output_type_id: chr(0) 
+       $ value         : num(0) 
        - attr(*, "out.attrs")=List of 2
         ..$ dim     : Named int [1:5] 1 1 1 1 5
         .. ..- attr(*, "names")= chr [1:5] "forecast_date" "horizon" "location" "output_type" ...
@@ -79,20 +74,21 @@
 
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2023-01-16",
-        required_vals_only = TRUE, remove_empty_cols = TRUE))
+        required_vals_only = TRUE, complete_cases_only = FALSE))
     Message <cliMessage>
-      ! Column "target" whose values are all optional and std column "value" not
-        included in template.
+      ! Column "target" whose values are all optional included as all `NA` column.
       ! Round contains more than one modeling task (2)
       i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
         details of optional task ID/output_type/output_type ID value combinations.
     Output
-      tibble [29 x 5] (S3: tbl_df/tbl/data.frame)
+      tibble [29 x 7] (S3: tbl_df/tbl/data.frame)
        $ forecast_date : chr [1:29] "2023-01-16" "2023-01-16" "2023-01-16" "2023-01-16" ...
+       $ target        : chr [1:29] NA NA NA NA ...
        $ horizon       : int [1:29] 2 2 2 2 2 2 2 2 2 2 ...
        $ location      : chr [1:29] "US" "US" "US" "US" ...
        $ output_type   : chr [1:29] "pmf" "pmf" "pmf" "pmf" ...
        $ output_type_id: chr [1:29] "large_decrease" "decrease" "stable" "increase" ...
+       $ value         : num [1:29] NA NA NA NA NA NA NA NA NA NA ...
        - attr(*, "out.attrs")=List of 2
         ..$ dim     : Named int [1:5] 1 1 1 1 5
         .. ..- attr(*, "names")= chr [1:5] "forecast_date" "horizon" "location" "output_type" ...
@@ -121,7 +117,7 @@
 
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2022-10-01",
-        required_vals_only = TRUE))
+        required_vals_only = TRUE, complete_cases_only = FALSE))
     Message <cliMessage>
       ! Column "location" whose values are all optional included as all `NA` column.
       i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
@@ -140,7 +136,7 @@
 
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2022-10-29",
-        required_vals_only = TRUE))
+        required_vals_only = TRUE, complete_cases_only = FALSE))
     Message <cliMessage>
       ! Column "location" whose values are all optional included as all `NA` column.
       i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
@@ -160,20 +156,17 @@
 
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2022-10-29",
-        required_vals_only = TRUE, remove_empty_cols = TRUE))
-    Message <cliMessage>
-      ! Column "location" whose values are all optional and std column "value" not
-        included in template.
-      i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
-        details of optional task ID/output_type/output_type ID value combinations.
+        required_vals_only = TRUE))
     Output
-      tibble [24 x 6] (S3: tbl_df/tbl/data.frame)
-       $ origin_date   : chr [1:24] "2022-10-29" "2022-10-29" "2022-10-29" "2022-10-29" ...
-       $ target        : chr [1:24] "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp" "wk inc flu hosp" ...
-       $ horizon       : int [1:24] 1 1 1 1 1 1 1 1 1 1 ...
-       $ age_group     : chr [1:24] "65+" "65+" "65+" "65+" ...
-       $ output_type   : chr [1:24] "mean" "quantile" "quantile" "quantile" ...
-       $ output_type_id: num [1:24] NA 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 ...
+      tibble [0 x 8] (S3: tbl_df/tbl/data.frame)
+       $ origin_date   : chr(0) 
+       $ target        : chr(0) 
+       $ horizon       : int(0) 
+       $ location      : chr(0) 
+       $ age_group     : chr(0) 
+       $ output_type   : chr(0) 
+       $ output_type_id: num(0) 
+       $ value         : int(0) 
 
 # create_model_out_submit_tmpl errors correctly
 

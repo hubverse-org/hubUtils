@@ -9,7 +9,7 @@ create_model_out_submit_tmpl(
   config_tasks,
   round_id,
   required_vals_only = FALSE,
-  remove_empty_cols = FALSE
+  complete_cases_only = TRUE
 )
 }
 \arguments{
@@ -28,11 +28,10 @@ contains only a single round.}
 \item{required_vals_only}{Logical. Whether to return only combinations of
 Task ID and related output type ID required values.}
 
-\item{remove_empty_cols}{Logical. If \code{FALSE} (default) and \code{required_vals_only = TRUE},
-task IDs or output_type IDs where all values are optional are included as
-columns of \code{NA}s.
-If \code{TRUE}, such columns are excluded from the output.
-Ignored when \code{required_vals_only = FALSE}.}
+\item{complete_cases_only}{Logical. If \code{TRUE} (default) and \code{required_vals_only = TRUE},
+only rows with complete cases of combinations of required values are returned.
+If \code{FALSE}, rows with incomplete cases of combinations of required values
+are included in the output.}
 }
 \value{
 a tibble template containing an expanded grid of valid task ID and
@@ -46,8 +45,10 @@ Create a model output submission file template
 }
 \details{
 For task IDs or output_type_ids where all values are optional, by default, columns
-are included as columns of \code{NA}s. To exclude them from the output use
-\code{remove_empty_cols = TRUE}.
+are included as columns of \code{NA}s when \code{required_vals_only = TRUE}.
+When such columns exist, the function returns a tibble with zero rows, as no
+complete cases of combination of required values exists. To return a template of
+incomplete required cases, which includes \code{NA} columns, use ``
 
 When a round is set to \code{round_id_from_variable: true},
 the value of the task ID from which round IDs are derived (i.e. the task ID
@@ -68,7 +69,7 @@ create_model_out_submit_tmpl(
   hub_con,
   round_id = "2023-01-02",
   required_vals_only = TRUE,
-  remove_empty_cols = TRUE
+  complete_cases_only = FALSE
 )
 # Specifying a round in a hub with multiple rounds
 hub_con <- connect_hub(
@@ -83,6 +84,6 @@ create_model_out_submit_tmpl(hub_con,
 create_model_out_submit_tmpl(hub_con,
   round_id = "2022-10-29",
   required_vals_only = TRUE,
-  remove_empty_cols = TRUE
+  complete_cases_only = FALSE
 )
 }
