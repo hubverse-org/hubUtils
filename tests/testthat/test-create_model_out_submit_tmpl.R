@@ -34,7 +34,8 @@ test_that("create_model_out_submit_tmpl works correctly", {
             create_model_out_submit_tmpl(
                 hub_con,
                 round_id = "2022-12-19",
-                required_vals_only = TRUE
+                required_vals_only = TRUE,
+                complete_cases_only = FALSE
             )$forecast_date
         )),
         "2022-12-19"
@@ -46,7 +47,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
             hub_con,
             round_id = "2023-01-16",
             required_vals_only = TRUE,
-            remove_empty_cols = TRUE
+            complete_cases_only = FALSE
         )
     ))
 
@@ -56,7 +57,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
                 hub_con,
                 round_id = "2022-12-19",
                 required_vals_only = TRUE,
-                remove_empty_cols = TRUE
+                complete_cases_only = FALSE
             )$forecast_date
         )),
         "2022-12-19"
@@ -78,24 +79,25 @@ test_that("create_model_out_submit_tmpl works correctly", {
         create_model_out_submit_tmpl(
             hub_con,
             round_id = "2022-10-01",
-            required_vals_only = TRUE
+            required_vals_only = TRUE,
+            complete_cases_only = FALSE
         )
     ))
-    expect_snapshot(str(
-        create_model_out_submit_tmpl(
-            hub_con,
-            round_id = "2022-10-29",
-            required_vals_only = TRUE
-        )
-    ))
-
-
     expect_snapshot(str(
         create_model_out_submit_tmpl(
             hub_con,
             round_id = "2022-10-29",
             required_vals_only = TRUE,
-            remove_empty_cols = TRUE
+            complete_cases_only = FALSE
+        )
+    ))
+
+
+    expect_snapshot(str(
+        create_model_out_submit_tmpl(
+            hub_con,
+            round_id = "2022-10-29",
+            required_vals_only = TRUE
         )
     ))
 })

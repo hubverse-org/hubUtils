@@ -1,9 +1,11 @@
 Package: hubUtils
 Title: Utility functions for Infectious Disease Modeling Hubs
-Version: 0.0.0.9010
+Version: 0.0.0.9011
 Authors@R: 
-    person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-2378-4915"))
+    c(person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-2378-4915")),
+      person(family = "Consortium of Infectious Disease Modeling Hubs",
+           role = c("cph")))
 Description: A set of utility functions for downloading, plotting, and scoring
     forecast and truth data from Infectious Disease Modeling Hubs.
 License: MIT + file LICENSE
