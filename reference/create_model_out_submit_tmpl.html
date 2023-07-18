@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9011</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
 <span>  <span class="va">config_tasks</span>,</span>
 <span>  <span class="va">round_id</span>,</span>
 <span>  required_vals_only <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  remove_empty_cols <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  complete_cases_only <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -92,12 +92,11 @@ contains only a single round.</p></dd>
 Task ID and related output type ID required values.</p></dd>
 
 
-<dt>remove_empty_cols</dt>
-<dd><p>Logical. If <code>FALSE</code> (default) and <code>required_vals_only = TRUE</code>,
-task IDs or output_type IDs where all values are optional are included as
-columns of <code>NA</code>s.
-If <code>TRUE</code>, such columns are excluded from the output.
-Ignored when <code>required_vals_only = FALSE</code>.</p></dd>
+<dt>complete_cases_only</dt>
+<dd><p>Logical. If <code>TRUE</code> (default) and <code>required_vals_only = TRUE</code>,
+only rows with complete cases of combinations of required values are returned.
+If <code>FALSE</code>, rows with incomplete cases of combinations of required values
+are included in the output.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -113,8 +112,13 @@ values only.</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>For task IDs or output_type_ids where all values are optional, by default, columns
-are included as columns of <code>NA</code>s. To exclude them from the output use
-<code>remove_empty_cols = TRUE</code>.</p>
+are included as columns of <code>NA</code>s when <code>required_vals_only = TRUE</code>.
+When such columns exist, the function returns a tibble with zero rows, as no
+complete cases of required value combinations exists.
+<em>(Note that determination of complete cases does excludes valid <code>NA</code>
+<code>output_type_id</code> values in <code>"mean"</code> and <code>"median"</code> output types).</em>
+To return a template of incomplete required cases, which includes <code>NA</code> columns, use
+<code>complete_cases_only = FALSE</code>.</p>
 <p>When a round is set to <code>round_id_from_variable: true</code>,
 the value of the task ID from which round IDs are derived (i.e. the task ID
 specified in <code>round_id</code> property of <code>config_tasks</code>) is set to the value of the
@@ -146,6 +150,15 @@ specified in <code>round_id</code> property of <code>config_tasks</code>) is set
 <span class="r-in"><span>  round_id <span class="op">=</span> <span class="st">"2023-01-02"</span>,</span></span>
 <span class="r-in"><span>  required_vals_only <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 7 variables: forecast_date &lt;chr&gt;, target &lt;chr&gt;, horizon &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   location &lt;chr&gt;, output_type &lt;chr&gt;, output_type_id &lt;chr&gt;, value &lt;dbl&gt;</span></span>
+<span class="r-in"><span><span class="fu">create_model_out_submit_tmpl</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">hub_con</span>,</span></span>
+<span class="r-in"><span>  round_id <span class="op">=</span> <span class="st">"2023-01-02"</span>,</span></span>
+<span class="r-in"><span>  required_vals_only <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  complete_cases_only <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Column <span style="color: #0000BB;">"target"</span> whose values are all optional included as all `NA` column.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Round contains more than one modeling task (<span style="color: #0000BB;">2</span>)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> See Hub's <span style="color: #0000BB;">tasks.json</span> file or <span style="color: #0000BB;">&lt;hub_connection&gt;</span> attribute <span style="color: #0000BB;">"config_tasks"</span> for</span>
@@ -163,31 +176,6 @@ specified in <code>round_id</code> property of <code>config_tasks</code>) is set
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2023-01-02    <span style="color: #BB0000;">NA</span>           2 US       quantile    0.05              <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2023-01-02    <span style="color: #BB0000;">NA</span>           2 US       quantile    0.1               <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2023-01-02    <span style="color: #BB0000;">NA</span>           2 US       quantile    0.15              <span style="color: #BB0000;">NA</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 19 more rows</span></span>
-<span class="r-in"><span><span class="fu">create_model_out_submit_tmpl</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">hub_con</span>,</span></span>
-<span class="r-in"><span>  round_id <span class="op">=</span> <span class="st">"2023-01-02"</span>,</span></span>
-<span class="r-in"><span>  required_vals_only <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>  remove_empty_cols <span class="op">=</span> <span class="cn">TRUE</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Column <span style="color: #0000BB;">"target"</span> whose values are all optional and std column <span style="color: #0000BB;">"value"</span> not</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   included in template.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Round contains more than one modeling task (<span style="color: #0000BB;">2</span>)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> See Hub's <span style="color: #0000BB;">tasks.json</span> file or <span style="color: #0000BB;">&lt;hub_connection&gt;</span> attribute <span style="color: #0000BB;">"config_tasks"</span> for</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   details of optional task ID/output_type/output_type ID value combinations.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 29 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    forecast_date horizon location output_type output_type_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2023-01-02          2 US       pmf         large_decrease</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2023-01-02          2 US       pmf         decrease      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2023-01-02          2 US       pmf         stable        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2023-01-02          2 US       pmf         increase      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2023-01-02          2 US       pmf         large_increase</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2023-01-02          2 US       quantile    0.01          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2023-01-02          2 US       quantile    0.025         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2023-01-02          2 US       quantile    0.05          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2023-01-02          2 US       quantile    0.1           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2023-01-02          2 US       quantile    0.15          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 19 more rows</span></span>
 <span class="r-in"><span><span class="co"># Specifying a round in a hub with multiple rounds</span></span></span>
 <span class="r-in"><span><span class="va">hub_con</span> <span class="op">&lt;-</span> <span class="fu"><a href="connect_hub.html">connect_hub</a></span><span class="op">(</span></span></span>
@@ -228,6 +216,15 @@ specified in <code>round_id</code> property of <code>config_tasks</code>) is set
 <span class="r-in"><span>  round_id <span class="op">=</span> <span class="st">"2022-10-29"</span>,</span></span>
 <span class="r-in"><span>  required_vals_only <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 8 variables: origin_date &lt;chr&gt;, target &lt;chr&gt;, horizon &lt;int&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   location &lt;chr&gt;, age_group &lt;chr&gt;, output_type &lt;chr&gt;, output_type_id &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   value &lt;int&gt;</span></span>
+<span class="r-in"><span><span class="fu">create_model_out_submit_tmpl</span><span class="op">(</span><span class="va">hub_con</span>,</span></span>
+<span class="r-in"><span>  round_id <span class="op">=</span> <span class="st">"2022-10-29"</span>,</span></span>
+<span class="r-in"><span>  required_vals_only <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  complete_cases_only <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Column <span style="color: #0000BB;">"location"</span> whose values are all optional included as all `NA` column.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> See Hub's <span style="color: #0000BB;">tasks.json</span> file or <span style="color: #0000BB;">&lt;hub_connection&gt;</span> attribute <span style="color: #0000BB;">"config_tasks"</span> for</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   details of optional task ID/output_type/output_type ID value combinations.</span>
@@ -246,29 +243,6 @@ specified in <code>round_id</code> property of <code>config_tasks</code>) is set
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2022-10-29  wk inc flu…       1 <span style="color: #BB0000;">NA</span>       65+       quantile             0.35 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: value &lt;int&gt;</span></span>
-<span class="r-in"><span><span class="fu">create_model_out_submit_tmpl</span><span class="op">(</span><span class="va">hub_con</span>,</span></span>
-<span class="r-in"><span>  round_id <span class="op">=</span> <span class="st">"2022-10-29"</span>,</span></span>
-<span class="r-in"><span>  required_vals_only <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>  remove_empty_cols <span class="op">=</span> <span class="cn">TRUE</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Column <span style="color: #0000BB;">"location"</span> whose values are all optional and std column <span style="color: #0000BB;">"value"</span> not</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   included in template.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> See Hub's <span style="color: #0000BB;">tasks.json</span> file or <span style="color: #0000BB;">&lt;hub_connection&gt;</span> attribute <span style="color: #0000BB;">"config_tasks"</span> for</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   details of optional task ID/output_type/output_type ID value combinations.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 24 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    origin_date target          horizon age_group output_type output_type_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2022-10-29  wk inc flu hosp       1 65+       mean                <span style="color: #BB0000;">NA</span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2022-10-29  wk inc flu hosp       1 65+       quantile             0.01 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2022-10-29  wk inc flu hosp       1 65+       quantile             0.025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2022-10-29  wk inc flu hosp       1 65+       quantile             0.05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2022-10-29  wk inc flu hosp       1 65+       quantile             0.1  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2022-10-29  wk inc flu hosp       1 65+       quantile             0.15 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2022-10-29  wk inc flu hosp       1 65+       quantile             0.2  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2022-10-29  wk inc flu hosp       1 65+       quantile             0.25 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2022-10-29  wk inc flu hosp       1 65+       quantile             0.3  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2022-10-29  wk inc flu hosp       1 65+       quantile             0.35 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14 more rows</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
