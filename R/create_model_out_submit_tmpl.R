@@ -17,9 +17,11 @@
 #' For task IDs or output_type_ids where all values are optional, by default, columns
 #' are included as columns of `NA`s when `required_vals_only = TRUE`.
 #' When such columns exist, the function returns a tibble with zero rows, as no
-#' complete cases of combination of required values exists. To return a template of
-#' incomplete required cases, which includes `NA` columns, use ``
-#'
+#' complete cases of required value combinations exists.
+#' _(Note that determination of complete cases does excludes valid `NA`
+#' `output_type_id` values in `"mean"` and `"median"` output types)._
+#' To return a template of incomplete required cases, which includes `NA` columns, use
+#' `complete_cases_only = FALSE`.
 #'
 #' When a round is set to `round_id_from_variable: true`,
 #' the value of the task ID from which round IDs are derived (i.e. the task ID

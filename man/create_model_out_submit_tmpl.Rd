@@ -47,8 +47,11 @@ Create a model output submission file template
 For task IDs or output_type_ids where all values are optional, by default, columns
 are included as columns of \code{NA}s when \code{required_vals_only = TRUE}.
 When such columns exist, the function returns a tibble with zero rows, as no
-complete cases of combination of required values exists. To return a template of
-incomplete required cases, which includes \code{NA} columns, use ``
+complete cases of required value combinations exists.
+\emph{(Note that determination of complete cases does excludes valid \code{NA}
+\code{output_type_id} values in \code{"mean"} and \code{"median"} output types).}
+To return a template of incomplete required cases, which includes \code{NA} columns, use
+\code{complete_cases_only = FALSE}.
 
 When a round is set to \code{round_id_from_variable: true},
 the value of the task ID from which round IDs are derived (i.e. the task ID
