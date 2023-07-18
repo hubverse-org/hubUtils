@@ -1,3 +1,7 @@
+# hubUtils 0.0.0.9011
+
+* Changed default behaviour of `create_model_out_submit_tmpl()`. Function now, by default, returns rows of complete cases only and the behaviour is controlled by argument `complete_cases_only`. Argument `remove_empty_cols` was also removed.
+
 # hubUtils 0.0.0.9010
 
 * **Support for Hubs using schema earlier than v2.0.0 deprecated**. Currently a warning is issued when interacting with such Hubs. Support will eventually be retired completely and errors will be produced with Hubs using older config schema.
