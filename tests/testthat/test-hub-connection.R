@@ -35,6 +35,52 @@ test_that("connect_hub works on local simple forecasting hub", {
   expect_snapshot(str(hub_con))
 })
 
+test_that("connect_hub works on a local simple forecasting hub with no csvs", {
+  # Simple forecasting Hub example ----
+
+  hub_path <- system.file("testhubs/parquet", package = "hubUtils")
+  hub_con <- connect_hub(hub_path)
+
+  # Tests that paths are assigned to attributes correctly
+  expect_equal(
+    attr(hub_con, "file_format"),
+    c(parquet = 4L)
+  )
+  expect_equal(
+    attr(hub_con, "file_system"),
+    "LocalFileSystem"
+  )
+  expect_equal(
+    class(hub_con),
+    c(
+      "hub_connection", "FileSystemDataset", "Dataset", "ArrowObject",
+      "R6"
+    )
+  )
+
+  # overwrite path attributes to make snapshot portable
+  attr(hub_con, "model_output_dir") <- "test/model_output_dir"
+  attr(hub_con, "hub_path") <- "test/hub_path"
+  expect_snapshot(str(hub_con))
+})
+
+test_that("connect_hub returns empty list when model output folder is empty", {
+  # Local
+  hub_path <- system.file("testhubs/empty", package = "hubUtils")
+  expect_warning(connect_hub(hub_path))
+  hub_con <- suppressWarnings(connect_hub(hub_path))
+  attr(hub_con, "model_output_dir") <- "test/model_output_dir"
+  attr(hub_con, "hub_path") <- "test/hub_path"
+  expect_snapshot(hub_con)
+
+  # S3
+  hub_path <- s3_bucket("hubverse/hubutils/testhubs/empty/")
+  hub_con <- suppressWarnings(connect_hub(hub_path))
+  attr(hub_con, "model_output_dir") <- "test/model_output_dir"
+  attr(hub_con, "hub_path") <- "test/hub_path"
+  expect_snapshot(hub_con)
+
+})
 
 test_that("connect_hub connection & data extraction works on simple local hub", {
   # Simple forecasting Hub example ----
@@ -194,6 +240,22 @@ test_that("connect_model_output works on local model_output_dir", {
   expect_snapshot(mod_out_con)
   expect_equal(length(mod_out_con$files), 3L)
 })
+
+test_that("connect_model_output fails on empty model_output_dir", {
+  # Simple forecasting Hub example ----
+
+  mod_out_path <- system.file("testhubs/empty/model-output", package = "hubUtils")
+  expect_snapshot(connect_model_output(mod_out_path), error = TRUE)
+  expect_snapshot(connect_model_output(mod_out_path, file_format = "parquet"),
+                  error = TRUE)
+
+  mod_out_path <- s3_bucket("hubverse/hubutils/testhubs/empty/model-output")
+  expect_snapshot(connect_model_output(mod_out_path), error = TRUE)
+
+})
+
+
+# PRINT METHODS ----
 
 test_that("hub_connection print method works", {
   hub_path <- system.file("testhubs/simple", package = "hubUtils")

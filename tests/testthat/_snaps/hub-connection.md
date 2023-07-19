@@ -145,6 +145,188 @@
         .. .. .. ..$ start      : int -6
         .. .. .. ..$ end        : int 1
 
+# connect_hub works on a local simple forecasting hub with no csvs
+
+    Code
+      str(hub_con)
+    Output
+      Classes 'hub_connection', 'FileSystemDataset', 'Dataset', 'ArrowObject', 'R6' <hub_connection>
+        Inherits from: <FileSystemDataset>
+        Public:
+          .:xp:.: externalptr
+          .class_title: function () 
+          .unsafe_delete: function () 
+          NewScan: function () 
+          ToString: function () 
+          WithSchema: function (schema) 
+          class_title: function () 
+          clone: function (deep = FALSE) 
+          files: active binding
+          filesystem: active binding
+          format: active binding
+          initialize: function (xp) 
+          metadata: active binding
+          num_cols: active binding
+          num_rows: active binding
+          pointer: function () 
+          print: function (...) 
+          schema: active binding
+          set_pointer: function (xp) 
+          type: active binding 
+       - attr(*, "hub_name")= chr "Simple Forecast Hub"
+       - attr(*, "file_format")= Named int 4
+        ..- attr(*, "names")= chr "parquet"
+       - attr(*, "file_system")= chr "LocalFileSystem"
+       - attr(*, "hub_path")= chr "test/hub_path"
+       - attr(*, "model_output_dir")= chr "test/model_output_dir"
+       - attr(*, "config_admin")=List of 8
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json"
+        ..$ name          : chr "Simple Forecast Hub"
+        ..$ maintainer    : chr "Consortium of Infectious Disease Modeling Hubs"
+        ..$ contact       :List of 2
+        .. ..$ name : chr "Joe Bloggs"
+        .. ..$ email: chr "j.bloggs@cidmh.com"
+        ..$ repository_url: chr "https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub"
+        ..$ hub_models    :List of 1
+        .. ..$ :List of 3
+        .. .. ..$ team_abbr : chr "simple_hub"
+        .. .. ..$ model_abbr: chr "baseline"
+        .. .. ..$ model_type: chr "baseline"
+        ..$ file_format   : chr [1:3] "csv" "parquet" "arrow"
+        ..$ timezone      : chr "US/Eastern"
+       - attr(*, "config_tasks")=List of 2
+        ..$ schema_version: chr "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
+        ..$ rounds        :List of 2
+        .. ..$ :List of 4
+        .. .. ..$ round_id_from_variable: logi TRUE
+        .. .. ..$ round_id              : chr "origin_date"
+        .. .. ..$ model_tasks           :List of 1
+        .. .. .. ..$ :List of 3
+        .. .. .. .. ..$ task_ids       :List of 4
+        .. .. .. .. .. ..$ origin_date:List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr [1:2] "2022-10-01" "2022-10-08"
+        .. .. .. .. .. ..$ target     :List of 2
+        .. .. .. .. .. .. ..$ required: chr "wk inc flu hosp"
+        .. .. .. .. .. .. ..$ optional: NULL
+        .. .. .. .. .. ..$ horizon    :List of 2
+        .. .. .. .. .. .. ..$ required: int 1
+        .. .. .. .. .. .. ..$ optional: int [1:3] 2 3 4
+        .. .. .. .. .. ..$ location   :List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr [1:54] "US" "01" "02" "04" ...
+        .. .. .. .. ..$ output_type    :List of 2
+        .. .. .. .. .. ..$ mean    :List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
+        .. .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. .. ..$ optional: logi NA
+        .. .. .. .. .. .. ..$ value         :List of 2
+        .. .. .. .. .. .. .. ..$ type   : chr "integer"
+        .. .. .. .. .. .. .. ..$ minimum: int 0
+        .. .. .. .. .. ..$ quantile:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
+        .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
+        .. .. .. .. .. .. .. ..$ optional: NULL
+        .. .. .. .. .. .. ..$ value         :List of 2
+        .. .. .. .. .. .. .. ..$ type   : chr "integer"
+        .. .. .. .. .. .. .. ..$ minimum: int 0
+        .. .. .. .. ..$ target_metadata:List of 1
+        .. .. .. .. .. ..$ :List of 7
+        .. .. .. .. .. .. ..$ target_id    : chr "wk inc flu hosp"
+        .. .. .. .. .. .. ..$ target_name  : chr "Weekly incident influenza hospitalizations"
+        .. .. .. .. .. .. ..$ target_units : chr "count"
+        .. .. .. .. .. .. ..$ target_keys  :List of 1
+        .. .. .. .. .. .. .. ..$ target: chr "wk inc flu hosp"
+        .. .. .. .. .. .. ..$ target_type  : chr "continuous"
+        .. .. .. .. .. .. ..$ is_step_ahead: logi TRUE
+        .. .. .. .. .. .. ..$ time_unit    : chr "week"
+        .. .. ..$ submissions_due       :List of 3
+        .. .. .. ..$ relative_to: chr "origin_date"
+        .. .. .. ..$ start      : int -6
+        .. .. .. ..$ end        : int 1
+        .. ..$ :List of 4
+        .. .. ..$ round_id_from_variable: logi TRUE
+        .. .. ..$ round_id              : chr "origin_date"
+        .. .. ..$ model_tasks           :List of 1
+        .. .. .. ..$ :List of 3
+        .. .. .. .. ..$ task_ids       :List of 5
+        .. .. .. .. .. ..$ origin_date:List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr [1:3] "2022-10-15" "2022-10-22" "2022-10-29"
+        .. .. .. .. .. ..$ target     :List of 2
+        .. .. .. .. .. .. ..$ required: chr "wk inc flu hosp"
+        .. .. .. .. .. .. ..$ optional: NULL
+        .. .. .. .. .. ..$ horizon    :List of 2
+        .. .. .. .. .. .. ..$ required: int 1
+        .. .. .. .. .. .. ..$ optional: int [1:3] 2 3 4
+        .. .. .. .. .. ..$ location   :List of 2
+        .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. ..$ optional: chr [1:54] "US" "01" "02" "04" ...
+        .. .. .. .. .. ..$ age_group  :List of 2
+        .. .. .. .. .. .. ..$ required: chr "65+"
+        .. .. .. .. .. .. ..$ optional: chr [1:4] "0-5" "6-18" "19-24" "25-64"
+        .. .. .. .. ..$ output_type    :List of 2
+        .. .. .. .. .. ..$ mean    :List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
+        .. .. .. .. .. .. .. ..$ required: NULL
+        .. .. .. .. .. .. .. ..$ optional: logi NA
+        .. .. .. .. .. .. ..$ value         :List of 2
+        .. .. .. .. .. .. .. ..$ type   : chr "integer"
+        .. .. .. .. .. .. .. ..$ minimum: int 0
+        .. .. .. .. .. ..$ quantile:List of 2
+        .. .. .. .. .. .. ..$ output_type_id:List of 2
+        .. .. .. .. .. .. .. ..$ required: num [1:23] 0.01 0.025 0.05 0.1 0.15 0.2 0.25 0.3 0.35 0.4 ...
+        .. .. .. .. .. .. .. ..$ optional: NULL
+        .. .. .. .. .. .. ..$ value         :List of 2
+        .. .. .. .. .. .. .. ..$ type   : chr "integer"
+        .. .. .. .. .. .. .. ..$ minimum: int 0
+        .. .. .. .. ..$ target_metadata:List of 1
+        .. .. .. .. .. ..$ :List of 7
+        .. .. .. .. .. .. ..$ target_id    : chr "wk inc flu hosp"
+        .. .. .. .. .. .. ..$ target_name  : chr "Weekly incident influenza hospitalizations"
+        .. .. .. .. .. .. ..$ target_units : chr "count"
+        .. .. .. .. .. .. ..$ target_keys  :List of 1
+        .. .. .. .. .. .. .. ..$ target: chr "wk inc flu hosp"
+        .. .. .. .. .. .. ..$ target_type  : chr "continuous"
+        .. .. .. .. .. .. ..$ is_step_ahead: logi TRUE
+        .. .. .. .. .. .. ..$ time_unit    : chr "week"
+        .. .. ..$ submissions_due       :List of 3
+        .. .. .. ..$ relative_to: chr "origin_date"
+        .. .. .. ..$ start      : int -6
+        .. .. .. ..$ end        : int 1
+
+# connect_hub returns empty list when model output folder is empty
+
+    Code
+      hub_con
+    Message <cliMessage>
+      
+      -- <hub_connection/list> --
+      
+      * hub_name: "Simple Forecast Hub"
+      * hub_path: 'test/hub_path'
+      * file_format: "(0)"
+      * file_system: "local"
+      * model_output_dir: "test/model_output_dir"
+      * config_admin: 'hub-config/admin.json'
+      * config_tasks: 'hub-config/tasks.json'
+
+---
+
+    Code
+      hub_con
+    Message <cliMessage>
+      
+      -- <hub_connection/list> --
+      
+      * hub_name: "Simple Forecast Hub"
+      * hub_path: 'test/hub_path'
+      * file_format: "(0)"
+      * file_system: "s3"
+      * model_output_dir: "test/model_output_dir"
+      * config_admin: 'hub-config/admin.json'
+      * config_tasks: 'hub-config/tasks.json'
+
 # connect_hub connection & data extraction works on simple local hub
 
     Code
@@ -498,6 +680,27 @@
       output_type_id: string
       value: int32
       model_id: string
+
+# connect_model_output fails on empty model_output_dir
+
+    Code
+      connect_model_output(mod_out_path)
+    Error <rlang_error>
+      No files of file format "csv" found in model output directory.
+
+---
+
+    Code
+      connect_model_output(mod_out_path, file_format = "parquet")
+    Error <rlang_error>
+      No files of file format "parquet" found in model output directory.
+
+---
+
+    Code
+      connect_model_output(mod_out_path)
+    Error <rlang_error>
+      No files of file format "csv" found in model output directory.
 
 # hub_connection print method works
 

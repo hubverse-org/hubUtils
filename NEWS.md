@@ -1,3 +1,9 @@
+# hubUtils 0.0.0.9012
+
+* Fixed bug (#95 & #97) which was causing `connect_hub()` to error when `"csv"` was an accepted hub file format but there were no csv in the model output directory. Now `connect_hub()` checks for the presence of files of each accepted file format and only opens datasets for file formats of which files exists. If there are no files of any accepted file_format in the model output directory, the S3 `hub_connection` object returned consists of an empty list. 
+* Fixed bug (#96) which was required `hubUtils` to be loaded for `std_colnames` to be internally available.
+
+
 # hubUtils 0.0.0.9011
 
 * Changed default behaviour of `create_model_out_submit_tmpl()`. Function now, by default, returns rows of complete cases only and the behaviour is controlled by argument `complete_cases_only`. Argument `remove_empty_cols` was also removed.

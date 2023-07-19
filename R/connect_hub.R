@@ -111,14 +111,20 @@ connect_hub.default <- function(hub_path,
   }
   hub_name <- config_admin$name
 
-  dataset <- open_hub_datasets(
-    model_output_dir,
-    file_format,
-    config_tasks,
-    output_type_id_datatype = output_type_id_datatype,
-    partitions = partitions
-  )
+  # Only keep file formats of which files actually exist in model_output_dir.
+  file_format <- check_file_format(model_output_dir, file_format)
 
+  if (length(file_format) == 0L) {
+    dataset <- list()
+  } else {
+    dataset <- open_hub_datasets(
+      model_output_dir,
+      file_format,
+      config_tasks,
+      output_type_id_datatype = output_type_id_datatype,
+      partitions = partitions
+    )
+  }
   if (inherits(dataset, "UnionDataset")) {
     file_system <- purrr::map_chr(
       dataset$children,
@@ -127,6 +133,7 @@ connect_hub.default <- function(hub_path,
       unique()
   } else {
     file_system <- class(dataset$filesystem)[1]
+    if (file_system == "NULL") file_system <- "local"
   }
   file_format <- get_file_format_meta(dataset)
 
@@ -175,13 +182,20 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
   }
   hub_name <- config_admin$name
 
-  dataset <- open_hub_datasets(
-    model_output_dir,
-    file_format,
-    config_tasks,
-    output_type_id_datatype = output_type_id_datatype,
-    partitions = partitions
-  )
+  # Only keep file formats of which files actually exist in model_output_dir.
+  file_format <- check_file_format(model_output_dir, file_format)
+
+  if (length(file_format) == 0L) {
+    dataset <- list()
+  } else {
+    dataset <- open_hub_datasets(
+      model_output_dir,
+      file_format,
+      config_tasks,
+      output_type_id_datatype = output_type_id_datatype,
+      partitions = partitions
+    )
+  }
 
   if (inherits(dataset, "UnionDataset")) {
     file_system <- purrr::map_chr(
@@ -191,6 +205,7 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
       unique()
   } else {
     file_system <- class(dataset$filesystem$base_fs)[1]
+    if (file_system == "NULL") file_system <- hub_path$url_scheme
   }
   file_format <- get_file_format_meta(dataset)
 
@@ -258,7 +273,8 @@ open_hub_datasets <- function(model_output_dir,
                                 "double", "integer",
                                 "logical", "Date"
                               ),
-                              partitions = list(model_id = arrow::utf8())) {
+                              partitions = list(model_id = arrow::utf8()),
+                              call = rlang::caller_env()) {
   if (length(file_format) == 1L) {
     open_hub_dataset(
       model_output_dir,
@@ -278,14 +294,6 @@ open_hub_datasets <- function(model_output_dir,
         partitions = partitions
       )
     )
-
-    # Remove connections with 0 files in model-output data
-    cons[
-      purrr::map_lgl(
-        cons,
-        ~ length(.x$files) == 0L
-      )
-    ] <- NULL
 
     arrow::open_dataset(cons)
   }
@@ -379,4 +387,70 @@ get_file_format_meta <- function(dataset) {
       dataset$format$type
     )
   }
+}
+
+check_file_format <- function(model_output_dir, file_format,
+                              call = rlang::caller_env(), error = FALSE) {
+  UseMethod("check_file_format")
+}
+
+check_file_format.default <- function(model_output_dir, file_format,
+                                      call = rlang::caller_env(),
+                                      error = FALSE) {
+  keep_file_format <- purrr::map_lgl(
+    purrr::set_names(file_format),
+    ~ length(
+      fs::dir_ls(
+        model_output_dir,
+        recurse = TRUE,
+        glob = paste0("*.", .x)
+      )
+    ) > 0L
+  )
+  file_format <- file_format[keep_file_format]
+
+  if (length(file_format) == 0L && error) {
+    cli::cli_abort("No files of file format{?s}
+                   {.val {names(keep_file_format)}}
+                   found in model output directory.",
+      call = call
+    )
+  }
+  if (length(file_format) == 0L) {
+    cli::cli_warn("No files of file format{?s}
+                   {.val {names(keep_file_format)}}
+                   found in model output directory.",
+      call = call
+    )
+  }
+  file_format
+}
+
+check_file_format.SubTreeFileSystem <- function(model_output_dir, file_format,
+                                                call = rlang::caller_env(),
+                                                error = FALSE) {
+  bucket_file_ext <- fs::path_ext(model_output_dir$ls(recursive = TRUE))
+
+  keep_file_format <- purrr::map_lgl(
+    purrr::set_names(file_format),
+    ~ .x %in% bucket_file_ext
+  )
+  file_format <- file_format[keep_file_format]
+
+  if (length(file_format) == 0L && error) {
+    cli::cli_abort("No files of file format{?s}
+                   {.val {names(keep_file_format)}}
+                   found in model output directory.",
+      call = call
+    )
+  }
+  if (length(file_format) == 0L) {
+    cli::cli_warn("No files of file format{?s}
+                   {.val {names(keep_file_format)}}
+                   found in model output directory.",
+      call = call
+    )
+  }
+
+  file_format
 }
