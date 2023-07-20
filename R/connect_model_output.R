@@ -24,6 +24,8 @@ connect_model_output.default <- function(model_output_dir,
     cli::cli_abort(c("x" = "Directory {.path {model_output_dir}} does not exist."))
   }
   file_format <- rlang::arg_match(file_format)
+  # Only keep file formats of which files actually exist in model_output_dir.
+  file_format <- check_file_format(model_output_dir, file_format, error = TRUE)
 
   if (file_format == "csv") {
     dataset <- arrow::open_dataset(
@@ -61,6 +63,8 @@ connect_model_output.SubTreeFileSystem <- function(model_output_dir,
                                                    schema = NULL) {
   rlang::check_required(model_output_dir)
   file_format <- rlang::arg_match(file_format)
+  # Only keep file formats of which files actually exist in model_output_dir.
+  file_format <- check_file_format(model_output_dir, file_format, error = TRUE)
 
   if (file_format == "csv") {
     dataset <- arrow::open_dataset(

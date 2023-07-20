@@ -1,1 +1,1 @@
-utils::globalVariables(c(".", "std_colnames"))
+utils::globalVariables(c("."))
