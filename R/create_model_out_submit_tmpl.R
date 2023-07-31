@@ -84,23 +84,10 @@ create_model_out_submit_tmpl <- function(hub_con, config_tasks, round_id,
     std_colnames[names(std_colnames) != "model_id"]
   )
 
+  # Add NA columns for value and all optional cols
   na_cols <- tmpl_cols[!tmpl_cols %in% names(tmpl_df)]
-
-  tmpl_schema <- create_hub_schema(
-    config_tasks,
-    partitions = NULL,
-    r_schema = TRUE
-  )
-  convert_na_cols <- tmpl_schema[na_cols]
-
   tmpl_df[, na_cols] <- NA
-  tmpl_df[, names(convert_na_cols)] <- purrr::map2(
-    .x = names(convert_na_cols),
-    .y = convert_na_cols,
-    ~ get(paste0("as.", .y))(tmpl_df[[.x]])
-  )
-
-  tmpl_df <- tmpl_df[, tmpl_cols]
+  tmpl_df <- coerce_to_hub_schema(tmpl_df, config_tasks)[, tmpl_cols]
 
   if (complete_cases_only) {
     subset_complete_cases(tmpl_df)
@@ -132,15 +119,6 @@ get_round_model_tasks <- function(config_tasks, round_id) {
 
 n_model_tasks <- function(config_tasks, round_id) {
   length(get_round_model_tasks(config_tasks, round_id))
-}
-
-
-get_round_task_id_names <- function(config_tasks, round_id) {
-  get_round_model_tasks(config_tasks, round_id) %>%
-    purrr::map(~ .x[["task_ids"]] %>%
-      names()) %>%
-    unlist() %>%
-    unique()
 }
 
 message_opt_tasks <- function(na_cols, n_mt) {

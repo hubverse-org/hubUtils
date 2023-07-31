@@ -57,7 +57,7 @@ test_that("Setting of round_id value works correctly", {
                 round_id = "2022-10-01"
             )$origin_date
         ),
-        "2022-10-01"
+        as.Date("2022-10-01")
     )
 
     expect_equal(
@@ -68,7 +68,7 @@ test_that("Setting of round_id value works correctly", {
                 round_id = "2022-10-29"
             )$origin_date
         ),
-        "2022-10-29"
+        as.Date("2022-10-29")
     )
 
 
@@ -86,7 +86,7 @@ test_that("Setting of round_id value works correctly", {
                 round_id = "2023-01-30"
             )$forecast_date
         ),
-        "2023-01-30"
+        as.Date("2023-01-30")
     )
 })
 
