@@ -19,7 +19,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
                 round_id = "2022-12-19"
             )$forecast_date
         )),
-        "2022-12-19"
+        as.Date("2022-12-19")
     )
 
     expect_snapshot(str(
@@ -38,7 +38,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
                 complete_cases_only = FALSE
             )$forecast_date
         )),
-        "2022-12-19"
+        as.Date("2022-12-19")
     )
 
 
@@ -60,7 +60,7 @@ test_that("create_model_out_submit_tmpl works correctly", {
                 complete_cases_only = FALSE
             )$forecast_date
         )),
-        "2022-12-19"
+        as.Date("2022-12-19")
     )
 
     # Specifying a round in a hub with multiple rounds

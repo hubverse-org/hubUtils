@@ -74,7 +74,8 @@ expand_model_out_val_grid <- function(config_tasks,
     ~ .x[["output_type"]]
   ) %>%
     purrr::map(~ .x %>% purrr::map(~ .x[[config_tid]])) %>%
-    process_grid_inputs(required_vals_only = required_vals_only)
+    process_grid_inputs(required_vals_only = required_vals_only) %>%
+    purrr::map(~ purrr::compact(.x))
 
   output_type_grid_l <- purrr::map2(
     task_id_l, output_type_l,
@@ -85,7 +86,8 @@ expand_model_out_val_grid <- function(config_tasks,
   )
 
   do.call(rbind, output_type_grid_l) %>%
-    tibble::as_tibble()
+    tibble::as_tibble() %>%
+    coerce_to_hub_schema(config_tasks)
 }
 
 
@@ -131,3 +133,4 @@ fix_round_id <- function(x, round_id, round_config, round_ids) {
     x
   }
 }
+
