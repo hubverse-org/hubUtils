@@ -121,15 +121,6 @@ n_model_tasks <- function(config_tasks, round_id) {
   length(get_round_model_tasks(config_tasks, round_id))
 }
 
-
-get_round_task_id_names <- function(config_tasks, round_id) {
-  get_round_model_tasks(config_tasks, round_id) %>%
-    purrr::map(~ .x[["task_ids"]] %>%
-      names()) %>%
-    unlist() %>%
-    unique()
-}
-
 message_opt_tasks <- function(na_cols, n_mt) {
   na_cols <- na_cols[na_cols != "value"]
   msg <- c("!" = "{cli::qty(length(na_cols))}Column{?s} {.val {na_cols}}
