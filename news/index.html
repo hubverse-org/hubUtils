@@ -52,6 +52,13 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.0.9013" id="hubutils-0009013">hubUtils 0.0.0.9013<a class="anchor" aria-label="anchor" href="#hubutils-0009013"></a></h2>
+<ul><li>Introduced <code><a href="../reference/coerce_to_hub_schema.html">coerce_to_hub_schema()</a></code> function and applied it to <code><a href="../reference/create_model_out_submit_tmpl.html">create_model_out_submit_tmpl()</a></code> &amp; <code><a href="../reference/expand_model_out_val_grid.html">expand_model_out_val_grid()</a></code> to ensure column data types in returned tibbles are consistent with the hub’s schema (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/100" class="external-link">#100</a>).</li>
+<li>Fixed bug where optional <code>mean</code>/<code>median</code> output types where being included erroneously when <code>required_vals_only = TRUE</code>.</li>
+<li>Exported function <code><a href="../reference/get_round_task_id_names.html">get_round_task_id_names()</a></code> (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/99" class="external-link">#99</a>).</li>
+<li>Memoised function <code><a href="../reference/read_config.html">read_config()</a></code> (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/101" class="external-link">#101</a>).</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9012" id="hubutils-0009012">hubUtils 0.0.0.9012<a class="anchor" aria-label="anchor" href="#hubutils-0009012"></a></h2>
 <ul><li>Fixed bug (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/95" class="external-link">#95</a> &amp; <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/97" class="external-link">#97</a>) which was causing <code><a href="../reference/connect_hub.html">connect_hub()</a></code> to error when <code>"csv"</code> was an accepted hub file format but there were no csv in the model output directory. Now <code><a href="../reference/connect_hub.html">connect_hub()</a></code> checks for the presence of files of each accepted file format and only opens datasets for file formats of which files exists. If there are no files of any accepted file_format in the model output directory, the S3 <code>hub_connection</code> object returned consists of an empty list.</li>
 <li>Fixed bug (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/96" class="external-link">#96</a>) which was required <code>hubUtils</code> to be loaded for <code>std_colnames</code> to be internally available.</li>
