@@ -1,3 +1,11 @@
+# hubUtils 0.0.0.9013
+
+* Introduced `coerce_to_hub_schema()` function and applied it to `create_model_out_submit_tmpl()` & `expand_model_out_val_grid()` to ensure column data types in returned tibbles are consistent with the hub's schema (#100).
+* Fixed bug where optional `mean`/`median` output types where being included erroneously when `required_vals_only = TRUE`.
+* Exported function `get_round_task_id_names()` (#99).
+* Memoised function `read_config()` (#101).
+
+
 # hubUtils 0.0.0.9012
 
 * Fixed bug (#95 & #97) which was causing `connect_hub()` to error when `"csv"` was an accepted hub file format but there were no csv in the model output directory. Now `connect_hub()` checks for the presence of files of each accepted file format and only opens datasets for file formats of which files exists. If there are no files of any accepted file_format in the model output directory, the S3 `hub_connection` object returned consists of an empty list. 
