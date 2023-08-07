@@ -1,3 +1,7 @@
+# hubUtils 0.0.0.9014
+
+* Bug fix. Handle situation in `expand_model_out_val_grid()` when `required_vals_only = TRUE` yet required task ID columns are not consistent across modeling tasks. The function now pads missing task ID columns with `NA`s.
+
 # hubUtils 0.0.0.9013
 
 * Introduced `coerce_to_hub_schema()` function and applied it to `create_model_out_submit_tmpl()` & `expand_model_out_val_grid()` to ensure column data types in returned tibbles are consistent with the hub's schema (#100).
