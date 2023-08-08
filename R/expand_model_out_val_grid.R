@@ -10,9 +10,12 @@
 #' contains only a single round.
 #' @param required_vals_only Logical. Whether to return only combinations of
 #' Task ID and related output type ID required values.
+#' @inheritParams coerce_to_hub_schema
 #'
 #' @return a tibble containing all possible task ID and related output type ID
-#' value combinations.
+#' value combinations. Columns are coerced to data types according to the hub schema,
+#' unless `skip_date_coercion = TRUE`. If `skip_date_coercion = TRUE`, date columns are returned as
+#' character which can be much faster when large expanded grids are expected.
 #' If `required_vals_only = TRUE`, values are limited to the combinations of required
 #' values only.
 #' @details
@@ -42,9 +45,15 @@
 #' expand_model_out_val_grid(config_tasks, round_id = "2022-10-01")
 #' # Later round_id maps to round config that includes additional task ID 'age_group'.
 #' expand_model_out_val_grid(config_tasks, round_id = "2022-10-29")
+#' # Skip coercing dates
+#' expand_model_out_val_grid(config_tasks,
+#'   round_id = "2022-10-29",
+#'   skip_date_coercion = TRUE
+#' )
 expand_model_out_val_grid <- function(config_tasks,
                                       round_id,
-                                      required_vals_only = FALSE) {
+                                      required_vals_only = FALSE,
+                                      skip_date_coercion = FALSE) {
   round_idx <- get_round_idx(config_tasks, round_id)
 
   round_config <- purrr::pluck(
@@ -85,10 +94,11 @@ expand_model_out_val_grid <- function(config_tasks,
       task_id_values = .x,
       output_type_values = .y
     ) %>%
-      coerce_to_hub_schema(config_tasks)
+      coerce_to_hub_schema(config_tasks,
+                           skip_date_coercion = skip_date_coercion)
   ) %>%
     purrr::list_rbind() %>%
-      tibble::as_tibble()
+    tibble::as_tibble()
 }
 
 

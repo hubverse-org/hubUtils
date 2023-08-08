@@ -4,13 +4,16 @@
 \alias{coerce_to_hub_schema}
 \title{Coerce data.frame/tibble column data types to hub schema data types.}
 \usage{
-coerce_to_hub_schema(tbl, config_tasks)
+coerce_to_hub_schema(tbl, config_tasks, skip_date_coercion = FALSE)
 }
 \arguments{
 \item{tbl}{a model output data.frame/tibble}
 
 \item{config_tasks}{a list version of the content's of a hub's \code{tasks.json}
 config file created using function \code{\link[=read_config]{read_config()}}.}
+
+\item{skip_date_coercion}{Logical. Whether to skip coercing dates. This can be faster,
+especially for larger \code{tbl}s.}
 }
 \value{
 \code{tbl} with column data types coerced to hub schema data types.
