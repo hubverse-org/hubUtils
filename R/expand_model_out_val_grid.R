@@ -10,14 +10,15 @@
 #' contains only a single round.
 #' @param required_vals_only Logical. Whether to return only combinations of
 #' Task ID and related output type ID required values.
-#' @inheritParams coerce_to_hub_schema
+#' @param all_character Logical. Whether to return all character column.
 #'
 #' @return a tibble containing all possible task ID and related output type ID
 #' value combinations. Columns are coerced to data types according to the hub schema,
-#' unless `skip_date_coercion = TRUE`. If `skip_date_coercion = TRUE`, date columns are returned as
-#' character which can be much faster when large expanded grids are expected.
+#' unless `all_character = TRUE`. If `all_character = TRUE`, all columns are returned as
+#' character which can be faster when large expanded grids are expected.
 #' If `required_vals_only = TRUE`, values are limited to the combinations of required
 #' values only.
+#' @inheritParams coerce_to_hub_schema
 #' @details
 #' When a round is set to `round_id_from_variable: true`,
 #' the value of the task ID from which round IDs are derived (i.e. the task ID
@@ -45,15 +46,22 @@
 #' expand_model_out_val_grid(config_tasks, round_id = "2022-10-01")
 #' # Later round_id maps to round config that includes additional task ID 'age_group'.
 #' expand_model_out_val_grid(config_tasks, round_id = "2022-10-29")
-#' # Skip coercing dates
+#' # Coerce all columns to character
 #' expand_model_out_val_grid(config_tasks,
 #'   round_id = "2022-10-29",
-#'   skip_date_coercion = TRUE
+#'   all_character = TRUE
+#' )
+#' # Return arrow table
+#' expand_model_out_val_grid(config_tasks,
+#'   round_id = "2022-10-29",
+#'   all_character = TRUE,
+#'   as_arrow_table = TRUE
 #' )
 expand_model_out_val_grid <- function(config_tasks,
                                       round_id,
                                       required_vals_only = FALSE,
-                                      skip_date_coercion = FALSE) {
+                                      all_character = FALSE,
+                                      as_arrow_table = FALSE) {
   round_idx <- get_round_idx(config_tasks, round_id)
 
   round_config <- purrr::pluck(
@@ -88,20 +96,20 @@ expand_model_out_val_grid <- function(config_tasks,
 
   # Expand output grid individually for each output type and coerce to hub schema
   # data types.
+
   purrr::map2(
     task_id_l, output_type_l,
     ~ expand_output_type_grid(
       task_id_values = .x,
       output_type_values = .y
-    ) %>%
-      coerce_to_hub_schema(config_tasks,
-                           skip_date_coercion = skip_date_coercion)
+    )
   ) %>%
-    purrr::list_rbind() %>%
-    tibble::as_tibble()
+    rbind_grids(
+      config_tasks,
+      all_character = all_character,
+      as_arrow_table = as_arrow_table
+    )
 }
-
-
 
 process_grid_inputs <- function(x, required_vals_only = FALSE) {
   if (required_vals_only) {
@@ -143,4 +151,62 @@ fix_round_id <- function(x, round_id, round_config, round_ids) {
   } else {
     x
   }
+}
+
+
+rbind_grids <- function(x, config_tasks, all_character, as_arrow_table = TRUE) {
+  all_cols <- purrr::map(x, ~ names(.x)) %>%
+    unlist() %>%
+    unique()
+
+  schema_cols <- names(
+    create_hub_schema(
+      config_tasks,
+      partitions = NULL
+    )
+  )
+  all_cols <- schema_cols[schema_cols %in% all_cols]
+
+
+  x <- purrr::map(x, ~ pad_missing_cols(.x, all_cols))
+  if (all_character) {
+    x <- purrr::map(
+      x, ~ coerce_to_character(
+        .x,
+        as_arrow_table = as_arrow_table
+      )
+    )
+  } else {
+    x <- purrr::map(
+      x,
+      ~ coerce_to_hub_schema(
+        .x,
+        config_tasks,
+        as_arrow_table = as_arrow_table
+      )
+    )
+  }
+  do.call(rbind, x)
+}
+
+
+pad_missing_cols <- function(x, all_cols) {
+  if (inherits(x, "data.frame")) {
+    x[, all_cols[!all_cols %in% names(x)]] <- NA
+    return(x[, all_cols])
+  }
+  if (inherits(x, "ArrowTabular")) {
+    missing_colnames <- setdiff(all_cols, names(x))
+    if (length(missing_colnames) == 0L) {
+      return(x)
+    }
+
+    missing_cols <- as.list(rep(NA, length(missing_colnames))) %>%
+      stats::setNames(missing_colnames) %>%
+      as.data.frame() %>%
+      arrow::arrow_table()
+
+    return(cbind(x, missing_cols)[, all_cols])
+  }
+  x
 }

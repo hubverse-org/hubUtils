@@ -8,7 +8,8 @@ expand_model_out_val_grid(
   config_tasks,
   round_id,
   required_vals_only = FALSE,
-  skip_date_coercion = FALSE
+  all_character = FALSE,
+  as_arrow_table = FALSE
 )
 }
 \arguments{
@@ -25,14 +26,15 @@ contains only a single round.}
 \item{required_vals_only}{Logical. Whether to return only combinations of
 Task ID and related output type ID required values.}
 
-\item{skip_date_coercion}{Logical. Whether to skip coercing dates. This can be faster,
-especially for larger \code{tbl}s.}
+\item{all_character}{Logical. Whether to return all character column.}
+
+\item{as_arrow_table}{Logical. Whether to return an arrow table. Defaults to \code{FALSE}.}
 }
 \value{
 a tibble containing all possible task ID and related output type ID
 value combinations. Columns are coerced to data types according to the hub schema,
-unless \code{skip_date_coercion = TRUE}. If \code{skip_date_coercion = TRUE}, date columns are returned as
-character which can be much faster when large expanded grids are expected.
+unless \code{all_character = TRUE}. If \code{all_character = TRUE}, all columns are returned as
+character which can be faster when large expanded grids are expected.
 If \code{required_vals_only = TRUE}, values are limited to the combinations of required
 values only.
 }
@@ -64,9 +66,15 @@ config_tasks <- attr(hub_con, "config_tasks")
 expand_model_out_val_grid(config_tasks, round_id = "2022-10-01")
 # Later round_id maps to round config that includes additional task ID 'age_group'.
 expand_model_out_val_grid(config_tasks, round_id = "2022-10-29")
-# Skip coercing dates
+# Coerce all columns to character
 expand_model_out_val_grid(config_tasks,
   round_id = "2022-10-29",
-  skip_date_coercion = TRUE
+  all_character = TRUE
+)
+# Return arrow table
+expand_model_out_val_grid(config_tasks,
+  round_id = "2022-10-29",
+  all_character = TRUE,
+  as_arrow_table = TRUE
 )
 }
