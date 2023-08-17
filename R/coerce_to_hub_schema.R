@@ -1,13 +1,17 @@
-#' Coerce data.frame/tibble column data types to hub schema data types.
+#' Coerce data.frame/tibble column data types to hub schema data types or character.
 #'
 #' @param tbl a model output data.frame/tibble
 #' @param skip_date_coercion Logical. Whether to skip coercing dates. This can be faster,
 #' especially for larger `tbl`s.
+#' @param as_arrow_table Logical. Whether to return an arrow table. Defaults to `FALSE`.
 #' @inheritParams create_hub_schema
 #'
-#' @return `tbl` with column data types coerced to hub schema data types.
+#' @return `tbl` with column data types coerced to hub schema data types or character.
+#' if `as_arrow_table = TRUE`, output is also converted to arrow table.
+#' @describeIn coerce_to_hub_schema coerce columns to hub schema data types.
 #' @export
-coerce_to_hub_schema <- function(tbl, config_tasks, skip_date_coercion = FALSE) {
+coerce_to_hub_schema <- function(tbl, config_tasks, skip_date_coercion = FALSE,
+                                 as_arrow_table = FALSE) {
   tbl_schema <- create_hub_schema(
     config_tasks,
     partitions = NULL,
@@ -37,5 +41,26 @@ coerce_to_hub_schema <- function(tbl, config_tasks, skip_date_coercion = FALSE) 
       }
     )
   }
-  tbl
+  if (as_arrow_table) {
+    return(arrow::arrow_table(tbl))
+  } else {
+    return(tibble::as_tibble(tbl))
+  }
+}
+
+#' @export
+#' @describeIn coerce_to_hub_schema coerce all columns to character
+coerce_to_character <- function(tbl, as_arrow_table = FALSE) {
+  chr_schema <- purrr::map(
+    names(tbl),
+    ~ arrow::field(.x, arrow::string())
+  ) %>%
+    arrow::schema()
+
+  tbl <- arrow::arrow_table(tbl)$cast(chr_schema)
+  if (as_arrow_table) {
+    return(tbl)
+  } else {
+    return(tibble::as_tibble(tbl))
+  }
 }
