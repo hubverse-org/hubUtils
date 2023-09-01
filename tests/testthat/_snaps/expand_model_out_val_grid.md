@@ -166,6 +166,53 @@
       $output_type <string>
       $output_type_id <string>
 
+---
+
+    Code
+      str(expand_model_out_val_grid(config_tasks, round_id = "2023-01-02",
+        required_vals_only = TRUE, all_character = TRUE, as_arrow_table = FALSE,
+        bind_model_tasks = FALSE))
+    Output
+      List of 2
+       $ : tibble [5 x 5] (S3: tbl_df/tbl/data.frame)
+        ..$ forecast_date : chr [1:5] "2023-01-02" "2023-01-02" "2023-01-02" "2023-01-02" ...
+        ..$ horizon       : chr [1:5] "2" "2" "2" "2" ...
+        ..$ location      : chr [1:5] "US" "US" "US" "US" ...
+        ..$ output_type   : chr [1:5] "pmf" "pmf" "pmf" "pmf" ...
+        ..$ output_type_id: chr [1:5] "large_decrease" "decrease" "stable" "increase" ...
+       $ : tibble [23 x 5] (S3: tbl_df/tbl/data.frame)
+        ..$ forecast_date : chr [1:23] "2023-01-02" "2023-01-02" "2023-01-02" "2023-01-02" ...
+        ..$ horizon       : chr [1:23] "2" "2" "2" "2" ...
+        ..$ location      : chr [1:23] "US" "US" "US" "US" ...
+        ..$ output_type   : chr [1:23] "quantile" "quantile" "quantile" "quantile" ...
+        ..$ output_type_id: chr [1:23] "0.01" "0.025" "0.05" "0.1" ...
+
+---
+
+    Code
+      expand_model_out_val_grid(config_tasks, round_id = "2023-01-02",
+        required_vals_only = TRUE, all_character = TRUE, as_arrow_table = TRUE,
+        bind_model_tasks = FALSE)
+    Output
+      [[1]]
+      Table
+      5 rows x 5 columns
+      $forecast_date <string>
+      $horizon <string>
+      $location <string>
+      $output_type <string>
+      $output_type_id <string>
+      
+      [[2]]
+      Table
+      23 rows x 5 columns
+      $forecast_date <string>
+      $horizon <string>
+      $location <string>
+      $output_type <string>
+      $output_type_id <string>
+      
+
 # expand_model_out_val_grid errors correctly
 
     Code

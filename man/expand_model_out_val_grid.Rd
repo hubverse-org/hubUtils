@@ -9,7 +9,8 @@ expand_model_out_val_grid(
   round_id,
   required_vals_only = FALSE,
   all_character = FALSE,
-  as_arrow_table = FALSE
+  as_arrow_table = FALSE,
+  bind_model_tasks = TRUE
 )
 }
 \arguments{
@@ -29,10 +30,18 @@ Task ID and related output type ID required values.}
 \item{all_character}{Logical. Whether to return all character column.}
 
 \item{as_arrow_table}{Logical. Whether to return an arrow table. Defaults to \code{FALSE}.}
+
+\item{bind_model_tasks}{Logical. Whether to bind expanded grids of
+values from multiple modeling tasks into a single tibble/arrow table or
+return a list.}
 }
 \value{
-a tibble containing all possible task ID and related output type ID
-value combinations. Columns are coerced to data types according to the hub schema,
+If \code{bind_model_tasks = TRUE} (default) a tibble or arrow table
+containing all possible task ID and related output type ID
+value combinations. If \code{bind_model_tasks = FALSE}, a list containing a
+tibble or arrow table for each round modeling task.
+
+Columns are coerced to data types according to the hub schema,
 unless \code{all_character = TRUE}. If \code{all_character = TRUE}, all columns are returned as
 character which can be faster when large expanded grids are expected.
 If \code{required_vals_only = TRUE}, values are limited to the combinations of required

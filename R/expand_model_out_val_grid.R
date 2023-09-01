@@ -11,9 +11,16 @@
 #' @param required_vals_only Logical. Whether to return only combinations of
 #' Task ID and related output type ID required values.
 #' @param all_character Logical. Whether to return all character column.
+#' @param bind_model_tasks Logical. Whether to bind expanded grids of
+#' values from multiple modeling tasks into a single tibble/arrow table or
+#' return a list.
 #'
-#' @return a tibble containing all possible task ID and related output type ID
-#' value combinations. Columns are coerced to data types according to the hub schema,
+#' @return If `bind_model_tasks = TRUE` (default) a tibble or arrow table
+#' containing all possible task ID and related output type ID
+#' value combinations. If `bind_model_tasks = FALSE`, a list containing a
+#' tibble or arrow table for each round modeling task.
+#'
+#' Columns are coerced to data types according to the hub schema,
 #' unless `all_character = TRUE`. If `all_character = TRUE`, all columns are returned as
 #' character which can be faster when large expanded grids are expected.
 #' If `required_vals_only = TRUE`, values are limited to the combinations of required
@@ -61,7 +68,8 @@ expand_model_out_val_grid <- function(config_tasks,
                                       round_id,
                                       required_vals_only = FALSE,
                                       all_character = FALSE,
-                                      as_arrow_table = FALSE) {
+                                      as_arrow_table = FALSE,
+                                      bind_model_tasks = TRUE) {
   round_idx <- get_round_idx(config_tasks, round_id)
 
   round_config <- purrr::pluck(
@@ -104,10 +112,11 @@ expand_model_out_val_grid <- function(config_tasks,
       output_type_values = .y
     )
   ) %>%
-    rbind_grids(
+    process_mt_grid_outputs(
       config_tasks,
       all_character = all_character,
-      as_arrow_table = as_arrow_table
+      as_arrow_table = as_arrow_table,
+      bind_model_tasks = bind_model_tasks
     )
 }
 
@@ -154,21 +163,26 @@ fix_round_id <- function(x, round_id, round_config, round_ids) {
 }
 
 
-rbind_grids <- function(x, config_tasks, all_character, as_arrow_table = TRUE) {
-  all_cols <- purrr::map(x, ~ names(.x)) %>%
-    unlist() %>%
-    unique()
+process_mt_grid_outputs <- function(x, config_tasks, all_character,
+                                    as_arrow_table = TRUE,
+                                    bind_model_tasks = TRUE) {
+  if (bind_model_tasks) {
+    # To bind multiple modeling task grids together, we need to ensure they contain
+    # the same columns. Any missing columns are padded with NAs.
+    all_cols <- purrr::map(x, ~ names(.x)) %>%
+      unlist() %>%
+      unique()
 
-  schema_cols <- names(
-    create_hub_schema(
-      config_tasks,
-      partitions = NULL
+    schema_cols <- names(
+      create_hub_schema(
+        config_tasks,
+        partitions = NULL
+      )
     )
-  )
-  all_cols <- schema_cols[schema_cols %in% all_cols]
+    all_cols <- schema_cols[schema_cols %in% all_cols]
+    x <- purrr::map(x, ~ pad_missing_cols(.x, all_cols))
+  }
 
-
-  x <- purrr::map(x, ~ pad_missing_cols(.x, all_cols))
   if (all_character) {
     x <- purrr::map(
       x, ~ coerce_to_character(
@@ -186,7 +200,11 @@ rbind_grids <- function(x, config_tasks, all_character, as_arrow_table = TRUE) {
       )
     )
   }
-  do.call(rbind, x)
+  if (bind_model_tasks) {
+    return(do.call(rbind, x))
+  } else {
+    return(x)
+  }
 }
 
 

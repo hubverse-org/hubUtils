@@ -146,6 +146,22 @@ test_that("expand_model_out_val_grid output controls work correctly", {
                                   all_character = TRUE,
                                   as_arrow_table = TRUE)
     )
+    expect_snapshot(str(
+        expand_model_out_val_grid(config_tasks,
+                                  round_id = "2023-01-02",
+                                  required_vals_only = TRUE,
+                                  all_character = TRUE,
+                                  as_arrow_table = FALSE,
+                                  bind_model_tasks = FALSE)
+    ))
+    expect_snapshot(
+        expand_model_out_val_grid(config_tasks,
+                                  round_id = "2023-01-02",
+                                  required_vals_only = TRUE,
+                                  all_character = TRUE,
+                                  as_arrow_table = TRUE,
+                                  bind_model_tasks = FALSE)
+    )
 })
 
 test_that("expand_model_out_val_grid errors correctly", {

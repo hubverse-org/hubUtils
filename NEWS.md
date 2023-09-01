@@ -1,7 +1,10 @@
 # hubUtils 0.0.0.9014
 
 * Added `coerce_to_character()` function for coercing all model output columns to character. This can be much faster than coercing to `coerce_to_hub_schema()`, especially for dates.
-* Added params `all_character` and `as_arrow_table` to `expand_model_out_val_grid()` to allow for returning all character columns and/or an arrow data table respectively.
+* Added the following params to `expand_model_out_val_grid()`:
+  - `all_character`: allow for returning all character columns.
+  - `as_arrow_table`: allow for returning an arrow data table.
+  - `bind_model_tasks`: allow for returning list of model task level grids.
 * Bug fix. Handle situation in `expand_model_out_val_grid()` when `required_vals_only = TRUE` yet required task ID columns are not consistent across modeling tasks. The function now pads missing task ID column values with `NA`s.
 
 # hubUtils 0.0.0.9013
