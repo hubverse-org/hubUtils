@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9013</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9014</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">expand_model_out_val_grid</span><span class="op">(</span><span class="va">config_tasks</span>, <span class="va">round_id</span>, required_vals_only <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">expand_model_out_val_grid</span><span class="op">(</span></span>
+<span>  <span class="va">config_tasks</span>,</span>
+<span>  <span class="va">round_id</span>,</span>
+<span>  required_vals_only <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  all_character <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  as_arrow_table <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  bind_model_tasks <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -81,13 +88,34 @@ contains only a single round.</p></dd>
 <dd><p>Logical. Whether to return only combinations of
 Task ID and related output type ID required values.</p></dd>
 
+
+<dt>all_character</dt>
+<dd><p>Logical. Whether to return all character column.</p></dd>
+
+
+<dt>as_arrow_table</dt>
+<dd><p>Logical. Whether to return an arrow table. Defaults to <code>FALSE</code>.</p></dd>
+
+
+<dt>bind_model_tasks</dt>
+<dd><p>Logical. Whether to bind expanded grids of
+values from multiple modeling tasks into a single tibble/arrow table or
+return a list.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>a tibble containing all possible task ID and related output type ID
-value combinations.
+<p>If <code>bind_model_tasks = TRUE</code> (default) a tibble or arrow table
+containing all possible task ID and related output type ID
+value combinations. If <code>bind_model_tasks = FALSE</code>, a list containing a
+tibble or arrow table for each round modeling task.</p>
+
+
+<p>Columns are coerced to data types according to the hub schema,
+unless <code>all_character = TRUE</code>. If <code>all_character = TRUE</code>, all columns are returned as
+character which can be faster when large expanded grids are expected.
 If <code>required_vals_only = TRUE</code>, values are limited to the combinations of required
 values only.</p>
     </div>
@@ -175,6 +203,40 @@ specified in <code>round_id</code> property of <code>config_tasks</code>) is set
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2022-10-29  wk inc flu…       1 02       65+       mean                    <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2022-10-29  wk inc flu…       2 02       65+       mean                    <span style="color: #BB0000;">NA</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 25,910 more rows</span></span>
+<span class="r-in"><span><span class="co"># Coerce all columns to character</span></span></span>
+<span class="r-in"><span><span class="fu">expand_model_out_val_grid</span><span class="op">(</span><span class="va">config_tasks</span>,</span></span>
+<span class="r-in"><span>  round_id <span class="op">=</span> <span class="st">"2022-10-29"</span>,</span></span>
+<span class="r-in"><span>  all_character <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 25,920 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    origin_date target      horizon location age_group output_type output_type_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2022-10-29  wk inc flu… 1       US       65+       mean        <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 2022-10-29  wk inc flu… 2       US       65+       mean        <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2022-10-29  wk inc flu… 3       US       65+       mean        <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2022-10-29  wk inc flu… 4       US       65+       mean        <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2022-10-29  wk inc flu… 1       01       65+       mean        <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 2022-10-29  wk inc flu… 2       01       65+       mean        <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 2022-10-29  wk inc flu… 3       01       65+       mean        <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 2022-10-29  wk inc flu… 4       01       65+       mean        <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2022-10-29  wk inc flu… 1       02       65+       mean        <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2022-10-29  wk inc flu… 2       02       65+       mean        <span style="color: #BB0000;">NA</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 25,910 more rows</span></span>
+<span class="r-in"><span><span class="co"># Return arrow table</span></span></span>
+<span class="r-in"><span><span class="fu">expand_model_out_val_grid</span><span class="op">(</span><span class="va">config_tasks</span>,</span></span>
+<span class="r-in"><span>  round_id <span class="op">=</span> <span class="st">"2022-10-29"</span>,</span></span>
+<span class="r-in"><span>  all_character <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>  as_arrow_table <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Table</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25920 rows x 7 columns</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $origin_date &lt;string&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $target &lt;string&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $horizon &lt;string&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $location &lt;string&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $age_group &lt;string&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $output_type &lt;string&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $output_type_id &lt;string&gt;</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

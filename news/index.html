@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9013</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9014</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,19 @@
       <small>Source: <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.0.9014" id="hubutils-0009014">hubUtils 0.0.0.9014<a class="anchor" aria-label="anchor" href="#hubutils-0009014"></a></h2>
+<ul><li>Added <code><a href="../reference/coerce_to_hub_schema.html">coerce_to_character()</a></code> function for coercing all model output columns to character. This can be much faster than coercing to <code><a href="../reference/coerce_to_hub_schema.html">coerce_to_hub_schema()</a></code>, especially for dates.</li>
+<li>Added the following params to <code><a href="../reference/expand_model_out_val_grid.html">expand_model_out_val_grid()</a></code>:
+<ul><li>
+<code>all_character</code>: allow for returning all character columns.</li>
+<li>
+<code>as_arrow_table</code>: allow for returning an arrow data table.</li>
+<li>
+<code>bind_model_tasks</code>: allow for returning list of model task level grids.</li>
+</ul></li>
+<li>Bug fix. Handle situation in <code><a href="../reference/expand_model_out_val_grid.html">expand_model_out_val_grid()</a></code> when <code>required_vals_only = TRUE</code> yet required task ID columns are not consistent across modeling tasks. The function now pads missing task ID column values with <code>NA</code>s.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9013" id="hubutils-0009013">hubUtils 0.0.0.9013<a class="anchor" aria-label="anchor" href="#hubutils-0009013"></a></h2>
 <ul><li>Introduced <code><a href="../reference/coerce_to_hub_schema.html">coerce_to_hub_schema()</a></code> function and applied it to <code><a href="../reference/create_model_out_submit_tmpl.html">create_model_out_submit_tmpl()</a></code> &amp; <code><a href="../reference/expand_model_out_val_grid.html">expand_model_out_val_grid()</a></code> to ensure column data types in returned tibbles are consistent with the hub’s schema (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/100" class="external-link">#100</a>).</li>
