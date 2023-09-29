@@ -1,5 +1,5 @@
 ---
-title: "Accessing model-output data"
+title: "Accessing data from a hub"
 ---
 
 ```{r, include = FALSE}
@@ -9,7 +9,21 @@ knitr::opts_chunk$set(
 )
 ```
 
-An important function of `hubUtils` is allowing for the connection to data in the `model-output` directory to facilitate interrogation, filtering and extraction of Hub data.
+An important function of `hubUtils` is allowing for the connection to data in the `model-output` directory to facilitate extraction, filtering, querying, exploring, and analyzing of Hub data.
+
+# Structure of hubverse datasets
+
+All data returned from connecting to and querying hubs can be read or validated as a `model_out_tbl` which is an S3 class defined by the `hubUtils` package. A `model_out_tbl` is a long-form `data.frame` designed to conform to the [hubverse data specifications for model output data](https://hubdocs.readthedocs.io/en/latest/format/model-output.html). In short, the columns of a valid `model_out_tbl` containing model output data from a hub are:
+
+ - `model_id`: this is the unique character identifier of a model.
+ - `output_type`: a character variable that defines the type of representation of model output that is in a given row.
+ - `output_type_id`: a variable that specifies some additional identifying information specific to the output type in a given row, e.g., a numeric quantile level, a string giving the name of a possible category for a discrete outcome, or an index of a sample.
+ - `value`: a numeric variable that provides the information about the model's prediction.
+ - `...` : other columns will be present depending on modeling tasks defined by the individual modeling hub. These columns are referred to in hubverse lingo as the `task-ID` variables.
+
+Other hubverse tools, designed for data validation, [ensemble building](https://infectious-disease-modeling-hubs.github.io/hubEnsembles/), [visualization](https://github.com/Infectious-Disease-Modeling-Hubs/hubVis), etc..., all are designed with the "promises" implicit in the data format specified by `model_out_tbl`. For example, [the `hubEnsembles::linear_pool()` function ](https://infectious-disease-modeling-hubs.github.io/hubEnsembles/reference/linear_pool.html) both accepts as input and returns as output `model_out_tbl` objects.
+
+# Hub connections
 
 There are two functions for connecting to `model-output` data:
 
@@ -47,6 +61,8 @@ hub_con %>%
 ```
 
 Note however that not all dplyr filtering options are available for all data types yet.
+
+You can see how in the above output the required `model_id`, `output_type`, `output_type_id` and `value` column names are all present, as is required for a `model_out_tbl` object. However, the output of the above expression, while it conforms to the `model_out_tbl` conventions, is actually returned just as a `tbl_df` or `tibble` object.
 
 For example, if you wanted to get all quantile predictions for the last forecast date in the hub, you might try:
 
@@ -88,7 +104,7 @@ hub_con %>%
 
 
 
-## Connecting directly to a `model_output_dir`
+## Connecting to a model output directory
 
 There is also an option to connect directly to a model output directory without using any metadata in a hub config file. This can be useful when a hub has not been fully configured yet. 
 

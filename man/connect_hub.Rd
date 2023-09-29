@@ -62,7 +62,7 @@ in the \code{arrow} package.}
 recursive directory names correspond to. Defaults to a single \code{model_id} field
 which reflects the standard expected structure of a \code{model-output} directory.}
 
-\item{schema}{An \link[arrow:Schema]{arrow::Schema} object for the Dataset.
+\item{schema}{An \link[arrow:Schema-class]{arrow::Schema} object for the Dataset.
 If NULL (the default), the schema will be inferred from the data sources.}
 }
 \value{
