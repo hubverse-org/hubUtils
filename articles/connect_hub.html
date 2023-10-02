@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="hubUtils">
-<title>Accessing model-output data • hubUtils</title>
+<title>Accessing data from a hub • hubUtils</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Accessing model-output data">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Accessing data from a hub">
 <meta property="og:description" content="hubUtils">
 <meta property="og:image" content="https://infectious-disease-modeling-hubs.github.io/hubUtils/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -48,7 +48,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/connect_hub.html">Accessing model-output data</a>
+    <a class="dropdown-item" href="../articles/connect_hub.html">Accessing data from a hub</a>
     <a class="dropdown-item" href="../articles/hub-setup.html">Setting up a Hub</a>
   </div>
 </li>
@@ -79,7 +79,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Accessing model-output data</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Accessing data from a hub</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/blob/HEAD/vignettes/articles/connect_hub.Rmd" class="external-link"><code>vignettes/articles/connect_hub.Rmd</code></a></small>
@@ -90,7 +90,50 @@
     
 <p>An important function of <code>hubUtils</code> is allowing for the
 connection to data in the <code>model-output</code> directory to
-facilitate interrogation, filtering and extraction of Hub data.</p>
+facilitate extraction, filtering, querying, exploring, and analyzing of
+Hub data.</p>
+<div class="section level2">
+<h2 id="structure-of-hubverse-datasets">Structure of hubverse datasets<a class="anchor" aria-label="anchor" href="#structure-of-hubverse-datasets"></a>
+</h2>
+<p>All data returned from connecting to and querying hubs can be read or
+validated as a <code>model_out_tbl</code> which is an S3 class defined
+by the <code>hubUtils</code> package. A <code>model_out_tbl</code> is a
+long-form <a href="https://tibble.tidyverse.org/" class="external-link"><code>tibble</code></a> designed to
+conform to the <a href="https://hubdocs.readthedocs.io/en/latest/format/model-output.html" class="external-link">hubverse
+data specifications for model output data</a>. In short, the columns of
+a valid <code>model_out_tbl</code> containing model output data from a
+hub are:</p>
+<ul>
+<li>
+<code>model_id</code>: this is the unique character identifier of a
+model.</li>
+<li>
+<code>output_type</code>: a character variable that defines the type
+of representation of model output that is in a given row.</li>
+<li>
+<code>output_type_id</code>: a variable that specifies some
+additional identifying information specific to the output type in a
+given row, e.g., a numeric quantile level, a string giving the name of a
+possible category for a discrete outcome, or an index of a sample.</li>
+<li>
+<code>value</code>: a numeric variable that provides the information
+about the model’s prediction.</li>
+<li>
+<code>...</code> : other columns will be present depending on
+modeling tasks defined by the individual modeling hub. These columns are
+referred to in hubverse terminology as the <code>task-ID</code>
+variables.</li>
+</ul>
+<p>Other hubverse tools, designed for data validation, <a href="https://infectious-disease-modeling-hubs.github.io/hubEnsembles/" class="external-link">ensemble
+building</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubVis" class="external-link">visualization</a>,
+etc…, all are designed with the “promises” implicit in the data format
+specified by <code>model_out_tbl</code>. For example, <a href="https://infectious-disease-modeling-hubs.github.io/hubEnsembles/reference/linear_pool.html" class="external-link">the
+<code>hubEnsembles::linear_pool()</code> function</a> both accepts as
+input and returns as output <code>model_out_tbl</code> objects.</p>
+</div>
+<div class="section level2">
+<h2 id="hub-connections">Hub connections<a class="anchor" aria-label="anchor" href="#hub-connections"></a>
+</h2>
 <p>There are two functions for connecting to <code>model-output</code>
 data:</p>
 <ul>
@@ -132,9 +175,9 @@ through the <code>file_format</code> argument.</p>
 <span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="connecting-to-a-configured-hub">Connecting to a configured hub<a class="anchor" aria-label="anchor" href="#connecting-to-a-configured-hub"></a>
-</h2>
+<div class="section level3">
+<h3 id="connecting-to-a-configured-hub">Connecting to a configured hub<a class="anchor" aria-label="anchor" href="#connecting-to-a-configured-hub"></a>
+</h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hub_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/flusight"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span></span>
 <span><span class="va">hub_con</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect_hub.html">connect_hub</a></span><span class="op">(</span><span class="va">hub_path</span><span class="op">)</span></span>
@@ -170,20 +213,27 @@ construct querying pipelines.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 276 × 8</span></span></span>
 <span><span class="co">#&gt;    forecast_date horizon target        location output_type output_type_id value</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2023-04-24          1 wk ahead inc… US       quantile    0.01            232.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2023-04-24          1 wk ahead inc… US       quantile    0.025           331.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2023-04-24          1 wk ahead inc… US       quantile    0.05            423.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2023-04-24          1 wk ahead inc… US       quantile    0.1             512.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2023-04-24          1 wk ahead inc… US       quantile    0.15            610.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2023-04-24          1 wk ahead inc… US       quantile    0.2             670.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2023-04-24          1 wk ahead inc… US       quantile    0.25            724.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2023-04-24          1 wk ahead inc… US       quantile    0.3             773.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2023-04-24          1 wk ahead inc… US       quantile    0.35            812.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2023-04-24          1 wk ahead inc… US       quantile    0.4             893.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2023-04-24          1 wk ahead inc… US       quantile    0.01               0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2023-04-24          1 wk ahead inc… US       quantile    0.025              0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2023-04-24          1 wk ahead inc… US       quantile    0.05               0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2023-04-24          1 wk ahead inc… US       quantile    0.1              281</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2023-04-24          1 wk ahead inc… US       quantile    0.15             600</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2023-04-24          1 wk ahead inc… US       quantile    0.2              717</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2023-04-24          1 wk ahead inc… US       quantile    0.25             817</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2023-04-24          1 wk ahead inc… US       quantile    0.3              877</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2023-04-24          1 wk ahead inc… US       quantile    0.35             913</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2023-04-24          1 wk ahead inc… US       quantile    0.4              965</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 266 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: model_id &lt;chr&gt;</span></span></span></code></pre></div>
 <p>Note however that not all dplyr filtering options are available for
 all data types yet.</p>
+<p>You can see how in the above output the required
+<code>model_id</code>, <code>output_type</code>,
+<code>output_type_id</code> and <code>value</code> column names are all
+present, as is required for a <code>model_out_tbl</code> object.
+However, the output of the above expression, while conforming to
+<code>model_out_tbl</code> convention, is actually returned just as a
+<code>tbl_df</code> or <code>tibble</code> object.</p>
 <p>For example, if you wanted to get all quantile predictions for the
 last forecast date in the hub, you might try:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -252,9 +302,9 @@ to filter the data in two steps:</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 82 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1 more variable: model_id &lt;chr&gt;</span></span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="connecting-directly-to-a-model_output_dir">Connecting directly to a <code>model_output_dir</code><a class="anchor" aria-label="anchor" href="#connecting-directly-to-a-model_output_dir"></a>
-</h2>
+<div class="section level3">
+<h3 id="connecting-to-a-model-output-directory">Connecting to a model output directory<a class="anchor" aria-label="anchor" href="#connecting-to-a-model-output-directory"></a>
+</h3>
 <p>There is also an option to connect directly to a model output
 directory without using any metadata in a hub config file. This can be
 useful when a hub has not been fully configured yet.</p>
@@ -373,6 +423,7 @@ directory produces an <code>arrow</code> error.</p>
 times so if you do get such a non-informative error, a good place to
 start would be to check your schema matches the columns and your data
 can be coerced to the data types specified in the schema.</p>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

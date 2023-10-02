@@ -34,7 +34,7 @@ appended to tasks.json Hub config files."><meta property="og:image" content="htt
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/connect_hub.html">Accessing model-output data</a>
+    <a class="dropdown-item" href="../articles/connect_hub.html">Accessing data from a hub</a>
     <a class="dropdown-item" href="../articles/hub-setup.html">Setting up a Hub</a>
   </div>
 </li>
@@ -126,7 +126,11 @@ must match data types and formats specified in the schema. For more details cons
 the <a href="https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file" class="external-link">documentation on <code>tasks.json</code> Hub config files</a></p>
 <p>JSON schema data type names differ to those in R. Use the following mappings to
 create vectors of appropriate data types which will correspond to correct JSON
-schema data types during config file validation.</p><table class="table table"><tr><td>json</td><td>R</td></tr><tr><td>string</td><td>character</td></tr><tr><td>boolean</td><td>logical</td></tr><tr><td>integer</td><td>integer</td></tr><tr><td>number</td><td>double</td></tr><tr><td>Values across <code>required</code> and <code>optional</code> arguments must be unique. <code>required</code></td><td></td></tr><tr><td>and <code>optional</code> must be of the same type (unless <code>NULL</code>) and both cannot be <code>NULL</code>.</td><td></td></tr><tr><td>Task_ids that represent dates must be supplied in ISO 8601</td><td></td></tr><tr><td>date format (YYYY-MM-DD).</td><td></td></tr></table><p>Task_ids not present in the schema are allowed as additional properties but the
+schema data types during config file validation.</p><table class="table table"><tr><td>json</td><td>R</td></tr><tr><td>string</td><td>character</td></tr><tr><td>boolean</td><td>logical</td></tr><tr><td>integer</td><td>integer</td></tr><tr><td>number</td><td>double</td></tr></table><p>Values across <code>required</code> and <code>optional</code> arguments must be unique. <code>required</code>
+and <code>optional</code> must be of the same type (unless <code>NULL</code>) and both cannot be <code>NULL</code>.
+Task_ids that represent dates must be supplied in ISO 8601
+date format (YYYY-MM-DD).</p>
+<p>Task_ids not present in the schema are allowed as additional properties but the
 user is responsible for providing values of the correct data type.</p>
     </div>
     <div class="section level2">
