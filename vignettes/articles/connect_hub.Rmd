@@ -19,7 +19,7 @@ All data returned from connecting to and querying hubs can be read or validated 
  - `output_type`: a character variable that defines the type of representation of model output that is in a given row.
  - `output_type_id`: a variable that specifies some additional identifying information specific to the output type in a given row, e.g., a numeric quantile level, a string giving the name of a possible category for a discrete outcome, or an index of a sample.
  - `value`: a numeric variable that provides the information about the model's prediction.
- - `...` : other columns will be present depending on modeling tasks defined by the individual modeling hub. These columns are referred to in hubverse lingo as the `task-ID` variables.
+ - `...` : other columns will be present depending on modeling tasks defined by the individual modeling hub. These columns are referred to in hubverse terminology as the `task-ID` variables.
 
 Other hubverse tools, designed for data validation, [ensemble building](https://infectious-disease-modeling-hubs.github.io/hubEnsembles/), [visualization](https://github.com/Infectious-Disease-Modeling-Hubs/hubVis), etc..., all are designed with the "promises" implicit in the data format specified by `model_out_tbl`. For example, [the `hubEnsembles::linear_pool()` function ](https://infectious-disease-modeling-hubs.github.io/hubEnsembles/reference/linear_pool.html) both accepts as input and returns as output `model_out_tbl` objects.
 
