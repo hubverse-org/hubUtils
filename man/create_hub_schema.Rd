@@ -28,7 +28,7 @@ Note that attempting to coerce \code{output_type_id} to a data type that is not 
 will likely result in an error or potentially unexpected behaviour so use with
 care.}
 
-\item{r_schema}{Logical. If \code{FALSE} (default), return an \code{\link[arrow:Schema]{arrow::schema()}} object.
+\item{r_schema}{Logical. If \code{FALSE} (default), return an \code{\link[arrow:schema]{arrow::schema()}} object.
 If \code{TRUE}, return a character vector of R data types.}
 }
 \value{
