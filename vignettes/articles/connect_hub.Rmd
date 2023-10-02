@@ -62,7 +62,7 @@ hub_con %>%
 
 Note however that not all dplyr filtering options are available for all data types yet.
 
-You can see how in the above output the required `model_id`, `output_type`, `output_type_id` and `value` column names are all present, as is required for a `model_out_tbl` object. However, the output of the above expression, while it conforms to the `model_out_tbl` conventions, is actually returned just as a `tbl_df` or `tibble` object.
+You can see how in the above output the required `model_id`, `output_type`, `output_type_id` and `value` column names are all present, as is required for a `model_out_tbl` object. However, the output of the above expression, while conforming to `model_out_tbl` convention, is actually returned just as a `tbl_df` or `tibble` object.
 
 For example, if you wanted to get all quantile predictions for the last forecast date in the hub, you might try:
 
