@@ -51,7 +51,16 @@ load_model_metadata.default <- function(hub_path, model_ids = NULL) {
         temp <- hubUtils::model_id_split(temp, sep="-")
       }
       
-      return (temp)
+      col_types <- rep("type", ncol(temp))
+      not_list_indices <- list()
+      for (i in 1:ncol(temp)) {
+        col_types[i] <- temp |> pull(i) |> pluck(1) |> class()
+        if (col_types[i] != "list") not_list_indices[[i]] <- i
+      }
+      not_list_indices <- unlist(not_list_indices)
+    
+      temp |>
+        tidyr::unnest(not_list_indices)
     }) |>
     purrr::list_rbind()
 
