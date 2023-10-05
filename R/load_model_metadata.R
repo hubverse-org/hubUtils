@@ -20,7 +20,7 @@
 #' # load_model_metadata file from AWS S3 bucket hub
 #' hub_path <- s3_bucket("hubverse/hubutils/testhubs/simple/")
 #' load_model_metadata(hub_path)
-load_model_metadata <- function(hub_path, model_ids) {
+load_model_metadata <- function(hub_path, model_ids = NULL) {
   UseMethod("load_model_metadata")
 }
 
@@ -29,7 +29,6 @@ load_model_metadata <- function(hub_path, model_ids) {
 load_model_metadata.default <- function(hub_path, model_ids = NULL) {
   metadata_dir <- fs::path(hub_path, "model-metadata")
   metadata_paths <- fs::dir_ls(metadata_dir)
-#  metadata_paths <- list.files(as .character(metadata_dir), recursive=TRUE)
 
   if (!fs::dir_exists(metadata_dir)) {
     cli::cli_abort(
@@ -44,23 +43,24 @@ load_model_metadata.default <- function(hub_path, model_ids = NULL) {
         enframe() |>
         tidyr::pivot_wider(names_from="name", values_from="value") 
         
-      if (all(c("team_abbr", "model_abbr") %in% names(temp)) & isFALSE(("model_id") %in% names(temp))) {
-        temp <- hubUtils::model_id_merge(temp, sep="-") |>
-          mutate(model_id=as.list(model_id))
-      } else if (isFALSE(c("team_abbr", "model_abbr") %in% names(temp)) & ("model_id" %in% names(temp))) {
-        temp <- hubUtils::model_id_split(temp, sep="-")
-      }
+    col_types <- rep("type", ncol(temp))
+    not_list_indices <- list()
+    for (i in 1:ncol(temp)) {
+      col_types[i] <- temp |> pull(i) |> pluck(1) |> class()
+      if (col_types[i] != "list") not_list_indices[[i]] <- i
+    }
+    not_list_indices <- unlist(not_list_indices)
+    temp <- temp |>
+      tidyr::unnest(not_list_indices)
       
-      col_types <- rep("type", ncol(temp))
-      not_list_indices <- list()
-      for (i in 1:ncol(temp)) {
-        col_types[i] <- temp |> pull(i) |> pluck(1) |> class()
-        if (col_types[i] != "list") not_list_indices[[i]] <- i
-      }
-      not_list_indices <- unlist(not_list_indices)
-    
-      temp |>
-        tidyr::unnest(not_list_indices)
+    if (all(c("team_abbr", "model_abbr") %in% names(temp)) & isFALSE(("model_id") %in% names(temp))) {
+      temp <- temp |>
+        tidyr::unite(team_abbr, model_abbr, col="model_id", remove=FALSE, sep="-")
+    } else if (isFALSE(all(c("team_abbr", "model_abbr") %in% names(temp))) & ("model_id" %in% names(temp))) {
+      temp <- temp |>
+        tidyr::separate(model_id, into=c("team_abbr", "model_abbr"), remove=FALSE, sep="-")
+    }
+    return (temp)
     }) |>
     purrr::list_rbind()
 
