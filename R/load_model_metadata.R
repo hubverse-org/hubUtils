@@ -27,13 +27,17 @@ load_model_metadata <- function(hub_path, model_ids = NULL) {
 
 #' @export
 load_model_metadata.default <- function(hub_path, model_ids = NULL) {
-  metadata_dir <- fs::path(hub_path, "model-metadata")
-  metadata_paths <- fs::dir_ls(metadata_dir)
+ if (!dir.exists(hub_path)) {
+    cli::cli_abort(c("x" = "{.path {hub_path}} directory does not exist."))
+  }
+  if (!dir.exists(fs::path(hub_path, "model-metadata"))) {
+    cli::cli_abort(c("x" = "{.path model-metadata} directory not found in root of Hub."))
+  }
+    
+  metadata_paths <- fs::dir_ls(fs::path(hub_path, "model-metadata"), glob = "*.y*ml")
 
-  if (!fs::dir_exists(metadata_dir)) {
-    cli::cli_abort(
-      "Model metadata directory does not exist in hub at at path {.path { metadata_dir }}."
-    )
+  if (length(metadata_paths) == 0) {
+    cli::cli_abort(c("x" = "{.path model-metadata} directory is empty."))
   }
   
   model_info <- metadata_paths |>
@@ -51,21 +55,26 @@ load_model_metadata.default <- function(hub_path, model_ids = NULL) {
     }
     not_list_indices <- unlist(not_list_indices)
     temp <- temp |>
-      tidyr::unnest(not_list_indices)
+      tidyr::unnest(all_of(not_list_indices))
       
     if (all(c("team_abbr", "model_abbr") %in% names(temp)) & isFALSE(("model_id") %in% names(temp))) {
       temp <- temp |>
         tidyr::unite(team_abbr, model_abbr, col="model_id", remove=FALSE, sep="-")
     } else if (isFALSE(all(c("team_abbr", "model_abbr") %in% names(temp))) & ("model_id" %in% names(temp))) {
       temp <- temp |>
-        tidyr::separate(model_id, into=c("team_abbr", "model_abbr"), remove=FALSE, sep="-")
+        tidyr::separate(model_id, into=c("team_abbr", "model_abbr"), remove=FALSE, sep="-", extra="merge")
     }
     return (temp)
     }) |>
     purrr::list_rbind()
 
-  # Error or warning if a supplied model is not among those with metadata?
-  if (!is.null(model_ids)) model_info <- dplyr::filter(model_info, model_id %in% model_ids)
+  if (!is.null(model_ids)) {
+    if (all(model_ids %in% unique(model_info$model_id))) {
+      model_info <- dplyr::filter(model_info, model_id %in% model_ids)
+    } else {
+      cli::cli_abort(c("x" = "At least one supplied model among {.value {model_ids}} does not have associated metadata."))
+    }
+  }
 
   return (model_info)
 }
