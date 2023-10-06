@@ -32,7 +32,7 @@ load_model_metadata.default <- function(hub_path, model_ids = NULL) {
 
   if (!fs::dir_exists(metadata_dir)) {
     cli::cli_abort(
-      "Model metadata directory does not exist in hub at at path {.metadata_dir { metadata_dir }}."
+      "Model metadata directory does not exist in hub at at path {.path { metadata_dir }}."
     )
   }
   
