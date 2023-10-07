@@ -33,7 +33,7 @@ test_that("resulting tibble has team_abbr, model_abbr, and model_id_columns", {
 
 # Specifying non-existent models throws an error
 test_that("Specifying models that don't provide metadata throws an error", {
-  hub_path <- "inst/testhubs/simple"
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
   expect_error(
     load_model_metadata(hub_path, model_ids="non-existent"),
     regexp = "* does not have associated metadata."
@@ -42,7 +42,7 @@ test_that("Specifying models that don't provide metadata throws an error", {
 
 # Output is a tibble
 test_that("output is a tibble", {
-  hub_path <- "inst/testhubs/simple"
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
   model_metadata <- load_model_metadata(hub_path)
   expect_true(any(class(model_metadata) %in% c("tbl", "tbl_df", "data.frame")))
 })
