@@ -50,7 +50,7 @@ load_model_metadata.default <- function(hub_path, model_ids = NULL) {
     col_types <- rep("type", ncol(temp))
     not_list_indices <- list()
     for (i in 1:ncol(temp)) {
-      col_types[i] <- temp |> pull(i) |> pluck(1) |> class()
+      col_types[i] <- temp |> pull(i) |> purrr::pluck(1) |> class()
       if (col_types[i] != "list") not_list_indices[[i]] <- i
     }
     not_list_indices <- unlist(not_list_indices)
