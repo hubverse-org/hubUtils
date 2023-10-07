@@ -10,17 +10,16 @@ test_that("load_model_metadata fails correctly", {
   )
 
   # No model-metadata folder throws an error
-  if (!dir.exists("empty-hub")) dir.create("empty-hub")
+  hub_path <- system.file("testhubs/flusight", package = "hubUtils")
   expect_error(
-    load_model_metadata("empty-hub"),
+    load_model_metadata(hub_path),
     regexp = ".*model-metadata.* directory not found in root of Hub"
   )
   
   # Empty model-metadata folder throws an error
-  if (!dir.exists("hub")) dir.create("hub")
-  if (!dir.exists("hub/model-metadata")) dir.create(fs::path("hub", "model-metadata"))
+  hub_path <- system.file("testhubs/empty", package = "hubUtils")
   expect_error(
-    load_model_metadata(temp_dir),
+    load_model_metadata(hub_path),
     regexp = "* directory is empty."
   )
 })

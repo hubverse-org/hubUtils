@@ -1,7 +1,7 @@
 team_name: "Team1"
 team_abbr: "team1"
-model_name: "Good Model"
-model_abbr: "goodmodel"
+model_name: "Good Model Valid"
+model_abbr: "goodmodel_valid"
 model_version: "1.0"
 model_contributors: [
     {
@@ -17,10 +17,10 @@ model_contributors: [
 website_url: "https://team1goodmodel.website"
 license: "cc-by-4.0"
 include_viz: true
-include_ensemble: truer
+include_ensemble: true
 include_eval: true
-models_details: [
+model_details: {
     methods: "this the method description of the model.",
-    data_imputs: "description of the data imputs"
-]
-ensemble_of_hub_models": false
+    data_inputs: "description of the data imputs"
+}
+ensemble_of_hub_models: false
