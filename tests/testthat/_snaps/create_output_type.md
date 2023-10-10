@@ -73,7 +73,8 @@
       create_output_type(create_output_type_mean(is_required = TRUE, value_type = "double",
         value_minimum = 0L), create_output_type_mean(is_required = TRUE, value_type = "double",
         value_minimum = 0L))
-    Error <rlang_error>
+    Condition
+      Error in `create_output_type()`:
       ! `names` must be unique across all items.
       x Item 2 with `name` "mean" is duplicate.
 
@@ -82,7 +83,8 @@
     Code
       create_output_type(create_output_type_mean(is_required = TRUE, value_type = "double",
         value_minimum = 0L), list(a = "b"))
-    Error <rlang_error>
+    Condition
+      Error in `create_output_type()`:
       ! All items supplied must inherit from class <output_type_item>
       x Item 2 does not.
 

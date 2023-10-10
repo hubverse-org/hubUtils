@@ -111,6 +111,7 @@
 
     Code
       create_config(list(a = 10))
-    Error <rlang_error>
+    Condition
+      Error in `create_config()`:
       x `rounds` must inherit from class <rounds> but does not
 

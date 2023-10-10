@@ -23,7 +23,8 @@
 
     Code
       model_id_split(tbl)
-    Error <rlang_error>
+    Condition
+      Error in `model_id_split()`:
       x Cannot split `model_id` column.
       ! Required column "model_id" missing from `tbl`.
 
@@ -31,7 +32,8 @@
 
     Code
       model_id_merge(tbl)
-    Error <rlang_error>
+    Condition
+      Error in `model_id_merge()`:
       x Cannot create `model_id` column.
       ! Required columns "model_abbr" and "team_abbr" missing from `tbl`.
 
@@ -39,7 +41,8 @@
 
     Code
       model_id_split(tbl)
-    Error <rlang_error>
+    Condition
+      Error in `model_id_split()`:
       x All `model_id` values must only contain a single separator character "-".
       ! Values "hub-base-line" containing more than one separator character detected in rows 1, 7, and 10.
 
@@ -47,7 +50,8 @@
 
     Code
       model_id_merge(tbl)
-    Error <rlang_error>
+    Condition
+      Error in `model_id_merge()`:
       x `model_abbr` and `team_abbr` values must not contain separator character "-".
       ! Values "base-line" containing separator character detected in `model_abbr` rows 1, 7, and 10.
       ! Values "h-ub" containing separator character detected in `team_abbr` rows 78.

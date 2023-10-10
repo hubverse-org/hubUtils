@@ -367,7 +367,8 @@
 
     Code
       create_model_tasks(model_task_1, list(a = 10))
-    Error <rlang_error>
+    Condition
+      Error in `create_model_tasks()`:
       ! All items supplied must inherit from class <model_task>
       x Item 2 does not.
 
@@ -386,7 +387,8 @@
         target_name = "Weekly influenza hospitalization rate change", target_units = "rate per 100,000 population",
         target_keys = list(target = "flu hosp rt chng"), target_type = "nominal",
         is_step_ahead = TRUE, time_unit = "week"))))
-    Error <rlang_error>
+    Condition
+      Error in `create_model_tasks()`:
       ! All items supplied must be created against the same Hub schema.
       x `schema_id` attributes are not consistent across all items.
       Item `schema_id` attributes:
