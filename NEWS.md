@@ -1,3 +1,7 @@
+# hubUtils 0.0.0.9015
+
+* Added `load_model_metadata()` function to compile hub model metadata.
+
 # hubUtils 0.0.0.9014
 
 * Added `coerce_to_character()` function for coercing all model output columns to character. This can be much faster than coercing to `coerce_to_hub_schema()`, especially for dates.
