@@ -219,7 +219,8 @@
       create_round(round_id_from_variable = FALSE, round_id = "round_1", model_tasks = model_tasks,
         submissions_due = list(start = "01/12/2023", end = "2023-01-18"),
         last_data_date = "2023-01-02")
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 1.
       Caused by error in `create_round()`:
       x `start` value must character string of date in valid ISO 8601 format (YYYY-MM-DD).
@@ -229,7 +230,8 @@
     Code
       create_round(round_id_from_variable = FALSE, round_id = "round_1", model_tasks = model_tasks,
         submissions_due = list(start = -4L, end = 2), last_data_date = "2023-01-02")
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 1.
       Caused by error in `create_round()`:
       x `start` value must character string of date in valid ISO 8601 format (YYYY-MM-DD).
@@ -240,7 +242,8 @@
       create_round(round_id_from_variable = TRUE, round_id = "origin_dates",
         model_tasks = model_tasks, submissions_due = list(relative_to = "origin_date",
           start = -4L, end = 2L), last_data_date = "2023-01-02")
-    Error <rlang_error>
+    Condition
+      Error in `create_round()`:
       ! `round_id` value must correspond to a valid `task_id` variable in every `model_task` object.
       x `round_id` value "origin_dates" does not correspond to a valid variable in provided `model_tasks` `model_task` object 1.
 
@@ -250,7 +253,8 @@
       create_round(round_id_from_variable = TRUE, round_id = "origin_date",
         model_tasks = model_tasks, submissions_due = list(relative = "origin_date",
           start = -4L, end = 2L), last_data_date = "2023-01-02")
-    Error <rlang_error>
+    Condition
+      Error in `create_round()`:
       x Property "relative" in `submissions_due` is invalid.
       ! Valid `submissions_due` properties: "relative_to", "start", and "end"
 
@@ -260,6 +264,7 @@
       create_round(round_id_from_variable = TRUE, round_id = "origin_date",
         model_tasks = "model_tasks", submissions_due = list(relative_to = "origin_date",
           start = -4L, end = 2L), last_data_date = "2023-01-02")
-    Error <rlang_error>
+    Condition
+      Error in `create_round()`:
       x `model_tasks` must inherit from class <model_tasks> but does not
 

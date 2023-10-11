@@ -259,7 +259,8 @@
           target_id = "inc hosp", target_name = "Weekly incident influenza hospitalizations",
           target_units = "rate per 100,000 population", target_keys = list(target = "inc hosp"),
           target_type = "discrete", is_step_ahead = TRUE, time_unit = "week")))
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 1.
       Caused by error in `create_model_task()`:
       x `task_ids` target values must match `target_metadata` `target_keys` definitions.
@@ -274,7 +275,8 @@
           target_id = "inc hosp", target_name = "Weekly incident influenza hospitalizations",
           target_units = "rate per 100,000 population", target_keys = list(targets = "inc hosp"),
           target_type = "discrete", is_step_ahead = TRUE, time_unit = "week")))
-    Error <rlang_error>
+    Condition
+      Error in `create_model_task()`:
       ! `target_metadata` target_keys names must match valid `task_ids` property names: "origin_date", "target", and "horizon"
       x target_keys name "targets" does not.
 
@@ -286,7 +288,8 @@
         target_name = "Weekly incident influenza hospitalizations", target_units = "rate per 100,000 population",
         target_keys = list(targets = "inc hosp"), target_type = "discrete",
         is_step_ahead = TRUE, time_unit = "week")))
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 2.
       Caused by error in `create_model_task()`:
       x `output_type` must inherit from class <output_type> but does not
@@ -299,7 +302,8 @@
           target_id = "inc hosp", target_name = "Weekly incident influenza hospitalizations",
           target_units = "rate per 100,000 population", target_keys = NULL,
           target_type = "discrete", is_step_ahead = TRUE, time_unit = "week")))
-    Error <rlang_error>
+    Condition
+      Error in `create_model_task()`:
       ! All arguments supplied must be created against the same Hub schema.
       x `schema_id` attributes are not consistent across all arguments.
       Argument `schema_id` attributes:

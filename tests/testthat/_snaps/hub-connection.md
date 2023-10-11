@@ -299,7 +299,7 @@
 
     Code
       hub_con
-    Message <cliMessage>
+    Message
       
       -- <hub_connection/list> --
       
@@ -315,7 +315,7 @@
 
     Code
       hub_con
-    Message <cliMessage>
+    Message
       
       -- <hub_connection/list> --
       
@@ -604,7 +604,7 @@
 
     Code
       mod_out_con
-    Message <cliMessage>
+    Message
       
       -- <mod_out_connection/FileSystemDataset> --
       
@@ -661,7 +661,7 @@
 
     Code
       mod_out_con
-    Message <cliMessage>
+    Message
       
       -- <mod_out_connection/FileSystemDataset> --
       
@@ -685,28 +685,31 @@
 
     Code
       connect_model_output(mod_out_path)
-    Error <rlang_error>
-      No files of file format "csv" found in model output directory.
+    Condition
+      Error in `connect_model_output()`:
+      ! No files of file format "csv" found in model output directory.
 
 ---
 
     Code
       connect_model_output(mod_out_path, file_format = "parquet")
-    Error <rlang_error>
-      No files of file format "parquet" found in model output directory.
+    Condition
+      Error in `connect_model_output()`:
+      ! No files of file format "parquet" found in model output directory.
 
 ---
 
     Code
       connect_model_output(mod_out_path)
-    Error <rlang_error>
-      No files of file format "csv" found in model output directory.
+    Condition
+      Error in `connect_model_output()`:
+      ! No files of file format "csv" found in model output directory.
 
 # hub_connection print method works
 
     Code
       hub_con
-    Message <cliMessage>
+    Message
       
       -- <hub_connection/UnionDataset> --
       
@@ -735,7 +738,7 @@
 
     Code
       print(hub_con, verbose = TRUE)
-    Message <cliMessage>
+    Message
       
       -- <hub_connection/UnionDataset> --
       
@@ -905,7 +908,7 @@
 
     Code
       mod_out_con
-    Message <cliMessage>
+    Message
       
       -- <mod_out_connection/FileSystemDataset> --
       
@@ -1143,20 +1146,23 @@
 
     Code
       connect_hub("random/hub/path")
-    Error <rlang_error>
+    Condition
+      Error in `connect_hub()`:
       x Directory 'random/hub/path' does not exist.
 
 ---
 
     Code
       connect_model_output("random/model-output/")
-    Error <rlang_error>
+    Condition
+      Error in `connect_model_output()`:
       x Directory 'random/model-output/' does not exist.
 
 ---
 
     Code
       connect_hub(temp_dir)
-    Error <rlang_error>
+    Condition
+      Error in `connect_hub()`:
       x 'hub-config' directory not found in root of Hub.
 

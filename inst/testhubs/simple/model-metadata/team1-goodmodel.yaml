@@ -1,7 +1,7 @@
 team_name: "Team1"
 team_abbr: "team1"
-model_name: "Good Model Valid"
-model_abbr: "goodmodel_valid"
+model_name: "Good Model"
+model_abbr: "goodmodel"
 model_version: "1.0"
 model_contributors: [
     {

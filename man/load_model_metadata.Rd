@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_model_metadata.R
 \name{load_model_metadata}
 \alias{load_model_metadata}
-\title{Load in metadata for a specified group of models into a tibble with one row per model.}
+\title{Compile hub model metadata}
 \usage{
 load_model_metadata(hub_path, model_ids = NULL)
 }
@@ -22,13 +22,12 @@ metadata. Defaults to NULL, in which case metadata for all models is loaded.}
 \code{tibble} with model metadata. One row for each model, one column for each top-level field in the metadata file. For metadata files with nested structures, this tibble may contain list-columns where the entries are lists containing the nested metadata values.
 }
 \description{
-Load in metadata for a specified group of models into a tibble with one row per model.
+Loads in hub model metadata for all models or a specified subset of models
+and compiles it into a tibble with one row per model.
 }
 \examples{
 # Load in model metadata from local hub
 hub_path <- system.file("testhubs/simple", package = "hubUtils")
-read_config(hub_path)
-# load_model_metadata file from AWS S3 bucket hub
-hub_path <- s3_bucket("hubverse/hubutils/testhubs/simple/")
 load_model_metadata(hub_path)
+load_model_metadata(hub_path, model_ids = c("hub-baseline"))
 }

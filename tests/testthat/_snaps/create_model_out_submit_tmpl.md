@@ -46,7 +46,7 @@
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2023-01-16",
         required_vals_only = TRUE, complete_cases_only = FALSE))
-    Message <cliMessage>
+    Message
       ! Column "target" whose values are all optional included as all `NA` column.
       ! Round contains more than one modeling task (2)
       i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
@@ -80,7 +80,7 @@
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2022-10-01",
         required_vals_only = TRUE, complete_cases_only = FALSE))
-    Message <cliMessage>
+    Message
       ! Column "location" whose values are all optional included as all `NA` column.
       i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
         details of optional task ID/output_type/output_type ID value combinations.
@@ -99,7 +99,7 @@
     Code
       str(create_model_out_submit_tmpl(hub_con, round_id = "2022-10-29",
         required_vals_only = TRUE, complete_cases_only = FALSE))
-    Message <cliMessage>
+    Message
       ! Column "location" whose values are all optional included as all `NA` column.
       i See Hub's 'tasks.json' file or <hub_connection> attribute "config_tasks" for
         details of optional task ID/output_type/output_type ID value combinations.
@@ -134,27 +134,31 @@
 
     Code
       create_model_out_submit_tmpl(hub_con, round_id = "random_round_id")
-    Error <rlang_error>
-      `round_id` must be one of "2022-10-01", "2022-10-08", "2022-10-15", "2022-10-22", or "2022-10-29", not "random_round_id".
+    Condition
+      Error in `get_round_idx()`:
+      ! `round_id` must be one of "2022-10-01", "2022-10-08", "2022-10-15", "2022-10-22", or "2022-10-29", not "random_round_id".
 
 ---
 
     Code
       create_model_out_submit_tmpl(hub_con)
-    Error <rlang_error>
-      `round_id` must be a character vector, not absent.
+    Condition
+      Error in `get_round_idx()`:
+      ! `round_id` must be a character vector, not absent.
 
 ---
 
     Code
       create_model_out_submit_tmpl(hub_con)
-    Error <rlang_error>
-      `round_id` must be a character vector, not absent.
+    Condition
+      Error in `get_round_idx()`:
+      ! `round_id` must be a character vector, not absent.
 
 ---
 
     Code
       create_model_out_submit_tmpl(list())
-    Error <simpleError>
-      Assertion on 'hub_con' failed: Must inherit from class 'hub_connection', but has class 'list'.
+    Condition
+      Error in `create_model_out_submit_tmpl()`:
+      ! Assertion on 'hub_con' failed: Must inherit from class 'hub_connection', but has class 'list'.
 

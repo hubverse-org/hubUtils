@@ -13,7 +13,7 @@ model_contributors: [
     "email": "j.smith@email.com"
   }
 ]
-website_url: "https://team1goodmodel.website"
+website_url: "https://hubcoordination.website"
 license: "cc-by-4.0"
 include_viz: true
 include_ensemble: false

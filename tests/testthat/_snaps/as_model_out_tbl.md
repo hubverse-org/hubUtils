@@ -17,7 +17,8 @@
 
     Code
       as_model_out_tbl(x, output_type_col = output_type_col)
-    Error <rlang_error>
+    Condition
+      Error in `as_model_out_tbl()`:
       x `output_type_col` value "output_type_rename_error" not a valid column name in `x`
       ! Must be one of "forecast_date", "horizon", "target", "location", "output_type_rename", "output_type_id", "value", and "model_id"
 
@@ -25,7 +26,7 @@
 
     Code
       names(as_model_out_tbl(tbl, trim_to_task_ids = TRUE, hub_con = hub_con))
-    Message <cliMessage>
+    Message
       ! `task_id_cols` value "location" not a valid `tbl` column name. Ignored.
     Output
       [1] "model_id"       "forecast_date"  "target"         "horizon"       
@@ -35,7 +36,8 @@
 
     Code
       as_model_out_tbl(tbl)
-    Error <rlang_error>
+    Condition
+      Error in `validate_model_out_tbl()`:
       x Wrong datatypes detected in standard columns:
       ! Column `output_type` should be one of <character/factor>, not <integer>.
       ! Column `value` should be <numeric>, not <character>.
