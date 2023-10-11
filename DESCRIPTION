@@ -22,7 +22,7 @@ Imports:
     dplyr,
     fs,
     glue,
-    gt,
+    gt (>= 0.10.0),
     jsonlite,
     jsonvalidate,
     lifecycle,
