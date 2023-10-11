@@ -94,14 +94,27 @@ load_model_metadata.default <- function(hub_path, model_ids = NULL) {
     meta_tbl[["model_abbr"]] <- gsub("^.*-", "", meta_tbl[["model_id"]])
   }
 
-  return(arrange_meta_tbl(meta_tbl))
+  meta_tbl <- arrange_meta_tbl(meta_tbl, hub_path)
+  meta_tbl
 }
 
-arrange_meta_tbl <- function(meta_tbl) {
+arrange_meta_tbl <- function(meta_tbl, hub_path) {
+  schema_names <- read_config(
+    hub_path,
+    config = "model-metadata-schema") %>%
+    purrr::pluck("properties") %>%
+    names()
+
   meta_names <- names(meta_tbl)
+  all_names <- union(schema_names, meta_names)
+
+  # Add columns of missing schema properties
+  missing_cols <- setdiff(all_names, meta_names)
+  meta_tbl[,missing_cols] <- NA
+
   meta_names_ordered <- c(
-    intersect(c("model_id", "team_abbr", "model_abbr"), meta_names),
-    setdiff(meta_names, c("model_id", "team_abbr", "model_abbr"))
+    intersect(c("model_id", "team_abbr", "model_abbr"), all_names),
+    setdiff(all_names, c("model_id", "team_abbr", "model_abbr"))
   )
   meta_tbl[meta_names_ordered]
 }
