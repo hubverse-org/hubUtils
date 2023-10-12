@@ -86,7 +86,8 @@
     Code
       create_output_type_median(is_required = FALSE, value_type = "double",
         schema_version = "v1.0.0")
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Hub configured using schema version v1.0.0. Support for schema earlier than v2.0.0 was deprecated in hubUtils 0.0.0.9010.
       i Please upgrade Hub config files to conform to, at minimum, version v2.0.0 as soon as possible.
     Output
@@ -114,14 +115,16 @@
 
     Code
       create_output_type_mean(is_required = "TRUE", value_type = "double")
-    Error <rlang_error>
+    Condition
+      Error in `create_output_type_point()`:
       x Argument `is_required` must be <logical> and have length 1.
 
 ---
 
     Code
       create_output_type_mean(is_required = TRUE, value_type = c("double", "integer"))
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 1.
       Caused by error in `create_output_type_mean()`:
       x `value_type` must be length 1, not 2.
@@ -131,7 +134,8 @@
     Code
       create_output_type_mean(is_required = FALSE, value_type = "character",
         value_maximum = 0L)
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 1.
       Caused by error in `create_output_type_mean()`:
       x `value_type` value is invalid.
@@ -142,8 +146,9 @@
 
     Code
       create_output_type_median(is_required = FALSE)
-    Error <rlang_error>
-      `value_type` is absent but must be supplied.
+    Condition
+      Error in `create_output_type_point()`:
+      ! `value_type` is absent but must be supplied.
 
 # create_output_type_dist functions work correctly
 
@@ -300,7 +305,8 @@
       create_output_type_quantile(required = c(0.25, 0.5, 0.75), optional = c(0.1,
         0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9), value_type = "double", value_minimum = 0,
       schema_version = "v1.0.0")
-    Warning <lifecycle_warning_deprecated>
+    Condition
+      Warning:
       Hub configured using schema version v1.0.0. Support for schema earlier than v2.0.0 was deprecated in hubUtils 0.0.0.9010.
       i Please upgrade Hub config files to conform to, at minimum, version v2.0.0 as soon as possible.
     Output
@@ -332,7 +338,8 @@
     Code
       create_output_type_cdf(required = NULL, optional = c("EW202240", "EW202241",
         "EW2022423"), value_type = "double")
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 2.
       Caused by error in `create_output_type_cdf()`:
       ! The maximum number of characters allowed for values in `optional` is 8.
@@ -344,7 +351,8 @@
       create_output_type_quantile(required = c(0.25, 0.5, 0.6, 0.75), optional = c(
         0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9), value_type = "double",
       value_minimum = 0)
-    Error <rlang_error>
+    Condition
+      Error in `check_prop_dups()`:
       x Values across arguments `required` and `optional` must be unique.
       ! Provided value 0.6 is duplicated.
 
@@ -352,7 +360,8 @@
 
     Code
       create_output_type_sample(required = 0:10, optional = 11:15, value_type = "double")
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 1.
       Caused by error in `create_output_type_sample()`:
       ! All values in `required` must be equal to or greater than 1.
@@ -362,7 +371,8 @@
 
     Code
       create_output_type_sample(required = 1:10, optional = 11:15, value_type = "character")
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 1.
       Caused by error in `create_output_type_sample()`:
       x `value_type` value is invalid.

@@ -20,13 +20,15 @@
 #' # Read config file from AWS S3 bucket hub
 #' hub_path <- s3_bucket("hubverse/hubutils/testhubs/simple/")
 #' read_config(hub_path, "admin")
-read_config <- function(hub_path, config = c("tasks", "admin")) {
+read_config <- function(hub_path, config = c("tasks", "admin",
+                                             "model-metadata-schema")) {
   UseMethod("read_config")
 }
 
 
 #' @export
-read_config.default <- function(hub_path, config = c("tasks", "admin")) {
+read_config.default <- function(hub_path, config = c("tasks", "admin",
+                                                     "model-metadata-schema")) {
   config <- rlang::arg_match(config)
   path <- fs::path(hub_path, "hub-config", config, ext = "json")
 
@@ -42,7 +44,8 @@ read_config.default <- function(hub_path, config = c("tasks", "admin")) {
 }
 
 #' @export
-read_config.SubTreeFileSystem <- function(hub_path, config = c("tasks", "admin")) {
+read_config.SubTreeFileSystem <- function(hub_path, config = c("tasks", "admin",
+                                                               "model-metadata-schema")) {
   config <- rlang::arg_match(config)
   path <- hub_path$path(fs::path("hub-config", config, ext = "json"))
 

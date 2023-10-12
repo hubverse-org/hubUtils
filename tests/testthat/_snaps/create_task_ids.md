@@ -63,7 +63,8 @@
       create_task_ids(create_task_id("origin_date", required = NULL, optional = c(
         "2023-01-02", "2023-01-09", "2023-01-16")), create_task_id("origin_date",
         required = NULL, optional = c("2023-01-02", "2023-01-09", "2023-01-16")))
-    Error <rlang_error>
+    Condition
+      Error in `create_task_ids()`:
       ! `names` must be unique across all items.
       x Item 2 with `name` "origin_date" is duplicate.
 
@@ -72,7 +73,8 @@
     Code
       create_task_ids(create_task_id("origin_date", required = NULL, optional = c(
         "2023-01-02", "2023-01-09", "2023-01-16")), list(a = 10), list(b = 10))
-    Error <rlang_error>
+    Condition
+      Error in `create_task_ids()`:
       ! All items supplied must inherit from class <task_id>
       x Items 2 and 3 do not.
 
@@ -81,7 +83,8 @@
     Code
       create_task_ids(item_1, create_task_id("scenario_id", required = NULL,
         optional = c("A-2021-03-28", "B-2021-03-28")))
-    Error <rlang_error>
+    Condition
+      Error in `create_task_ids()`:
       ! All items supplied must be created against the same Hub schema.
       x `schema_id` attributes are not consistent across all items.
       Item `schema_id` attributes:

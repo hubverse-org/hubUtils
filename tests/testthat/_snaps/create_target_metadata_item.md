@@ -69,7 +69,8 @@
       create_target_metadata_item(target_id = "inc hosp", target_name = "Weekly incident influenza hospitalizations",
         target_units = "rate per 100,000 population", target_keys = list(target = "inc hosp"),
         target_type = "discrete", is_step_ahead = TRUE, time_unit = "weekly")
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 6.
       Caused by error in `create_target_metadata_item()`:
       x `time_unit` value is invalid.
@@ -83,7 +84,8 @@
         target_units = "rate per 100,000 population", target_keys = list(target = c(
           "inc hosp", "inc death")), target_type = "discrete", is_step_ahead = TRUE,
         time_unit = "week")
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map2()`:
       i In index: 1.
       i With name: target.
       Caused by error in `create_target_metadata_item()`:
@@ -95,7 +97,8 @@
       create_target_metadata_item(target_id = "inc hosp", target_name = "Weekly incident influenza hospitalizations",
         target_units = "rate per 100,000 population", target_keys = c(target = "inc hosp"),
         target_type = "discrete", is_step_ahead = TRUE, time_unit = "week")
-    Error <rlang_error>
+    Condition
+      Error in `create_target_metadata_item()`:
       ! `target_keys` must be a <list> not a <character>
 
 ---
@@ -104,7 +107,8 @@
       create_target_metadata_item(target_id = "inc hosp", target_name = "Weekly incident influenza hospitalizations",
         target_units = "rate per 100,000 population", target_type = "discrete",
         is_step_ahead = TRUE)
-    Error <rlang_error>
+    Condition
+      Error in `create_target_metadata_item()`:
       ! A value must be provided for `time_unit` when `is_step_ahead` is TRUE
 
 ---
@@ -112,7 +116,8 @@
     Code
       create_target_metadata_item(target_id = "inc hosp", target_name = "Weekly incident influenza hospitalizations",
         target_units = 1e+05, target_type = "discrete", is_step_ahead = FALSE)
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 3.
       Caused by error in `create_target_metadata_item()`:
       x `target_units` is of type <double>.
@@ -124,7 +129,8 @@
       create_target_metadata_item(target_id = "inc hosp", target_name = "Weekly incident influenza hospitalizations",
         target_units = "rate per 100,000 population", target_type = "invalid_target_type",
         is_step_ahead = FALSE)
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 4.
       Caused by error in `create_target_metadata_item()`:
       x `target_type` value is invalid.
@@ -137,7 +143,8 @@
       create_target_metadata_item(target_id = "inc hosp", target_name = "Weekly incident influenza hospitalizations",
         target_units = c("rate per 100,000 population", "count"), target_type = "discrete",
         is_step_ahead = FALSE)
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 3.
       Caused by error in `create_target_metadata_item()`:
       x `target_units` must be length 1, not 2.

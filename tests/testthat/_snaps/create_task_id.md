@@ -76,14 +76,16 @@
 
     Code
       create_task_id("horizon", required = NULL, optional = NULL)
-    Error <rlang_error>
+    Condition
+      Error in `check_prop_not_all_null()`:
       x Both arguments `required` and `optional` cannot be NULL.
 
 ---
 
     Code
       create_task_id("origin_date", required = NULL, optional = c("01/20/2023"))
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 2.
       Caused by error in `create_task_id()`:
       x `optional` value must character string of date in valid ISO 8601 format (YYYY-MM-DD).
@@ -92,7 +94,8 @@
 
     Code
       create_task_id("scenario_id", required = NULL, optional = c(1L, 1L))
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 2.
       Caused by error in `create_task_id()`:
       ! All values in `optional` must be unique.
@@ -102,7 +105,8 @@
 
     Code
       create_task_id("horizon", required = c(TRUE, FALSE), optional = NULL)
-    Error <purrr_error_indexed>
+    Condition
+      Error in `map()`:
       i In index: 1.
       Caused by error in `create_task_id()`:
       x `required` is of type <logical>.

@@ -4,7 +4,7 @@
 \alias{read_config}
 \title{Read a hub config file into R}
 \usage{
-read_config(hub_path, config = c("tasks", "admin"))
+read_config(hub_path, config = c("tasks", "admin", "model-metadata-schema"))
 }
 \arguments{
 \item{hub_path}{Either a character string path to a local Modeling Hub directory

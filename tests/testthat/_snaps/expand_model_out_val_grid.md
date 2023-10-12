@@ -217,20 +217,23 @@
 
     Code
       expand_model_out_val_grid(config_tasks, round_id = "random_round_id")
-    Error <rlang_error>
-      `round_id` must be one of "2022-10-01", "2022-10-08", "2022-10-15", "2022-10-22", or "2022-10-29", not "random_round_id".
+    Condition
+      Error in `get_round_idx()`:
+      ! `round_id` must be one of "2022-10-01", "2022-10-08", "2022-10-15", "2022-10-22", or "2022-10-29", not "random_round_id".
 
 ---
 
     Code
       expand_model_out_val_grid(config_tasks)
-    Error <rlang_error>
-      `round_id` must be a character vector, not absent.
+    Condition
+      Error in `get_round_idx()`:
+      ! `round_id` must be a character vector, not absent.
 
 ---
 
     Code
       expand_model_out_val_grid(config_tasks)
-    Error <rlang_error>
-      `round_id` must be a character vector, not absent.
+    Condition
+      Error in `get_round_idx()`:
+      ! `round_id` must be a character vector, not absent.
 

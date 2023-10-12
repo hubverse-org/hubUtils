@@ -25,7 +25,7 @@ expect_tab <- function(tab) {
 
   (gt:::dt_boxhead_get(data = tab) %>%
     dim())[2] %>%
-    expect_equal(6)
+    expect_equal(8)
 
   gt:::dt_stub_df_get(data = tab) %>%
     dim() %>%
@@ -37,7 +37,7 @@ expect_tab <- function(tab) {
 
   gt:::dt_spanners_get(data = tab) %>%
     dim() %>%
-    expect_equal(c(3, 6))
+    expect_equal(c(3, 8))
 
   gt:::dt_stubhead_get(data = tab) %>%
     length() %>%

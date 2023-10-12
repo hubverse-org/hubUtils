@@ -63,8 +63,9 @@
 
     Code
       get_round_ids(config_tasks, flatten = "random")
-    Error <rlang_error>
-      `flatten` must be one of "all", "model_task", "task_id", or "none", not "random".
+    Condition
+      Error in `get_round_ids()`:
+      ! `flatten` must be one of "all", "model_task", "task_id", or "none", not "random".
 
 ---
 
@@ -167,8 +168,9 @@
 
     Code
       get_round_idx(config_tasks)
-    Error <rlang_error>
-      `round_id` must be a character vector, not absent.
+    Condition
+      Error in `get_round_idx()`:
+      ! `round_id` must be a character vector, not absent.
 
 ---
 
@@ -181,6 +183,7 @@
 
     Code
       get_round_idx(config_tasks)
-    Error <rlang_error>
-      `round_id` must be a character vector, not absent.
+    Condition
+      Error in `get_round_idx()`:
+      ! `round_id` must be a character vector, not absent.
 

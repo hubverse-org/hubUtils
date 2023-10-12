@@ -337,6 +337,7 @@
 
     Code
       create_rounds(round_1, round_1)
-    Error <rlang_error>
+    Condition
+      Error in `collect_items()`:
       x <round> object 2 is a duplicate of object 1
 
