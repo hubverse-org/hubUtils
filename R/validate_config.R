@@ -832,7 +832,8 @@ validate_round_ids_consistent <- function(round, round_i,
     ~ tibble::tibble(
       instancePath = glue::glue_data(
         list(model_task_i = as.integer(.y)),
-        get_error_path(schema, round_id_var, "instance")),
+        get_error_path(schema, round_id_var, "instance")
+      ),
       schemaPath = get_error_path(schema, round_id_var, "schema"),
       keyword = "round_id var",
       message = glue::glue(
