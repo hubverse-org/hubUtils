@@ -1,11 +1,6 @@
 #' Validate Hub config files against Infectious Disease Modeling Hubs schema.
 #'
 #' Validate the `admin.json` and `tasks.json` Hub config files in a single call.
-#' @param config_dir Defaults to `NULL` which assumes all config files are in
-#'   the `hub-config` directory in the root of hub directory. Argument
-#'   `config_dir` can be used to override default by providing a path to the
-#'    directory containing the config files to be validated. Config directory must
-#'    contain a `admin.json` and `tasks.json` file.
 #' @inheritParams validate_config
 #'
 #' @return Returns a list of the results of validation, one for each `hub-config`
@@ -28,37 +23,23 @@
 #'     package = "hubUtils"
 #'   )
 #' )
-validate_hub_config <- function(hub_path = ".",
-                                config_dir = NULL, schema_version = "from_config",
+validate_hub_config <- function(hub_path = ".", schema_version = "from_config",
                                 branch = "main") {
-  if (!is.null(config_dir)) {
-    config_paths <- list(
-      tasks = fs::path(config_dir, "tasks", ext = "json"),
-      admin = fs::path(config_dir, "admin", ext = "json")
-    )
-  } else {
-    config_paths <- list(
-      tasks = NULL,
-      admin = NULL
-    )
-  }
+  configs <- c("tasks", "admin")
 
-  validations <- purrr::map2(
-    .x = names(config_paths),
-    .y = config_paths,
+  # First only validate config files
+  validations <- purrr::map(
+    configs,
     ~ validate_config(
       hub_path = hub_path,
       config = .x,
-      config_path = .y,
       schema_version = schema_version,
       branch = branch
     )
   ) %>%
-    purrr::set_names(names(config_paths)) %>%
+    purrr::set_names(configs) %>%
     suppressMessages() %>%
     suppressWarnings()
-
-
 
   # Throw error if schema urls do not resolve to the same schema version directory.
   # No point showing report of errors detected if they are not related to the
@@ -84,6 +65,20 @@ validate_hub_config <- function(hub_path = ".",
             refer to the same schema version to proceed."
     ))
   }
+  schema_version <- purrr::map_chr(
+    validations,
+    ~ attr(.x, "schema_version")
+  ) %>%
+    unique()
+
+  # Add model metadata schema validations
+  validations[[
+  "model-metadata-schema"
+  ]] <- validate_model_metadata_schema(
+    hub_path
+  ) %>%
+    suppressMessages() %>%
+    suppressWarnings()
 
   # Issue warning if validation errors detected in any of the config files.
   # Else, signal success.
@@ -101,23 +96,16 @@ validate_hub_config <- function(hub_path = ".",
     ))
   } else {
     cli::cli_alert_success(
-      "Hub correctly configured!
-         Both {.path admin.json} and {.path tasks.json} valid."
+      c(
+        "Hub correctly configured! \n",
+        "{.path admin.json}, {.path tasks.json} and {.path model-metadata-schema.json} ",
+        "all valid."
+      )
     )
   }
 
-  config_dir_path <- ifelse(
-    is.null(config_dir),
-    fs::path(hub_path, "hub-config"),
-    config_dir
-  )
-
-  attr(validations, "config_dir") <- config_dir_path
-  attr(validations, "schema_version") <- purrr::map_chr(
-    validations,
-    ~ attr(.x, "schema_version")
-  ) %>%
-    unique()
+  attr(validations, "config_dir") <- fs::path(hub_path, "hub-config")
+  attr(validations, "schema_version") <- schema_version
   attr(validations, "schema_url") <- gsub(
     "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/",
     "https://github.com/Infectious-Disease-Modeling-Hubs/schemas/tree/",

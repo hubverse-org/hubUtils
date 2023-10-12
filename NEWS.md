@@ -1,3 +1,7 @@
+# hubUtils 0.0.0.9016
+
+* Added `validate_model_metadata_schema()` function and included it as part of `validate_hub_config()` (#110 & #112).
+
 # hubUtils 0.0.0.9015
 
 * Added `load_model_metadata()` function to compile hub model metadata.

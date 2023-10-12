@@ -8,12 +8,6 @@
             "description": "The name of the team submitting the model",
             "type": "string"
         },
-        "team_abbr": {
-            "description": "Abbreviated name of the team submitting the model",
-            "type": "string",
-            "pattern": "^[a-zA-Z0-9_+]+$",
-            "maxLength": 16
-        },
         "model_name": {
             "description": "The name of the model",
             "type": "string"

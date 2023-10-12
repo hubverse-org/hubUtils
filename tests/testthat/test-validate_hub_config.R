@@ -8,15 +8,6 @@ test_that("correct hub validates successfully", {
       all() %>%
       suppressMessages()
   )
-  expect_true(
-    validate_hub_config(config_dir = system.file(
-      "testhubs/simple/hub-config",
-      package = "hubUtils"
-    )) %>%
-      unlist() %>%
-      all() %>%
-      suppressMessages()
-  )
 })
 
 test_that("Hub with config errors fails validation", {
@@ -31,7 +22,7 @@ test_that("Hub with config errors fails validation", {
 
   expect_equal(
     attr(val, "config_dir"),
-    "testdata/error_hub/hub-config"
+    fs::path("testdata/error_hub/hub-config")
   )
 
   expect_equal(
