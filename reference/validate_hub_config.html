@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9015</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9016</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,6 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">validate_hub_config</span><span class="op">(</span></span>
 <span>  hub_path <span class="op">=</span> <span class="st">"."</span>,</span>
-<span>  config_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  schema_version <span class="op">=</span> <span class="st">"from_config"</span>,</span>
 <span>  branch <span class="op">=</span> <span class="st">"main"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -70,14 +69,6 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>hub_path</dt>
 <dd><p>Path to a local hub directory.</p></dd>
-
-
-<dt>config_dir</dt>
-<dd><p>Defaults to <code>NULL</code> which assumes all config files are in
-the <code>hub-config</code> directory in the root of hub directory. Argument
-<code>config_dir</code> can be used to override default by providing a path to the
-directory containing the config files to be validated. Config directory must
-contain a <code>admin.json</code> and <code>tasks.json</code> file.</p></dd>
 
 
 <dt>schema_version</dt>
@@ -134,8 +125,8 @@ You can print a more concise and easier to view version of an errors table with
 <span class="r-in"><span>    package <span class="op">=</span> <span class="st">"hubUtils"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Hub correctly configured!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Both <span style="color: #0000BB;">admin.json</span> and <span style="color: #0000BB;">tasks.json</span> valid.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Hub correctly configured! </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">admin.json</span>, <span style="color: #0000BB;">tasks.json</span> and <span style="color: #0000BB;">model-metadata-schema.json</span> all valid.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $tasks</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"config_path")</span>
@@ -154,8 +145,13 @@ You can print a more concise and easier to view version of an errors table with
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_url")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/admin-schema.json</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`model-metadata-schema`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"config_path")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/model-metadata-schema.json</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"config_dir")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_version")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "v2.0.0"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_url")</span>

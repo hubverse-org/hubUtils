@@ -136,6 +136,9 @@
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_hub_config.html</loc>
   </url>
   <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_model_metadata_schema.html</loc>
+  </url>
+  <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_model_out_tbl.html</loc>
   </url>
   <url>
