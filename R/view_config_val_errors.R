@@ -28,9 +28,10 @@ view_config_val_errors <- function(x) {
   }
 
   if (length(x) > 1L) {
-    errors_tbl <- purrr::map2(
+    error_df <- purrr::map2(
       x, names(x),
-      ~ compile_errors(.x, .y)
+      ~ compile_errors(.x, .y) %>%
+        process_error_df()
     ) %>%
       purrr::list_rbind()
     val_path <- attr(x, "config_dir")
@@ -41,7 +42,8 @@ view_config_val_errors <- function(x) {
       "schemaPath"
     )
   } else {
-    errors_tbl <- attr(x, "errors")
+    error_df <- attr(x, "errors") %>%
+      process_error_df()
     val_path <- attr(x, "config_path")
     val_type <- "file"
     error_loc_columns <- c(
@@ -59,43 +61,6 @@ view_config_val_errors <- function(x) {
                    schema version [**{schema_version}**]({schema_url})")
   )
 
-  errors_tbl[c("dataPath", "parentSchema", "params")] <- NULL
-  errors_tbl <- errors_tbl[!grepl("oneOf.+", errors_tbl$schemaPath), ]
-  errors_tbl <- remove_superfluous_enum_rows(errors_tbl)
-
-  # Get rid of unnecessarily verbose data entry when a required property is
-  # missing. Addressing this is dependent on the data column data type.
-  if (any(errors_tbl$keyword == "required")) {
-    if (inherits(errors_tbl$data, "data.frame")) {
-      errors_tbl$data <- ""
-    } else {
-      errors_tbl$data[errors_tbl$keyword == "required"] <- ""
-    }
-  }
-  # Get rid of unnecessarily verbose data entry when an additionalProperties property is
-  # detected Addressing this is dependent on the data column data type.
-  if (any(errors_tbl$keyword == "additionalProperties")) {
-    if (inherits(errors_tbl$data, "data.frame")) {
-      errors_tbl$data <- ""
-    } else {
-      errors_tbl$data[errors_tbl$keyword == "additionalProperties"] <- ""
-    }
-  }
-
-  n_col <- length(errors_tbl)
-
-  error_df <- split(errors_tbl, 1:nrow(errors_tbl)) %>%
-    purrr::map_df(
-      ~ unlist(.x, recursive = FALSE) %>% purrr::map(~ process_element(.x))
-    ) %>%
-    # split long column names
-    stats::setNames(gsub("\\.", " ", names(.)))
-
-
-  # format path and error message columns
-  error_df[["schemaPath"]] <- purrr::map_chr(error_df[["schemaPath"]], path_to_tree)
-  error_df[["instancePath"]] <- purrr::map_chr(error_df[["instancePath"]], path_to_tree)
-  error_df[["message"]] <- paste("\u274c", error_df[["message"]])
 
 
   # Create table ----
@@ -291,4 +256,50 @@ compile_errors <- function(x, file_name) {
       errors_tbl
     )
   }
+}
+
+
+process_error_df <- function(errors_tbl) {
+  if (is.null(errors_tbl)) {
+    return(NULL)
+  }
+  errors_tbl[c("dataPath", "parentSchema", "params")] <- NULL
+  errors_tbl <- errors_tbl[!grepl("oneOf.+", errors_tbl$schemaPath), ]
+  errors_tbl <- remove_superfluous_enum_rows(errors_tbl)
+
+  # Get rid of unnecessarily verbose data entry when a required property is
+  # missing. Addressing this is dependent on the data column data type.
+  if (any(errors_tbl$keyword == "required")) {
+    if (inherits(errors_tbl$data, "data.frame")) {
+      errors_tbl$data <- ""
+    } else {
+      errors_tbl$data[errors_tbl$keyword == "required"] <- ""
+    }
+  }
+  # Get rid of unnecessarily verbose data entry when an additionalProperties property is
+  # detected Addressing this is dependent on the data column data type.
+  if (any(errors_tbl$keyword == "additionalProperties")) {
+    if (inherits(errors_tbl$data, "data.frame")) {
+      errors_tbl$data <- ""
+    } else {
+      errors_tbl$data[errors_tbl$keyword == "additionalProperties"] <- ""
+    }
+  }
+
+  n_col <- length(errors_tbl)
+
+  error_df <- split(errors_tbl, 1:nrow(errors_tbl)) %>%
+    purrr::map_df(
+      ~ unlist(.x, recursive = FALSE) %>% purrr::map(~ process_element(.x))
+    ) %>%
+    # split long column names
+    stats::setNames(gsub("\\.", " ", names(.)))
+
+
+  # format path and error message columns
+  error_df[["schemaPath"]] <- purrr::map_chr(error_df[["schemaPath"]], path_to_tree)
+  error_df[["instancePath"]] <- purrr::map_chr(error_df[["instancePath"]], path_to_tree)
+  error_df[["message"]] <- paste("\u274c", error_df[["message"]])
+
+  error_df
 }

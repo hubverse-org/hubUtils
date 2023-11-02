@@ -6,19 +6,12 @@
 \usage{
 validate_hub_config(
   hub_path = ".",
-  config_dir = NULL,
   schema_version = "from_config",
   branch = "main"
 )
 }
 \arguments{
 \item{hub_path}{Path to a local hub directory.}
-
-\item{config_dir}{Defaults to \code{NULL} which assumes all config files are in
-the \code{hub-config} directory in the root of hub directory. Argument
-\code{config_dir} can be used to override default by providing a path to the
-directory containing the config files to be validated. Config directory must
-contain a \code{admin.json} and \code{tasks.json} file.}
 
 \item{schema_version}{Character string specifying the json schema version to
 be used for validation. The default value \code{"from_config"} will use the
