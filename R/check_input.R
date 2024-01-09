@@ -121,8 +121,9 @@ check_input <- function(input, property, parent_schema,
     typeof(input) != "character"
   ) {
     cli::cli_abort(c("x" = "{cli::qty(length(input))} {.arg {property_name}}
-                         value{?s} must character string{?s} of date{?s} in valid
-                         ISO 8601 format (YYYY-MM-DD)."),
+                         value{?s} must be character string{?s} of date{?s} in valid
+                         ISO 8601 format (YYYY-MM-DD). Date object format not accepted.
+                         Consider using {.code as.character()} to convert to character."),
       call = call
     )
   }
@@ -132,7 +133,7 @@ check_input <- function(input, property, parent_schema,
     anyNA(as.Date(input, format = "%Y-%m-%d"))
   ) {
     cli::cli_abort(c("x" = "{cli::qty(length(input))} {.arg {property_name}}
-                         value{?s} must character string{?s} of date{?s} in valid
+                         value{?s} must be character string{?s} of date{?s} in valid
                          ISO 8601 format (YYYY-MM-DD)."),
       call = call
     )

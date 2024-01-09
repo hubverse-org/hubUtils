@@ -223,7 +223,7 @@
       Error in `map()`:
       i In index: 1.
       Caused by error in `create_round()`:
-      x `start` value must character string of date in valid ISO 8601 format (YYYY-MM-DD).
+      x `start` value must be character string of date in valid ISO 8601 format (YYYY-MM-DD).
 
 ---
 
@@ -234,7 +234,7 @@
       Error in `map()`:
       i In index: 1.
       Caused by error in `create_round()`:
-      x `start` value must character string of date in valid ISO 8601 format (YYYY-MM-DD).
+      x `start` value must be character string of date in valid ISO 8601 format (YYYY-MM-DD). Date object format not accepted. Consider using `as.character()` to convert to character.
 
 ---
 

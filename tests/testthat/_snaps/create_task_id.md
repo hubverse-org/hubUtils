@@ -88,7 +88,7 @@
       Error in `map()`:
       i In index: 2.
       Caused by error in `create_task_id()`:
-      x `optional` value must character string of date in valid ISO 8601 format (YYYY-MM-DD).
+      x `optional` value must be character string of date in valid ISO 8601 format (YYYY-MM-DD).
 
 ---
 
