@@ -163,3 +163,16 @@ test_that("create_output_type_dist functions error correctly", {
     error = TRUE
   )
 })
+
+
+test_that("create_output_type_dist functions creates expected warnings", {
+  expect_snapshot(
+    create_output_type_sample(
+      required = 1:50,
+      optional = NULL,
+      value_type = "double",
+      value_minimum = 0L,
+      value_maximum = 1L
+    )
+  )
+})
