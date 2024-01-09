@@ -44,10 +44,10 @@ create_output_type_sample(
 )
 }
 \arguments{
-\item{required}{Atomic vector of required \code{output_type} values. Can be NULL if
+\item{required}{Atomic vector of required \code{output_type_id} values. Can be NULL if
 all values are optional.}
 
-\item{optional}{Atomic vector of optional \code{output_type} values. Can be NULL if
+\item{optional}{Atomic vector of optional \code{output_type_id} values. Can be NULL if
 all values are required.}
 
 \item{value_type}{Character string. The data type of the output_type values.}
