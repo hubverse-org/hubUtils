@@ -8,8 +8,8 @@
 #' or appended to `tasks.json` Hub config files.
 #' @param is_required Logical. Is the output type required?
 #' @param value_type Character string. The data type of the output_type values.
-#' @param value_minimum Numeric. The exclusive minimum of output_type values.
-#' @param value_maximum Numeric. The exclusive maximum of output_type values.
+#' @param value_minimum Numeric. The inclusive minimum of output_type values.
+#' @param value_maximum Numeric. The inclusive maximum of output_type values.
 #'
 #' @details For more details consult
 #' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
