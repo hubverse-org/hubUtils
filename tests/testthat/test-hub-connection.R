@@ -1,7 +1,7 @@
 test_that("connect_hub works on local simple forecasting hub", {
   # Simple forecasting Hub example ----
 
-  hub_path <- system.file("testhubs/simple", package = "hubUtils")
+ hub_path <- system.file("testhubs/simple", package = "hubUtils")
   hub_con <- connect_hub(hub_path)
 
   # Tests that paths are assigned to attributes correctly
