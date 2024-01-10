@@ -135,7 +135,10 @@ connect_hub.default <- function(hub_path,
     file_system <- class(dataset$filesystem)[1]
     if (file_system == "NULL") file_system <- "local"
   }
-  file_format <- get_file_format_meta(dataset)
+  file_format <- get_file_format_meta(dataset, model_output_dir, file_format)
+  # warn of any discrepancies between expected files in dir and successfully opened
+  # files in dataset
+  warn_unopened_files(file_format, dataset, model_output_dir)
 
   structure(dataset,
     class = c("hub_connection", class(dataset)),
@@ -207,7 +210,10 @@ connect_hub.SubTreeFileSystem <- function(hub_path,
     file_system <- class(dataset$filesystem$base_fs)[1]
     if (file_system == "NULL") file_system <- hub_path$url_scheme
   }
-  file_format <- get_file_format_meta(dataset)
+  file_format <- get_file_format_meta(dataset, model_output_dir, file_format)
+  # warn of any discrepancies between expected files in dir and successfully opened
+  # files in dataset
+  warn_unopened_files(file_format, dataset, model_output_dir)
 
   structure(dataset,
     class = c("hub_connection", class(dataset)),
@@ -308,12 +314,13 @@ get_file_format <- function(config_admin,
     file_format <- rlang::arg_match(file_format)
 
     if (!file_format %in% config_file_format) {
-      cli::cli_abort(c(
-        "x" = "{.arg file_format} value {.val {file_format}} is not a valid
+      cli::cli_abort(
+        c(
+          "x" = "{.arg file_format} value {.val {file_format}} is not a valid
                 file format available for this hub.",
-        "!" = "Must be {?/one of}: {.val {config_file_format}}."
-      ),
-      call = call
+          "!" = "Must be {?/one of}: {.val {config_file_format}}."
+        ),
+        call = call
       )
     }
 
@@ -321,13 +328,14 @@ get_file_format <- function(config_admin,
   }
 
   if (length(config_file_format) == 0L) {
-    cli::cli_abort(c(
-      "x" = "{.arg file_format} value could not be extracted from config
+    cli::cli_abort(
+      c(
+        "x" = "{.arg file_format} value could not be extracted from config
             file {.field admin.json}.",
-      "!" = "Use argument {.arg file_format} to specify a file format
+        "!" = "Use argument {.arg file_format} to specify a file format
             or contact hub maintainers for assistance."
-    ),
-    call = call
+      ),
+      call = call
     )
   }
 
@@ -375,82 +383,150 @@ model_output_dir_path.SubTreeFileSystem <- function(hub_path, config_admin,
   model_output_dir
 }
 
-get_file_format_meta <- function(dataset) {
-  if (inherits(dataset, "UnionDataset")) {
-    stats::setNames(
-      purrr::map_int(dataset$children, ~ length(.x$files)),
-      purrr::map_chr(dataset$children, ~ .x$format$type)
-    )
-  } else {
-    stats::setNames(
-      length(dataset$files),
-      dataset$format$type
-    )
+get_file_format_meta <- function(dataset, model_output_dir, file_format) {
+  # Get number of files per file format successfully opened in dataset
+  n_open <- lengths(list_dataset_files(dataset))
+  if (is.null(names(n_open))) {
+    return(NULL)
   }
+  # to avoid confusion override renaming of arrow file format to ipc by arrow
+  # package
+  names(n_open)[names(n_open) == "ipc"] <- "arrow"
+
+  # Ensure that entire file formats which should have been included aren't missing
+  # from the dataset
+  if (any(!file_format %in% names(n_open))) {
+    n_open[setdiff(file_format, names(n_open))] <- 0
+  }
+  # Get number of files per file format that should be in the dataset that exist
+  # in model out dir
+  n_in_dir <- purrr::map_int(
+    names(n_open),
+    ~ file_format_n(model_output_dir, .x)
+  )
+
+  rbind(n_open, n_in_dir)
 }
 
 check_file_format <- function(model_output_dir, file_format,
                               call = rlang::caller_env(), error = FALSE) {
-  UseMethod("check_file_format")
+  dir_file_formats <- get_dir_file_formats(model_output_dir)
+  valid_file_format <- file_format[file_format %in% dir_file_formats]
+
+  if (length(valid_file_format) == 0L && error) {
+    cli::cli_abort("No files of file format{?s}
+                   {.val {file_format}}
+                   found in model output directory.",
+      call = call
+    )
+  }
+  if (length(valid_file_format) == 0L) {
+    cli::cli_warn("No files of file format{?s}
+                   {.val {file_format}}
+                   found in model output directory.",
+      call = call
+    )
+  }
+  valid_file_format
 }
 
-check_file_format.default <- function(model_output_dir, file_format,
-                                      call = rlang::caller_env(),
-                                      error = FALSE) {
-  keep_file_format <- purrr::map_lgl(
-    purrr::set_names(file_format),
-    ~ length(
-      fs::dir_ls(
-        model_output_dir,
-        recurse = TRUE,
-        glob = paste0("*.", .x)
+file_format_n <- function(model_output_dir, file_format) {
+  checkmate::assert_string(file_format)
+  UseMethod("file_format_n")
+}
+
+file_format_n.default <- function(model_output_dir, file_format) {
+  length(
+    fs::dir_ls(
+      model_output_dir,
+      recurse = TRUE,
+      glob = paste0("*.", file_format)
+    )
+  )
+}
+
+file_format_n.SubTreeFileSystem <- function(model_output_dir, file_format) {
+  sum(fs::path_ext(model_output_dir$ls(recursive = TRUE)) == file_format)
+}
+
+
+warn_unopened_files <- function(x, dataset, model_output_dir) {
+  x <- as.data.frame(x)
+  unopened_file_formats <- purrr::map_lgl(x, ~ .x[1] < .x[2])
+  if (any(unopened_file_formats)) {
+    dataset_files <- list_dataset_files(dataset)
+
+    unopened_files <- purrr::map(
+      purrr::set_names(names(x)[unopened_file_formats]),
+      ~ list_dir_files(model_output_dir, file_format)
+    ) %>%
+      # check dir files against files opened in dataset
+      purrr::imap(
+        ~ .x[!.x %in% dataset_files[[.y]]]
+      ) %>%
+      purrr::list_simplify() %>%
+      purrr::set_names("x")
+
+    cli::cli_warn(
+      c(
+        "!" = "{cli::qty(length(unopened_files))} The following potentially
+        invalid model output file{?s} not opened successfully.",
+        sprintf("{.path %s}", unopened_files)
       )
-    ) > 0L
-  )
-  file_format <- file_format[keep_file_format]
-
-  if (length(file_format) == 0L && error) {
-    cli::cli_abort("No files of file format{?s}
-                   {.val {names(keep_file_format)}}
-                   found in model output directory.",
-      call = call
     )
+    invisible(FALSE)
   }
-  if (length(file_format) == 0L) {
-    cli::cli_warn("No files of file format{?s}
-                   {.val {names(keep_file_format)}}
-                   found in model output directory.",
-      call = call
-    )
-  }
-  file_format
+  invisible(TRUE)
 }
 
-check_file_format.SubTreeFileSystem <- function(model_output_dir, file_format,
-                                                call = rlang::caller_env(),
-                                                error = FALSE) {
-  bucket_file_ext <- fs::path_ext(model_output_dir$ls(recursive = TRUE))
 
-  keep_file_format <- purrr::map_lgl(
-    purrr::set_names(file_format),
-    ~ .x %in% bucket_file_ext
+list_dir_files <- function(model_output_dir, file_format = NULL) {
+  checkmate::assert_string(file_format, null.ok = TRUE)
+  UseMethod("list_dir_files")
+}
+
+
+list_dir_files.default <- function(model_output_dir, file_format = NULL) {
+  if (is.null(file_format)) {
+    file_format <- "*"
+  }
+  fs::dir_ls(
+    model_output_dir,
+    recurse = TRUE,
+    glob = paste0("*.", file_format)
   )
-  file_format <- file_format[keep_file_format]
+}
 
-  if (length(file_format) == 0L && error) {
-    cli::cli_abort("No files of file format{?s}
-                   {.val {names(keep_file_format)}}
-                   found in model output directory.",
-      call = call
-    )
+list_dir_files.SubTreeFileSystem <- function(model_output_dir, file_format = NULL) {
+  all_files <- model_output_dir$ls(recursive = TRUE)
+  if (is.null(file_format)) {
+    return(all_files)
   }
-  if (length(file_format) == 0L) {
-    cli::cli_warn("No files of file format{?s}
-                   {.val {names(keep_file_format)}}
-                   found in model output directory.",
-      call = call
-    )
-  }
+  all_files[fs::path_ext(all_files) == file_format]
+}
 
-  file_format
+list_dataset_files <- function(dataset) {
+  UseMethod("list_dataset_files")
+}
+
+list_dataset_files.default <- function(dataset) {
+  stats::setNames(
+    list(dataset$files),
+    dataset$format$type
+  )
+}
+
+list_dataset_files.UnionDataset <- function(dataset) {
+  stats::setNames(
+    purrr::map(dataset$children, ~ .x$files),
+    purrr::map_chr(dataset$children, ~ .x$format$type)
+  )
+}
+
+get_dir_file_formats <- function(model_output_dir) {
+  all_ext <- list_dir_files(model_output_dir) %>%
+    fs::path_ext() %>%
+    unique()
+
+  intersect(all_ext, c("csv", "parquet", "arrow"))
 }

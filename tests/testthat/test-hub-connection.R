@@ -7,7 +7,8 @@ test_that("connect_hub works on local simple forecasting hub", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    c(csv = 3L, parquet = 1L)
+    structure(c(3L, 3L, 1L, 1L), dim = c(2L, 2L), dimnames = list(
+      c("n_open", "n_in_dir"), c("csv", "parquet")))
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -44,7 +45,8 @@ test_that("connect_hub works on a local simple forecasting hub with no csvs", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    c(parquet = 4L)
+    structure(c(4L, 4L), dim = 2:1, dimnames = list(c("n_open", "n_in_dir"
+    ), "parquet"))
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -91,7 +93,8 @@ test_that("connect_hub connection & data extraction works on simple local hub", 
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    c(csv = 5L, parquet = 2L, ipc = 1L)
+    structure(c(5L, 5L, 2L, 2L, 1L, 1L), dim = 2:3, dimnames = list(
+      c("n_open", "n_in_dir"), c("csv", "parquet", "arrow")))
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -131,7 +134,8 @@ test_that("connect_hub works on local flusight forecasting hub", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    c(csv = 5L, parquet = 2L, ipc = 1L)
+    structure(c(5L, 5L, 2L, 2L, 1L, 1L), dim = 2:3, dimnames = list(
+      c("n_open", "n_in_dir"), c("csv", "parquet", "arrow")))
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -171,7 +175,8 @@ test_that("connect_hub file_format override works on local hub", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    c(csv = 3L)
+    structure(c(3L, 3L), dim = 2:1, dimnames = list(c("n_open", "n_in_dir"
+    ), "csv"))
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -207,7 +212,8 @@ test_that("connect_model_output works on local model_output_dir", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(mod_out_con, "file_format"),
-    c(csv = 3L)
+    structure(c(3L, 3L), dim = 2:1, dimnames = list(c("n_open", "n_in_dir"
+    ), "csv"))
   )
   expect_equal(
     attr(mod_out_con, "file_system"),
@@ -325,7 +331,8 @@ test_that("connect_hub works on S3 bucket simple forecasting hub on AWS", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    c(csv = 3L, parquet = 1L)
+    structure(c(3L, 3L, 1L, 1L), dim = c(2L, 2L), dimnames = list(
+      c("n_open", "n_in_dir"), c("csv", "parquet")))
   )
 
   expect_equal(

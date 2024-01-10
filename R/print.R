@@ -31,9 +31,7 @@ print.hub_connection <- function(x, verbose = FALSE, ...) {
   }
   if (!is.null(attr(x, "file_format"))) {
     print_msg <- c(print_msg,
-      "*" = "file_format: {.val
-                       {paste0(names(attr(x, 'file_format')),
-                       '(', attr(x, 'file_format'), ')')}}"
+      "*" = "file_format: {.val {print_file_format_meta(x)}}"
     )
   }
   if (!is.null(attr(x, "file_system"))) {
@@ -78,9 +76,7 @@ print.mod_out_connection <- function(x, verbose = FALSE, ...) {
 
   if (!is.null(attr(x, "file_format"))) {
     print_msg <- c(print_msg,
-      "*" = "file_format: {.val
-                       {paste0(names(attr(x, 'file_format')),
-                       '(', attr(x, 'file_format'), ')')}}"
+      "*" = "file_format: {.val {print_file_format_meta(x)}}"
     )
   }
   if (!is.null(attr(x, "file_system"))) {
@@ -103,4 +99,12 @@ print.mod_out_connection <- function(x, verbose = FALSE, ...) {
     utils::str(x)
   }
   invisible(x)
+}
+
+print_file_format_meta <- function(x) {
+  meta_tbl <- as.data.frame(attr(x, 'file_format'))
+  paste0(
+    names(meta_tbl),
+         '(', purrr::map_chr(meta_tbl, ~ sprintf("%s/%s", .x[1], .x[2])), ')'
+    )
 }
