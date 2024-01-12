@@ -1,12 +1,8 @@
 # Contributing to hubUtils
 
 This outlines how to propose a change to hubUtils. 
-For more detailed info about contributing to this, please see the
-[**development contributing guide**](). 
-
-> TO DO: Develop and link to contributing guideines based on: https://rstd.io/tidy-contrib
-
-## Fixing typos
+For more general info about contributing to this, and other hubverse packages, please see the
+[**hubverse contributing guide**](https://hubdocs.readthedocs.io/en/latest/overview/contribute.html). 
 
 You can fix typos, spelling mistakes, or grammatical errors in the documentation directly using the GitHub web interface, as long as the changes are made in the _source_ file. 
 This generally means you'll need to edit [roxygen2 comments](https://roxygen2.r-lib.org/articles/roxygen2.html) in an `.R`, not a `.Rd` file. 
@@ -17,6 +13,8 @@ You can find the `.R` file that generates the `.Rd` by reading the comment in th
 If you want to make a bigger change, it's a good idea to first file an issue and make sure someone from the team agrees that it’s needed. 
 If you’ve found a bug, please file an issue that illustrates the bug with a minimal 
 [reprex](https://www.tidyverse.org/help/#reprex) (this will also help you write a unit test, if needed).
+
+Our procedures for contributed bigger changes, code in particular, generally follow those advised by the tidyverse dev team, including following the tidyverse style guide for code and recording user facing changes in `NEWS.md`.
 
 ### Pull request process
 
