@@ -1,3 +1,8 @@
+# hubUtils 0.0.0.9017
+
+* `connect_hub()` and `connect_model_output()` now identify and report on files that are present and should have been opened but for which a connection was not successful (#124)
+* Introduced a number of minor documentation clarifications and bug fixes (#129, #128, #121, #130)
+
 # hubUtils 0.0.0.9016
 
 * Added `validate_model_metadata_schema()` function and included it as part of `validate_hub_config()` (#110 & #112).
