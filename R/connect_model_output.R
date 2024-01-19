@@ -48,9 +48,13 @@ connect_model_output.default <- function(model_output_dir,
     )
   }
 
+  file_format <- get_file_format_meta(dataset, model_output_dir, file_format)
+  # warn of any discrepancies between expected files in dir and successfully opened
+  # files in dataset
+  warn_unopened_files(file_format, dataset, model_output_dir)
   structure(dataset,
     class = c("mod_out_connection", class(dataset)),
-    file_format = get_file_format_meta(dataset),
+    file_format = file_format,
     file_system = class(dataset$filesystem)[1],
     model_output_dir = model_output_dir
   )
@@ -87,9 +91,14 @@ connect_model_output.SubTreeFileSystem <- function(model_output_dir,
     )
   }
 
+  file_format <- get_file_format_meta(dataset, model_output_dir, file_format)
+  # warn of any discrepancies between expected files in dir and successfully opened
+  # files in dataset
+  warn_unopened_files(file_format, dataset, model_output_dir)
+
   structure(dataset,
     class = c("mod_out_connection", class(dataset)),
-    file_format = get_file_format_meta(dataset),
+    file_format = file_format,
     file_system = class(dataset$filesystem$base_fs)[1],
     model_output_dir = model_output_dir$base_path
   )

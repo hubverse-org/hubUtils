@@ -28,9 +28,9 @@ create_output_type_median(
 
 \item{value_type}{Character string. The data type of the output_type values.}
 
-\item{value_minimum}{Numeric. The exclusive minimum of output_type values.}
+\item{value_minimum}{Numeric. The inclusive minimum of output_type values.}
 
-\item{value_maximum}{Numeric. The exclusive maximum of output_type values.}
+\item{value_maximum}{Numeric. The inclusive maximum of output_type values.}
 
 \item{schema_version}{Character string specifying the json schema version to
 be used for validation. The default value \code{"latest"} will use the latest version

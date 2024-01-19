@@ -8,8 +8,8 @@
 #' or appended to `tasks.json` Hub config files.
 #' @param is_required Logical. Is the output type required?
 #' @param value_type Character string. The data type of the output_type values.
-#' @param value_minimum Numeric. The exclusive minimum of output_type values.
-#' @param value_maximum Numeric. The exclusive maximum of output_type values.
+#' @param value_minimum Numeric. The inclusive minimum of output_type values.
+#' @param value_maximum Numeric. The inclusive maximum of output_type values.
 #'
 #' @details For more details consult
 #' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
@@ -145,9 +145,9 @@ create_output_type_point <- function(output_type = c("mean", "median"),
 #' output type.
 #' This can be combined with other building blocks which can then be written as
 #' or appended to `tasks.json` Hub config files.
-#' @param required Atomic vector of required `output_type` values. Can be NULL if
+#' @param required Atomic vector of required `output_type_id` values. Can be NULL if
 #'  all values are optional.
-#' @param optional Atomic vector of optional `output_type` values. Can be NULL if
+#' @param optional Atomic vector of optional `output_type_id` values. Can be NULL if
 #' all values are required.
 #' @inheritParams create_task_id
 #' @inheritParams create_output_type_mean

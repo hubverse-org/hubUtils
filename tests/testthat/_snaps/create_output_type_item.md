@@ -379,3 +379,41 @@
       ! Must be one of "double" and "integer".
       i Actual value is "character"
 
+# create_output_type_dist functions creates expected warnings
+
+    Code
+      create_output_type_sample(required = 1:50, optional = NULL, value_type = "double",
+      value_minimum = 0L, value_maximum = 1L)
+    Condition
+      Warning in `create_output_type_sample()`:
+      ! Cannot determine appropriate type for argument `value_minimum`, type validation skipped.  Schema may be invalid. Consult relevant schema and consider opening an issue at <https://github.com/Infectious-Disease-Modeling-Hubs/schemas/issues>
+      Warning in `create_output_type_sample()`:
+      ! Cannot determine appropriate type for argument `value_maximum`, type validation skipped.  Schema may be invalid. Consult relevant schema and consider opening an issue at <https://github.com/Infectious-Disease-Modeling-Hubs/schemas/issues>
+    Output
+      $sample
+      $sample$output_type_id
+      $sample$output_type_id$required
+       [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+      [26] 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50
+      
+      $sample$output_type_id$optional
+      NULL
+      
+      
+      $sample$value
+      $sample$value$type
+      [1] "double"
+      
+      $sample$value$minimum
+      [1] 0
+      
+      $sample$value$maximum
+      [1] 1
+      
+      
+      
+      attr(,"class")
+      [1] "output_type_item" "list"            
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
+

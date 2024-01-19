@@ -105,10 +105,11 @@ check_input <- function(input, property, parent_schema,
     } else if (any(names(value_schema) == "const")) {
       value_types <- typeof(value_schema[["const"]])
     } else {
-      cli::cli_abort(c(
-        "x" = "Invalid schema. Cannot determine appropriate type for argument
-        {.arg {property_name}}.
-        Please open an issue at
+      value_types <- NULL
+      cli::cli_warn(c(
+        "!" = "Cannot determine appropriate type for argument
+        {.arg {property_name}}, type validation skipped.
+         Schema may be invalid. Consult relevant schema and consider opening an issue at
         {.url https://github.com/Infectious-Disease-Modeling-Hubs/schemas/issues}"
       ),
       call = call
@@ -121,8 +122,9 @@ check_input <- function(input, property, parent_schema,
     typeof(input) != "character"
   ) {
     cli::cli_abort(c("x" = "{cli::qty(length(input))} {.arg {property_name}}
-                         value{?s} must character string{?s} of date{?s} in valid
-                         ISO 8601 format (YYYY-MM-DD)."),
+                         value{?s} must be character string{?s} of date{?s} in valid
+                         ISO 8601 format (YYYY-MM-DD). Date object format not accepted.
+                         Consider using {.code as.character()} to convert to character."),
       call = call
     )
   }
@@ -132,13 +134,13 @@ check_input <- function(input, property, parent_schema,
     anyNA(as.Date(input, format = "%Y-%m-%d"))
   ) {
     cli::cli_abort(c("x" = "{cli::qty(length(input))} {.arg {property_name}}
-                         value{?s} must character string{?s} of date{?s} in valid
+                         value{?s} must be character string{?s} of date{?s} in valid
                          ISO 8601 format (YYYY-MM-DD)."),
       call = call
     )
   }
 
-  if (!input_type %in% value_types) {
+  if (!is.null(value_types) && !input_type %in% value_types) {
     cli::cli_abort(c(
       "x" = "{.arg {property_name}} is of type {.cls {input_type}}.",
       "!" = "Must be {?/one of} {.cls {value_types}}."

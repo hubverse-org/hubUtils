@@ -24,8 +24,10 @@
           set_pointer: function (xp) 
           type: active binding 
        - attr(*, "hub_name")= chr "Simple Forecast Hub"
-       - attr(*, "file_format")= Named int [1:2] 3 1
-        ..- attr(*, "names")= chr [1:2] "csv" "parquet"
+       - attr(*, "file_format")= int [1:2, 1:2] 3 3 1 1
+        ..- attr(*, "dimnames")=List of 2
+        .. ..$ : chr [1:2] "n_open" "n_in_dir"
+        .. ..$ : chr [1:2] "csv" "parquet"
        - attr(*, "file_system")= chr "LocalFileSystem"
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
@@ -174,8 +176,10 @@
           set_pointer: function (xp) 
           type: active binding 
        - attr(*, "hub_name")= chr "Simple Forecast Hub"
-       - attr(*, "file_format")= Named int 4
-        ..- attr(*, "names")= chr "parquet"
+       - attr(*, "file_format")= int [1:2, 1] 4 4
+        ..- attr(*, "dimnames")=List of 2
+        .. ..$ : chr [1:2] "n_open" "n_in_dir"
+        .. ..$ : chr "parquet"
        - attr(*, "file_system")= chr "LocalFileSystem"
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
@@ -305,7 +309,6 @@
       
       * hub_name: "Simple Forecast Hub"
       * hub_path: 'test/hub_path'
-      * file_format: "(0)"
       * file_system: "local"
       * model_output_dir: "test/model_output_dir"
       * config_admin: 'hub-config/admin.json'
@@ -321,7 +324,6 @@
       
       * hub_name: "Simple Forecast Hub"
       * hub_path: 'test/hub_path'
-      * file_format: "(0)"
       * file_system: "s3"
       * model_output_dir: "test/model_output_dir"
       * config_admin: 'hub-config/admin.json'
@@ -353,8 +355,10 @@
           set_pointer: function (xp) 
           type: active binding 
        - attr(*, "hub_name")= chr "US CDC FluSight"
-       - attr(*, "file_format")= Named int [1:3] 5 2 1
-        ..- attr(*, "names")= chr [1:3] "csv" "parquet" "ipc"
+       - attr(*, "file_format")= int [1:2, 1:3] 5 5 2 2 1 1
+        ..- attr(*, "dimnames")=List of 2
+        .. ..$ : chr [1:2] "n_open" "n_in_dir"
+        .. ..$ : chr [1:3] "csv" "parquet" "arrow"
        - attr(*, "file_system")= chr "LocalFileSystem"
        - attr(*, "hub_path")= chr "flusight"
        - attr(*, "model_output_dir")= chr "forecasts"
@@ -497,8 +501,10 @@
           set_pointer: function (xp) 
           type: active binding 
        - attr(*, "hub_name")= chr "US CDC FluSight"
-       - attr(*, "file_format")= Named int [1:3] 5 2 1
-        ..- attr(*, "names")= chr [1:3] "csv" "parquet" "ipc"
+       - attr(*, "file_format")= int [1:2, 1:3] 5 5 2 2 1 1
+        ..- attr(*, "dimnames")=List of 2
+        .. ..$ : chr [1:2] "n_open" "n_in_dir"
+        .. ..$ : chr [1:3] "csv" "parquet" "arrow"
        - attr(*, "file_system")= chr "LocalFileSystem"
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
@@ -608,7 +614,7 @@
       
       -- <mod_out_connection/FileSystemDataset> --
       
-      * file_format: "csv(3)"
+      * file_format: "csv(3/3)"
       * file_system: "LocalFileSystem"
       * model_output_dir: "test/model_output_dir"
       
@@ -652,8 +658,10 @@
           schema: active binding
           set_pointer: function (xp) 
           type: active binding 
-       - attr(*, "file_format")= Named int 3
-        ..- attr(*, "names")= chr "csv"
+       - attr(*, "file_format")= int [1:2, 1] 3 3
+        ..- attr(*, "dimnames")=List of 2
+        .. ..$ : chr [1:2] "n_open" "n_in_dir"
+        .. ..$ : chr "csv"
        - attr(*, "file_system")= chr "LocalFileSystem"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
 
@@ -665,7 +673,7 @@
       
       -- <mod_out_connection/FileSystemDataset> --
       
-      * file_format: "csv(3)"
+      * file_format: "csv(3/3)"
       * file_system: "LocalFileSystem"
       * model_output_dir: "test/model_output_dir"
       
@@ -715,7 +723,7 @@
       
       * hub_name: "Simple Forecast Hub"
       * hub_path: 'test/hub_path'
-      * file_format: "csv(3)" and "parquet(1)"
+      * file_format: "csv(3/3)" and "parquet(1/1)"
       * file_system: "LocalFileSystem"
       * model_output_dir: "test/model_output_dir"
       * config_admin: 'hub-config/admin.json'
@@ -744,7 +752,7 @@
       
       * hub_name: "Simple Forecast Hub"
       * hub_path: 'test/hub_path'
-      * file_format: "csv(3)" and "parquet(1)"
+      * file_format: "csv(3/3)" and "parquet(1/1)"
       * file_system: "LocalFileSystem"
       * model_output_dir: "test/model_output_dir"
       * config_admin: 'hub-config/admin.json'
@@ -783,8 +791,10 @@
           set_pointer: function (xp) 
           type: active binding 
        - attr(*, "hub_name")= chr "Simple Forecast Hub"
-       - attr(*, "file_format")= Named int [1:2] 3 1
-        ..- attr(*, "names")= chr [1:2] "csv" "parquet"
+       - attr(*, "file_format")= int [1:2, 1:2] 3 3 1 1
+        ..- attr(*, "dimnames")=List of 2
+        .. ..$ : chr [1:2] "n_open" "n_in_dir"
+        .. ..$ : chr [1:2] "csv" "parquet"
        - attr(*, "file_system")= chr "LocalFileSystem"
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"
@@ -912,7 +922,7 @@
       
       -- <mod_out_connection/FileSystemDataset> --
       
-      * file_format: "csv(3)"
+      * file_format: "csv(3/3)"
       * file_system: "LocalFileSystem"
       * model_output_dir: "test/model_output_dir"
       
@@ -1004,8 +1014,10 @@
           set_pointer: function (xp) 
           type: active binding 
        - attr(*, "hub_name")= chr "Simple Forecast Hub"
-       - attr(*, "file_format")= Named int [1:2] 3 1
-        ..- attr(*, "names")= chr [1:2] "csv" "parquet"
+       - attr(*, "file_format")= int [1:2, 1:2] 3 3 1 1
+        ..- attr(*, "dimnames")=List of 2
+        .. ..$ : chr [1:2] "n_open" "n_in_dir"
+        .. ..$ : chr [1:2] "csv" "parquet"
        - attr(*, "file_system")= chr "S3FileSystem"
        - attr(*, "hub_path")= chr "test/hub_path"
        - attr(*, "model_output_dir")= chr "test/model_output_dir"

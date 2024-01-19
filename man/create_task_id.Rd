@@ -56,12 +56,14 @@ schema data types during config file validation.\tabular{ll}{
    boolean \tab logical \cr
    integer \tab integer \cr
    number \tab double \cr
-   Values across \code{required} and \code{optional} arguments must be unique. \code{required} \tab  \cr
-   and \code{optional} must be of the same type (unless \code{NULL}) and both cannot be \code{NULL}. \tab  \cr
-   Task_ids that represent dates must be supplied in ISO 8601 \tab  \cr
-   date format (YYYY-MM-DD). \tab  \cr
 }
 
+
+Values across \code{required} and \code{optional} arguments must be unique. \code{required}
+and \code{optional} must be of the same type (unless \code{NULL}) and both cannot be \code{NULL}.
+Task_ids that represent dates must be supplied as character strings in ISO 8601
+date format (YYYY-MM-DD). If working with date objects, please convert to character
+(e.g. using \code{as.character()}) before supplying as arguments.
 
 Task_ids not present in the schema are allowed as additional properties but the
 user is responsible for providing values of the correct data type.
