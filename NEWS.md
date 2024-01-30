@@ -1,3 +1,7 @@
+# hubUtils 0.0.0.9018
+
+* Added US and European location datasets. These can be used e.g. when assigning location task ID values for `tasks.json` config files programmatically (#127).
+
 # hubUtils 0.0.0.9017
 
 * `connect_hub()` and `connect_model_output()` now identify and report on files that are present and should have been opened but for which a connection was not successful (#124)
