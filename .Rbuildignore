@@ -10,3 +10,8 @@
 ^vignettes/articles$
 ^data-raw$
 ^codecov\.yml$
+^\.DS_Store$
+^\.Rhistory$
+^\.Rdata$
+^\.httr-oauth$
+^\.secrets$

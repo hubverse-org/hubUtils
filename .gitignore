@@ -6,3 +6,4 @@
 docs
 attic/*
 tests/testthat/testdata-raw/*
+.secrets
