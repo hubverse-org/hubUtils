@@ -1,6 +1,6 @@
 # Contributing to hubUtils
 
-This outlines how to propose a change to hubUtils. 
+This outlines how to propose a change to `hubUtils`. 
 For more general info about contributing to this, and other hubverse packages, please see the
 [**hubverse contributing guide**](https://hubdocs.readthedocs.io/en/latest/overview/contribute.html). 
 
@@ -14,7 +14,7 @@ If you want to make a bigger change, it's a good idea to first file an issue and
 If you’ve found a bug, please file an issue that illustrates the bug with a minimal 
 [reprex](https://www.tidyverse.org/help/#reprex) (this will also help you write a unit test, if needed).
 
-Our procedures for contributed bigger changes, code in particular, generally follow those advised by the tidyverse dev team, including following the tidyverse style guide for code and recording user facing changes in `NEWS.md`.
+Our procedures for contributing bigger changes, code in particular, generally follow those advised by the tidyverse dev team, including following the tidyverse style guide for code and recording user facing changes in `NEWS.md`.
 
 ### Pull request process
 
@@ -43,5 +43,5 @@ Our procedures for contributed bigger changes, code in particular, generally fol
 ## Code of Conduct
 
 Please note that the hubUtils project is released with a
-[Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this
+[Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this
 project you agree to abide by its terms.

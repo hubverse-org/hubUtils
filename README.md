@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# hubUtils <img src="man/figures/logo.png" align="right" />
+# hubUtils <a href="https://infectious-disease-modeling-hubs.github.io/hubUtils/"><img src="man/figures/logo.png" align="right" height="131" alt="hubUtils website" /></a>
 
 <!-- badges: start -->
 
@@ -29,3 +29,18 @@ remotes::install_github("Infectious-Disease-Modeling-Hubs/hubUtils")
 > If you have any problems with installation of package `V8` (more
 > likely on Linux), please consult the [following installation
 > instructions](https://github.com/jeroen/V8#installation).
+
+------------------------------------------------------------------------
+
+## Code of Conduct
+
+Please note that the hubUtils package is released with a [Contributor
+Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this
+project, you agree to abide by its terms.
+
+## Contributing
+
+Interested in contributing back to the open-source Hubverse project?
+Learn more about how to [get involved in the Hubverse
+Community](https://hubdocs.readthedocs.io/en/latest/overview/contribute.html)
+or [how to contribute to the hubUtils package](.github/CONTRIBUTING.md).
