@@ -235,8 +235,10 @@ remove_superfluous_enum_rows <- function(errors_tbl) {
 
     dup_keywords <- purrr::map(dup_idx, ~ errors_tbl$keyword[.x])
 
-    dup_unneccessary <- purrr::map_lgl(dup_keywords, ~ all(.x == c("type", "enum") |
-      .x == c("type", "const")))
+    dup_unneccessary <- purrr::map_lgl(
+      dup_keywords,
+      ~ all(.x == c("type", "enum") | .x == c("type", "const"))
+    )
 
     if (any(dup_unneccessary)) {
       remove_idx <- purrr::map_int(

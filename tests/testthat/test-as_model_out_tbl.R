@@ -26,9 +26,7 @@ test_that("column renaming works", {
   output_type_col <- "output_type_rename"
   col_names <- names(as_model_out_tbl(x, output_type_col = output_type_col))
   output_type_col <- c(output_type_col, "second_col_name")
-  expect_warning(names(as_model_out_tbl(x,
-    output_type_col = output_type_col
-  )))
+  expect_warning(names(as_model_out_tbl(x, output_type_col = output_type_col)))
 
   expect_equal(
     col_names,

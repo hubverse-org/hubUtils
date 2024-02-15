@@ -21,7 +21,8 @@ validate_model_metadata_schema <- function(hub_path = ".") {
       "Package {.pkg jsonvalidate} must be installed to use {.fn validate_config}.
       Please install it to continue.
       Alternatively, to be able to use all packages required for hub maintainer functionality,
-      re-install {.pkg hubUtils} using argument {.code dependencies = TRUE}")
+      re-install {.pkg hubUtils} using argument {.code dependencies = TRUE}"
+    )
   }
   checkmate::assert_directory_exists(hub_path)
   config_path <- fs::path(hub_path, "hub-config",

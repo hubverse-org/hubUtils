@@ -31,7 +31,7 @@ test_that("Creating schema paths works correctly", {
   # Test that output_type_id schema path returned correctly with version >= v2.0.0
   expect_equal(
     get_error_path(schema, "mean/properties/output_type_id", "schema"),
-    "#/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/properties/output_type_id"
+    "#/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/properties/output_type_id" # nolint: line_length_linter
   )
 })
 

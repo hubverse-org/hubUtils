@@ -23,7 +23,7 @@ expect_tab <- function(tab) {
   expect_type(gt:::dt_transforms_get(data = tab), "list")
 
   (gt:::dt_boxhead_get(data = tab) %>%
-    dim())[2] %>%
+    dim())[2] %>% # nolint: indentation_linter
     expect_equal(8)
 
   gt:::dt_stub_df_get(data = tab) %>%
