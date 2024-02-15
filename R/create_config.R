@@ -66,7 +66,6 @@
 #' create_config(rounds)
 create_config <- function(rounds) {
   rlang::check_required(rounds)
-  call <- rlang::current_env()
 
   check_object_class(rounds, "rounds")
 
