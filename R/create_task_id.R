@@ -19,7 +19,8 @@
 #'   specified.
 #' @details `required` and `optional` vectors for standard task_ids defined in a Hub schema
 #' must match data types and formats specified in the schema. For more details consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file)
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file)
 #'
 #' JSON schema data type names differ to those in R. Use the following mappings to
 #' create vectors of appropriate data types which will correspond to correct JSON
@@ -51,7 +52,7 @@ create_task_id <- function(name, required, optional,
   checkmate::assert_character(name, len = 1L)
   rlang::check_required(required)
   rlang::check_required(optional)
-  call <- rlang::current_env()
+  call <- rlang::current_env() # nolint: object_usage_linter
 
   schema <- download_tasks_schema(schema_version, branch)
 
@@ -65,7 +66,7 @@ create_task_id <- function(name, required, optional,
   )
 
   if (name %in% schema_task_ids) {
-    task_id_schema <- purrr::pluck(
+    task_id_schema <- purrr::pluck( # nolint: object_usage_linter
       task_ids_schema,
       "properties",
       name,
@@ -184,7 +185,7 @@ check_prop_type_const <- function(required, optional) {
   ) %>%
     unique()
 
-  if (length(prop_types) != 1L & !"NULL" %in% prop_types) {
+  if (length(prop_types) != 1L && !"NULL" %in% prop_types) {
     cli::cli_abort(c(
       "x" = "Arguments {.arg required} and {.arg optional}
               must be of same type.",

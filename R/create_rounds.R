@@ -7,7 +7,8 @@
 #' @export
 #' @seealso [create_round()]
 #' @details For more details consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #'
 #' @examples
 #' model_tasks <- create_model_tasks(

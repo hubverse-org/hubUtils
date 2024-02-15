@@ -7,7 +7,8 @@
 #' @export
 #' @seealso [create_target_metadata_item()]
 #' @details For more details consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #'
 #' @examples
 #' create_target_metadata(
@@ -53,7 +54,7 @@ check_schema_ids <- function(items, call = rlang::caller_env()) {
     if (!purrr::reduce(purrr::map(items, ~ class(.x)), identical)) {
       item_names <- purrr::map_chr(items, ~ names(.x))
       schema_ids <- paste(item_names, ":", schema_ids)
-      obj_ref <- "Argument"
+      obj_ref <- "Argument" # nolint: object_usage_linter
     } else {
       schema_ids <- paste("Item", seq_along(schema_ids), ":", schema_ids)
       obj_ref <- "Item"
@@ -90,7 +91,7 @@ check_item_classes <- function(items, class, call = rlang::caller_env()) {
   }
 }
 
-check_target_metadata_properties_unique <- function(items, property,
+check_target_metadata_properties_unique <- function(items, property, # nolint: object_length_linter
                                                     call = rlang::caller_env()) {
   item_properties <- purrr::map(
     items,
@@ -98,7 +99,7 @@ check_target_metadata_properties_unique <- function(items, property,
   )
 
   if (any(duplicated(item_properties))) {
-    duplicate_idx <- which(duplicated(item_properties))
+    duplicate_idx <- which(duplicated(item_properties)) # nolint: object_usage_linter
 
     cli::cli_abort(
       c(

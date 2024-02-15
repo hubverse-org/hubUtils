@@ -32,12 +32,14 @@
 #'  not allowed in the version of the schema used. It also overrides any specification
 #'  of file format in `admin.json`. For more details on whether this argument can
 #'  be used as well as available formats, please consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #' @return a named list of class `round`.
 #' @export
 #' @seealso [create_rounds()]
 #' @details For more details consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #' @examples
 #' model_tasks <- create_model_tasks(
 #'   create_model_task(
@@ -99,16 +101,13 @@ create_round <- function(round_id_from_variable,
   rlang::check_required(round_id)
   rlang::check_required(model_tasks)
   rlang::check_required(submissions_due)
-  call <- rlang::current_env()
-
-
+  call <- rlang::current_env() # nolint: object_usage_linter
 
   check_object_class(model_tasks, "model_tasks")
 
   schema <- get_schema(attr(model_tasks, "schema_id")) %>%
     jsonlite::fromJSON(simplifyDataFrame = FALSE)
   round_schema <- get_schema_round(schema)
-
 
   property_names <- c(
     "round_id_from_variable", "round_id",
@@ -194,7 +193,7 @@ check_submission_due <- function(submissions_due, round_schema, model_tasks,
 
 
   if (any(invalid_properties)) {
-    invalid_property_names <- names(submissions_due)[invalid_properties]
+    invalid_property_names <- names(submissions_due)[invalid_properties] # nolint: object_usage_linter
     cli::cli_abort(
       c(
         "x" = "Propert{?y/ies} {.val {invalid_property_names}} in
@@ -247,8 +246,8 @@ check_submission_due <- function(submissions_due, round_schema, model_tasks,
 
 check_relative_to_variable <- function(submissions_due, model_tasks,
                                        call = rlang::caller_env()) {
-  relative_to_value <- submissions_due$relative_to
-  invalid_relative_to <- purrr::map_lgl(
+  relative_to_value <- submissions_due$relative_to # nolint: object_usage_linter
+  invalid_relative_to <- purrr::map_lgl( # nolint: object_usage_linter
     model_tasks,
     ~ !relative_to_value %in% names(.x$task_ids)
   )

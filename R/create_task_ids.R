@@ -6,7 +6,8 @@
 #' @export
 #' @seealso [create_task_id()]
 #' @details For more details consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #'
 #' @examples
 #' create_task_ids(
@@ -49,7 +50,7 @@ check_property_names_unique <- function(x, call = rlang::caller_env()) {
   x_names <- names(x)
 
   if (any(duplicated(x_names))) {
-    duplicate_idx <- which(duplicated(x_names))
+    duplicate_idx <- which(duplicated(x_names)) # nolint: object_usage_linter
 
     cli::cli_abort(
       c(
