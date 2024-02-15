@@ -13,11 +13,11 @@
 #' @return Function used primarily for it's side effects of signalling errors when
 #' input does not conform to schema.
 #' @noRd
-check_input <- function(input, property, parent_schema,
+check_input <- function(input, property, parent_schema, # nolint: cyclocomp_linter
                         parent_property,
                         scalar = FALSE,
                         call = rlang::caller_env()) {
-  property_name <- property
+  property_name <- property # nolint: object_usage_linter
   if (!is.null(parent_property) && parent_property == "value") {
     property_name <- paste0("value_", property)
   }
@@ -34,7 +34,7 @@ check_input <- function(input, property, parent_schema,
       return()
     }
   }
-  if (!is.atomic(input) | is.pairlist(input)) {
+  if (!is.atomic(input) || is.pairlist(input)) {
     cli::cli_abort(c("x" = "{.arg {property_name}} must be an atomic vector."),
       call = call
     )
@@ -92,8 +92,8 @@ check_input <- function(input, property, parent_schema,
 
   if (any(names(property_schema) == "uniqueItems")) {
     unique_items <- property_schema[["uniqueItems"]]
-    if (unique_items & any(duplicated(input))) {
-      duplicates <- input[duplicated(input)]
+    if (unique_items && any(duplicated(input))) {
+      duplicates <- input[duplicated(input)] # nolint: object_usage_linter
       cli::cli_abort(
         c(
           "!" = "All values in {.arg {property_name}} must be unique.",
@@ -137,10 +137,7 @@ check_input <- function(input, property, parent_schema,
     }
   }
 
-  if (!is.null(value_formats) &&
-    value_formats == "date" &&
-    typeof(input) != "character"
-  ) {
+  if (!is.null(value_formats) && value_formats == "date" && typeof(input) != "character") {
     cli::cli_abort(c("x" = "{cli::qty(length(input))} {.arg {property_name}}
                          value{?s} must be character string{?s} of date{?s} in valid
                          ISO 8601 format (YYYY-MM-DD). Date object format not accepted.
@@ -149,9 +146,7 @@ check_input <- function(input, property, parent_schema,
     )
   }
 
-  if (!is.null(value_formats) &&
-    value_formats == "date" &&
-    anyNA(as.Date(input, format = "%Y-%m-%d"))
+  if (!is.null(value_formats) && value_formats == "date" && anyNA(as.Date(input, format = "%Y-%m-%d"))
   ) {
     cli::cli_abort(c("x" = "{cli::qty(length(input))} {.arg {property_name}}
                          value{?s} must be character string{?s} of date{?s} in valid
@@ -204,7 +199,7 @@ check_input <- function(input, property, parent_schema,
 
   if (any(names(value_schema) == "enum")) {
     if (any(!input %in% value_schema[["enum"]])) {
-      invalid_values <- input[!input %in% value_schema[["enum"]]]
+      invalid_values <- input[!input %in% value_schema[["enum"]]] # nolint: object_usage_linter
       cli::cli_abort(
         c(
           "x" = "{.arg {property_name}} {cli::qty(length(invalid_values))}
@@ -280,7 +275,7 @@ check_input <- function(input, property, parent_schema,
 }
 
 # Used to check properties that contain oneOf schema properties.
-check_oneof_input <- function(input, property = c("required", "optional"),
+check_oneof_input <- function(input, property = c("required", "optional"), # nolint: cyclocomp_linter
                               parent_schema,
                               call = rlang::caller_env()) {
   property_schema <- parent_schema[[property]]
@@ -295,7 +290,7 @@ check_oneof_input <- function(input, property = c("required", "optional"),
       return()
     }
   }
-  if (!is.atomic(input) | is.pairlist(input)) {
+  if (!is.atomic(input) || is.pairlist(input)) {
     cli::cli_abort(c("x" = "{.arg {property}} must be an atomic vector."),
       call = call
     )
@@ -416,7 +411,7 @@ get_schema_output_type <- function(schema, output_type) {
 #' @return The requested version of the tasks hubverse schema in the specified format.
 #' @noRd
 download_tasks_schema <- function(schema_version = "latest", branch = "main",
-                            format = c("list", "json")) {
+                                  format = c("list", "json")) { # nolint: indentation_linter
   format <- rlang::arg_match(format)
 
   # Get the latest version available in our GitHub schema repo
