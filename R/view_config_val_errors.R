@@ -286,10 +286,13 @@ process_error_df <- function(errors_tbl) {
 
   n_col <- length(errors_tbl)
 
-  error_df <- split(errors_tbl, 1:nrow(errors_tbl)) %>%
-    purrr::map_df(
-      ~ unlist(.x, recursive = FALSE) %>% purrr::map(~ process_element(.x))
+  error_df <- split(errors_tbl, seq_len(nrow(errors_tbl))) %>%
+    purrr::map(
+      ~ unlist(.x, recursive = FALSE) %>%
+        purrr::map(~ process_element(.x)) %>%
+        tibble::as_tibble()
     ) %>%
+    purrr::list_rbind() %>%
     # split long column names
     stats::setNames(gsub("\\.", " ", names(.)))
 
