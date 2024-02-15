@@ -1,3 +1,7 @@
+# hubUtils 0.0.0.9019
+
+* Minor internal bug fixes and documentation updates.
+
 # hubUtils 0.0.0.9018
 
 * Added US and European location datasets. These can be used e.g. when assigning location task ID values for `tasks.json` config files programmatically (#127).
