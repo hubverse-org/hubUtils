@@ -23,7 +23,8 @@
 #' For connection to a fully configured hub, accessed through `hub_path`,
 #' `file_format` is inferred from the hub's `file_format` configuration in
 #' `admin.json` and is ignored by default.
-#' If supplied, it will override hub configuration setting. Multiple formats can be supplied to `connect_hub` but only a single file format can be supplied to `connect_mod_out`.
+#' If supplied, it will override hub configuration setting. Multiple formats can
+#' be supplied to `connect_hub` but only a single file format can be supplied to `connect_mod_out`.
 #' @inheritParams create_hub_schema
 #'
 #' @return
