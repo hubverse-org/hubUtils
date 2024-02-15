@@ -48,9 +48,11 @@ validate_config <- function(hub_path = ".",
                             config_path = NULL, schema_version = "from_config",
                             branch = "main") {
   if (!(requireNamespace("jsonvalidate"))) {
-    cli::cli_abort("Package {.pkg jsonvalidate} must be installed to use {.fn validate_config}. Please install it to continue.
-
-                   Alternatively, to be able to use all packages required for hub maintainer functionality, re-install {.pkg hubUtils} using argument {.code dependencies = TRUE}")
+    cli::cli_abort(
+      "Package {.pkg jsonvalidate} must be installed to use {.fn validate_config}. Please install it to continue.
+        Alternatively, to be able to use all packages required for hub maintainer functionality,
+        re-install {.pkg hubUtils} using argument {.code dependencies = TRUE}"
+    )
   }
 
   config <- rlang::arg_match(config)
@@ -541,10 +543,14 @@ val_target_key_values <- function(target_keys, model_task_grp,
       ),
       schemaPath = get_error_path(schema, "target_keys", "schema"),
       keyword = "target_keys values",
-      message = glue::glue("target_key value '{valid_target_keys[names(is_invalid_target_key[is_invalid_target_key])]}' does not match any values in corresponding modeling task group task_id"),
+      message = glue::glue(
+        "target_key value '{valid_target_keys[names(is_invalid_target_key[is_invalid_target_key])]}' does not match any values in corresponding modeling task group task_id"
+      ),
       schema = "",
-      data = glue::glue("task_id.{names(is_invalid_target_key)} values: {purrr::map_chr(task_id_values, ~glue::glue_collapse(.x, sep = ', '))};
-            target_key.{names(valid_target_keys)} value: {unlist(valid_target_keys)}")
+      data = glue::glue(
+        "task_id.{names(is_invalid_target_key)} values: {purrr::map_chr(task_id_values, ~glue::glue_collapse(.x, sep = ', '))};
+            target_key.{names(valid_target_keys)} value: {unlist(valid_target_keys)}"
+      )
     )
 
     return(error_row)
@@ -658,7 +664,8 @@ check_config_schema_version <- function(schema_version, config = c("tasks", "adm
     ))
   }
 
-  check_prefix <- grepl("https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/",
+  check_prefix <- grepl(
+    "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/",
     schema_version,
     fixed = TRUE
   )
