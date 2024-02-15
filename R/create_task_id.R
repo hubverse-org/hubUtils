@@ -53,7 +53,7 @@ create_task_id <- function(name, required, optional,
   rlang::check_required(optional)
   call <- rlang::current_env()
 
-  schema <- download_schema(schema_version, branch)
+  schema <- download_tasks_schema(schema_version, branch)
 
   task_ids_schema <- get_schema_task_ids(schema)
   schema_task_ids <- names(task_ids_schema$properties)

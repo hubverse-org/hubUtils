@@ -415,7 +415,7 @@ get_schema_output_type <- function(schema, output_type) {
 #'
 #' @return The requested version of the tasks hubverse schema in the specified format.
 #' @noRd
-download_schema <- function(schema_version = "latest", branch = "main",
+download_tasks_schema <- function(schema_version = "latest", branch = "main",
                             format = c("list", "json")) {
   format <- rlang::arg_match(format)
 

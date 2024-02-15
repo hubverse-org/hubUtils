@@ -76,7 +76,7 @@ create_output_type_point <- function(output_type = c("mean", "median"),
     config_version = get_schema_version_latest(schema_version, branch)
   )
 
-  schema <- download_schema(schema_version, branch)
+  schema <- download_tasks_schema(schema_version, branch)
 
   # create output_type_id
   if (is_required) {
@@ -266,7 +266,7 @@ create_output_type_dist <- function(output_type = c(
     config_version = get_schema_version_latest(schema_version, branch)
   )
 
-  schema <- download_schema(schema_version, branch)
+  schema <- download_tasks_schema(schema_version, branch)
   output_type_schema <- get_schema_output_type(schema, output_type)
   output_type_id_schema <- purrr::pluck(
     output_type_schema,

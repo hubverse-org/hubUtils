@@ -56,7 +56,7 @@ create_target_metadata_item <- function(target_id, target_name, target_units,
   rlang::check_required(is_step_ahead)
   call <- rlang::current_env()
 
-  schema <- download_schema(schema_version, branch)
+  schema <- download_tasks_schema(schema_version, branch)
   target_metadata_schema <- get_schema_target_metadata(schema)
 
 
