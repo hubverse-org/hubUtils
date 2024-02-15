@@ -161,9 +161,13 @@ path_to_tree <- function(x) {
   # build path tree
   if (length(paths) > 1L) {
     for (i in 2:length(paths)) {
-      paths[i] <- paste0("\u2514", paste(rep("\u2500", times = i - 2),
-        collapse = ""
-      ), paths[i])
+      paths[i] <- paste0(
+        "\u2514",
+        paste(rep("\u2500", times = i - 2),
+          collapse = ""
+        ),
+        paths[i]
+      )
     }
   }
   paste(paths, collapse = " \n ")
@@ -172,7 +176,7 @@ path_to_tree <- function(x) {
 
 
 dataframe_to_markdown <- function(x) {
-  split(x, 1:nrow(x)) %>%
+  split(x, seq_len(nrow(x))) %>%
     purrr::map(
       ~ unlist(.x, use.names = TRUE) %>%
         stats::setNames(gsub("properties\\.", "", names(.))) %>%
