@@ -89,8 +89,7 @@ get_task_id_names <- function(config_tasks) {
     config_tasks[["rounds"]],
     ~ .x[["model_tasks"]]
   ) %>%
-    purrr::map(~ .x[[1]][["task_ids"]] %>%
-      names()) %>%
+    purrr::map(~ names(.x[[1]][["task_ids"]])) %>%
     unlist() %>%
     unique()
 }
@@ -123,7 +122,7 @@ get_task_id_values <- function(config_tasks,
 
   model_tasks %>%
     purrr::map(~ .x %>%
-      purrr::map(~ .x[["task_ids"]][[task_id_name]])) %>%
+      purrr::map(~ .x[["task_ids"]][[task_id_name]])) %>% # nolint: indentation_linter
     unlist(recursive = FALSE)
 }
 
@@ -145,7 +144,7 @@ get_output_type_id_type <- function(config_tasks) {
   # Get output type id property according to config schema version
   # TODO: remove back-compatibility with schema versions < v2.0.0 when support
   # retired
-  config_tid <- get_config_tid(config_tasks = config_tasks)
+  config_tid <- get_config_tid(config_tasks = config_tasks) # nolint: object_usage_linter
 
   values <- purrr::map(
     config_tasks[["rounds"]],
@@ -209,7 +208,7 @@ get_partition_r_datatype <- function(partitions, arrow_datatypes) {
     return(NULL)
   }
 
-  str_arrow_datatypes <- purrr::map_chr(arrow_datatypes, ~ .x$ToString())
+  str_arrow_datatypes <- purrr::map_chr(arrow_datatypes, ~ .x$ToString()) # nolint: object_usage_linter
   str_partitions <- purrr::map(partitions, ~ .x$ToString())
   purrr::map_chr(
     str_partitions,
