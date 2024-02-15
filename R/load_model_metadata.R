@@ -12,7 +12,9 @@
 #' @param model_ids A vector of character strings of models for which to load
 #'   metadata. Defaults to NULL, in which case metadata for all models is loaded.
 #'
-#' @return `tibble` with model metadata. One row for each model, one column for each top-level field in the metadata file. For metadata files with nested structures, this tibble may contain list-columns where the entries are lists containing the nested metadata values.
+#' @return `tibble` with model metadata. One row for each model, one column for
+#' each top-level field in the metadata file. For metadata files with nested structures,
+#' this tibble may contain list-columns where the entries are lists containing the nested metadata values.
 #' @export
 #'
 #' @examples
@@ -24,9 +26,9 @@ load_model_metadata <- function(hub_path, model_ids = NULL) {
   UseMethod("load_model_metadata")
 }
 
-
+# cyclomatic complexity of 17 instead of 15 acceptable
 #' @export
-load_model_metadata.default <- function(hub_path, model_ids = NULL) {
+load_model_metadata.default <- function(hub_path, model_ids = NULL) { # nolint: cyclocomp_linter
   if (!dir.exists(hub_path)) {
     cli::cli_abort(c("x" = "{.path {hub_path}} directory does not exist."))
   }

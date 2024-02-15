@@ -148,7 +148,7 @@ warn_unopened_files <- function(x, dataset, model_output_dir) {
   x <- as.data.frame(x)
   unopened_file_formats <- purrr::map_lgl(x, ~ .x[1] < .x[2])
   if (any(unopened_file_formats)) {
-    dataset_files <- list_dataset_files(dataset)
+    dataset_files <- list_dataset_files(dataset) # nolint: object_usage_linter
 
     unopened_files <- purrr::map(
       purrr::set_names(names(x)[unopened_file_formats]),

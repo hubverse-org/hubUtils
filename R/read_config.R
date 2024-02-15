@@ -20,19 +20,14 @@
 #' # Read config file from AWS S3 bucket hub
 #' hub_path <- s3_bucket("hubverse/hubutils/testhubs/simple/")
 #' read_config(hub_path, "admin")
-read_config <- function(hub_path, config = c(
-                          "tasks", "admin",
-                          "model-metadata-schema"
-                        )) {
+read_config <- function(hub_path, config = c("tasks", "admin", "model-metadata-schema")) {
   UseMethod("read_config")
 }
 
 
 #' @export
-read_config.default <- function(hub_path, config = c(
-                                  "tasks", "admin",
-                                  "model-metadata-schema"
-                                )) {
+read_config.default <- function(hub_path,
+                                config = c("tasks", "admin", "model-metadata-schema")) {
   config <- rlang::arg_match(config)
   path <- fs::path(hub_path, "hub-config", config, ext = "json")
 
@@ -48,12 +43,10 @@ read_config.default <- function(hub_path, config = c(
 }
 
 #' @export
-read_config.SubTreeFileSystem <- function(hub_path, config = c(
-                                            "tasks", "admin",
-                                            "model-metadata-schema"
-                                          )) {
+read_config.SubTreeFileSystem <- function(hub_path,
+                                          config = c("tasks", "admin", "model-metadata-schema")) {
   config <- rlang::arg_match(config)
-  path <- hub_path$path(fs::path("hub-config", config, ext = "json"))
+  path <- hub_path$path(fs::path("hub-config", config, ext = "json")) # nolint: object_usage_linter
 
   if (!paste0(config, ".json") %in% basename(hub_path$ls("hub-config"))) {
     cli::cli_abort(

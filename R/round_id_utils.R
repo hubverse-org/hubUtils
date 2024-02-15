@@ -70,7 +70,7 @@ get_round_ids <- function(config_tasks,
 }
 
 get_round_ids_from_taskid <- function(x, flatten) {
-  round_id_task_id <- x[["round_id"]]
+  round_id_task_id <- x[["round_id"]] # nolint: object_usage_linter
   out <- purrr::map(
     x[["model_tasks"]],
     ~ .x[["task_ids"]][[round_id_task_id]]

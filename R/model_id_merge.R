@@ -36,7 +36,7 @@
 model_id_merge <- function(tbl, sep = "-") {
   # check all required columns present
   if (!all(c("model_abbr", "team_abbr") %in% names(tbl))) {
-    missing_cols <- c("model_abbr", "team_abbr")[
+    missing_cols <- c("model_abbr", "team_abbr")[ # nolint: object_usage_linter
       !c("model_abbr", "team_abbr") %in% names(tbl)
     ]
     cli::cli_abort(c(
@@ -90,7 +90,7 @@ model_id_split <- function(tbl, sep = "-") {
   }
   # create model_abbr team_abbr columns
   if (any(c("model_abbr", "team_abbr") %in% names(tbl))) {
-    existing_cols <- c("model_abbr", "team_abbr")[
+    existing_cols <- c("model_abbr", "team_abbr")[ # nolint: object_usage_linter
       !c("model_abbr", "team_abbr") %in% names(tbl)
     ]
     cli::cli_alert_warning("Overwritting current {.val {existing_cols}} column{?s}.")
