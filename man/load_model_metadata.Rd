@@ -19,7 +19,9 @@ in the \code{arrow} package.}
 metadata. Defaults to NULL, in which case metadata for all models is loaded.}
 }
 \value{
-\code{tibble} with model metadata. One row for each model, one column for each top-level field in the metadata file. For metadata files with nested structures, this tibble may contain list-columns where the entries are lists containing the nested metadata values.
+\code{tibble} with model metadata. One row for each model, one column for
+each top-level field in the metadata file. For metadata files with nested structures,
+this tibble may contain list-columns where the entries are lists containing the nested metadata values.
 }
 \description{
 Loads in hub model metadata for all models or a specified subset of models
