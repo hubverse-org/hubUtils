@@ -3,7 +3,7 @@ get_config_tid <- function(config_version, config_tasks) {
     config_version = config_version,
     config = config_tasks,
     valid_version = "v2.0.0",
-    hubUtils_version = "0.0.0.9010"
+    hubutils_version = "0.0.0.9010"
   )
   if (tid_check) "type_id" else "output_type_id"
 }

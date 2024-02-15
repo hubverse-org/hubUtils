@@ -78,7 +78,7 @@ validate_config <- function(hub_path = ".",
   check_deprecated_schema(
     config_version = get_config_file_schema_version(config_path, config),
     valid_version = "v2.0.0",
-    hubUtils_version = "0.0.0.9010"
+    hubutils_version = "0.0.0.9010"
   )
 
   schema_url <- get_schema_url(
