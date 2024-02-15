@@ -68,23 +68,25 @@ create_model_task <- function(task_ids, output_type, target_metadata) {
     )
   )
 
-  schema_id <- check_schema_ids(list(
-    task_ids,
-    output_type,
-    target_metadata
-  ),
-  call = call
+  schema_id <- check_schema_ids(
+    list(
+      task_ids,
+      output_type,
+      target_metadata
+    ),
+    call = call
   )
 
   check_target_key_valid(target_metadata, task_ids, call)
 
-  structure(c(
-    task_ids,
-    output_type,
-    target_metadata
-  ),
-  class = c("model_task", "list"),
-  schema_id = schema_id
+  structure(
+    c(
+      task_ids,
+      output_type,
+      target_metadata
+    ),
+    class = c("model_task", "list"),
+    schema_id = schema_id
   )
 }
 

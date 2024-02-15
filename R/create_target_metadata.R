@@ -100,14 +100,15 @@ check_target_metadata_properties_unique <- function(items, property,
   if (any(duplicated(item_properties))) {
     duplicate_idx <- which(duplicated(item_properties))
 
-    cli::cli_abort(c(
-      "!" = "{.arg {property}}s must be unique across all
+    cli::cli_abort(
+      c(
+        "!" = "{.arg {property}}s must be unique across all
           {.arg target_metadata_item}s.",
-      "x" = "{cli::qty(length(duplicate_idx))} {.arg target_metadata_item}{?s}
+        "x" = "{cli::qty(length(duplicate_idx))} {.arg target_metadata_item}{?s}
           {.val {duplicate_idx}} with {.arg {property}} value {.val {item_properties[duplicate_idx]}}
           {cli::qty(length(duplicate_idx))} {?is/are} duplicate{?s}."
-    ),
-    call = call
+      ),
+      call = call
     )
   }
 }

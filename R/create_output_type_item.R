@@ -264,7 +264,7 @@ create_output_type_dist <- function(output_type = c(
   # retired
   config_tid <- get_config_tid(
     config_version = get_schema_version_latest(schema_version, branch)
-    )
+  )
 
   schema <- download_schema(schema_version, branch)
   output_type_schema <- get_schema_output_type(schema, output_type)

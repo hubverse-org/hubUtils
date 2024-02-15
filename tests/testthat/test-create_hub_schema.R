@@ -17,10 +17,10 @@ test_that("create_hub_schema works correctly", {
   )
 
   schema_part <- create_hub_schema(config_tasks,
-                                  partitions = list(
-                                    team_abbr = arrow::utf8(),
-                                    model_abbr = arrow::utf8()
-                                  )
+    partitions = list(
+      team_abbr = arrow::utf8(),
+      model_abbr = arrow::utf8()
+    )
   )
   expect_equal(
     schema_part$ToString(),

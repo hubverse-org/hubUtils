@@ -56,8 +56,8 @@ To access data from a hub connection you can use dplyr verbs and construct query
 
 ```{r}
 hub_con %>%
-    filter(output_type == "quantile", location == "US") %>%
-    collect()
+  filter(output_type == "quantile", location == "US") %>%
+  collect()
 ```
 
 Note however that not all dplyr filtering options are available for all data types yet.
@@ -68,9 +68,9 @@ For example, if you wanted to get all quantile predictions for the last forecast
 
 ```{r, error=TRUE}
 hub_con %>%
-    filter(output_type == "quantile", location == "US") %>%
-    filter(forecast_date == max(forecast_date)) %>%
-    collect()
+  filter(output_type == "quantile", location == "US") %>%
+  filter(forecast_date == max(forecast_date)) %>%
+  collect()
 ```
 
 This doesn't work however as `arrow` does not have an equivalent `max` method for `Date[32]` data types.
@@ -79,9 +79,9 @@ In such a situation, you could collect after applying the first filtering level 
 
 ```{r}
 hub_con %>%
-    filter(output_type == "quantile", location == "US") %>%
-    collect() %>%
-    filter(forecast_date == max(forecast_date)) 
+  filter(output_type == "quantile", location == "US") %>%
+  collect() %>%
+  filter(forecast_date == max(forecast_date))
 ```
 
 Alternatively, depending on the size of the data, in might be quicker to filter the data in two steps:
@@ -91,15 +91,17 @@ Alternatively, depending on the size of the data, in might be quicker to filter 
 
 ```{r}
 last_forecast <- hub_con %>%
-    filter(output_type == "quantile", location == "US") %>%
+  filter(output_type == "quantile", location == "US") %>%
   pull(forecast_date, as_vector = TRUE) %>%
   max()
 
 
 hub_con %>%
-    filter(output_type == "quantile", location == "US",
-           forecast_date == last_forecast) %>%
-    collect()
+  filter(
+    output_type == "quantile", location == "US",
+    forecast_date == last_forecast
+  ) %>%
+  collect()
 ```
 
 
@@ -121,8 +123,8 @@ mod_out_con
 
 ```{r}
 mod_out_con %>%
-    filter(output_type == "quantile", location == "US") %>%
-    collect()
+  filter(output_type == "quantile", location == "US") %>%
+  collect()
 ```
 
 
@@ -142,8 +144,10 @@ model_output_schema <- schema(
   model_id = string()
 )
 
-mod_out_con <- connect_model_output(model_output_dir, file_format = "csv",
-                                    schema = model_output_schema)
+mod_out_con <- connect_model_output(model_output_dir,
+  file_format = "csv",
+  schema = model_output_schema
+)
 mod_out_con
 ```
 
@@ -162,8 +166,10 @@ model_output_schema <- schema(
   model_id = string()
 )
 
-mod_out_con <- connect_model_output(model_output_dir, file_format = "csv",
-                                    schema = model_output_schema)
+mod_out_con <- connect_model_output(model_output_dir,
+  file_format = "csv",
+  schema = model_output_schema
+)
 ```
 
 Beware that `arrow` errors can be somewhat misleading at times so if you do get such a non-informative error, a good place to start would be to check your schema matches the columns and your data can be coerced to the data types specified in the schema.

@@ -51,13 +51,14 @@ check_property_names_unique <- function(x, call = rlang::caller_env()) {
   if (any(duplicated(x_names))) {
     duplicate_idx <- which(duplicated(x_names))
 
-    cli::cli_abort(c(
-      "!" = "{.arg names} must be unique across all items.",
-      "x" = "{cli::qty(length(duplicate_idx))} Item{?s}
+    cli::cli_abort(
+      c(
+        "!" = "{.arg names} must be unique across all items.",
+        "x" = "{cli::qty(length(duplicate_idx))} Item{?s}
           {.val {duplicate_idx}} with {.arg name} {.val {x_names[duplicate_idx]}}
           {cli::qty(length(duplicate_idx))} {?is/are} duplicate{?s}."
-    ),
-    call = call
+      ),
+      call = call
     )
   }
 }

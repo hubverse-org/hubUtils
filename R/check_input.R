@@ -34,11 +34,12 @@ check_input <- function(input, property, parent_schema,
 
   if (scalar) {
     if (length(input) != 1L) {
-      cli::cli_abort(c(
-        "x" = "{.arg {property_name}} must be length {.val {1}},
+      cli::cli_abort(
+        c(
+          "x" = "{.arg {property_name}} must be length {.val {1}},
           not {.val {length(input)}}."
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }
@@ -51,11 +52,12 @@ check_input <- function(input, property, parent_schema,
     }
     is_invalid <- length(input) > max_items
     if (is_invalid) {
-      cli::cli_abort(c(
-        "x" = "{.arg {property_name}} must be of length equal to or less than
+      cli::cli_abort(
+        c(
+          "x" = "{.arg {property_name}} must be of length equal to or less than
                 {.val {max_items}} but is of length {.val {length(input)}}."
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }
@@ -63,11 +65,12 @@ check_input <- function(input, property, parent_schema,
     min_items <- property_schema[["minItems"]]
     is_invalid <- length(input) < min_items
     if (is_invalid) {
-      cli::cli_abort(c(
-        "x" = "{.arg {property_name}} must be of length equal to or greater
+      cli::cli_abort(
+        c(
+          "x" = "{.arg {property_name}} must be of length equal to or greater
                 than {.val {min_items}} but is of length {.val {length(input)}}."
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }
@@ -76,12 +79,13 @@ check_input <- function(input, property, parent_schema,
     unique_items <- property_schema[["uniqueItems"]]
     if (unique_items & any(duplicated(input))) {
       duplicates <- input[duplicated(input)]
-      cli::cli_abort(c(
-        "!" = "All values in {.arg {property_name}} must be unique.",
-        "x" = "{cli::qty(sum(duplicates))} Value{?s} {.val {duplicates}}
+      cli::cli_abort(
+        c(
+          "!" = "All values in {.arg {property_name}} must be unique.",
+          "x" = "{cli::qty(sum(duplicates))} Value{?s} {.val {duplicates}}
         {cli::qty(sum(duplicates))} {?is/are} duplicated."
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }
@@ -106,13 +110,14 @@ check_input <- function(input, property, parent_schema,
       value_types <- typeof(value_schema[["const"]])
     } else {
       value_types <- NULL
-      cli::cli_warn(c(
-        "!" = "Cannot determine appropriate type for argument
+      cli::cli_warn(
+        c(
+          "!" = "Cannot determine appropriate type for argument
         {.arg {property_name}}, type validation skipped.
          Schema may be invalid. Consult relevant schema and consider opening an issue at
         {.url https://github.com/Infectious-Disease-Modeling-Hubs/schemas/issues}"
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }
@@ -141,11 +146,12 @@ check_input <- function(input, property, parent_schema,
   }
 
   if (!is.null(value_types) && !input_type %in% value_types) {
-    cli::cli_abort(c(
-      "x" = "{.arg {property_name}} is of type {.cls {input_type}}.",
-      "!" = "Must be {?/one of} {.cls {value_types}}."
-    ),
-    call = call
+    cli::cli_abort(
+      c(
+        "x" = "{.arg {property_name}} is of type {.cls {input_type}}.",
+        "!" = "Must be {?/one of} {.cls {value_types}}."
+      ),
+      call = call
     )
   }
 
@@ -153,13 +159,14 @@ check_input <- function(input, property, parent_schema,
     value_max <- value_schema[["maximum"]]
     is_invalid <- input > value_max
     if (any(is_invalid)) {
-      cli::cli_abort(c(
-        "!" = "All values in {.arg {property_name}} must be equal to or less
+      cli::cli_abort(
+        c(
+          "!" = "All values in {.arg {property_name}} must be equal to or less
                 than {.val {value_max}}.",
-        "x" = "{cli::qty(sum(is_invalid))} Value{?s} {.val {input[is_invalid]}}
+          "x" = "{cli::qty(sum(is_invalid))} Value{?s} {.val {input[is_invalid]}}
                 {cli::qty(sum(is_invalid))}{?is/are} greater."
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }
@@ -168,13 +175,14 @@ check_input <- function(input, property, parent_schema,
     value_min <- value_schema[["minimum"]]
     is_invalid <- input < value_min
     if (any(is_invalid)) {
-      cli::cli_abort(c(
-        "!" = "All values in {.arg {property_name}} must be equal to or greater
+      cli::cli_abort(
+        c(
+          "!" = "All values in {.arg {property_name}} must be equal to or greater
                 than {.val {value_min}}.",
-        "x" = "{cli::qty(sum(is_invalid))} Value{?s} {.val {input[is_invalid]}}
+          "x" = "{cli::qty(sum(is_invalid))} Value{?s} {.val {input[is_invalid]}}
                 {cli::qty(sum(is_invalid))}{?is/are} less."
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }
@@ -182,14 +190,15 @@ check_input <- function(input, property, parent_schema,
   if (any(names(value_schema) == "enum")) {
     if (any(!input %in% value_schema[["enum"]])) {
       invalid_values <- input[!input %in% value_schema[["enum"]]]
-      cli::cli_abort(c(
-        "x" = "{.arg {property_name}} {cli::qty(length(invalid_values))}
+      cli::cli_abort(
+        c(
+          "x" = "{.arg {property_name}} {cli::qty(length(invalid_values))}
         value{?s} {?is/are} invalid.",
-        "!" = "Must be {cli::qty(if(scalar){1}else{2})} {?one of/member in}
+          "!" = "Must be {cli::qty(if(scalar){1}else{2})} {?one of/member in}
         {.val {value_schema[['enum']]}}.",
-        "i" = "Actual value{?s} {?is/are} {.val {invalid_values}}"
-      ),
-      call = call
+          "i" = "Actual value{?s} {?is/are} {.val {invalid_values}}"
+        ),
+        call = call
       )
     }
   }
@@ -197,12 +206,13 @@ check_input <- function(input, property, parent_schema,
   if (any(names(value_schema) == "const")) {
     value_const <- value_schema[["const"]]
     if (any(input != value_const)) {
-      cli::cli_abort(c(
-        "x" = "{.arg {property_name}} value is invalid.",
-        "!" = "Must be {.val {value_const}}.",
-        "i" = "Actual value is {.val {input}}"
-      ),
-      call = call
+      cli::cli_abort(
+        c(
+          "x" = "{.arg {property_name}} value is invalid.",
+          "!" = "Must be {.val {value_const}}.",
+          "i" = "Actual value is {.val {input}}"
+        ),
+        call = call
       )
     }
   }
@@ -210,13 +220,14 @@ check_input <- function(input, property, parent_schema,
   if (any(names(value_schema) == "minLength")) {
     is_invalid <- stringr::str_length(input) < value_schema[["minLength"]]
     if (any(is_invalid)) {
-      cli::cli_abort(c(
-        "!" = "The minimum number of characters allowed for values in
+      cli::cli_abort(
+        c(
+          "!" = "The minimum number of characters allowed for values in
                 {.arg {property_name}} is {.val {value_schema[['minLength']]}}.",
-        "x" = "Value{?s} {.val {input[is_invalid]}} {?has/have}
+          "x" = "Value{?s} {.val {input[is_invalid]}} {?has/have}
                 fewer characters than allowed."
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }
@@ -224,13 +235,14 @@ check_input <- function(input, property, parent_schema,
   if (any(names(value_schema) == "maxLength")) {
     is_invalid <- stringr::str_length(input) > value_schema[["maxLength"]]
     if (any(is_invalid)) {
-      cli::cli_abort(c(
-        "!" = "The maximum number of characters allowed for values in
+      cli::cli_abort(
+        c(
+          "!" = "The maximum number of characters allowed for values in
                 {.arg {property_name}} is {.val {value_schema[['maxLength']]}}.",
-        "x" = "Value{?s} {.val {input[is_invalid]}} {?has/have}
+          "x" = "Value{?s} {.val {input[is_invalid]}} {?has/have}
                 more characters than allowed"
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }
@@ -239,13 +251,14 @@ check_input <- function(input, property, parent_schema,
   if (any(names(value_schema) == "multipleOf")) {
     is_invalid <- input %% value_schema[["multipleOf"]] != 0L
     if (any(is_invalid)) {
-      cli::cli_abort(c(
-        "!" = "Values in {.arg {property_name}} must be multiples of
+      cli::cli_abort(
+        c(
+          "!" = "Values in {.arg {property_name}} must be multiples of
                 {.val {value_schema[['multipleOf']]}}.",
-        "x" = "{cli::qty(sum(is_invalid))} Value{?s}
+          "x" = "{cli::qty(sum(is_invalid))} Value{?s}
                 {.val {input[is_invalid]}} {cli::qty(sum(is_invalid))} {?is/are} not."
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }
@@ -301,47 +314,51 @@ check_oneof_input <- function(input, property = c("required", "optional"),
   value_types <- c("character", "double", "integer")
   input_type <- typeof(input)
   if (!input_type %in% value_types) {
-    cli::cli_abort(c(
-      "x" = "{.arg {property}} is of type {.cls {input_type}}.",
-      "!" = "Must be {?/one of} {.cls {value_types}}."
-    ),
-    call = call
+    cli::cli_abort(
+      c(
+        "x" = "{.arg {property}} is of type {.cls {input_type}}.",
+        "!" = "Must be {?/one of} {.cls {value_types}}."
+      ),
+      call = call
     )
   }
 
   if (typeof(input) == "character") {
     value_schema <- oneof_schema[["character"]]
     if (!any((grepl(value_schema[["pattern"]], input)))) {
-      cli::cli_abort(c(
-        "x" = "Values of {.arg {property}} must match regex pattern
+      cli::cli_abort(
+        c(
+          "x" = "Values of {.arg {property}} must match regex pattern
              {.val {value_schema[['pattern']]}}.",
-        "!" = 'Values {.val {!(grepl(value_schema[["pattern"]], input))}} do not.'
-      ),
-      call = call
+          "!" = 'Values {.val {!(grepl(value_schema[["pattern"]], input))}} do not.'
+        ),
+        call = call
       )
     }
 
     is_too_long <- stringr::str_length(input) > value_schema[["maxLength"]]
     if (any(is_too_long)) {
-      cli::cli_abort(c(
-        "!" = "The maximum number of characters allowed for values in
+      cli::cli_abort(
+        c(
+          "!" = "The maximum number of characters allowed for values in
                 {.arg {property}} is {.val {value_schema[['maxLength']]}}.",
-        "x" = "Value{?s} {.val {input[is_too_long]}} {?has/have}
+          "x" = "Value{?s} {.val {input[is_too_long]}} {?has/have}
                 more characters than allowed"
-      ),
-      call = call
+        ),
+        call = call
       )
     }
 
     is_too_short <- stringr::str_length(input) < value_schema[["minLength"]]
     if (any(is_too_short)) {
-      cli::cli_abort(c(
-        "!" = "The minimum number of characters allowed for values in
+      cli::cli_abort(
+        c(
+          "!" = "The minimum number of characters allowed for values in
                 {.arg {property}} is {.val {value_schema[['minLength']]}}.",
-        "x" = "Value{?s} {.val {input[is_too_short]}} {?has/have}
+          "x" = "Value{?s} {.val {input[is_too_short]}} {?has/have}
                 fewer characters than allowed."
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }
@@ -351,13 +368,14 @@ check_oneof_input <- function(input, property = c("required", "optional"),
     value_min <- value_schema[["minimum"]]
     is_too_small <- input < value_min
     if (any(is_too_small)) {
-      cli::cli_abort(c(
-        "!" = "All values in {.arg {property}} must be greater
+      cli::cli_abort(
+        c(
+          "!" = "All values in {.arg {property}} must be greater
                 than {.val {value_min}}.",
-        "x" = "{cli::qty(sum(is_invalid))} Value{?s} {.val {input[is_invalid]}}
+          "x" = "{cli::qty(sum(is_invalid))} Value{?s} {.val {input[is_invalid]}}
                 {cli::qty(sum(is_invalid))}{?is/are} equal to or less."
-      ),
-      call = call
+        ),
+        call = call
       )
     }
   }

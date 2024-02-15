@@ -1,5 +1,3 @@
-
-
 #' Print a concise and informative version of validation errors table.
 #'
 #' @param x output of [validate_config()].

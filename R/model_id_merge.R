@@ -81,7 +81,6 @@ model_id_merge <- function(tbl, sep = "-") {
 #' @describeIn model_id_merge split `model_id` column into separate `team_abbr`
 #' and `model_abbr` columns.
 model_id_split <- function(tbl, sep = "-") {
-
   # check required column present
   if (!c("model_id") %in% names(tbl)) {
     cli::cli_abort(c(

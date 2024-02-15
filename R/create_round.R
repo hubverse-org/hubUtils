@@ -175,11 +175,12 @@ check_round_id_variable <- function(model_tasks, round_id,
 check_submission_due <- function(submissions_due, round_schema, model_tasks,
                                  call = rlang::caller_env()) {
   if (!rlang::is_list(submissions_due) || inherits(submissions_due, "data.frame")) {
-    cli::cli_abort(c(
-      "!" = "{.arg submissions_due} must be a {.cls list} not a
+    cli::cli_abort(
+      c(
+        "!" = "{.arg submissions_due} must be a {.cls list} not a
             {.cls {class(submissions_due)}}"
-    ),
-    call = call
+      ),
+      call = call
     )
   }
 
@@ -194,13 +195,14 @@ check_submission_due <- function(submissions_due, round_schema, model_tasks,
 
   if (any(invalid_properties)) {
     invalid_property_names <- names(submissions_due)[invalid_properties]
-    cli::cli_abort(c(
-      "x" = "Propert{?y/ies} {.val {invalid_property_names}} in
+    cli::cli_abort(
+      c(
+        "x" = "Propert{?y/ies} {.val {invalid_property_names}} in
             {.arg submissions_due} {?is/are} invalid.",
-      "!" = "Valid {.arg submissions_due} properties:
+        "!" = "Valid {.arg submissions_due} properties:
             {.val {schema_valid_names}}"
-    ),
-    call = call
+      ),
+      call = call
     )
   }
 

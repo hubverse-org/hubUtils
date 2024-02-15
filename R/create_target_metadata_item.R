@@ -110,18 +110,20 @@ check_target_keys <- function(target_keys, call = rlang::caller_env()) {
   }
 
   if (!rlang::is_list(target_keys) || inherits(target_keys, "data.frame")) {
-    cli::cli_abort(c(
-      "!" = "{.arg target_keys} must be a {.cls list} not a
+    cli::cli_abort(
+      c(
+        "!" = "{.arg target_keys} must be a {.cls list} not a
             {.cls {class(target_keys)}}"
-    ),
-    call = call
+      ),
+      call = call
     )
   }
   if (!rlang::is_named(target_keys)) {
-    cli::cli_abort(c(
-      "!" = "{.arg target_keys} must be a named {.cls list}."
-    ),
-    call = call
+    cli::cli_abort(
+      c(
+        "!" = "{.arg target_keys} must be a named {.cls list}."
+      ),
+      call = call
     )
   }
 
@@ -139,13 +141,14 @@ check_target_keys <- function(target_keys, call = rlang::caller_env()) {
 check_target_key_value <- function(target_key, target_key_name,
                                    call = rlang::caller_env()) {
   if (!rlang::is_character(target_key, n = 1)) {
-    cli::cli_abort(c(
-      "!" = "{.arg target_keys} element {.field {target_key_name}} must be
+    cli::cli_abort(
+      c(
+        "!" = "{.arg target_keys} element {.field {target_key_name}} must be
             a {.cls character} vector of length {.val {1L}} not a
             {.cls {class(target_key)}} vector of length
             {.val {length(target_key)}}"
-    ),
-    call = call
+      ),
+      call = call
     )
   }
 }

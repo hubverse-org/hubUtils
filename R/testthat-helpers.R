@@ -1,4 +1,3 @@
-
 # Source https://stackoverflow.com/questions/52911812/check-if-url-exists-in-r
 valid_url <- function(url_in, t = 2) {
   con <- url(url_in)

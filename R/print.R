@@ -102,9 +102,9 @@ print.mod_out_connection <- function(x, verbose = FALSE, ...) {
 }
 
 print_file_format_meta <- function(x) {
-  meta_tbl <- as.data.frame(attr(x, 'file_format'))
+  meta_tbl <- as.data.frame(attr(x, "file_format"))
   paste0(
     names(meta_tbl),
-         '(', purrr::map_chr(meta_tbl, ~ sprintf("%s/%s", .x[1], .x[2])), ')'
-    )
+    "(", purrr::map_chr(meta_tbl, ~ sprintf("%s/%s", .x[1], .x[2])), ")"
+  )
 }

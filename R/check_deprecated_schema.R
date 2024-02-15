@@ -4,8 +4,7 @@
 # Else, returns `FALSE`
 check_deprecated_schema <- function(config_version, config, valid_version = "v2.0.0",
                                     hubUtils_version) {
-  config_version <- switch(
-      rlang::check_exclusive(config_version, config),
+  config_version <- switch(rlang::check_exclusive(config_version, config),
     config = extract_schema_version(config$schema_version),
     config_version = config_version
   )

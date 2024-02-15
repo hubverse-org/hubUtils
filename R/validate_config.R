@@ -557,7 +557,6 @@ val_target_key_task_id_values <- function(grp_target_keys,
                                           model_task_grp,
                                           model_task_i,
                                           round_i, schema) {
-
   # Get unique values of target key names
   target_key_names <- purrr::map(grp_target_keys, ~ names(.x)) %>%
     unique() %>%
