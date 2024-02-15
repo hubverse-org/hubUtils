@@ -288,8 +288,6 @@ process_error_df <- function(errors_tbl) {
     }
   }
 
-  n_col <- length(errors_tbl)
-
   error_df <- split(errors_tbl, seq_len(nrow(errors_tbl))) %>%
     purrr::map(
       ~ unlist(.x, recursive = FALSE) %>%
