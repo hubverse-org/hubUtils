@@ -6,5 +6,8 @@ linters: linters_with_defaults(
 exclusions: list(
     "R/validate_config.R" = list(
       line_length_linter = Inf
+    ),
+    "tests/testthat/test-create_hub_schema.R" = list(
+      line_length_linter = Inf
     )
   )
