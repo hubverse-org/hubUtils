@@ -233,7 +233,7 @@ std_col_order_model_out_tbl <- function(tbl) {
 }
 
 check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
-  test_datatype <- function(x, data_type) {
+  test_datatype <- function(x, data_type) { # nolint: object_usage_linter
     !any(purrr::map_lgl(
       data_type,
       ~ get(paste0("is.", .x))(x)
@@ -269,7 +269,7 @@ check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
 
     error_msg <- c("x" = "{cli::qty(nrow(error_df))} Wrong datatype{?s} detected in standard column{?s}:")
 
-    for (i in 1:nrow(error_df)) {
+    for (i in seq_len(nrow(error_df))) {
       error_msg <- c(error_msg, "!" = compose_error_msg(i))
     }
     cli::cli_abort(error_msg, call = call)
