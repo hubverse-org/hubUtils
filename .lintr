@@ -3,3 +3,8 @@ linters: linters_with_defaults(
     commented_code_linter = NULL,
     object_length_linter(length = 50L)
   )
+exclusions: list(
+    "R/validate_config.R" = list(
+      line_length_linter = Inf
+    )
+  )
