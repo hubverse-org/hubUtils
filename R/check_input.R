@@ -1,3 +1,18 @@
+#' Check that inputs to create_* functions conform to hubverse schema.
+#' Function used primarily to check that properties of inputs to the create_*
+#' family of functions, used to create hub config programmatically, conform to
+#' expectation defined in the hubverse schema.
+#' @param input Vector. The value of the property of the input to be checked.
+#' @param property Character string. The name of the property of the input to be checked.
+#' @param parent_schema List representation of the schema of the parent object.
+#' @param parent_property Character string. The name of the parent object of the property
+#' to be checked.
+#' @param scalar Logical. whether the property being checked is scalar.
+#' @param call Name of the caller fn. For internal error signalling.
+#'
+#' @return Function used primarily for it's side effects of signalling errors when
+#' input does not conform to schema.
+#' @noRd
 check_input <- function(input, property, parent_schema,
                         parent_property,
                         scalar = FALSE,
@@ -264,7 +279,7 @@ check_input <- function(input, property, parent_schema,
   }
 }
 
-
+# Used to check properties that contain oneOf schema properties.
 check_oneof_input <- function(input, property = c("required", "optional"),
                               parent_schema,
                               call = rlang::caller_env()) {
@@ -381,6 +396,7 @@ check_oneof_input <- function(input, property = c("required", "optional"),
   }
 }
 
+# Subset tasks schema for the schema of a specific output type
 get_schema_output_type <- function(schema, output_type) {
   purrr::pluck(
     schema,
@@ -391,7 +407,14 @@ get_schema_output_type <- function(schema, output_type) {
   )
 }
 
-
+#' Download hubverse tasks schema from the hubverse schema repository.
+#'
+#' @param schema_version the version required. Defaults to "latest".
+#' @param branch the branch to download the schema from. Defaults to "main".
+#' @param format the format to return the schema in. Defaults to "list". Can be "list" or "json".
+#'
+#' @return The requested version of the tasks hubverse schema in the specified format.
+#' @noRd
 download_schema <- function(schema_version = "latest", branch = "main",
                             format = c("list", "json")) {
   format <- rlang::arg_match(format)
