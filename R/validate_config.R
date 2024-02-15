@@ -604,15 +604,24 @@ val_target_key_task_id_values <- function(grp_target_keys,
 
 
   if (length(invalid_task_id_values) != 0) {
+    nms <- names(invalid_task_id_values)
+    tk_unique_vals <- purrr::map_chr( # nolint: object_usage_linter
+      target_key_values[nms],
+      ~ paste(.x, collapse = ", ")
+    )
+    tid_unique_vals <- purrr::map_chr( # nolint: object_usage_linter
+      task_id_values[nms],
+      ~ glue::glue_collapse(.x, sep = ", ")
+    )
+
     error_row <- data.frame(
-      instancePath = paste0(glue::glue(get_error_path(schema, "task_ids", "instance")), "/", names(invalid_task_id_values)),
+      instancePath = paste0(glue::glue(get_error_path(schema, "task_ids", "instance")), "/", nms),
       schemaPath = get_error_path(schema, "task_ids", "schema"),
       keyword = "task_id values",
       message = glue::glue("task_id value(s) '{invalid_task_id_values}' not defined in any corresponding target_key."),
       schema = "",
-      data = glue::glue("task_id.{names(invalid_task_id_values)} unique values: {purrr::map_chr(target_key_values[names(invalid_task_id_values)], ~glue::glue_collapse(.x, sep = ', '))};
-            target_key.{names(invalid_task_id_values)} unique values: {purrr::map_chr(target_key_values[names(invalid_task_id_values)],
-            ~paste(.x, collapse = ', '))}")
+      data = glue::glue("task_id.{nms} unique values: {tid_unique_vals};
+            target_key.{nms} unique values: {tk_unique_vals}")
     )
     return(error_row)
   }
