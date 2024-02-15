@@ -12,7 +12,8 @@
 #' @param value_maximum Numeric. The inclusive maximum of output_type values.
 #'
 #' @details For more details consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #' @return a named list of class `output_type_item` representing a `mean` or
 #' `median` output type.
 #' @inheritParams create_task_id
@@ -98,7 +99,7 @@ create_output_type_point <- function(output_type = c("mean", "median"),
     output_type = output_type
   )
 
-  value_schema <- purrr::pluck(
+  value_schema <- purrr::pluck( # nolint: object_usage_linter
     output_type_schema,
     "properties",
     "value",
@@ -152,7 +153,8 @@ create_output_type_point <- function(output_type = c("mean", "median"),
 #' @inheritParams create_task_id
 #' @inheritParams create_output_type_mean
 #' @details For more details consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #'
 #' @return a named list of class `output_type_item` representing a `quantile`,
 #' `cdf`, `pmf` or `sample` output type.
@@ -247,14 +249,12 @@ create_output_type_sample <- function(required, optional, value_type,
 }
 
 
-create_output_type_dist <- function(output_type = c(
-                                      "quantile", "cdf", "pmf",
-                                      "sample"
-                                    ),
-                                    required, optional,
-                                    value_type, value_minimum = NULL,
-                                    value_maximum = NULL, schema_version = "latest",
-                                    branch = "main", call = rlang::caller_env()) {
+create_output_type_dist <- function(
+    output_type = c("quantile", "cdf", "pmf", "sample"),
+    required, optional,
+    value_type, value_minimum = NULL,
+    value_maximum = NULL, schema_version = "latest",
+    branch = "main", call = rlang::caller_env()) {
   rlang::check_required(value_type)
   rlang::check_required(required)
   rlang::check_required(optional)
@@ -268,7 +268,7 @@ create_output_type_dist <- function(output_type = c(
 
   schema <- download_tasks_schema(schema_version, branch)
   output_type_schema <- get_schema_output_type(schema, output_type)
-  output_type_id_schema <- purrr::pluck(
+  output_type_id_schema <- purrr::pluck( # nolint: object_usage_linter
     output_type_schema,
     "properties",
     config_tid,
@@ -319,7 +319,7 @@ create_output_type_dist <- function(output_type = c(
   ) %>%
     purrr::compact()
 
-  value_schema <- purrr::pluck(
+  value_schema <- purrr::pluck( # nolint: object_usage_linter
     output_type_schema,
     "properties",
     "value",

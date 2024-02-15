@@ -142,7 +142,7 @@ check_object_class <- function(object, class, call = rlang::caller_env()) {
 }
 
 
-check_task_id_target_key_values <- function(target_key_name, task_ids,
+check_task_id_target_key_values <- function(target_key_name, task_ids, # nolint: object_length_linter
                                             target_keys, call = rlang::caller_env()) {
   task_id_values <- unlist(task_ids$task_ids[[target_key_name]]) %>%
     unique() %>%
