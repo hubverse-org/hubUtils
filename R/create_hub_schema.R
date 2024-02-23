@@ -144,16 +144,26 @@ get_output_type_id_type <- function(config_tasks) {
   # Get output type id property according to config schema version
   # TODO: remove back-compatibility with schema versions < v2.0.0 when support
   # retired
-  config_tid <- get_config_tid(config_tasks = config_tasks) # nolint: object_usage_linter
+  config_tid <- get_config_tid(config_tasks = config_tasks)
 
   values <- purrr::map(
     config_tasks[["rounds"]],
-    ~ .x[["model_tasks"]]
+    function(x) {
+      x[["model_tasks"]]
+    }
   ) %>%
     unlist(recursive = FALSE) %>%
-    purrr::map(~ .x[["output_type"]]) %>%
+    purrr::map(
+      function(x) {
+        x[["output_type"]]
+      }
+    ) %>%
     unlist(recursive = FALSE) %>%
-    purrr::map(~ purrr::pluck(.x, config_tid)) %>%
+    purrr::map(
+      function(x) {
+        purrr::pluck(x, config_tid)
+      }
+    ) %>%
     unlist()
 
   get_data_type(values)
@@ -208,11 +218,23 @@ get_partition_r_datatype <- function(partitions, arrow_datatypes) {
     return(NULL)
   }
 
-  str_arrow_datatypes <- purrr::map_chr(arrow_datatypes, ~ .x$ToString()) # nolint: object_usage_linter
-  str_partitions <- purrr::map(partitions, ~ .x$ToString())
+  str_arrow_datatypes <- purrr::map_chr(
+    arrow_datatypes,
+    function(x) {
+      x$ToString()
+    }
+  )
+  str_partitions <- purrr::map(
+    partitions,
+    function(x) {
+      x$ToString()
+    }
+  )
   purrr::map_chr(
     str_partitions,
-    ~ names(str_arrow_datatypes)[.x == str_arrow_datatypes]
+    function(x) {
+      names(str_arrow_datatypes)[x == str_arrow_datatypes]
+    }
   )
 }
 

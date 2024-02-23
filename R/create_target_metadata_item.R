@@ -59,7 +59,7 @@ create_target_metadata_item <- function(target_id, target_name, target_units,
   call <- rlang::current_env()
 
   schema <- download_tasks_schema(schema_version, branch)
-  target_metadata_schema <- get_schema_target_metadata(schema) # nolint: object_usage_linter
+  target_metadata_schema <- get_schema_target_metadata(schema)
 
 
   if (is.null(description)) {
@@ -87,14 +87,16 @@ create_target_metadata_item <- function(target_id, target_name, target_units,
 
   purrr::walk(
     property_names[property_names != "target_keys"],
-    ~ check_input(
-      input = get(.x),
-      property = .x,
-      target_metadata_schema,
-      parent_property = NULL,
-      scalar = TRUE,
-      call = call
-    )
+    function(.x) {
+      check_input(
+        input = get(.x),
+        property = .x,
+        target_metadata_schema,
+        parent_property = NULL,
+        scalar = TRUE,
+        call = call
+      )
+    }
   )
 
   check_target_keys(target_keys, call = call)

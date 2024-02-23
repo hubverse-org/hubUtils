@@ -129,6 +129,7 @@ file_format_n <- function(model_output_dir, file_format) {
   UseMethod("file_format_n")
 }
 
+#' @export
 file_format_n.default <- function(model_output_dir, file_format) {
   length(
     fs::dir_ls(
@@ -139,6 +140,7 @@ file_format_n.default <- function(model_output_dir, file_format) {
   )
 }
 
+#' @export
 file_format_n.SubTreeFileSystem <- function(model_output_dir, file_format) {
   sum(fs::path_ext(model_output_dir$ls(recursive = TRUE)) == file_format)
 }
@@ -148,7 +150,7 @@ warn_unopened_files <- function(x, dataset, model_output_dir) {
   x <- as.data.frame(x)
   unopened_file_formats <- purrr::map_lgl(x, ~ .x[1] < .x[2])
   if (any(unopened_file_formats)) {
-    dataset_files <- list_dataset_files(dataset) # nolint: object_usage_linter
+    dataset_files <- list_dataset_files(dataset)
 
     unopened_files <- purrr::map(
       purrr::set_names(names(x)[unopened_file_formats]),
@@ -156,7 +158,9 @@ warn_unopened_files <- function(x, dataset, model_output_dir) {
     ) %>%
       # check dir files against files opened in dataset
       purrr::imap(
-        ~ .x[!.x %in% dataset_files[[.y]]]
+        function(.x, .y) {
+          .x[!.x %in% dataset_files[[.y]]]
+        }
       ) %>%
       purrr::list_simplify() %>%
       purrr::set_names("x")

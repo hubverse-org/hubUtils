@@ -52,7 +52,7 @@ create_task_id <- function(name, required, optional,
   checkmate::assert_character(name, len = 1L)
   rlang::check_required(required)
   rlang::check_required(optional)
-  call <- rlang::current_env() # nolint: object_usage_linter
+  call <- rlang::current_env()
 
   schema <- download_tasks_schema(schema_version, branch)
 
@@ -66,7 +66,7 @@ create_task_id <- function(name, required, optional,
   )
 
   if (name %in% schema_task_ids) {
-    task_id_schema <- purrr::pluck( # nolint: object_usage_linter
+    task_id_schema <- purrr::pluck(
       task_ids_schema,
       "properties",
       name,
@@ -75,13 +75,15 @@ create_task_id <- function(name, required, optional,
 
     purrr::walk(
       c("required", "optional"),
-      ~ check_input(
-        input = get(.x),
-        property = .x,
-        task_id_schema,
-        parent_property = NULL,
-        call = call
-      )
+      function(.x) {
+        check_input(
+          input = get(.x),
+          property = .x,
+          task_id_schema,
+          parent_property = NULL,
+          call = call
+        )
+      }
     )
   }
 

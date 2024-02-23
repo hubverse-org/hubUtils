@@ -99,7 +99,7 @@ create_output_type_point <- function(output_type = c("mean", "median"),
     output_type = output_type
   )
 
-  value_schema <- purrr::pluck( # nolint: object_usage_linter
+  value_schema <- purrr::pluck(
     output_type_schema,
     "properties",
     "value",
@@ -116,14 +116,16 @@ create_output_type_point <- function(output_type = c("mean", "median"),
 
   purrr::walk(
     names(value),
-    ~ check_input(
-      input = value[[.x]],
-      property = .x,
-      value_schema,
-      parent_property = "value",
-      scalar = TRUE,
-      call = call
-    )
+    function(x) {
+      check_input(
+        input = value[[x]],
+        property = x,
+        value_schema,
+        parent_property = "value",
+        scalar = TRUE,
+        call = call
+      )
+    }
   )
 
   structure(
@@ -268,7 +270,7 @@ create_output_type_dist <- function(
 
   schema <- download_tasks_schema(schema_version, branch)
   output_type_schema <- get_schema_output_type(schema, output_type)
-  output_type_id_schema <- purrr::pluck( # nolint: object_usage_linter
+  output_type_id_schema <- purrr::pluck(
     output_type_schema,
     "properties",
     config_tid,
@@ -279,23 +281,27 @@ create_output_type_dist <- function(
   if (output_type == "cdf") {
     purrr::walk(
       c("required", "optional"),
-      ~ check_oneof_input(
-        input = get(.x),
-        property = .x,
-        output_type_id_schema,
-        call = call
-      )
+      function(x) {
+        check_oneof_input(
+          input = get(x),
+          property = x,
+          output_type_id_schema,
+          call = call
+        )
+      }
     )
   } else {
     purrr::walk(
       c("required", "optional"),
-      ~ check_input(
-        input = get(.x),
-        property = .x,
-        output_type_id_schema,
-        parent_property = config_tid,
-        call = call
-      )
+      function(x) {
+        check_input(
+          input = get(x),
+          property = x,
+          output_type_id_schema,
+          parent_property = config_tid,
+          call = call
+        )
+      }
     )
   }
 
@@ -319,7 +325,7 @@ create_output_type_dist <- function(
   ) %>%
     purrr::compact()
 
-  value_schema <- purrr::pluck( # nolint: object_usage_linter
+  value_schema <- purrr::pluck(
     output_type_schema,
     "properties",
     "value",
@@ -328,14 +334,16 @@ create_output_type_dist <- function(
 
   purrr::walk(
     names(value),
-    ~ check_input(
-      input = value[[.x]],
-      property = .x,
-      value_schema,
-      parent_property = "value",
-      scalar = TRUE,
-      call = rlang::caller_env(n = 5)
-    )
+    function(x) {
+      check_input(
+        input = value[[x]],
+        property = x,
+        value_schema,
+        parent_property = "value",
+        scalar = TRUE,
+        call = rlang::caller_env(n = 5)
+      )
+    }
   )
 
   structure(

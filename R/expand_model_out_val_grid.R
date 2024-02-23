@@ -92,16 +92,24 @@ expand_model_out_val_grid <- function(config_tasks,
   # Get output type id property according to config schema version
   # TODO: remove back-compatibility with schema versions < v2.0.0 when support
   # retired
-  config_tid <- get_config_tid(config_tasks = config_tasks) # nolint: object_usage_linter
+  config_tid <- get_config_tid(config_tasks = config_tasks)
 
   output_type_l <- purrr::map(
     round_config[["model_tasks"]],
-    ~ .x[["output_type"]]
+    function(.x) {
+      .x[["output_type"]]
+    }
   ) %>%
-    purrr::map(~ .x %>%
-      purrr::map(~ .x[[config_tid]])) %>% # nolint: indentation_linter
+    purrr::map(function(.x) {
+      .x %>%
+        purrr::map(function(.x) {
+          .x[[config_tid]]
+        })
+    }) %>%
     process_grid_inputs(required_vals_only = required_vals_only) %>%
-    purrr::map(~ purrr::compact(.x))
+    purrr::map(function(.x) {
+      purrr::compact(.x)
+    })
 
   # Expand output grid individually for each output type and coerce to hub schema
   # data types.
@@ -148,15 +156,21 @@ fix_round_id <- function(x, round_id, round_config, round_ids) {
     round_id <- rlang::arg_match(round_id,
       values = round_ids
     )
-    round_id_var <- round_config[["round_id"]] # nolint: object_usage_linter
+    round_id_var <- round_config[["round_id"]]
     purrr::map(
       x,
-      ~ .x %>%
-        purrr::imap(~ if (.y == round_id_var) {
-          list(required = round_id, optional = NULL)
-        } else {
-          .x
-        })
+      function(.x) {
+        purrr::imap(
+          .x,
+          function(.x, .y) {
+            if (.y == round_id_var) {
+              list(required = round_id, optional = NULL)
+            } else {
+              .x
+            }
+          }
+        )
+      }
     )
   } else {
     x

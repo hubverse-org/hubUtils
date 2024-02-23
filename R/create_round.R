@@ -101,7 +101,7 @@ create_round <- function(round_id_from_variable,
   rlang::check_required(round_id)
   rlang::check_required(model_tasks)
   rlang::check_required(submissions_due)
-  call <- rlang::current_env() # nolint: object_usage_linter
+  call <- rlang::current_env()
 
   check_object_class(model_tasks, "model_tasks")
 
@@ -126,14 +126,16 @@ create_round <- function(round_id_from_variable,
 
   purrr::walk(
     property_names[!property_names %in% c("submissions_due", "model_tasks")],
-    ~ check_input(
-      input = properties[[.x]],
-      property = .x,
-      round_schema,
-      parent_property = NULL,
-      scalar = TRUE,
-      call = call
-    )
+    function(.x) {
+      check_input(
+        input = properties[[.x]],
+        property = .x,
+        round_schema,
+        parent_property = NULL,
+        scalar = TRUE,
+        call = call
+      )
+    }
   )
   check_submission_due(submissions_due, round_schema, model_tasks)
 
@@ -246,10 +248,12 @@ check_submission_due <- function(submissions_due, round_schema, model_tasks,
 
 check_relative_to_variable <- function(submissions_due, model_tasks,
                                        call = rlang::caller_env()) {
-  relative_to_value <- submissions_due$relative_to # nolint: object_usage_linter
-  invalid_relative_to <- purrr::map_lgl( # nolint: object_usage_linter
+  relative_to_value <- submissions_due$relative_to
+  invalid_relative_to <- purrr::map_lgl(
     model_tasks,
-    ~ !relative_to_value %in% names(.x$task_ids)
+    function(.x) {
+      !relative_to_value %in% names(.x$task_ids)
+    }
   )
 
   if (any(invalid_relative_to)) {
