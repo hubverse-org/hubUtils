@@ -184,6 +184,7 @@ list_dir_files <- function(model_output_dir, file_format = NULL) {
 }
 
 
+#' @export
 list_dir_files.default <- function(model_output_dir, file_format = NULL) {
   if (is.null(file_format)) {
     file_format <- "*"
@@ -195,6 +196,7 @@ list_dir_files.default <- function(model_output_dir, file_format = NULL) {
   )
 }
 
+#' @export
 list_dir_files.SubTreeFileSystem <- function(model_output_dir, file_format = NULL) {
   all_files <- model_output_dir$ls(recursive = TRUE)
   if (is.null(file_format)) {
@@ -207,6 +209,7 @@ list_dataset_files <- function(dataset) {
   UseMethod("list_dataset_files")
 }
 
+#' @export
 list_dataset_files.default <- function(dataset) {
   stats::setNames(
     list(dataset$files),
@@ -214,6 +217,7 @@ list_dataset_files.default <- function(dataset) {
   )
 }
 
+#' @export
 list_dataset_files.UnionDataset <- function(dataset) {
   stats::setNames(
     purrr::map(dataset$children, ~ .x$files),
