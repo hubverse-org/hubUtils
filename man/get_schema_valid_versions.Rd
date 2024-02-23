@@ -23,8 +23,8 @@ get_schema_valid_versions()
 }
 \seealso{
 Other functions supporting config file validation: 
-\code{\link{get_schema_url}()},
 \code{\link{get_schema}()},
+\code{\link{get_schema_url}()},
 \code{\link{validate_config}()},
 \code{\link{validate_hub_config}()},
 \code{\link{view_config_val_errors}()}

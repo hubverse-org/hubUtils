@@ -52,9 +52,9 @@ validate_hub_config(
 \code{\link[=view_config_val_errors]{view_config_val_errors()}}
 
 Other functions supporting config file validation: 
+\code{\link{get_schema}()},
 \code{\link{get_schema_url}()},
 \code{\link{get_schema_valid_versions}()},
-\code{\link{get_schema}()},
 \code{\link{validate_config}()},
 \code{\link{view_config_val_errors}()}
 }
