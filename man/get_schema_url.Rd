@@ -28,8 +28,8 @@ get_schema_url(config = "tasks", version = "v0.0.0.9")
 }
 \seealso{
 Other functions supporting config file validation: 
-\code{\link{get_schema_valid_versions}()},
 \code{\link{get_schema}()},
+\code{\link{get_schema_valid_versions}()},
 \code{\link{validate_config}()},
 \code{\link{validate_hub_config}()},
 \code{\link{view_config_val_errors}()}

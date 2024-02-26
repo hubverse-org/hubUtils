@@ -4,8 +4,8 @@ title: "Setting up a Hub"
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-    collapse = TRUE,
-    comment = "#>"
+  collapse = TRUE,
+  comment = "#>"
 )
 ```
 
@@ -43,8 +43,8 @@ The function will validate a given config file against a specific version of it'
 
 ```{r}
 validate_config(
-    hub_path = system.file("testhubs/simple/", package = "hubUtils"),
-    config = "tasks"
+  hub_path = system.file("testhubs/simple/", package = "hubUtils"),
+  config = "tasks"
 )
 ```
 
@@ -57,18 +57,18 @@ The function defaults to using stable schema versions released to the `main` bra
 
 ```{r}
 validate_config(
-    hub_path = system.file("testhubs/simple/", package = "hubUtils"),
-    config = "tasks",
-    schema_version = "v0.0.0.9"
+  hub_path = system.file("testhubs/simple/", package = "hubUtils"),
+  config = "tasks",
+  schema_version = "v0.0.0.9"
 )
 ```
 
 
 ```{r}
 validate_config(
-    hub_path = system.file("testhubs/simple/", package = "hubUtils"),
-    config = "tasks",
-    schema_version = "latest"
+  hub_path = system.file("testhubs/simple/", package = "hubUtils"),
+  config = "tasks",
+  schema_version = "latest"
 )
 ```
 
@@ -79,8 +79,9 @@ If validation of the config file fails, the function returns `FALSE`. An additio
 
 
 ```{r}
-config_path <- system.file("error-schema/tasks-errors.json", 
-                           package = "hubUtils")
+config_path <- system.file("error-schema/tasks-errors.json",
+  package = "hubUtils"
+)
 ```
 
 ```{r}
@@ -113,7 +114,7 @@ By default it uses "from_config" as the `schema_version` argument and errors if 
 
 ```{r}
 validate_hub_config(
-    hub_path = system.file("testhubs/simple/", package = "hubUtils")
+  hub_path = system.file("testhubs/simple/", package = "hubUtils")
 )
 ```
 
@@ -121,8 +122,8 @@ You can also use the function to validate a Hub's config against the latest vers
 
 ```{r}
 validate_config(
-    hub_path = system.file("testhubs/simple/", package = "hubUtils"),
-    schema_version = "latest"
+  hub_path = system.file("testhubs/simple/", package = "hubUtils"),
+  schema_version = "latest"
 )
 ```
 

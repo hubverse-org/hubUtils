@@ -30,33 +30,37 @@ test_that("create_task_id works correctly", {
 
 
 test_that("create_task_id errors correctly", {
-  expect_snapshot(create_task_id("horizon",
-    required = NULL,
-    optional = NULL
-  ),
-  error = TRUE
+  expect_snapshot(
+    create_task_id("horizon",
+      required = NULL,
+      optional = NULL
+    ),
+    error = TRUE
   )
 
-  expect_snapshot(create_task_id("origin_date",
-    required = NULL,
-    optional = c("01/20/2023")
-  ),
-  error = TRUE
+  expect_snapshot(
+    create_task_id("origin_date",
+      required = NULL,
+      optional = c("01/20/2023")
+    ),
+    error = TRUE
   )
-  expect_snapshot(create_task_id("scenario_id",
-    required = NULL,
-    optional = c(
-      1L,
-      1L
-    )
-  ),
-  error = TRUE
+  expect_snapshot(
+    create_task_id("scenario_id",
+      required = NULL,
+      optional = c(
+        1L,
+        1L
+      )
+    ),
+    error = TRUE
   )
-  expect_snapshot(create_task_id("horizon",
-    required = c(TRUE, FALSE),
-    optional = NULL
-  ),
-  error = TRUE
+  expect_snapshot(
+    create_task_id("horizon",
+      required = c(TRUE, FALSE),
+      optional = NULL
+    ),
+    error = TRUE
   )
 })
 

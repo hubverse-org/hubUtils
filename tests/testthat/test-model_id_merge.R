@@ -78,7 +78,6 @@ test_that("Splitting model_id fails if seperator detected", {
 
   # Test splitting
   expect_snapshot(model_id_split(tbl), error = TRUE)
-
 })
 
 test_that("Merging model_id fails if seperator detected", {

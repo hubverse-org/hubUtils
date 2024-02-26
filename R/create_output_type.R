@@ -9,7 +9,8 @@
 #' [create_output_type_quantile()], [create_output_type_cdf()],
 #' [create_output_type_pmf()], [create_output_type_sample()]
 #' @details For more details consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #' @examples
 #' create_output_type(
 #'   create_output_type_mean(

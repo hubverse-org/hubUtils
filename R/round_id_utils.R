@@ -17,12 +17,12 @@
 #' get_round_idx(config_tasks, "2022-10-01")
 #' get_round_idx(config_tasks, "2022-10-29")
 get_round_idx <- function(config_tasks, round_id) {
-    round_id <- rlang::arg_match(round_id,
-                                 values = get_round_ids(config_tasks)
-    )
-    get_round_ids(config_tasks, flatten = "model_task") %>%
-      purrr::map_lgl(~ round_id %in% .x) %>%
-      which()
+  round_id <- rlang::arg_match(round_id,
+    values = get_round_ids(config_tasks)
+  )
+  get_round_ids(config_tasks, flatten = "model_task") %>%
+    purrr::map_lgl(~ round_id %in% .x) %>%
+    which()
 }
 
 #' @inheritParams expand_model_out_val_grid
@@ -73,11 +73,13 @@ get_round_ids_from_taskid <- function(x, flatten) {
   round_id_task_id <- x[["round_id"]]
   out <- purrr::map(
     x[["model_tasks"]],
-    ~ .x[["task_ids"]][[round_id_task_id]]
+    function(.x) {
+      .x[["task_ids"]][[round_id_task_id]]
+    }
   )
-  switch (flatten,
-          model_task = unique(unlist(out, use.names = FALSE)),
-          task_id = purrr::modify(out, ~unique(unlist(.x, use.names = FALSE))),
-          out
+  switch(flatten,
+    model_task = unique(unlist(out, use.names = FALSE)),
+    task_id = purrr::modify(out, ~ unique(unlist(.x, use.names = FALSE))),
+    out
   )
 }

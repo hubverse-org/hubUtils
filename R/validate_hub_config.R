@@ -73,7 +73,7 @@ validate_hub_config <- function(hub_path = ".", schema_version = "from_config",
 
   # Add model metadata schema validations
   validations[[
-  "model-metadata-schema"
+    "model-metadata-schema"
   ]] <- validate_model_metadata_schema(
     hub_path
   ) %>%

@@ -1,5 +1,4 @@
 expect_tab <- function(tab) {
-
   # Expect that the object has the correct classes
   expect_s3_class(tab, "gt_tbl")
   expect_type(tab, "list")
@@ -24,7 +23,7 @@ expect_tab <- function(tab) {
   expect_type(gt:::dt_transforms_get(data = tab), "list")
 
   (gt:::dt_boxhead_get(data = tab) %>%
-    dim())[2] %>%
+    dim())[2] %>% # nolint: indentation_linter
     expect_equal(8)
 
   gt:::dt_stub_df_get(data = tab) %>%
@@ -97,7 +96,6 @@ gt_attr_names <- function() {
 }
 
 expect_gt_attr_names <- function(object) {
-
   # The `groups` attribute appears when we call dplyr::group_by()
   # on the input table
   expect_equal(

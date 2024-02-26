@@ -129,6 +129,7 @@ file_format_n <- function(model_output_dir, file_format) {
   UseMethod("file_format_n")
 }
 
+#' @export
 file_format_n.default <- function(model_output_dir, file_format) {
   length(
     fs::dir_ls(
@@ -139,6 +140,7 @@ file_format_n.default <- function(model_output_dir, file_format) {
   )
 }
 
+#' @export
 file_format_n.SubTreeFileSystem <- function(model_output_dir, file_format) {
   sum(fs::path_ext(model_output_dir$ls(recursive = TRUE)) == file_format)
 }
@@ -156,7 +158,9 @@ warn_unopened_files <- function(x, dataset, model_output_dir) {
     ) %>%
       # check dir files against files opened in dataset
       purrr::imap(
-        ~ .x[!.x %in% dataset_files[[.y]]]
+        function(.x, .y) {
+          .x[!.x %in% dataset_files[[.y]]]
+        }
       ) %>%
       purrr::list_simplify() %>%
       purrr::set_names("x")
@@ -180,6 +184,7 @@ list_dir_files <- function(model_output_dir, file_format = NULL) {
 }
 
 
+#' @export
 list_dir_files.default <- function(model_output_dir, file_format = NULL) {
   if (is.null(file_format)) {
     file_format <- "*"
@@ -191,6 +196,7 @@ list_dir_files.default <- function(model_output_dir, file_format = NULL) {
   )
 }
 
+#' @export
 list_dir_files.SubTreeFileSystem <- function(model_output_dir, file_format = NULL) {
   all_files <- model_output_dir$ls(recursive = TRUE)
   if (is.null(file_format)) {
@@ -203,6 +209,7 @@ list_dataset_files <- function(dataset) {
   UseMethod("list_dataset_files")
 }
 
+#' @export
 list_dataset_files.default <- function(dataset) {
   stats::setNames(
     list(dataset$files),
@@ -210,6 +217,7 @@ list_dataset_files.default <- function(dataset) {
   )
 }
 
+#' @export
 list_dataset_files.UnionDataset <- function(dataset) {
   stats::setNames(
     purrr::map(dataset$children, ~ .x$files),

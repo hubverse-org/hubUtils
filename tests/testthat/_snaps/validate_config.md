@@ -203,11 +203,11 @@
       2       
       3       
       4       
-                                                                                                                                                data
-      1             task_id names: origin_date, target_outcome, target_mesures, horizon, location;\ntarget_key names: target_measure, target_outcome
-      2             task_id names: origin_date, target_outcome, target_mesures, horizon, location;\ntarget_key names: target_measure, target_outcome
-      3                    task_id.target_outcome values: flu hosp, wk inc flu hosp, flu case;\ntarget_key.target_outcome value: flu hospitalisation
-      4 task_id.target_outcome unique values: flu hospitalisation, flu case;\ntarget_key.target_outcome unique values: flu hospitalisation, flu case
+                                                                                                                                                      data
+      1                   task_id names: origin_date, target_outcome, target_mesures, horizon, location;\ntarget_key names: target_measure, target_outcome
+      2                   task_id names: origin_date, target_outcome, target_mesures, horizon, location;\ntarget_key names: target_measure, target_outcome
+      3                          task_id.target_outcome values: flu hosp, wk inc flu hosp, flu case;\ntarget_key.target_outcome value: flu hospitalisation
+      4 task_id.target_outcome unique values: flu hosp, wk inc flu hosp, flu case;\ntarget_key.target_outcome unique values: flu hospitalisation, flu case
 
 # Reserved hub variable task id name detected correctly
 
@@ -261,7 +261,7 @@
       1                            task_id names: origin_date, target_outcome, target_mesures, horizon, value;\ntarget_key names: target_measure, target_outcome
       2                            task_id names: origin_date, target_outcome, target_mesures, horizon, value;\ntarget_key names: target_measure, target_outcome
       3                                task_id.target_outcome values: flu hosp, wk inc flu hosp, flu case;\ntarget_key.target_outcome value: flu hospitalisation
-      4             task_id.target_outcome unique values: flu hospitalisation, flu case;\ntarget_key.target_outcome unique values: flu hospitalisation, flu case
+      4       task_id.target_outcome unique values: flu hosp, wk inc flu hosp, flu case;\ntarget_key.target_outcome unique values: flu hospitalisation, flu case
       5                      task_id names: origin_date, target, horizon & model_id;\nreserved hub variable names: model_id, output_type, output_type_id & value
       6 task_id names: origin_date, target_outcome, target_mesures, horizon & value;\nreserved hub variable names: model_id, output_type, output_type_id & value
 

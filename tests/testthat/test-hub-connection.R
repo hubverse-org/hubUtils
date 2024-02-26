@@ -1,14 +1,15 @@
 test_that("connect_hub works on local simple forecasting hub", {
   # Simple forecasting Hub example ----
 
- hub_path <- system.file("testhubs/simple", package = "hubUtils")
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
   hub_con <- connect_hub(hub_path)
 
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
     structure(c(3L, 3L, 1L, 1L), dim = c(2L, 2L), dimnames = list(
-      c("n_open", "n_in_dir"), c("csv", "parquet")))
+      c("n_open", "n_in_dir"), c("csv", "parquet")
+    ))
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -45,8 +46,7 @@ test_that("connect_hub works on a local simple forecasting hub with no csvs", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    structure(c(4L, 4L), dim = 2:1, dimnames = list(c("n_open", "n_in_dir"
-    ), "parquet"))
+    structure(c(4L, 4L), dim = 2:1, dimnames = list(c("n_open", "n_in_dir"), "parquet"))
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -81,7 +81,6 @@ test_that("connect_hub returns empty list when model output folder is empty", {
   attr(hub_con, "model_output_dir") <- "test/model_output_dir"
   attr(hub_con, "hub_path") <- "test/hub_path"
   expect_snapshot(hub_con)
-
 })
 
 test_that("connect_hub connection & data extraction works on simple local hub", {
@@ -94,7 +93,8 @@ test_that("connect_hub connection & data extraction works on simple local hub", 
   expect_equal(
     attr(hub_con, "file_format"),
     structure(c(5L, 5L, 2L, 2L, 1L, 1L), dim = 2:3, dimnames = list(
-      c("n_open", "n_in_dir"), c("csv", "parquet", "arrow")))
+      c("n_open", "n_in_dir"), c("csv", "parquet", "arrow")
+    ))
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -135,7 +135,8 @@ test_that("connect_hub works on local flusight forecasting hub", {
   expect_equal(
     attr(hub_con, "file_format"),
     structure(c(5L, 5L, 2L, 2L, 1L, 1L), dim = 2:3, dimnames = list(
-      c("n_open", "n_in_dir"), c("csv", "parquet", "arrow")))
+      c("n_open", "n_in_dir"), c("csv", "parquet", "arrow")
+    ))
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -175,8 +176,7 @@ test_that("connect_hub file_format override works on local hub", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(hub_con, "file_format"),
-    structure(c(3L, 3L), dim = 2:1, dimnames = list(c("n_open", "n_in_dir"
-    ), "csv"))
+    structure(c(3L, 3L), dim = 2:1, dimnames = list(c("n_open", "n_in_dir"), "csv"))
   )
   expect_equal(
     attr(hub_con, "file_system"),
@@ -212,8 +212,7 @@ test_that("connect_model_output works on local model_output_dir", {
   # Tests that paths are assigned to attributes correctly
   expect_equal(
     attr(mod_out_con, "file_format"),
-    structure(c(3L, 3L), dim = 2:1, dimnames = list(c("n_open", "n_in_dir"
-    ), "csv"))
+    structure(c(3L, 3L), dim = 2:1, dimnames = list(c("n_open", "n_in_dir"), "csv"))
   )
   expect_equal(
     attr(mod_out_con, "file_system"),
@@ -253,11 +252,11 @@ test_that("connect_model_output fails on empty model_output_dir", {
   mod_out_path <- system.file("testhubs/empty/model-output", package = "hubUtils")
   expect_snapshot(connect_model_output(mod_out_path), error = TRUE)
   expect_snapshot(connect_model_output(mod_out_path, file_format = "parquet"),
-                  error = TRUE)
+    error = TRUE
+  )
 
   mod_out_path <- s3_bucket("hubverse/hubutils/testhubs/empty/model-output")
   expect_snapshot(connect_model_output(mod_out_path), error = TRUE)
-
 })
 
 
@@ -332,7 +331,8 @@ test_that("connect_hub works on S3 bucket simple forecasting hub on AWS", {
   expect_equal(
     attr(hub_con, "file_format"),
     structure(c(3L, 3L, 1L, 1L), dim = c(2L, 2L), dimnames = list(
-      c("n_open", "n_in_dir"), c("csv", "parquet")))
+      c("n_open", "n_in_dir"), c("csv", "parquet")
+    ))
   )
 
   expect_equal(

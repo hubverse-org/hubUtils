@@ -48,9 +48,11 @@ validate_config <- function(hub_path = ".",
                             config_path = NULL, schema_version = "from_config",
                             branch = "main") {
   if (!(requireNamespace("jsonvalidate"))) {
-    cli::cli_abort("Package {.pkg jsonvalidate} must be installed to use {.fn validate_config}. Please install it to continue.
-
-                   Alternatively, to be able to use all packages required for hub maintainer functionality, re-install {.pkg hubUtils} using argument {.code dependencies = TRUE}")
+    cli::cli_abort(
+      "Package {.pkg jsonvalidate} must be installed to use {.fn validate_config}. Please install it to continue.
+        Alternatively, to be able to use all packages required for hub maintainer functionality,
+        re-install {.pkg hubUtils} using argument {.code dependencies = TRUE}"
+    )
   }
 
   config <- rlang::arg_match(config)
@@ -78,7 +80,7 @@ validate_config <- function(hub_path = ".",
   check_deprecated_schema(
     config_version = get_config_file_schema_version(config_path, config),
     valid_version = "v2.0.0",
-    hubUtils_version = "0.0.0.9010"
+    hubutils_version = "0.0.0.9010"
   )
 
   schema_url <- get_schema_url(
@@ -541,10 +543,14 @@ val_target_key_values <- function(target_keys, model_task_grp,
       ),
       schemaPath = get_error_path(schema, "target_keys", "schema"),
       keyword = "target_keys values",
-      message = glue::glue("target_key value '{valid_target_keys[names(is_invalid_target_key[is_invalid_target_key])]}' does not match any values in corresponding modeling task group task_id"),
+      message = glue::glue(
+        "target_key value '{valid_target_keys[names(is_invalid_target_key[is_invalid_target_key])]}' does not match any values in corresponding modeling task group task_id"
+      ),
       schema = "",
-      data = glue::glue("task_id.{names(is_invalid_target_key)} values: {purrr::map_chr(task_id_values, ~glue::glue_collapse(.x, sep = ', '))};
-            target_key.{names(valid_target_keys)} value: {unlist(valid_target_keys)}")
+      data = glue::glue(
+        "task_id.{names(is_invalid_target_key)} values: {purrr::map_chr(task_id_values, ~glue::glue_collapse(.x, sep = ', '))};
+            target_key.{names(valid_target_keys)} value: {unlist(valid_target_keys)}"
+      )
     )
 
     return(error_row)
@@ -557,7 +563,6 @@ val_target_key_task_id_values <- function(grp_target_keys,
                                           model_task_grp,
                                           model_task_i,
                                           round_i, schema) {
-
   # Get unique values of target key names
   target_key_names <- purrr::map(grp_target_keys, ~ names(.x)) %>%
     unique() %>%
@@ -599,15 +604,24 @@ val_target_key_task_id_values <- function(grp_target_keys,
 
 
   if (length(invalid_task_id_values) != 0) {
+    nms <- names(invalid_task_id_values)
+    tk_unique_vals <- purrr::map_chr( # nolint: object_usage_linter
+      target_key_values[nms],
+      ~ paste(.x, collapse = ", ")
+    )
+    tid_unique_vals <- purrr::map_chr( # nolint: object_usage_linter
+      task_id_values[nms],
+      ~ glue::glue_collapse(.x, sep = ", ")
+    )
+
     error_row <- data.frame(
-      instancePath = paste0(glue::glue(get_error_path(schema, "task_ids", "instance")), "/", names(invalid_task_id_values)),
+      instancePath = paste0(glue::glue(get_error_path(schema, "task_ids", "instance")), "/", nms),
       schemaPath = get_error_path(schema, "task_ids", "schema"),
       keyword = "task_id values",
       message = glue::glue("task_id value(s) '{invalid_task_id_values}' not defined in any corresponding target_key."),
       schema = "",
-      data = glue::glue("task_id.{names(invalid_task_id_values)} unique values: {purrr::map_chr(target_key_values[names(invalid_task_id_values)], ~glue::glue_collapse(.x, sep = ', '))};
-            target_key.{names(invalid_task_id_values)} unique values: {purrr::map_chr(target_key_values[names(invalid_task_id_values)],
-            ~paste(.x, collapse = ', '))}")
+      data = glue::glue("task_id.{nms} unique values: {tid_unique_vals};
+            target_key.{nms} unique values: {tk_unique_vals}")
     )
     return(error_row)
   }
@@ -659,7 +673,8 @@ check_config_schema_version <- function(schema_version, config = c("tasks", "adm
     ))
   }
 
-  check_prefix <- grepl("https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/",
+  check_prefix <- grepl(
+    "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/",
     schema_version,
     fixed = TRUE
   )

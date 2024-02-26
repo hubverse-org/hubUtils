@@ -21,7 +21,8 @@
 #' @param description character string (optional). An optional verbose description
 #' of the target that might include information such as definitions of a 'rate' or similar.
 #' @param target_type character string. Target statistical data type. Consult the
-#' [appropriate version of the hub schema](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#model-tasks-tasks-json-interactive-schema)
+#' [appropriate version of the hub schema](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#model-tasks-tasks-json-interactive-schema)
 #' for potential values.
 #' @param is_step_ahead logical. Whether the target is part of a sequence of values
 #' @param time_unit character string. If `is_step_ahead` is `TRUE`, then this
@@ -30,7 +31,8 @@
 #' @inheritParams create_task_id
 #' @seealso [create_target_metadata()]
 #' @details For more details consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #' @return a named list of class `target_metadata_item`.
 #' @export
 #'
@@ -56,7 +58,7 @@ create_target_metadata_item <- function(target_id, target_name, target_units,
   rlang::check_required(is_step_ahead)
   call <- rlang::current_env()
 
-  schema <- download_schema(schema_version, branch)
+  schema <- download_tasks_schema(schema_version, branch)
   target_metadata_schema <- get_schema_target_metadata(schema)
 
 
@@ -85,14 +87,16 @@ create_target_metadata_item <- function(target_id, target_name, target_units,
 
   purrr::walk(
     property_names[property_names != "target_keys"],
-    ~ check_input(
-      input = get(.x),
-      property = .x,
-      target_metadata_schema,
-      parent_property = NULL,
-      scalar = TRUE,
-      call = call
-    )
+    function(.x) {
+      check_input(
+        input = get(.x),
+        property = .x,
+        target_metadata_schema,
+        parent_property = NULL,
+        scalar = TRUE,
+        call = call
+      )
+    }
   )
 
   check_target_keys(target_keys, call = call)
@@ -110,18 +114,20 @@ check_target_keys <- function(target_keys, call = rlang::caller_env()) {
   }
 
   if (!rlang::is_list(target_keys) || inherits(target_keys, "data.frame")) {
-    cli::cli_abort(c(
-      "!" = "{.arg target_keys} must be a {.cls list} not a
+    cli::cli_abort(
+      c(
+        "!" = "{.arg target_keys} must be a {.cls list} not a
             {.cls {class(target_keys)}}"
-    ),
-    call = call
+      ),
+      call = call
     )
   }
   if (!rlang::is_named(target_keys)) {
-    cli::cli_abort(c(
-      "!" = "{.arg target_keys} must be a named {.cls list}."
-    ),
-    call = call
+    cli::cli_abort(
+      c(
+        "!" = "{.arg target_keys} must be a named {.cls list}."
+      ),
+      call = call
     )
   }
 
@@ -139,13 +145,14 @@ check_target_keys <- function(target_keys, call = rlang::caller_env()) {
 check_target_key_value <- function(target_key, target_key_name,
                                    call = rlang::caller_env()) {
   if (!rlang::is_character(target_key, n = 1)) {
-    cli::cli_abort(c(
-      "!" = "{.arg target_keys} element {.field {target_key_name}} must be
+    cli::cli_abort(
+      c(
+        "!" = "{.arg target_keys} element {.field {target_key_name}} must be
             a {.cls character} vector of length {.val {1L}} not a
             {.cls {class(target_key)}} vector of length
             {.val {length(target_key)}}"
-    ),
-    call = call
+      ),
+      call = call
     )
   }
 }

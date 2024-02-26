@@ -141,7 +141,6 @@ message_opt_tasks <- function(na_cols, n_mt) {
 }
 
 subset_complete_cases <- function(tmpl_df) {
-
   # get complete cases across all columns except 'value'
   cols <- !names(tmpl_df) %in% std_colnames[c("value", "model_id")]
   compl_cases <- stats::complete.cases(tmpl_df[, cols])

@@ -1,0 +1,16 @@
+linters: linters_with_defaults(
+    line_length_linter = line_length_linter(120L),
+    commented_code_linter = NULL,
+    object_length_linter(length = 50L)
+  )
+exclusions: list(
+    "R/validate_config.R" = list(
+      line_length_linter = Inf
+    ),
+    "tests/testthat/test-create_hub_schema.R" = list(
+      line_length_linter = Inf
+    ),
+    "tests/testthat/helper-view-val-tbl.R" = list(
+      object_usage_linter = Inf
+    )
+  )

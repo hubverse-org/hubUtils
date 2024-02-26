@@ -42,8 +42,12 @@ get_error_path <- function(schema, element = "target_metadata",
       unique()
   }
 
-  if (append_item_n &&
-    any(grepl(paste(path, "items", sep = "/"), schema_paths)) &&
+  if (append_item_n && any(
+    grepl(
+      paste(path, "items", sep = "/"),
+      schema_paths
+    )
+  ) &&
     length(path) != 0L
   ) {
     path <- paste(path, "items", sep = "/")

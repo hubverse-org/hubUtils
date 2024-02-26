@@ -12,7 +12,9 @@
 #' @param model_ids A vector of character strings of models for which to load
 #'   metadata. Defaults to NULL, in which case metadata for all models is loaded.
 #'
-#' @return `tibble` with model metadata. One row for each model, one column for each top-level field in the metadata file. For metadata files with nested structures, this tibble may contain list-columns where the entries are lists containing the nested metadata values.
+#' @return `tibble` with model metadata. One row for each model, one column for
+#' each top-level field in the metadata file. For metadata files with nested structures,
+#' this tibble may contain list-columns where the entries are lists containing the nested metadata values.
 #' @export
 #'
 #' @examples
@@ -24,9 +26,9 @@ load_model_metadata <- function(hub_path, model_ids = NULL) {
   UseMethod("load_model_metadata")
 }
 
-
+# cyclomatic complexity of 17 instead of 15 acceptable
 #' @export
-load_model_metadata.default <- function(hub_path, model_ids = NULL) {
+load_model_metadata.default <- function(hub_path, model_ids = NULL) { # nolint: cyclocomp_linter
   if (!dir.exists(hub_path)) {
     cli::cli_abort(c("x" = "{.path {hub_path}} directory does not exist."))
   }
@@ -58,20 +60,22 @@ load_model_metadata.default <- function(hub_path, model_ids = NULL) {
       # the `bind_rows` step below, they do not create a row per list element.
       # Instead the expected single row per model is created.
       purrr::map_if(
-        ~purrr::pluck_depth(.x) > 1L,
-                    ~list(.x))
+        ~ purrr::pluck_depth(.x) > 1L,
+        ~ list(.x)
+      )
   )
 
   # Here we are using dplyr's bind_rows because, in contrast to rbind, it ensures
   # row's are bound using shared names and adds NAs where fields are missing by
   # default. We use do.call for compiling data for more than 1 file.
-  meta_tbl <- try({
-    if (length(meta_l) == 1L) {
-      dplyr::bind_rows(meta_l)
-    } else {
-      do.call(dplyr::bind_rows, meta_l)
-    }
-  },
+  meta_tbl <- try(
+    {
+      if (length(meta_l) == 1L) {
+        dplyr::bind_rows(meta_l)
+      } else {
+        do.call(dplyr::bind_rows, meta_l)
+      }
+    },
     silent = TRUE
   )
   if (inherits(meta_tbl, "try-error")) {
@@ -101,7 +105,8 @@ load_model_metadata.default <- function(hub_path, model_ids = NULL) {
 arrange_meta_tbl <- function(meta_tbl, hub_path) {
   schema_names <- read_config(
     hub_path,
-    config = "model-metadata-schema") %>%
+    config = "model-metadata-schema"
+  ) %>%
     purrr::pluck("properties") %>%
     names()
 
@@ -110,7 +115,7 @@ arrange_meta_tbl <- function(meta_tbl, hub_path) {
 
   # Add columns of missing schema properties
   missing_cols <- setdiff(all_names, meta_names)
-  meta_tbl[,missing_cols] <- NA
+  meta_tbl[, missing_cols] <- NA
 
   meta_names_ordered <- c(
     intersect(c("model_id", "team_abbr", "model_abbr"), all_names),

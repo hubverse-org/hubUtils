@@ -21,17 +21,17 @@ test_that("Creating schema paths works correctly", {
   )
   # Test that custom_task_id returns task_ids/additionalProperties schema path with version >= v2.0.0
   schema <- get_schema(
-      "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json"
+    "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/br-v2.0.0/v2.0.0/tasks-schema.json"
   )
   expect_equal(
-      get_error_path(schema, "custom_task_id", "schema"),
-      "#/properties/rounds/items/properties/model_tasks/items/properties/task_ids/additionalProperties"
+    get_error_path(schema, "custom_task_id", "schema"),
+    "#/properties/rounds/items/properties/model_tasks/items/properties/task_ids/additionalProperties"
   )
 
   # Test that output_type_id schema path returned correctly with version >= v2.0.0
   expect_equal(
-      get_error_path(schema, "mean/properties/output_type_id", "schema"),
-      "#/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/properties/output_type_id"
+    get_error_path(schema, "mean/properties/output_type_id", "schema"),
+    "#/properties/rounds/items/properties/model_tasks/items/properties/output_type/properties/mean/properties/output_type_id" # nolint: line_length_linter
   )
 })
 
@@ -74,16 +74,16 @@ test_that("Creating instance paths works correctly", {
     "/rounds/0"
   )
   expect_equal(
-      glue::glue(get_error_path(schema, "model_tasks", "instance",
-                                append_item_n = TRUE
-      )),
-      "/rounds/0/model_tasks/1"
+    glue::glue(get_error_path(schema, "model_tasks", "instance",
+      append_item_n = TRUE
+    )),
+    "/rounds/0/model_tasks/1"
   )
   expect_equal(
-      glue::glue(get_error_path(schema, "target_metadata", "instance",
-                                append_item_n = TRUE
-      )),
-      "/rounds/0/model_tasks/1/target_metadata/0"
+    glue::glue(get_error_path(schema, "target_metadata", "instance",
+      append_item_n = TRUE
+    )),
+    "/rounds/0/model_tasks/1/target_metadata/0"
   )
 
   # Test that custom tasks ID paths created correctly, including append_item_n value
@@ -101,7 +101,7 @@ test_that("Creating instance paths works correctly", {
 
   # Test that custom tasks ID paths created correctly
   expect_equal(
-      glue::glue(get_error_path(schema, "target_keys", "instance")),
-      "/rounds/0/model_tasks/1/target_metadata/0/target_keys"
+    glue::glue(get_error_path(schema, "target_keys", "instance")),
+    "/rounds/0/model_tasks/1/target_metadata/0/target_keys"
   )
 })

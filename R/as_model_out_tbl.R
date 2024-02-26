@@ -162,12 +162,13 @@ validate_col_input <- function(x, call = rlang::caller_env()) {
 rename_col <- function(x, col_name, old_names, call) {
   arg_name <- rlang::caller_arg(col_name)
   if (!col_name %in% names(x)) {
-    cli::cli_abort(c(
-      "x" = "{.arg {arg_name}} value {.val {col_name}}
+    cli::cli_abort(
+      c(
+        "x" = "{.arg {arg_name}} value {.val {col_name}}
                        not a valid column name in {.arg x}",
-      "!" = "Must be one of {.val {old_names}}"
-    ),
-    call = call
+        "!" = "Must be one of {.val {old_names}}"
+      ),
+      call = call
     )
   } else {
     new_col_name <- gsub("_col", "", arg_name)
@@ -235,12 +236,13 @@ check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
   test_datatype <- function(x, data_type) {
     !any(purrr::map_lgl(
       data_type,
-      ~get(paste0("is.", .x))(x)))
-    }
+      ~ get(paste0("is.", .x))(x)
+    ))
+  }
 
   error_df <- tibble::tibble(
     colname = names(std_col_datatypes),
-    correct_datatype = purrr::map_chr(std_col_datatypes, ~paste(.x, collapse = "/")),
+    correct_datatype = purrr::map_chr(std_col_datatypes, ~ paste(.x, collapse = "/")),
     actual_datatype = purrr::map_chr(
       tbl[, names(std_col_datatypes)],
       ~ class(.x)
@@ -248,7 +250,9 @@ check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
     is_wrong_datatype = purrr::map2_lgl(
       .x = tbl[, names(std_col_datatypes)],
       .y = std_col_datatypes,
-      ~ test_datatype(x = .x, data_type = .y)
+      function(x, y) {
+        test_datatype(x = x, data_type = y)
+      }
     ),
     n_correct_datatypes = lengths(std_col_datatypes)
   )
@@ -267,7 +271,7 @@ check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
 
     error_msg <- c("x" = "{cli::qty(nrow(error_df))} Wrong datatype{?s} detected in standard column{?s}:")
 
-    for (i in 1:nrow(error_df)) {
+    for (i in seq_len(nrow(error_df))) {
       error_msg <- c(error_msg, "!" = compose_error_msg(i))
     }
     cli::cli_abort(error_msg, call = call)

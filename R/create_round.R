@@ -32,12 +32,14 @@
 #'  not allowed in the version of the schema used. It also overrides any specification
 #'  of file format in `admin.json`. For more details on whether this argument can
 #'  be used as well as available formats, please consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #' @return a named list of class `round`.
 #' @export
 #' @seealso [create_rounds()]
 #' @details For more details consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #' @examples
 #' model_tasks <- create_model_tasks(
 #'   create_model_task(
@@ -101,14 +103,11 @@ create_round <- function(round_id_from_variable,
   rlang::check_required(submissions_due)
   call <- rlang::current_env()
 
-
-
   check_object_class(model_tasks, "model_tasks")
 
   schema <- get_schema(attr(model_tasks, "schema_id")) %>%
     jsonlite::fromJSON(simplifyDataFrame = FALSE)
   round_schema <- get_schema_round(schema)
-
 
   property_names <- c(
     "round_id_from_variable", "round_id",
@@ -127,14 +126,16 @@ create_round <- function(round_id_from_variable,
 
   purrr::walk(
     property_names[!property_names %in% c("submissions_due", "model_tasks")],
-    ~ check_input(
-      input = properties[[.x]],
-      property = .x,
-      round_schema,
-      parent_property = NULL,
-      scalar = TRUE,
-      call = call
-    )
+    function(.x) {
+      check_input(
+        input = properties[[.x]],
+        property = .x,
+        round_schema,
+        parent_property = NULL,
+        scalar = TRUE,
+        call = call
+      )
+    }
   )
   check_submission_due(submissions_due, round_schema, model_tasks)
 
@@ -175,11 +176,12 @@ check_round_id_variable <- function(model_tasks, round_id,
 check_submission_due <- function(submissions_due, round_schema, model_tasks,
                                  call = rlang::caller_env()) {
   if (!rlang::is_list(submissions_due) || inherits(submissions_due, "data.frame")) {
-    cli::cli_abort(c(
-      "!" = "{.arg submissions_due} must be a {.cls list} not a
+    cli::cli_abort(
+      c(
+        "!" = "{.arg submissions_due} must be a {.cls list} not a
             {.cls {class(submissions_due)}}"
-    ),
-    call = call
+      ),
+      call = call
     )
   }
 
@@ -193,14 +195,15 @@ check_submission_due <- function(submissions_due, round_schema, model_tasks,
 
 
   if (any(invalid_properties)) {
-    invalid_property_names <- names(submissions_due)[invalid_properties]
-    cli::cli_abort(c(
-      "x" = "Propert{?y/ies} {.val {invalid_property_names}} in
+    invalid_property_names <- names(submissions_due)[invalid_properties] # nolint: object_usage_linter
+    cli::cli_abort(
+      c(
+        "x" = "Propert{?y/ies} {.val {invalid_property_names}} in
             {.arg submissions_due} {?is/are} invalid.",
-      "!" = "Valid {.arg submissions_due} properties:
+        "!" = "Valid {.arg submissions_due} properties:
             {.val {schema_valid_names}}"
-    ),
-    call = call
+      ),
+      call = call
     )
   }
 
@@ -248,7 +251,9 @@ check_relative_to_variable <- function(submissions_due, model_tasks,
   relative_to_value <- submissions_due$relative_to
   invalid_relative_to <- purrr::map_lgl(
     model_tasks,
-    ~ !relative_to_value %in% names(.x$task_ids)
+    function(.x) {
+      !relative_to_value %in% names(.x$task_ids)
+    }
   )
 
   if (any(invalid_relative_to)) {

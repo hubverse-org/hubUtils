@@ -68,23 +68,25 @@ create_model_task <- function(task_ids, output_type, target_metadata) {
     )
   )
 
-  schema_id <- check_schema_ids(list(
-    task_ids,
-    output_type,
-    target_metadata
-  ),
-  call = call
+  schema_id <- check_schema_ids(
+    list(
+      task_ids,
+      output_type,
+      target_metadata
+    ),
+    call = call
   )
 
   check_target_key_valid(target_metadata, task_ids, call)
 
-  structure(c(
-    task_ids,
-    output_type,
-    target_metadata
-  ),
-  class = c("model_task", "list"),
-  schema_id = schema_id
+  structure(
+    c(
+      task_ids,
+      output_type,
+      target_metadata
+    ),
+    class = c("model_task", "list"),
+    schema_id = schema_id
   )
 }
 
@@ -140,7 +142,7 @@ check_object_class <- function(object, class, call = rlang::caller_env()) {
 }
 
 
-check_task_id_target_key_values <- function(target_key_name, task_ids,
+check_task_id_target_key_values <- function(target_key_name, task_ids, # nolint: object_length_linter
                                             target_keys, call = rlang::caller_env()) {
   task_id_values <- unlist(task_ids$task_ids[[target_key_name]]) %>%
     unique() %>%

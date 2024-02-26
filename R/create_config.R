@@ -9,7 +9,8 @@
 #' @export
 #' @seealso [create_rounds()]
 #' @details For more details consult
-#' the [documentation on `tasks.json` Hub config files](https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
+#' the [documentation on `tasks.json` Hub config files](
+#' https://hubdocs.readthedocs.io/en/latest/format/hub-metadata.html#hub-model-task-metadata-tasks-json-file).
 #'
 #' @examples
 #' rounds <- create_rounds(
@@ -66,7 +67,6 @@
 #' create_config(rounds)
 create_config <- function(rounds) {
   rlang::check_required(rounds)
-  call <- rlang::current_env()
 
   check_object_class(rounds, "rounds")
 

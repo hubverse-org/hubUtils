@@ -9,9 +9,8 @@
 #' get_round_task_id_names(config_tasks, round_id = "2022-10-08")
 #' get_round_task_id_names(config_tasks, round_id = "2022-10-15")
 get_round_task_id_names <- function(config_tasks, round_id) {
-    get_round_model_tasks(config_tasks, round_id) %>%
-        purrr::map(~ .x[["task_ids"]] %>%
-                       names()) %>%
-        unlist() %>%
-        unique()
+  get_round_model_tasks(config_tasks, round_id) %>%
+    purrr::map(~ names(.x[["task_ids"]])) %>%
+    unlist() %>%
+    unique()
 }
