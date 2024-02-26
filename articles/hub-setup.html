@@ -33,7 +33,7 @@
     <a href="https://hubdocs.readthedocs.io/en/latest/" class="external-link"><img src="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/hubStyle/main/inst/hubverse.png" id="logo" height="30" alt="hubverse"></a>
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9018</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9019</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,8 +137,8 @@ version specified in the <code>schema_version</code> property of the
 config file being validated.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_config.html">validate_config</a></span><span class="op">(</span></span>
-<span>    hub_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span>,</span>
-<span>    config <span class="op">=</span> <span class="st">"tasks"</span></span>
+<span>  hub_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span>,</span>
+<span>  config <span class="op">=</span> <span class="st">"tasks"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required namespace: jsonvalidate</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json&gt;</span></span></span>
@@ -163,9 +163,9 @@ branch (e.g. an upcoming development version) through argument
 <code>branch</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_config.html">validate_config</a></span><span class="op">(</span></span>
-<span>    hub_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span>,</span>
-<span>    config <span class="op">=</span> <span class="st">"tasks"</span>,</span>
-<span>    schema_version <span class="op">=</span> <span class="st">"v0.0.0.9"</span></span>
+<span>  hub_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span>,</span>
+<span>  config <span class="op">=</span> <span class="st">"tasks"</span>,</span>
+<span>  schema_version <span class="op">=</span> <span class="st">"v0.0.0.9"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Schema errors detected in config file</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span></span></span>
@@ -361,9 +361,9 @@ branch (e.g. an upcoming development version) through argument
 <span><span class="co">#&gt; https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_config.html">validate_config</a></span><span class="op">(</span></span>
-<span>    hub_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span>,</span>
-<span>    config <span class="op">=</span> <span class="st">"tasks"</span>,</span>
-<span>    schema_version <span class="op">=</span> <span class="st">"latest"</span></span>
+<span>  hub_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span>,</span>
+<span>  config <span class="op">=</span> <span class="st">"tasks"</span>,</span>
+<span>  schema_version <span class="op">=</span> <span class="st">"latest"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json&gt;</span></span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
@@ -381,8 +381,9 @@ branch (e.g. an upcoming development version) through argument
 the <code>ajv</code> validation engine used is also attached as
 attribute <code>"errors"</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">config_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"error-schema/tasks-errors.json"</span>, </span>
-<span>                           package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">config_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"error-schema/tasks-errors.json"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"hubUtils"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_config.html">validate_config</a></span><span class="op">(</span>config_path <span class="op">=</span> <span class="va">config_path</span>, config <span class="op">=</span> <span class="st">"tasks"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Hub configured using schema version <span style="color: #00BB00;">v0.0.0.9</span>. Support for schema earlier than</span></span>
@@ -775,23 +776,23 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
 <span><span class="co">#&gt; validated against schema</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/tasks-schema.json&gt;</span></span></span>
 <span><span class="fu"><a href="../reference/view_config_val_errors.html">view_config_val_errors</a></span><span class="op">(</span><span class="va">validation</span><span class="op">)</span></span></code></pre></div>
-<div id="kcuvblcaky" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kcuvblcaky table {
+<div id="dvofbdjdks" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dvofbdjdks table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kcuvblcaky thead, #kcuvblcaky tbody, #kcuvblcaky tfoot, #kcuvblcaky tr, #kcuvblcaky td, #kcuvblcaky th {
+#dvofbdjdks thead, #dvofbdjdks tbody, #dvofbdjdks tfoot, #dvofbdjdks tr, #dvofbdjdks td, #dvofbdjdks th {
   border-style: none;
 }
 
-#kcuvblcaky p {
+#dvofbdjdks p {
   margin: 0;
   padding: 0;
 }
 
-#kcuvblcaky .gt_table {
+#dvofbdjdks .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -817,12 +818,12 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-left-color: #D3D3D3;
 }
 
-#kcuvblcaky .gt_caption {
+#dvofbdjdks .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kcuvblcaky .gt_title {
+#dvofbdjdks .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -834,7 +835,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-bottom-width: 0;
 }
 
-#kcuvblcaky .gt_subtitle {
+#dvofbdjdks .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -846,7 +847,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-top-width: 0;
 }
 
-#kcuvblcaky .gt_heading {
+#dvofbdjdks .gt_heading {
   background-color: #F0F3F5;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -858,13 +859,13 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-right-color: #D3D3D3;
 }
 
-#kcuvblcaky .gt_bottom_border {
+#dvofbdjdks .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kcuvblcaky .gt_col_headings {
+#dvofbdjdks .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -879,7 +880,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-right-color: #D3D3D3;
 }
 
-#kcuvblcaky .gt_col_heading {
+#dvofbdjdks .gt_col_heading {
   color: #333333;
   background-color: #F0F3F5;
   font-size: 100%;
@@ -899,7 +900,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   overflow-x: hidden;
 }
 
-#kcuvblcaky .gt_column_spanner_outer {
+#dvofbdjdks .gt_column_spanner_outer {
   color: #333333;
   background-color: #F0F3F5;
   font-size: 100%;
@@ -911,15 +912,15 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 4px;
 }
 
-#kcuvblcaky .gt_column_spanner_outer:first-child {
+#dvofbdjdks .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kcuvblcaky .gt_column_spanner_outer:last-child {
+#dvofbdjdks .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kcuvblcaky .gt_column_spanner {
+#dvofbdjdks .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -931,11 +932,11 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   width: 100%;
 }
 
-#kcuvblcaky .gt_spanner_row {
+#dvofbdjdks .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kcuvblcaky .gt_group_heading {
+#dvofbdjdks .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -961,7 +962,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   text-align: left;
 }
 
-#kcuvblcaky .gt_empty_group_heading {
+#dvofbdjdks .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -976,15 +977,15 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   vertical-align: middle;
 }
 
-#kcuvblcaky .gt_from_md > :first-child {
+#dvofbdjdks .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kcuvblcaky .gt_from_md > :last-child {
+#dvofbdjdks .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kcuvblcaky .gt_row {
+#dvofbdjdks .gt_row {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -1003,7 +1004,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   overflow-x: hidden;
 }
 
-#kcuvblcaky .gt_stub {
+#dvofbdjdks .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1016,7 +1017,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 5px;
 }
 
-#kcuvblcaky .gt_stub_row_group {
+#dvofbdjdks .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1030,15 +1031,15 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   vertical-align: top;
 }
 
-#kcuvblcaky .gt_row_group_first td {
+#dvofbdjdks .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kcuvblcaky .gt_row_group_first th {
+#dvofbdjdks .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kcuvblcaky .gt_summary_row {
+#dvofbdjdks .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1048,16 +1049,16 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 5px;
 }
 
-#kcuvblcaky .gt_first_summary_row {
+#dvofbdjdks .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kcuvblcaky .gt_first_summary_row.thick {
+#dvofbdjdks .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kcuvblcaky .gt_last_summary_row {
+#dvofbdjdks .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1067,7 +1068,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#kcuvblcaky .gt_grand_summary_row {
+#dvofbdjdks .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1077,7 +1078,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 5px;
 }
 
-#kcuvblcaky .gt_first_grand_summary_row {
+#dvofbdjdks .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1087,7 +1088,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-top-color: #D3D3D3;
 }
 
-#kcuvblcaky .gt_last_grand_summary_row_top {
+#dvofbdjdks .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1097,11 +1098,11 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#kcuvblcaky .gt_striped {
+#dvofbdjdks .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kcuvblcaky .gt_table_body {
+#dvofbdjdks .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1110,7 +1111,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-bottom-color: #D3D3D3;
 }
 
-#kcuvblcaky .gt_footnotes {
+#dvofbdjdks .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1124,7 +1125,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-right-color: #D3D3D3;
 }
 
-#kcuvblcaky .gt_footnote {
+#dvofbdjdks .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1133,7 +1134,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 5px;
 }
 
-#kcuvblcaky .gt_sourcenotes {
+#dvofbdjdks .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1147,7 +1148,7 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   border-right-color: #D3D3D3;
 }
 
-#kcuvblcaky .gt_sourcenote {
+#dvofbdjdks .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1155,63 +1156,63 @@ concise version of the errors table in the Viewer panel in Rstudio.</p>
   padding-right: 5px;
 }
 
-#kcuvblcaky .gt_left {
+#dvofbdjdks .gt_left {
   text-align: left;
 }
 
-#kcuvblcaky .gt_center {
+#dvofbdjdks .gt_center {
   text-align: center;
 }
 
-#kcuvblcaky .gt_right {
+#dvofbdjdks .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kcuvblcaky .gt_font_normal {
+#dvofbdjdks .gt_font_normal {
   font-weight: normal;
 }
 
-#kcuvblcaky .gt_font_bold {
+#dvofbdjdks .gt_font_bold {
   font-weight: bold;
 }
 
-#kcuvblcaky .gt_font_italic {
+#dvofbdjdks .gt_font_italic {
   font-style: italic;
 }
 
-#kcuvblcaky .gt_super {
+#dvofbdjdks .gt_super {
   font-size: 65%;
 }
 
-#kcuvblcaky .gt_footnote_marks {
+#dvofbdjdks .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kcuvblcaky .gt_asterisk {
+#dvofbdjdks .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kcuvblcaky .gt_indent_1 {
+#dvofbdjdks .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kcuvblcaky .gt_indent_2 {
+#dvofbdjdks .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kcuvblcaky .gt_indent_3 {
+#dvofbdjdks .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kcuvblcaky .gt_indent_4 {
+#dvofbdjdks .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kcuvblcaky .gt_indent_5 {
+#dvofbdjdks .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1430,7 +1431,7 @@ each file. By default it uses “from_config” as the
 using the same schema version.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_hub_config.html">validate_hub_config</a></span><span class="op">(</span></span>
-<span>    hub_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span></span>
+<span>  hub_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Hub correctly configured! </span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">admin.json</span>, <span style="color: #0000BB;">tasks.json</span> and <span style="color: #0000BB;">model-metadata-schema.json</span> all valid.</span></span>
@@ -1467,8 +1468,8 @@ using the same schema version.</p>
 latest version of the schema.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/validate_config.html">validate_config</a></span><span class="op">(</span></span>
-<span>    hub_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span>,</span>
-<span>    schema_version <span class="op">=</span> <span class="st">"latest"</span></span>
+<span>  hub_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/simple/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span>,</span>
+<span>  schema_version <span class="op">=</span> <span class="st">"latest"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Successfully validated config file <span style="color: #0000BB;">/home/runner/work/_temp/Library/hubUtils/testhubs/simple/hub-config/tasks.json</span> against schema <span style="color: #0000BB; font-style: italic;">&lt;https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json&gt;</span></span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
