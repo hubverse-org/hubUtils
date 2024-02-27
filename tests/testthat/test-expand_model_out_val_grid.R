@@ -1,5 +1,5 @@
 test_that("expand_model_out_val_grid works correctly", {
-  hub_con <- connect_hub(
+  hub_con <- hubData::connect_hub(
     system.file("testhubs/flusight", package = "hubUtils")
   )
   config_tasks <- attr(hub_con, "config_tasks")
@@ -18,7 +18,7 @@ test_that("expand_model_out_val_grid works correctly", {
   ))
 
   # Specifying a round in a hub with multiple rounds
-  hub_con <- connect_hub(
+  hub_con <- hubData::connect_hub(
     system.file("testhubs/simple", package = "hubUtils")
   )
   config_tasks <- attr(hub_con, "config_tasks")
@@ -72,7 +72,7 @@ test_that("expand_model_out_val_grid works correctly", {
 })
 
 test_that("Setting of round_id value works correctly", {
-  hub_con <- connect_hub(
+  hub_con <- hubData::connect_hub(
     system.file("testhubs/simple", package = "hubUtils")
   )
   config_tasks <- attr(hub_con, "config_tasks")
@@ -99,7 +99,7 @@ test_that("Setting of round_id value works correctly", {
 
 
   # Test in hub with single round
-  hub_con <- connect_hub(
+  hub_con <- hubData::connect_hub(
     system.file("testhubs/flusight", package = "hubUtils")
   )
   config_tasks <- attr(hub_con, "config_tasks")
@@ -118,7 +118,7 @@ test_that("Setting of round_id value works correctly", {
 
 
 test_that("expand_model_out_val_grid output controls work correctly", {
-  hub_con <- connect_hub(
+  hub_con <- hubData::connect_hub(
     system.file("testhubs/flusight", package = "hubUtils")
   )
   config_tasks <- attr(hub_con, "config_tasks")
@@ -173,7 +173,7 @@ test_that("expand_model_out_val_grid output controls work correctly", {
 
 test_that("expand_model_out_val_grid errors correctly", {
   # Specifying a round in a hub with multiple rounds
-  hub_con <- connect_hub(system.file("testhubs/simple", package = "hubUtils"))
+  hub_con <- hubData::connect_hub(system.file("testhubs/simple", package = "hubUtils"))
   config_tasks <- attr(hub_con, "config_tasks")
 
   expect_snapshot(
@@ -188,7 +188,7 @@ test_that("expand_model_out_val_grid errors correctly", {
     error = TRUE
   )
 
-  hub_con <- connect_hub(
+  hub_con <- hubData::connect_hub(
     system.file("testhubs/flusight", package = "hubUtils")
   )
   config_tasks <- attr(hub_con, "config_tasks")
