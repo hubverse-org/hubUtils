@@ -1,6 +1,6 @@
 Package: hubUtils
 Title: Utility functions for Infectious Disease Modeling Hubs
-Version: 0.0.0.9019
+Version: 0.0.1
 Authors@R: 
     c(person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2378-4915")),
@@ -23,28 +23,28 @@ Imports:
     arrow (>= 12.0.0),
     checkmate,
     cli,
-    dplyr,
-    fs,
     glue,
-    gt (>= 0.10.0),
-    jsonlite,
-    jsonvalidate,
     lifecycle,
     magrittr,
     memoise,
     purrr,
     rlang,
     stringr,
-    tibble,
-    yaml
+    tibble
 Suggests: 
     covr,
     curl,
     digest,
+    fs,
     gh,
+    hubAdmin,
+    hubData,
     mockery,
     rmarkdown,
     testthat (>= 3.2.0)
+Remotes:
+    Infectious-Disease-Modeling-Hubs/hubData
+    Infectious-Disease-Modeling-Hubs/hubAdmin
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
