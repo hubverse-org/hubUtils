@@ -25,7 +25,7 @@ Get task ID names for a given round
 }
 \examples{
 hub_path <- system.file("testhubs/simple", package = "hubUtils")
-config_tasks <- hubUtils::read_config(hub_path, "tasks")
+config_tasks <- read_config(hub_path, "tasks")
 get_round_task_id_names(config_tasks, round_id = "2022-10-08")
 get_round_task_id_names(config_tasks, round_id = "2022-10-15")
 }

@@ -2,7 +2,7 @@
 #'
 #' @param config_tasks a list version of the content's of a hub's `tasks.json`
 #' config file, accessed through the `"config_tasks"` attribute of a `<hub_connection>`
-#' object or function [hubUtils::read_config()].
+#' object or function [read_config()].
 #' @param round_id Character string. Round identifier. If the round is set to
 #' `round_id_from_variable: true`, IDs are values of the task ID defined in the round's
 #' `round_id` property of `config_tasks`.
@@ -189,7 +189,7 @@ process_mt_grid_outputs <- function(x, config_tasks, all_character,
       unique()
 
     schema_cols <- names(
-      hubUtils::create_hub_schema(
+      create_hub_schema(
         config_tasks,
         partitions = NULL
       )
@@ -200,7 +200,7 @@ process_mt_grid_outputs <- function(x, config_tasks, all_character,
 
   if (all_character) {
     x <- purrr::map(
-      x, ~ hubUtils::coerce_to_character(
+      x, ~ coerce_to_character(
         .x,
         as_arrow_table = as_arrow_table
       )
@@ -208,7 +208,7 @@ process_mt_grid_outputs <- function(x, config_tasks, all_character,
   } else {
     x <- purrr::map(
       x,
-      ~ hubUtils::coerce_to_hub_schema(
+      ~ coerce_to_hub_schema(
         .x,
         config_tasks,
         as_arrow_table = as_arrow_table
