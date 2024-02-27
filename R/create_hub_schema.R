@@ -237,10 +237,3 @@ get_partition_r_datatype <- function(partitions, arrow_datatypes) {
     }
   )
 }
-
-extract_schema_version <- function(schema_version_url) {
-  stringr::str_extract(
-    schema_version_url,
-    "v([0-9]\\.){2}[0-9](\\.[0-9]+)?"
-  )
-}

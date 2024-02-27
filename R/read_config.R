@@ -1,7 +1,7 @@
 #' Read a hub config file into R
 #'
 #' @param hub_path Either a character string path to a local Modeling Hub directory
-#' or an object of class `<SubTreeFileSystem>` created using functions [s3_bucket()]
+#' or an object of class `<SubTreeFileSystem>` created using functions [hubData::s3_bucket()]
 #' or [gs_bucket()] by providing a string S3 or GCS bucket name or path to a
 #' Modeling Hub directory stored in the cloud.
 #' For more details consult the
@@ -18,7 +18,7 @@
 #' read_config(hub_path, "tasks")
 #' read_config(hub_path, "admin")
 #' # Read config file from AWS S3 bucket hub
-#' hub_path <- s3_bucket("hubverse/hubutils/testhubs/simple/")
+#' hub_path <- hubData::s3_bucket("hubverse/hubutils/testhubs/simple/")
 #' read_config(hub_path, "admin")
 read_config <- function(hub_path, config = c("tasks", "admin", "model-metadata-schema")) {
   UseMethod("read_config")

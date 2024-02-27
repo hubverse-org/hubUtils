@@ -64,7 +64,7 @@ returned.
 
 }}
 \examples{
-hub_con <- connect_hub(system.file("testhubs/simple", package = "hubUtils"))
+hub_con <- hubData::connect_hub(system.file("testhubs/simple", package = "hubUtils"))
 config_tasks <- attr(hub_con, "config_tasks")
 # Get round IDs
 get_round_ids(config_tasks)
