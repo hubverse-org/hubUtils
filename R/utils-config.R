@@ -10,11 +10,11 @@
 #' config_tasks <- read_config(hub_path, "tasks")
 #' get_task_id_names(config_tasks)
 get_task_id_names <- function(config_tasks) {
-    purrr::map(
-        config_tasks[["rounds"]],
-        ~ .x[["model_tasks"]]
-    ) %>%
-        purrr::map(~ names(.x[[1]][["task_ids"]])) %>%
-        unlist() %>%
-        unique()
+  purrr::map(
+    config_tasks[["rounds"]],
+    ~ .x[["model_tasks"]]
+  ) %>%
+    purrr::map(~ names(.x[[1]][["task_ids"]])) %>%
+    unlist() %>%
+    unique()
 }

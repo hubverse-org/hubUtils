@@ -16,15 +16,15 @@
 #' get_schema_url(config = "tasks", version = "v0.0.0.9")
 get_schema_url <- function(config = c("tasks", "admin", "model"),
                            version, branch = "main") {
-    config <- rlang::arg_match(config)
-    rlang::check_required(version)
+  config <- rlang::arg_match(config)
+  rlang::check_required(version)
 
-    # Ensure the version determined is valid and a folder exists in our GitHub schema
-    # repo
-    validate_schema_version(version, branch = branch)
+  # Ensure the version determined is valid and a folder exists in our GitHub schema
+  # repo
+  validate_schema_version(version, branch = branch)
 
-    schema_repo <- "Infectious-Disease-Modeling-Hubs/schemas"
-    glue::glue("https://raw.githubusercontent.com/{schema_repo}/{branch}/{version}/{config}-schema.json")
+  schema_repo <- "Infectious-Disease-Modeling-Hubs/schemas"
+  glue::glue("https://raw.githubusercontent.com/{schema_repo}/{branch}/{version}/{config}-schema.json")
 }
 
 #' Get a vector of valid schema version
@@ -38,28 +38,28 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 #' @examples
 #' get_schema_valid_versions()
 get_schema_valid_versions <- function(branch = "main") {
-    branches <- gh::gh(
-        "GET /repos/Infectious-Disease-Modeling-Hubs/schemas/branches"
-    ) %>%
-        vapply("[[", "", "name")
+  branches <- gh::gh(
+    "GET /repos/Infectious-Disease-Modeling-Hubs/schemas/branches"
+  ) %>%
+    vapply("[[", "", "name")
 
-    if (!branch %in% branches) {
-        cli::cli_abort(c(
-            "x" = "{.val {branch}} is not a valid branch in schema repository
+  if (!branch %in% branches) {
+    cli::cli_abort(c(
+      "x" = "{.val {branch}} is not a valid branch in schema repository
                    {.url https://github.com/Infectious-Disease-Modeling-Hubs/schemas/branches}",
-            "i" = "Current valid branches are: {.val {branches}}"
-        ))
-    }
+      "i" = "Current valid branches are: {.val {branches}}"
+    ))
+  }
 
-    req <- gh::gh("GET /repos/Infectious-Disease-Modeling-Hubs/schemas/git/trees/{branch}",
-                  branch = branch
-    )
+  req <- gh::gh("GET /repos/Infectious-Disease-Modeling-Hubs/schemas/git/trees/{branch}",
+    branch = branch
+  )
 
-    types <- vapply(req$tree, "[[", "", "type")
-    paths <- vapply(req$tree, "[[", "", "path")
-    dirs_lgl <- types == "tree" & grepl("^v([0-9]\\.){2}[0-9](\\.[0-9]+)?", paths)
+  types <- vapply(req$tree, "[[", "", "type")
+  paths <- vapply(req$tree, "[[", "", "path")
+  dirs_lgl <- types == "tree" & grepl("^v([0-9]\\.){2}[0-9](\\.[0-9]+)?", paths)
 
-    paths[dirs_lgl]
+  paths[dirs_lgl]
 }
 
 #' Download a schema
@@ -73,25 +73,25 @@ get_schema_valid_versions <- function(branch = "main") {
 #' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
 #' get_schema(schema_url)
 get_schema <- function(schema_url) {
-    response <- try(curl::curl_fetch_memory(schema_url), silent = TRUE)
+  response <- try(curl::curl_fetch_memory(schema_url), silent = TRUE)
 
-    if (inherits(response, "try-error")) {
-        cli::cli_abort(
-            "Connection to schema repository failed. Please check your internet connection.
+  if (inherits(response, "try-error")) {
+    cli::cli_abort(
+      "Connection to schema repository failed. Please check your internet connection.
             If the problem persists, please open an issue at:
             {.url https://github.com/Infectious-Disease-Modeling-Hubs/schemas}"
-        )
-    }
+    )
+  }
 
-    if (response$status_code == 200L) {
-        response$content %>%
-            rawToChar() %>%
-            jsonlite::prettify()
-    } else {
-        cli::cli_abort(
-            "Attempt to download schema from {.url {schema_url}} failed with status code: {.field {response$status_code}}."
-        )
-    }
+  if (response$status_code == 200L) {
+    response$content %>%
+      rawToChar() %>%
+      jsonlite::prettify()
+  } else {
+    cli::cli_abort(
+      "Attempt to download schema from {.url {schema_url}} failed with status code: {.field {response$status_code}}."
+    )
+  }
 }
 
 #' Get the latest schema version
@@ -110,25 +110,25 @@ get_schema <- function(schema_url) {
 #' get_schema_version_latest(schema_version = "v1.0.0")
 get_schema_version_latest <- function(schema_version = "latest",
                                       branch = "main") {
-    if (schema_version == "latest") {
-        get_schema_valid_versions(branch = branch) %>%
-            sort() %>%
-            utils::tail(1)
-    } else {
-        schema_version
-    }
+  if (schema_version == "latest") {
+    get_schema_valid_versions(branch = branch) %>%
+      sort() %>%
+      utils::tail(1)
+  } else {
+    schema_version
+  }
 }
 
 validate_schema_version <- function(schema_version, branch) {
-    valid_versions <- get_schema_valid_versions(branch = branch)
+  valid_versions <- get_schema_valid_versions(branch = branch)
 
-    if (schema_version %in% valid_versions) {
-        invisible(schema_version)
-    } else {
-        cli::cli_abort(
-            "{.val {schema_version}} is not a valid schema version.
+  if (schema_version %in% valid_versions) {
+    invisible(schema_version)
+  } else {
+    cli::cli_abort(
+      "{.val {schema_version}} is not a valid schema version.
             Current valid schema version{?s} {?is/are}: {.val {valid_versions}}.
             For more details, visit {.url https://github.com/Infectious-Disease-Modeling-Hubs/schemas}"
-        )
-    }
+    )
+  }
 }
