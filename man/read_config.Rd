@@ -9,7 +9,7 @@ read_config(hub_path, config = c("tasks", "admin", "model-metadata-schema"))
 \arguments{
 \item{hub_path}{Either a character string path to a local Modeling Hub directory
 or an object of class \verb{<SubTreeFileSystem>} created using functions \code{\link[hubData:s3_bucket]{hubData::s3_bucket()}}
-or \code{\link[=gs_bucket]{gs_bucket()}} by providing a string S3 or GCS bucket name or path to a
+or \code{\link[hubData:gs_bucket]{hubData::gs_bucket()}} by providing a string S3 or GCS bucket name or path to a
 Modeling Hub directory stored in the cloud.
 For more details consult the
 \href{https://arrow.apache.org/docs/r/articles/fs.html}{Using cloud storage (S3, GCS)}
