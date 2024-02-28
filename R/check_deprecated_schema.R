@@ -40,6 +40,7 @@ deprecate_schema_warn <- function(config_version, valid_version, hubutils_versio
     hubutils_version,
     I(what),
     details = details,
+    env = rlang::caller_env(),
     user_env = .GlobalEnv
   )
 }
