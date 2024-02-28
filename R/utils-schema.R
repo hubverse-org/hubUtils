@@ -94,6 +94,31 @@ get_schema <- function(schema_url) {
     }
 }
 
+#' Get the latest schema version
+#'
+#' Get the latest schema version from the schema repository if "latest" requested
+#' (default) or ignore if specific version provided.
+#' @inheritParams get_schema_url
+#' @param schema_version A character vector. Either "latest" or a valid schema version.
+#'
+#' @return a schema version string. If `schema_version` is "latest", the latest schema
+#' version from the schema repository. If specific version provided to `schema_version`, the same version is returned.
+#' @export
+#'
+#' @examples
+#' get_schema_version_latest()
+#' get_schema_version_latest(schema_version = "v1.0.0")
+get_schema_version_latest <- function(schema_version = "latest",
+                                      branch = "main") {
+    if (schema_version == "latest") {
+        get_schema_valid_versions(branch = branch) %>%
+            sort() %>%
+            utils::tail(1)
+    } else {
+        schema_version
+    }
+}
+
 validate_schema_version <- function(schema_version, branch) {
     valid_versions <- get_schema_valid_versions(branch = branch)
 

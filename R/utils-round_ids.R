@@ -1,10 +1,16 @@
 #' Utilities for accessing round ID metadata
 #'
-#' @inheritParams expand_model_out_val_grid
+#' @param config_tasks a list version of the content's of a hub's `tasks.json`
+#' config file, accessed through the `"config_tasks"` attribute of a `<hub_connection>`
+#' object or function [read_config()].
+#' @param round_id Character string. Round identifier. If the round is set to
+#' `round_id_from_variable: true`, IDs are values of the task ID defined in the round's
+#' `round_id` property of `config_tasks`.
+#' Otherwise should match round's `round_id` value in config. Ignored if hub
+#' contains only a single round.
 #' @export
 #' @describeIn get_round_idx Get an integer index of the element in
 #' `config_tasks$rounds` that a character round identifier maps to.
-#'
 #' @examples
 #' hub_con <- hubData::connect_hub(system.file("testhubs/simple", package = "hubUtils"))
 #' config_tasks <- attr(hub_con, "config_tasks")
@@ -25,7 +31,6 @@ get_round_idx <- function(config_tasks, round_id) {
     which()
 }
 
-#' @inheritParams expand_model_out_val_grid
 #' @param flatten Character. Whether and how much to flatten output.
 #'  - `"all"`: Complete flattening.
 #'  Returns a character vector of unique round IDs across all rounds.
