@@ -10,7 +10,7 @@ validate_model_out_tbl(tbl)
 \item{tbl}{a \code{model_out_tbl} S3 class object.}
 }
 \value{
-If valid, retunrs \code{tbl}. Otherwise throws an error.
+If valid, returns a \code{tbl}. Otherwise throws an error.
 }
 \description{
 Validate a \code{model_out_tbl} object.
