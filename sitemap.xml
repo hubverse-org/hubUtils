@@ -16,15 +16,6 @@
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/articles/connect_hub.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/articles/hub-setup.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/articles/index.html</loc>
-  </url>
-  <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/authors.html</loc>
   </url>
   <url>
@@ -37,58 +28,16 @@
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/as_model_out_tbl.html</loc>
   </url>
   <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/coerce_to_hub_schema.html</loc>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/check_deprecated_schema.html</loc>
   </url>
   <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/connect_hub.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_config.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_hub_schema.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_model_out_submit_tmpl.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_model_task.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_model_tasks.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_output_type.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_output_type_mean.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_output_type_quantile.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_round.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_rounds.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_target_metadata.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_target_metadata_item.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_task_id.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/create_task_ids.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/expand_model_out_val_grid.html</loc>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/get_config_tid.html</loc>
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/get_round_idx.html</loc>
+  </url>
+  <url>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/get_round_model_tasks.html</loc>
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/get_round_task_id_names.html</loc>
@@ -103,19 +52,13 @@
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/get_schema_valid_versions.html</loc>
   </url>
   <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/gs_bucket.html</loc>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/get_schema_version_latest.html</loc>
   </url>
   <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/hub_locations_eu.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/hub_locations_us.html</loc>
+    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/get_task_id_names.html</loc>
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/load_model_metadata.html</loc>
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/model_id_merge.html</loc>
@@ -124,30 +67,12 @@
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/print.hub_connection.html</loc>
-  </url>
-  <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/read_config.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/s3_bucket.html</loc>
   </url>
   <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/std_colnames.html</loc>
   </url>
   <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_config.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_hub_config.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_model_metadata_schema.html</loc>
-  </url>
-  <url>
     <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/validate_model_out_tbl.html</loc>
-  </url>
-  <url>
-    <loc>https://infectious-disease-modeling-hubs.github.io/hubUtils/reference/view_config_val_errors.html</loc>
   </url>
 </urlset>

@@ -10,7 +10,7 @@
     <a href="https://hubdocs.readthedocs.io/en/latest/" class="external-link"><img src="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/hubStyle/main/inst/hubverse.png" id="logo" height="30" alt="hubverse"></a>
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9019</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,13 +23,6 @@
 
       <ul class="navbar-nav"><li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/connect_hub.html">Accessing data from a hub</a>
-    <a class="dropdown-item" href="../articles/hub-setup.html">Setting up a Hub</a>
-  </div>
 </li>
 <li class="active nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
@@ -52,6 +45,22 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.1" id="hubutils-001-major-release">hubUtils 0.0.1 MAJOR RELEASE<a class="anchor" aria-label="anchor" href="#hubutils-001-major-release"></a></h2>
+<ul><li>First <strong>major release of <code>hubUtils</code> package</strong> containing significant breaking changes. Much of the package has been moved and split across two smaller and more dedicated packages:
+<ul><li>
+<strong><code>hubData</code> package</strong>: contains functions for connecting to and interacting with hub data.
+<ul><li>Exported functions moved to <code>hubData</code>: <code>connect_hub()</code>, <code>connect_model_output()</code>, <code>expand_model_out_val_grid()</code>, <code>create_model_out_submit_tmpl()</code>, <code>coerce_to_character()</code>, <code>coerce_to_hub_schema()</code> and <code>create_hub_schema()</code>.</li>
+<li>
+<code>hubUtils</code> functions re-exported to <code>hubData</code>: <code><a href="../reference/as_model_out_tbl.html">as_model_out_tbl()</a></code>, <code><a href="../reference/validate_model_out_tbl.html">validate_model_out_tbl()</a></code>, <code><a href="../reference/model_id_merge.html">model_id_split()</a></code> and <code><a href="../reference/model_id_merge.html">model_id_merge()</a></code>.</li>
+</ul></li>
+<li>
+<strong><code>hubAdmin</code> package</strong>: contains functions for administering Hubs, in particular creating and validating hub configuration files. Exported functions moved to <code>hubAdmin</code>:
+<ul><li>Functions for creating config files: <code>create_config()</code>, <code>create_model_task()</code>, <code>create_model_tasks()</code>, <code>create_output_type()</code>, <code>create_output_type_cdf()</code>, <code>create_output_type_mean()</code>, <code>create_output_type_median()</code>, <code>create_output_type_pmf()</code>, <code>create_output_type_quantile()</code>, <code>create_output_type_sample()</code>, <code>create_round()</code>, <code>create_rounds()</code>, <code>create_target_metadata()</code>, <code>create_target_metadata_item()</code>, <code>create_task_id()</code>, <code>create_task_ids()</code>.</li>
+<li>Functions for validating config files: <code>validate_config()</code>,<code>validate_model_metadata_schema()</code>, <code>validate_hub_config()</code>, <code>view_config_val_errors()</code>.</li>
+</ul></li>
+</ul></li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9019" id="hubutils-0009019">hubUtils 0.0.0.9019<a class="anchor" aria-label="anchor" href="#hubutils-0009019"></a></h2>
 <ul><li>Minor internal bug fixes and documentation updates.</li>
 </ul></div>
@@ -62,21 +71,21 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9017" id="hubutils-0009017">hubUtils 0.0.0.9017<a class="anchor" aria-label="anchor" href="#hubutils-0009017"></a></h2>
 <ul><li>
-<code><a href="../reference/connect_hub.html">connect_hub()</a></code> and <code><a href="../reference/connect_hub.html">connect_model_output()</a></code> now identify and report on files that are present and should have been opened but for which a connection was not successful (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/124" class="external-link">#124</a>)</li>
+<code>connect_hub()</code> and <code>connect_model_output()</code> now identify and report on files that are present and should have been opened but for which a connection was not successful (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/124" class="external-link">#124</a>)</li>
 <li>Introduced a number of minor documentation clarifications and bug fixes (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/129" class="external-link">#129</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/128" class="external-link">#128</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/121" class="external-link">#121</a>, <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/130" class="external-link">#130</a>)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9016" id="hubutils-0009016">hubUtils 0.0.0.9016<a class="anchor" aria-label="anchor" href="#hubutils-0009016"></a></h2>
-<ul><li>Added <code><a href="../reference/validate_model_metadata_schema.html">validate_model_metadata_schema()</a></code> function and included it as part of <code><a href="../reference/validate_hub_config.html">validate_hub_config()</a></code> (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/110" class="external-link">#110</a> &amp; <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/112" class="external-link">#112</a>).</li>
+<ul><li>Added <code>validate_model_metadata_schema()</code> function and included it as part of <code>validate_hub_config()</code> (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/110" class="external-link">#110</a> &amp; <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/112" class="external-link">#112</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9015" id="hubutils-0009015">hubUtils 0.0.0.9015<a class="anchor" aria-label="anchor" href="#hubutils-0009015"></a></h2>
-<ul><li>Added <code><a href="../reference/load_model_metadata.html">load_model_metadata()</a></code> function to compile hub model metadata.</li>
+<ul><li>Added <code>load_model_metadata()</code> function to compile hub model metadata.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9014" id="hubutils-0009014">hubUtils 0.0.0.9014<a class="anchor" aria-label="anchor" href="#hubutils-0009014"></a></h2>
-<ul><li>Added <code><a href="../reference/coerce_to_hub_schema.html">coerce_to_character()</a></code> function for coercing all model output columns to character. This can be much faster than coercing to <code><a href="../reference/coerce_to_hub_schema.html">coerce_to_hub_schema()</a></code>, especially for dates.</li>
-<li>Added the following params to <code><a href="../reference/expand_model_out_val_grid.html">expand_model_out_val_grid()</a></code>:
+<ul><li>Added <code>coerce_to_character()</code> function for coercing all model output columns to character. This can be much faster than coercing to <code>coerce_to_hub_schema()</code>, especially for dates.</li>
+<li>Added the following params to <code>expand_model_out_val_grid()</code>:
 <ul><li>
 <code>all_character</code>: allow for returning all character columns.</li>
 <li>
@@ -84,38 +93,38 @@
 <li>
 <code>bind_model_tasks</code>: allow for returning list of model task level grids.</li>
 </ul></li>
-<li>Bug fix. Handle situation in <code><a href="../reference/expand_model_out_val_grid.html">expand_model_out_val_grid()</a></code> when <code>required_vals_only = TRUE</code> yet required task ID columns are not consistent across modeling tasks. The function now pads missing task ID column values with <code>NA</code>s.</li>
+<li>Bug fix. Handle situation in <code>expand_model_out_val_grid()</code> when <code>required_vals_only = TRUE</code> yet required task ID columns are not consistent across modeling tasks. The function now pads missing task ID column values with <code>NA</code>s.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9013" id="hubutils-0009013">hubUtils 0.0.0.9013<a class="anchor" aria-label="anchor" href="#hubutils-0009013"></a></h2>
-<ul><li>Introduced <code><a href="../reference/coerce_to_hub_schema.html">coerce_to_hub_schema()</a></code> function and applied it to <code><a href="../reference/create_model_out_submit_tmpl.html">create_model_out_submit_tmpl()</a></code> &amp; <code><a href="../reference/expand_model_out_val_grid.html">expand_model_out_val_grid()</a></code> to ensure column data types in returned tibbles are consistent with the hub’s schema (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/100" class="external-link">#100</a>).</li>
+<ul><li>Introduced <code>coerce_to_hub_schema()</code> function and applied it to <code>create_model_out_submit_tmpl()</code> &amp; <code>expand_model_out_val_grid()</code> to ensure column data types in returned tibbles are consistent with the hub’s schema (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/100" class="external-link">#100</a>).</li>
 <li>Fixed bug where optional <code>mean</code>/<code>median</code> output types where being included erroneously when <code>required_vals_only = TRUE</code>.</li>
 <li>Exported function <code><a href="../reference/get_round_task_id_names.html">get_round_task_id_names()</a></code> (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/99" class="external-link">#99</a>).</li>
 <li>Memoised function <code><a href="../reference/read_config.html">read_config()</a></code> (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/101" class="external-link">#101</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9012" id="hubutils-0009012">hubUtils 0.0.0.9012<a class="anchor" aria-label="anchor" href="#hubutils-0009012"></a></h2>
-<ul><li>Fixed bug (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/95" class="external-link">#95</a> &amp; <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/97" class="external-link">#97</a>) which was causing <code><a href="../reference/connect_hub.html">connect_hub()</a></code> to error when <code>"csv"</code> was an accepted hub file format but there were no csv in the model output directory. Now <code><a href="../reference/connect_hub.html">connect_hub()</a></code> checks for the presence of files of each accepted file format and only opens datasets for file formats of which files exists. If there are no files of any accepted file_format in the model output directory, the S3 <code>hub_connection</code> object returned consists of an empty list.</li>
+<ul><li>Fixed bug (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/95" class="external-link">#95</a> &amp; <a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/97" class="external-link">#97</a>) which was causing <code>connect_hub()</code> to error when <code>"csv"</code> was an accepted hub file format but there were no csv in the model output directory. Now <code>connect_hub()</code> checks for the presence of files of each accepted file format and only opens datasets for file formats of which files exists. If there are no files of any accepted file_format in the model output directory, the S3 <code>hub_connection</code> object returned consists of an empty list.</li>
 <li>Fixed bug (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/96" class="external-link">#96</a>) which was required <code>hubUtils</code> to be loaded for <code>std_colnames</code> to be internally available.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9011" id="hubutils-0009011">hubUtils 0.0.0.9011<a class="anchor" aria-label="anchor" href="#hubutils-0009011"></a></h2>
-<ul><li>Changed default behaviour of <code><a href="../reference/create_model_out_submit_tmpl.html">create_model_out_submit_tmpl()</a></code>. Function now, by default, returns rows of complete cases only and the behaviour is controlled by argument <code>complete_cases_only</code>. Argument <code>remove_empty_cols</code> was also removed.</li>
+<ul><li>Changed default behaviour of <code>create_model_out_submit_tmpl()</code>. Function now, by default, returns rows of complete cases only and the behaviour is controlled by argument <code>complete_cases_only</code>. Argument <code>remove_empty_cols</code> was also removed.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9010" id="hubutils-0009010">hubUtils 0.0.0.9010<a class="anchor" aria-label="anchor" href="#hubutils-0009010"></a></h2>
 <ul><li>
 <strong>Support for Hubs using schema earlier than v2.0.0 deprecated</strong>. Currently a warning is issued when interacting with such Hubs. Support will eventually be retired completely and errors will be produced with Hubs using older config schema.</li>
-<li>Added <code><a href="../reference/create_model_out_submit_tmpl.html">create_model_out_submit_tmpl()</a></code> for generating round specific model output template tibbles (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/82" class="external-link">#82</a>).</li>
+<li>Added <code>create_model_out_submit_tmpl()</code> for generating round specific model output template tibbles (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/82" class="external-link">#82</a>).</li>
 <li>Added lower level utilities:
 <ul><li>
-<code><a href="../reference/expand_model_out_val_grid.html">expand_model_out_val_grid()</a></code> for creating an expanded grid of valid task ID and output type ID across round modeling tasks and output types.</li>
+<code>expand_model_out_val_grid()</code> for creating an expanded grid of valid task ID and output type ID across round modeling tasks and output types.</li>
 <li>
 <code><a href="../reference/get_round_idx.html">get_round_idx()</a></code>: for getting an integer index of the element in <code>config_tasks$rounds</code> that a character round identifier maps to.</li>
 <li>
 <code><a href="../reference/get_round_idx.html">get_round_ids()</a></code>: for getting a list or character vector of Hub round IDs.</li>
 </ul></li>
-<li>Added additional <code>tasks.json</code> validation checks via <code><a href="../reference/validate_config.html">validate_config()</a></code>:
+<li>Added additional <code>tasks.json</code> validation checks via <code>validate_config()</code>:
 <ul><li>Check that all task_id and output_type_id values are unique across <code>required</code> and <code>optional</code> properties.</li>
 <li>In rounds where <code>round_id_from_variable</code> is <code>TRUE</code>, check that the specification of the task_id set as <code>round_id</code> is consistent across modelling tasks.</li>
 <li>Check that <code>round_id</code> values are unique across rounds.</li>
@@ -129,32 +138,32 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9008" id="hubutils-0009008">hubUtils 0.0.0.9008<a class="anchor" aria-label="anchor" href="#hubutils-0009008"></a></h2>
-<ul><li>Added argument <code>output_type_id_datatype</code> to <code><a href="../reference/connect_hub.html">connect_hub()</a></code> to allow overriding default behaviour of automatically detecting the <code>output_type_id</code> column data type from the <code>tasks.json</code> config file (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/70" class="external-link">#70</a>).</li>
-<li>Exposed <code><a href="../reference/create_hub_schema.html">create_hub_schema()</a></code> argument <code>partitions</code> to <code><a href="../reference/connect_hub.html">connect_hub()</a></code> function to accommodate custom hub partitioning.</li>
-<li>Added argument <code>partition_names</code> to <code><a href="../reference/connect_hub.html">connect_model_output()</a></code> to accommodate custom hub partitioning.</li>
-<li>Added argument <code>schema</code> to <code><a href="../reference/connect_hub.html">connect_model_output()</a></code> to allow for overriding default <code>arrow</code> schema auto-detection.</li>
+<ul><li>Added argument <code>output_type_id_datatype</code> to <code>connect_hub()</code> to allow overriding default behaviour of automatically detecting the <code>output_type_id</code> column data type from the <code>tasks.json</code> config file (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/70" class="external-link">#70</a>).</li>
+<li>Exposed <code>create_hub_schema()</code> argument <code>partitions</code> to <code>connect_hub()</code> function to accommodate custom hub partitioning.</li>
+<li>Added argument <code>partition_names</code> to <code>connect_model_output()</code> to accommodate custom hub partitioning.</li>
+<li>Added argument <code>schema</code> to <code>connect_model_output()</code> to allow for overriding default <code>arrow</code> schema auto-detection.</li>
 <li>Moved <code>jsonvalidate</code> package to Imports so Hub administrator functionality accessible through standard installation.</li>
-<li>Removed argument <code>format</code> from <code><a href="../reference/create_hub_schema.html">create_hub_schema()</a></code> which now creates the same schema from a <code>tasks.json</code> config file, regardless of the data file format (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/80" class="external-link">#80</a>).</li>
+<li>Removed argument <code>format</code> from <code>create_hub_schema()</code> which now creates the same schema from a <code>tasks.json</code> config file, regardless of the data file format (<a href="https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues/80" class="external-link">#80</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9007" id="hubutils-0009007">hubUtils 0.0.0.9007<a class="anchor" aria-label="anchor" href="#hubutils-0009007"></a></h2>
-<ul><li>New function <code><a href="../reference/validate_hub_config.html">validate_hub_config()</a></code> allows maintainers to check the validity of hub config files in a single call. Function <code><a href="../reference/view_config_val_errors.html">view_config_val_errors()</a></code> also modified to create combined report for hub config files from output of <code><a href="../reference/validate_hub_config.html">validate_hub_config()</a></code>.</li>
+<ul><li>New function <code>validate_hub_config()</code> allows maintainers to check the validity of hub config files in a single call. Function <code>view_config_val_errors()</code> also modified to create combined report for hub config files from output of <code>validate_hub_config()</code>.</li>
 <li>Breaking change: All <code>model-output</code> data are expected to have <code>output_type</code> &amp; <code>output_type_id</code> instead of <code>type</code> &amp; <code>type_id</code> respectively.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9006" id="hubutils-0009006">hubUtils 0.0.0.9006<a class="anchor" aria-label="anchor" href="#hubutils-0009006"></a></h2>
 <ul><li>
-<code><a href="../reference/connect_hub.html">connect_hub()</a></code> now automatically determines the <code>output_type_id</code> column data type from the tasks.json config file coercing to the highest possible data type, “character” being the lowest denominator.</li>
-<li>Introduced function <code><a href="../reference/create_hub_schema.html">create_hub_schema()</a></code> for determining the schema for data in a hub’s model-output directory from a tasks.json config file.</li>
+<code>connect_hub()</code> now automatically determines the <code>output_type_id</code> column data type from the tasks.json config file coercing to the highest possible data type, “character” being the lowest denominator.</li>
+<li>Introduced function <code>create_hub_schema()</code> for determining the schema for data in a hub’s model-output directory from a tasks.json config file.</li>
 <li>
-<code><a href="../reference/connect_hub.html">connect_hub()</a></code> now allows establishing connections to hubs with multiple file type formats.</li>
+<code>connect_hub()</code> now allows establishing connections to hubs with multiple file type formats.</li>
 <li>
-<code>create_output_type_categorical()</code> function was renamed to <code><a href="../reference/create_output_type_quantile.html">create_output_type_pmf()</a></code>.</li>
+<code>create_output_type_categorical()</code> function was renamed to <code>create_output_type_pmf()</code>.</li>
 <li>When extracting data via a hub connection, the column containing model identification information, inferred from <code>model-output</code> data directory partitions, was renamed from “model” to “model_id”.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9005" id="hubutils-0009005">hubUtils 0.0.0.9005<a class="anchor" aria-label="anchor" href="#hubutils-0009005"></a></h2>
-<ul><li>Re-implemented <code><a href="../reference/connect_hub.html">connect_hub()</a></code> function to open connection to <code>model-output</code> data implemented through an <code>arrow</code> <code>FileSystemDataset</code> object. This allows users to create custom <code>dplyr</code> queries to access model output data.</li>
+<ul><li>Re-implemented <code>connect_hub()</code> function to open connection to <code>model-output</code> data implemented through an <code>arrow</code> <code>FileSystemDataset</code> object. This allows users to create custom <code>dplyr</code> queries to access model output data.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9004" id="hubutils-0009004">hubUtils 0.0.0.9004<a class="anchor" aria-label="anchor" href="#hubutils-0009004"></a></h2>
@@ -162,7 +171,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9003" id="hubutils-0009003">hubUtils 0.0.0.9003<a class="anchor" aria-label="anchor" href="#hubutils-0009003"></a></h2>
-<ul><li>Added <code><a href="../reference/validate_config.html">validate_config()</a></code> function to validate json configuration files against Hub schema as well as function <code><a href="../reference/view_config_val_errors.html">view_config_val_errors()</a></code> for viewing a concise and easier to navigate table of validation errors.</li>
+<ul><li>Added <code>validate_config()</code> function to validate json configuration files against Hub schema as well as function <code>view_config_val_errors()</code> for viewing a concise and easier to navigate table of validation errors.</li>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 </ul></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
