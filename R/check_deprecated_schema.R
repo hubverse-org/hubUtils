@@ -14,11 +14,22 @@
 #' Primarily used for the side effect of issuing a lifecycle warning.
 #' @export
 check_deprecated_schema <- function(config_version, config, valid_version = "v2.0.0",
-                                    hubutils_version) {
-  config_version <- switch(rlang::check_exclusive(config_version, config),
-    config = extract_schema_version(config$schema_version),
-    config_version = config_version
+                                    hubutils_version = "0.0.0.9010") {
+  checkmate::assert_string(valid_version)
+  checkmate::assert_string(hubutils_version)
+  version_source <- rlang::check_exclusive(config_version, config)
+  config_version <- switch(version_source,
+    config = {
+      checkmate::assert_list(config)
+      checkmate::assert_choice("schema_version", names(config))
+      extract_schema_version(config$schema_version)
+    },
+    config_version = {
+      checkmate::assert_string(config_version)
+      config_version
+    }
   )
+
   deprecated <- config_version < valid_version
 
   if (deprecated) {

@@ -8,7 +8,7 @@ check_deprecated_schema(
   config_version,
   config,
   valid_version = "v2.0.0",
-  hubutils_version
+  hubutils_version = "0.0.0.9010"
 )
 }
 \arguments{
