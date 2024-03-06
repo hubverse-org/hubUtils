@@ -43,8 +43,8 @@ Suggests:
     rmarkdown,
     testthat (>= 3.2.0)
 Remotes:
-    Infectious-Disease-Modeling-Hubs/hubData#1,
-    Infectious-Disease-Modeling-Hubs/hubAdmin@split-hubutils
+    Infectious-Disease-Modeling-Hubs/hubData,
+    Infectious-Disease-Modeling-Hubs/hubAdmin
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
