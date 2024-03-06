@@ -169,8 +169,8 @@
     Code
       get_round_idx(config_tasks)
     Condition
-      Error in `get_round_idx()`:
-      ! `round_id` must be a character vector, not absent.
+      Error in `checkmate::assert_string()`:
+      ! argument "round_id" is missing, with no default
 
 ---
 
@@ -184,6 +184,6 @@
     Code
       get_round_idx(config_tasks)
     Condition
-      Error in `get_round_idx()`:
-      ! `round_id` must be a character vector, not absent.
+      Error in `checkmate::assert_string()`:
+      ! argument "round_id" is missing, with no default
 
