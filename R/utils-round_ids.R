@@ -23,6 +23,7 @@
 #' get_round_idx(config_tasks, "2022-10-01")
 #' get_round_idx(config_tasks, "2022-10-29")
 get_round_idx <- function(config_tasks, round_id) {
+  checkmate::assert_string(round_id)
   round_id <- rlang::arg_match(round_id,
     values = get_round_ids(config_tasks)
   )
@@ -61,6 +62,7 @@ get_round_idx <- function(config_tasks, round_id) {
 #' @export
 get_round_ids <- function(config_tasks,
                           flatten = c("all", "model_task", "task_id", "none")) {
+  checkmate::assert_list(config_tasks)
   flatten <- rlang::arg_match(flatten)
 
   round_ids <- purrr::map(
