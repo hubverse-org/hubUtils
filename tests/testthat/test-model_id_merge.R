@@ -1,5 +1,5 @@
 test_that("merging-splitting model_id works", {
-  hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
   tbl <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
     dplyr::collect() %>%
@@ -67,7 +67,7 @@ test_that("merging-splitting model_id works", {
 })
 
 test_that("Splitting model_id fails if seperator detected", {
-  hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
   tbl <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
     dplyr::collect() %>%
@@ -81,7 +81,7 @@ test_that("Splitting model_id fails if seperator detected", {
 })
 
 test_that("Merging model_id fails if seperator detected", {
-  hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
   tbl <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
     dplyr::collect() %>%

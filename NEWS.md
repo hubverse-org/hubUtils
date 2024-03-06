@@ -1,3 +1,13 @@
+# hubUtils 0.0.1 MAJOR RELEASE
+
+* First **major release of `hubUtils` package** containing significant breaking changes. Much of the package has been moved and split across two smaller and more dedicated packages:
+  - **`hubData` package**: contains functions for connecting to and interacting with hub data. 
+    * Exported functions moved to `hubData`: `connect_hub()`, `connect_model_output()`, `expand_model_out_val_grid()`, `create_model_out_submit_tmpl()`, `coerce_to_character()`, `coerce_to_hub_schema()` and `create_hub_schema()`.
+    * `hubUtils` functions re-exported to `hubData`: `as_model_out_tbl()`, `validate_model_out_tbl()`, `model_id_split()` and `model_id_merge()`.
+  - **`hubAdmin` package**: contains functions for administering Hubs, in particular creating and validating hub configuration files. Exported functions moved to `hubAdmin`: 
+    * Functions for creating config files: `create_config()`, `create_model_task()`, `create_model_tasks()`, `create_output_type()`, `create_output_type_cdf()`, `create_output_type_mean()`, `create_output_type_median()`, `create_output_type_pmf()`, `create_output_type_quantile()`, `create_output_type_sample()`, `create_round()`, `create_rounds()`, `create_target_metadata()`, `create_target_metadata_item()`, `create_task_id()`, `create_task_ids()`.
+    * Functions for validating config files: `validate_config()`,`validate_model_metadata_schema()`, `validate_hub_config()`, `view_config_val_errors()`.
+
 # hubUtils 0.0.0.9019
 
 * Minor internal bug fixes and documentation updates.

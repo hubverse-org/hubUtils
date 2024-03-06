@@ -1,5 +1,5 @@
 test_that("column renaming works", {
-  hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
 
   x <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
@@ -39,7 +39,7 @@ test_that("column renaming works", {
 })
 
 test_that("triming to task ids works", {
-  hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
   tbl <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
     dplyr::collect() %>%
@@ -80,7 +80,7 @@ test_that("triming to task ids works", {
 })
 
 test_that("removing empty columns works", {
-  hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
   tbl <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
     dplyr::collect() %>%
@@ -110,7 +110,7 @@ test_that("removing empty columns works", {
 
 test_that("validating model_out_tbl std column datatypes works", {
   # test that correct data types succeed
-  hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
   tbl <- hub_con %>%
     dplyr::filter(output_type == "quantile", location == "US") %>%
     dplyr::collect() %>%

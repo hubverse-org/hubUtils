@@ -31,7 +31,7 @@
 #' @examples
 #' library(dplyr)
 #' hub_path <- system.file("testhubs/flusight", package = "hubUtils")
-#' hub_con <- connect_hub(hub_path)
+#' hub_con <- hubData::connect_hub(hub_path)
 #' hub_con %>%
 #'   filter(output_type == "quantile", location == "US") %>%
 #'   collect() %>%
@@ -82,13 +82,13 @@ as_model_out_tbl <- function(tbl, model_id_col = NULL, output_type_col = NULL,
 #'
 #' @param tbl a `model_out_tbl` S3 class object.
 #'
-#' @return If valid, retunrs `tbl`. Otherwise throws an error.
+#' @return If valid, returns a `tbl`. Otherwise throws an error.
 #' @export
 #'
 #' @examples
 #' library(dplyr)
 #' hub_path <- system.file("testhubs/flusight", package = "hubUtils")
-#' hub_con <- connect_hub(hub_path)
+#' hub_con <- hubData::connect_hub(hub_path)
 #' md_out <- hub_con %>%
 #'   filter(output_type == "quantile", location == "US") %>%
 #'   collect() %>%

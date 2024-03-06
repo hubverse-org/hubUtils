@@ -13,7 +13,7 @@
 #' @describeIn model_id_merge merge `team_abbr` and `model_abbr` into a single
 #' `model_id` column.
 #' @examples
-#' hub_con <- connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+#' hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
 #' tbl <- hub_con %>%
 #'   dplyr::filter(output_type == "quantile", location == "US") %>%
 #'   dplyr::collect() %>%

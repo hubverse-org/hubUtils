@@ -3,14 +3,3 @@ linters: linters_with_defaults(
     commented_code_linter = NULL,
     object_length_linter(length = 50L)
   )
-exclusions: list(
-    "R/validate_config.R" = list(
-      line_length_linter = Inf
-    ),
-    "tests/testthat/test-create_hub_schema.R" = list(
-      line_length_linter = Inf
-    ),
-    "tests/testthat/helper-view-val-tbl.R" = list(
-      object_usage_linter = Inf
-    )
-  )

@@ -10,7 +10,7 @@ validate_model_out_tbl(tbl)
 \item{tbl}{a \code{model_out_tbl} S3 class object.}
 }
 \value{
-If valid, retunrs \code{tbl}. Otherwise throws an error.
+If valid, returns a \code{tbl}. Otherwise throws an error.
 }
 \description{
 Validate a \code{model_out_tbl} object.
@@ -18,7 +18,7 @@ Validate a \code{model_out_tbl} object.
 \examples{
 library(dplyr)
 hub_path <- system.file("testhubs/flusight", package = "hubUtils")
-hub_con <- connect_hub(hub_path)
+hub_con <- hubData::connect_hub(hub_path)
 md_out <- hub_con \%>\%
   filter(output_type == "quantile", location == "US") \%>\%
   collect() \%>\%
