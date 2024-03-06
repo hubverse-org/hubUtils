@@ -19,3 +19,28 @@ test_that("Valid json schema versions detected successfully", {
     c("v0.0.0.8", "v0.0.0.9")
   )
 })
+
+test_that("get_schema_version_latest works", {
+  expect_equal(
+    get_schema_version_latest(branch = "hubUtils-test"),
+    "v0.0.0.9"
+  )
+  expect_equal(
+    get_schema_version_latest(
+      branch = "hubUtils-test",
+      schema_version = "v0.0.0.8"
+    ),
+    "v0.0.0.8"
+  )
+})
+
+test_that("validate_schema_version works", {
+  expect_equal(
+    validate_schema_version("v0.0.0.9", branch = "hubUtils-test"),
+    "v0.0.0.9"
+  )
+  expect_snapshot(
+    validate_schema_version("v0.0.0.7", branch = "hubUtils-test"),
+    error = TRUE
+  )
+})
