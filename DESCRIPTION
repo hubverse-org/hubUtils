@@ -1,6 +1,6 @@
 Package: hubUtils
 Title: Utility functions for Infectious Disease Modeling Hubs
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     c(person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2378-4915")),
@@ -23,6 +23,7 @@ Imports:
     checkmate,
     cli,
     glue,
+    jsonlite,
     lifecycle,
     magrittr,
     memoise,
