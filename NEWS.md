@@ -1,3 +1,7 @@
+# hubUtils 0.0.2
+
+* Missing dependency (`jsonlite`) bug fix.
+
 # hubUtils 0.0.1 MAJOR RELEASE
 
 * First **major release of `hubUtils` package** containing significant breaking changes. Much of the package has been moved and split across two smaller and more dedicated packages:

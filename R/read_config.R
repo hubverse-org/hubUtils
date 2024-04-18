@@ -26,6 +26,7 @@ read_config <- function(hub_path, config = c("tasks", "admin", "model-metadata-s
 
 
 #' @export
+#' @importFrom jsonlite read_json
 read_config.default <- function(hub_path,
                                 config = c("tasks", "admin", "model-metadata-schema")) {
   config <- rlang::arg_match(config)
@@ -43,6 +44,7 @@ read_config.default <- function(hub_path,
 }
 
 #' @export
+#' @importFrom jsonlite fromJSON
 read_config.SubTreeFileSystem <- function(hub_path,
                                           config = c("tasks", "admin", "model-metadata-schema")) {
   config <- rlang::arg_match(config)
