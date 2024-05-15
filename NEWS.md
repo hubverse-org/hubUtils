@@ -1,3 +1,8 @@
+# hubUtils 0.1.0
+
+* Add `read_config_file()` helper function to read a JSON config file from a file path.
+* Add `extract_schema_version()` helper function to extract the schema version from a schema `id` or config `schema_version` property character string.
+
 # hubUtils 0.0.2
 
 * Missing dependency (`jsonlite`) bug fix.
