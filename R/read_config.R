@@ -37,10 +37,11 @@ read_config.default <- function(hub_path,
       "Config file {.field {config}} does not exist at path {.path { path }}."
     )
   }
-  jsonlite::read_json(path,
-    simplifyVector = TRUE,
-    simplifyDataFrame = FALSE
-  )
+  read_config_file(path)
+  # jsonlite::read_json(path,
+  #   simplifyVector = TRUE,
+  #   simplifyDataFrame = FALSE
+  # )
 }
 
 #' @export
@@ -66,7 +67,25 @@ read_config.SubTreeFileSystem <- function(hub_path,
     "https://{split_base_path[1]}.s3.amazonaws.com/{split_base_path[2]}hub-config/{config}.json"
   )
 
-  jsonlite::fromJSON(path_url,
+  read_config_file(path_url)
+  # jsonlite::fromJSON(path_url,
+  #   simplifyVector = TRUE,
+  #   simplifyDataFrame = FALSE
+  # )
+}
+
+#' Read a JSON config file from a path
+#'
+#' @param config_path path to JSON config file
+#'
+#' @return a list representation of the JSON config file
+#' @export
+#'
+#' @examples
+#' read_config_file(system.file("config", "tasks.json", package = "hubUtils"))
+read_config_file <- function(config_path) {
+  jsonlite::fromJSON(
+    config_path,
     simplifyVector = TRUE,
     simplifyDataFrame = FALSE
   )
