@@ -38,10 +38,6 @@ read_config.default <- function(hub_path,
     )
   }
   read_config_file(path)
-  # jsonlite::read_json(path,
-  #   simplifyVector = TRUE,
-  #   simplifyDataFrame = FALSE
-  # )
 }
 
 #' @export
@@ -68,10 +64,6 @@ read_config.SubTreeFileSystem <- function(hub_path,
   )
 
   read_config_file(path_url)
-  # jsonlite::fromJSON(path_url,
-  #   simplifyVector = TRUE,
-  #   simplifyDataFrame = FALSE
-  # )
 }
 
 #' Read a JSON config file from a path
