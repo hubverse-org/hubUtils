@@ -18,4 +18,3 @@ get_task_id_names <- function(config_tasks) {
     unlist() %>%
     unique()
 }
-
