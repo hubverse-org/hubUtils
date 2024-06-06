@@ -1,9 +1,41 @@
-#' assume starting output type is sample, inputs have been validated
-#' support one input output_type and one output output_type
+#' Transform between output types, from one starting output_type into one new
+#' output_type. See details for supported conversions.
 #'
-#' @param new_output_type vector of strings indicating the desired output_type after
-#'   transformation; can be `"mean"`, `"median"`, `"quantile"`, `"cdf"`
-#' @param new_output_type_id corresponding output_type_ids, list if multiple output_type ids
+#' @param model_outputs an object of class `model_out_tbl` with component model
+#'    outputs (e.g., predictions). `model_outputs` should contain only one
+#'    unique value in the `output_type` column.
+#' @param group_by_cols a `vector` of task_id column names, i.e.,
+#'    specify which columns to group by when transforming
+#' @param new_output_type `string` indicating the desired output_type after
+#'   transformation; can be `"mean"`, `"median"`, `"quantile"`, `"cdf"`; see
+#'   details for supported conversions
+#' @param new_output_type_id `vector` indicating desired output_type_ids for
+#'   corresponding `new_output_type`; only needs to be specified if
+#'   `new_output_type` is `"quantile"` or `"cdf"`
+#' @param n_samples `numeric` that specifies the number of samples to use when
+#'   calculating quantiles from an estimated quantile function. Defaults to `1e4`.
+#' @param ... parameters that are passed to `distfromq::make_q_fn`, specifying
+#'   details of how to estimate a quantile function from provided quantile levels
+#'   and quantile values for `output_type` `"quantile"`.
+#'
+#' @details
+#' The following transformations are supported:
+#'  1. `"sample"` can be transformed to `"mean"`, `"median"`, `"quantile"`, or `"cdf"`
+#'  2. `"quantile"` can be transformed to `"mean"`, `"median"`, or `"cdf"`
+#'  3. `"cdf"` can be transformed to `"mean"`, `"median"`, or `"quantile"`.
+#' For `"quantile"` and `"cdf"` starting output types, we follow the below approach:
+#'     1. Interpolate and extrapolate from the provided quantiles or probabilities
+#'        for each component model to obtain an estimate of the cdf of that distribution.
+#'     2. Draw samples from the distribution for each component model. To reduce
+#'        Monte Carlo variability, we use quasi-random samples corresponding to
+#'        quantiles of the estimated distribution.
+#'     3. Calculate the desired quantity (e.g., mean).
+#' If the median quantile is provided in the `model_outputs` object (i.e.,
+#'    the original output_type is `"median"` and 0.5 is contained in the original
+#'    output_type_id), the median value is extracted and returned directly.
+#'
+#' @return object of class `model_out_tbl` containing new output_type
+#' @export
 convert_output_type <- function(model_outputs, group_by_cols,
                                 new_output_type, new_output_type_id,
                                 n_samples = 1e4, ...){
@@ -38,6 +70,7 @@ convert_output_type <- function(model_outputs, group_by_cols,
     return(model_outputs_transform)
 }
 
+#' @export
 get_samples_from_quantiles <- function(model_outputs, group_by_cols, n_samples, ...){
     set.seed(101)
     samples <- model_outputs %>%
@@ -54,6 +87,7 @@ get_samples_from_quantiles <- function(model_outputs, group_by_cols, n_samples, 
     return(samples)
 }
 
+#' @export
 get_samples_from_cdf <- function(model_outputs, group_by_cols, n_samples, ...){
     set.seed(101)
     samples <- model_outputs %>%
@@ -68,6 +102,7 @@ get_samples_from_cdf <- function(model_outputs, group_by_cols, n_samples, ...){
     return(samples)
 }
 
+#' @export
 convert_from_sample <- function(grouped_model_outputs, new_output_type,
                                 new_output_type_id){
     if(new_output_type == "mean"){
@@ -97,4 +132,3 @@ convert_from_sample <- function(grouped_model_outputs, new_output_type,
         hubUtils::as_model_out_tbl()
     return(model_outputs_transform)
 }
-
