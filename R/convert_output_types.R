@@ -1,8 +1,8 @@
 #' Transform between output types, from one starting output_type into one new
 #' output_type. See details for supported conversions.
 #'
-#' @param model_outputs an object of class `model_out_tbl` with component model
-#'    outputs (e.g., predictions). `model_outputs` should contain only one
+#' @param model_out_tbl an object of class `model_out_tbl` with component model
+#'    outputs (e.g., predictions). `model_out_tbl` should contain only one
 #'    unique value in the `output_type` column
 #' @param new_output_type `string` indicating the desired output_type after
 #'   transformation; can be `"mean"`, `"median"`, `"quantile"`, `"cdf"`; see
@@ -29,14 +29,14 @@
 #'        Monte Carlo variability, we use quasi-random samples corresponding to
 #'        quantiles of the estimated distribution.
 #'     3. Calculate the desired quantity (e.g., mean).
-#' If the median quantile is provided in the `model_outputs` object (i.e.,
+#' If the median quantile is provided in the `model_out_tbl` object (i.e.,
 #'    the original output_type is `"median"` and 0.5 is contained in the original
 #'    output_type_id), the median value is extracted and returned directly.
 #'
 #' @examples
 #' # We illustrate the conversion between output types using normal distributions,
 #' ex_quantiles <- c(0.25, 0.5, 0.75)
-#' model_outputs <- expand.grid(
+#' model_out_tbl <- expand.grid(
 #'   group1 = c(1,2),
 #'   model_id = "A",
 #'   output_type = "quantile",
@@ -44,46 +44,46 @@
 #' ) %>%
 #' dplyr::mutate(value = qnorm(p = output_type_id, mean = group1))
 #'
-#' convert_output_type(model_outputs, c("group1"), new_output_type = "median")
+#' convert_output_type(model_out_tbl, c("group1"), new_output_type = "median")
 #'
 #' @return object of class `model_out_tbl` containing new output_type
 #' @export
-convert_output_type <- function(model_outputs, new_output_type,
+convert_output_type <- function(model_out_tbl, new_output_type,
                                 new_output_type_id = NA, n_samples = 1e4, ...) {
   # validations
-  task_id_cols <- get_task_id_cols(model_outputs)
-  starting_output_type <- model_outputs$output_type %>% unique()
-  starting_output_type_ids <- model_outputs$output_type_id %>% unique()
-  task_id_cols <- get_task_id_cols(model_outputs)
+  task_id_cols <- get_task_id_cols(model_out_tbl)
+  starting_output_type <- model_out_tbl$output_type %>% unique()
+  starting_output_type_ids <- model_out_tbl$output_type_id %>% unique()
+  task_id_cols <- get_task_id_cols(model_out_tbl)
   validate_new_output_type(starting_output_type, new_output_type,
                            new_output_type_id)
   # for cdf and quantile functions, get samples
   if (starting_output_type == "cdf") {
     # estimate from samples
-    model_outputs <- get_samples_from_cdf(model_outputs, task_id_cols, n_samples)
+    model_out_tbl <- get_samples_from_cdf(model_out_tbl, task_id_cols, n_samples)
   } else if (starting_output_type == "quantile") {
     # if median output desired, and Q50 provided return exact value
     if (new_output_type == "median" && 0.5 %in% starting_output_type_ids) {
-      model_outputs_transform <- model_outputs %>%
+      model_out_tbl_transform <- model_out_tbl %>%
         dplyr::filter(output_type_id == 0.5) %>%
         dplyr::mutate(
           output_type = new_output_type,
           output_type_id = new_output_type_id
         ) %>%
         hubUtils::as_model_out_tbl()
-      return(model_outputs_transform)
+      return(model_out_tbl_transform)
     } else {
       # otherwise, estimate from samples
-      model_outputs <- get_samples_from_quantiles(model_outputs, task_id_cols, n_samples)
+      model_out_tbl <- get_samples_from_quantiles(model_out_tbl, task_id_cols, n_samples)
     }
   }
   # transform based on new_output_type
-  grouped_model_outputs <- model_outputs %>%
+  grouped_model_out_tbl <- model_out_tbl %>%
     dplyr::group_by(model_id, dplyr::across(dplyr::all_of(task_id_cols)))
-  model_outputs_transform <- convert_from_sample(
-    grouped_model_outputs, new_output_type, new_output_type_id
+  model_out_tbl_transform <- convert_from_sample(
+    grouped_model_out_tbl, new_output_type, new_output_type_id
   )
-  return(model_outputs_transform)
+  return(model_out_tbl_transform)
 }
 
 validate_new_output_type <- function(starting_output_type, new_output_type,
@@ -143,9 +143,9 @@ validate_new_output_type <- function(starting_output_type, new_output_type,
 }
 
 #' @export
-get_samples_from_quantiles <- function(model_outputs, task_id_cols, n_samples, ...) {
+get_samples_from_quantiles <- function(model_out_tbl, task_id_cols, n_samples, ...) {
   set.seed(101)
-  samples <- model_outputs %>%
+  samples <- model_out_tbl %>%
     dplyr::group_by(model_id, dplyr::across(dplyr::all_of(task_id_cols))) %>%
     dplyr::reframe(
       value = distfromq::make_q_fn(
@@ -159,9 +159,9 @@ get_samples_from_quantiles <- function(model_outputs, task_id_cols, n_samples, .
 }
 
 #' @export
-get_samples_from_cdf <- function(model_outputs, task_id_cols, n_samples, ...) {
+get_samples_from_cdf <- function(model_out_tbl, task_id_cols, n_samples, ...) {
   set.seed(101)
-  samples <- model_outputs %>%
+  samples <- model_out_tbl %>%
     dplyr::group_by(model_id, dplyr::across(dplyr::all_of(task_id_cols))) %>%
     dplyr::reframe(
       value = distfromq::make_q_fn(
@@ -173,22 +173,22 @@ get_samples_from_cdf <- function(model_outputs, task_id_cols, n_samples, ...) {
 }
 
 #' @export
-convert_from_sample <- function(grouped_model_outputs, new_output_type,
+convert_from_sample <- function(grouped_model_out_tbl, new_output_type,
                                 new_output_type_id) {
   if (new_output_type == "mean") {
-    model_outputs_transform <- grouped_model_outputs %>%
+    model_out_tbl_transform <- grouped_model_out_tbl %>%
       dplyr::reframe(
         value = mean(value),
         output_type_id = new_output_type_id
       )
   } else if (new_output_type == "median") {
-    model_outputs_transform <- grouped_model_outputs %>%
+    model_out_tbl_transform <- grouped_model_out_tbl %>%
       dplyr::reframe(
         value = median(value),
         output_type_id = new_output_type_id
       )
   } else if (new_output_type == "quantile") {
-    model_outputs_transform <- grouped_model_outputs %>%
+    model_out_tbl_transform <- grouped_model_out_tbl %>%
       dplyr::reframe(
         value = quantile(value, as.numeric(new_output_type_id),
           names = FALSE
@@ -196,15 +196,15 @@ convert_from_sample <- function(grouped_model_outputs, new_output_type,
         output_type_id = new_output_type_id
       )
   } else if (new_output_type == "cdf") {
-    model_outputs_transform <- grouped_model_outputs %>%
+    model_out_tbl_transform <- grouped_model_out_tbl %>%
       dplyr::reframe(
         value = ecdf(value)(as.numeric(new_output_type_id)),
         output_type_id = new_output_type_id
       )
   }
   # update output_type and output_type_id columns
-  model_outputs_transform <- model_outputs_transform %>%
+  model_out_tbl_transform <- model_out_tbl_transform %>%
     dplyr::mutate(output_type = new_output_type) %>%
     hubUtils::as_model_out_tbl()
-  return(model_outputs_transform)
+  return(model_out_tbl_transform)
 }
