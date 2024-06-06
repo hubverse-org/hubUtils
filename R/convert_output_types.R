@@ -42,7 +42,8 @@ convert_output_type <- function(model_outputs, group_by_cols,
     # for cdf and quantile functions, get samples
     starting_output_type = model_outputs$output_type %>% unique()
     starting_output_type_ids = model_outputs$output_type_id %>% unique()
-    validate_new_output_type(starting_output_type, new_output_type)
+    validate_new_output_type(starting_output_type, new_output_type,
+                             new_output_type_id)
     if(starting_output_type == "cdf"){
         # estimate from samples
         model_outputs <- get_samples_from_cdf(model_outputs, group_by_cols, n_samples)
@@ -95,6 +96,38 @@ validate_new_output_type <- function(starting_output_type, new_output_type,
             output_type {new_output_type}",
             i = "new_output_type must be {valid_conversions[[starting_output_type]]}"
         ))
+    }
+    # check new_output_type_id
+    if(new_output_type %in% c("mean", "median") & !all(is.na(new_output_type_id))){
+        cli::cli_abort(c(
+            "{.var new_output_type_id} is incompatible with {.var new_output_type}",
+            i = "{.var new_output_type_id} should be {.var NA}"
+        ))
+    }
+    else if(new_output_type == "quantile"){
+        if(!is.numeric(new_output_type_id)){
+            cli::cli_abort(c(
+                "elements of {.var new_output_type_id} should be numeric",
+                i = "elements of {.var new_output_type_id} represent quantiles
+                of the predictive distribution"
+            ))
+        }
+        if(any(new_output_type_id < 0 | new_output_type > 1)){
+            cli::cli_abort(c(
+                "elements of {.var new_output_type_id} should be between 0 and 1",
+                i = "elements of {.var new_output_type_id} represent quantiles
+                of the predictive distribution"
+            ))
+        }
+    }
+    else if(new_output_type == "cdf"){
+        if(!is.numeric(new_output_type_id)){
+            cli::cli_abort(c(
+                "elements of {.var new_output_type_id} should be numeric",
+                i = "elements of {.var new_output_type_id} represent possible
+                values of the target variable"
+            ))
+        }
     }
 }
 
