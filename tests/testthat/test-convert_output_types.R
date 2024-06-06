@@ -232,6 +232,51 @@ test_that("convert_output_type fails correctly: wrong new_output_type (cdf >> sa
         model_outputs, group_by_cols = c("grp1"), new_output_type))
 })
 
+test_that("convert_output_type fails correctly: wrong new_output_type_id (mean)", {
+    model_outputs <- expand.grid(
+        grp1 = 1:2,
+        model_id = LETTERS[1:2],
+        output_type = "cdf",
+        output_type_id = -1:1,
+        stringsAsFactors = FALSE
+    )
+    new_output_type = "mean"
+    new_output_type_id = c("A", "B")
+    expect_error(convert_output_type(
+        model_outputs, group_by_cols = c("grp1"), new_output_type,
+        new_output_type_id))
+})
+
+test_that("convert_output_type fails correctly: wrong new_output_type_id (quantile)", {
+    model_outputs <- expand.grid(
+        grp1 = 1:2,
+        model_id = LETTERS[1:2],
+        output_type = "cdf",
+        output_type_id = -1:1,
+        stringsAsFactors = FALSE
+    )
+    new_output_type = "quantile"
+    new_output_type_id = c(-1,0,1)
+    expect_error(convert_output_type(
+        model_outputs, group_by_cols = c("grp1"), new_output_type,
+        new_output_type_id))
+})
+
+test_that("convert_output_type fails correctly: wrong new_output_type_id (cdf)", {
+    model_outputs <- expand.grid(
+        grp1 = 1:2,
+        model_id = LETTERS[1:2],
+        output_type = "quantile",
+        output_type_id = seq(0,1,0.5),
+        stringsAsFactors = FALSE
+    )
+    new_output_type = "cdf"
+    new_output_type_id = c("A", "B")
+    expect_error(convert_output_type(
+        model_outputs, group_by_cols = c("grp1"), new_output_type,
+        new_output_type_id))
+})
+
 ### test convert_from_sample()
 test_that("convert_from_sample works (return mean)", {
     grouped_model_outputs = expand.grid(
