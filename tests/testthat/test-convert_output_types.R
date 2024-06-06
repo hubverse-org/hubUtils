@@ -20,8 +20,7 @@ test_that("convert_output_type works (quantile >> mean)", {
         dplyr::mutate(output_type = new_output_type,
                       output_type_id = new_output_type_id) %>%
         hubUtils::as_model_out_tbl()
-    test <- convert_output_type(model_outputs, group_by_cols = c("grp1"),
-                                new_output_type, new_output_type_id)
+    test <- convert_output_type(model_outputs, new_output_type, new_output_type_id)
     expect_equal(expected, test, tolerance = 1e-2)
 })
 
@@ -46,8 +45,7 @@ test_that("convert_output_type works (quantile >> median)", {
         dplyr::mutate(output_type = new_output_type,
                       output_type_id = new_output_type_id) %>%
         hubUtils::as_model_out_tbl()
-    test <- convert_output_type(model_outputs, group_by_cols = c("grp1"),
-                                new_output_type, new_output_type_id)
+    test <- convert_output_type(model_outputs, new_output_type, new_output_type_id)
     expect_equal(expected, test, tolerance = 1e-2)
 })
 
@@ -76,8 +74,7 @@ test_that("convert_output_type works (quantile >> cdf)", {
         dplyr:: mutate(value = pnorm(output_type_id, grp1*ifelse(model_id == "A", 1, 3))) %>%
         dplyr::arrange(model_id, grp1) %>%
         hubUtils::as_model_out_tbl()
-    test <- convert_output_type(model_outputs, group_by_cols = c("grp1"),
-                                new_output_type, new_output_type_id)
+    test <- convert_output_type(model_outputs, new_output_type, new_output_type_id)
     expect_equal(expected, test, tolerance = 1e-2)
 })
 
@@ -102,8 +99,7 @@ test_that("convert_output_type works (cdf >> mean)", {
         dplyr::mutate(output_type = new_output_type,
                       output_type_id = new_output_type_id) %>%
         hubUtils::as_model_out_tbl()
-    test <- convert_output_type(model_outputs, group_by_cols = c("grp1"),
-                                new_output_type, new_output_type_id)
+    test <- convert_output_type(model_outputs, new_output_type, new_output_type_id)
     expect_equal(expected, test, tolerance = 1e-2)
 })
 
@@ -128,7 +124,7 @@ test_that("convert_output_type works (cdf >> median)", {
         dplyr::mutate(output_type = new_output_type,
                       output_type_id = new_output_type_id) %>%
         hubUtils::as_model_out_tbl()
-    test <- convert_output_type(model_outputs, group_by_cols = c("grp1"),
+    test <- convert_output_type(model_outputs,
                                 new_output_type, new_output_type_id)
     expect_equal(expected, test, tolerance = 1e-2)
 })
@@ -158,7 +154,7 @@ test_that("convert_output_type works (cdf >> quantile)", {
         dplyr:: mutate(value = qnorm(output_type_id, grp1*ifelse(model_id == "A", 1, 3))) %>%
         dplyr::arrange(model_id, grp1) %>%
         hubUtils::as_model_out_tbl()
-    test <- convert_output_type(model_outputs, group_by_cols = c("grp1"),
+    test <- convert_output_type(model_outputs,
                                 new_output_type, new_output_type_id)
     expect_equal(test, expected, tolerance = 1e-2)
 })
@@ -188,8 +184,7 @@ test_that("convert_output_type fails correctly (quantile)",{
         dplyr:: mutate(value = qnorm(output_type_id, grp1*ifelse(model_id == "A", 1, 3))) %>%
         dplyr::arrange(model_id, grp1) %>%
         hubUtils::as_model_out_tbl()
-    test <- convert_output_type(model_outputs, group_by_cols = c("grp1"),
-                                new_output_type, new_output_type_id)
+    test <- convert_output_type(model_outputs, new_output_type, new_output_type_id)
     expect_equal(test, expected, tolerance = 1e-2)
 })
 
@@ -203,7 +198,7 @@ test_that("convert_output_type fails correctly: wrong starting output_type", {
     )
     new_output_type = "mean"
     expect_error(convert_output_type(
-        model_outputs, group_by_cols = c("grp1"), new_output_type))
+        model_outputs, new_output_type))
 })
 
 test_that("convert_output_type fails correctly: wrong new_output_type (quantile >> pmf)", {
@@ -216,7 +211,7 @@ test_that("convert_output_type fails correctly: wrong new_output_type (quantile 
     )
     new_output_type = "pmf"
     expect_error(convert_output_type(
-        model_outputs, group_by_cols = c("grp1"), new_output_type))
+        model_outputs, new_output_type))
 })
 
 test_that("convert_output_type fails correctly: wrong new_output_type (cdf >> sample)", {
@@ -229,7 +224,7 @@ test_that("convert_output_type fails correctly: wrong new_output_type (cdf >> sa
     )
     new_output_type = "sample"
     expect_error(convert_output_type(
-        model_outputs, group_by_cols = c("grp1"), new_output_type))
+        model_outputs, new_output_type))
 })
 
 test_that("convert_output_type fails correctly: wrong new_output_type_id (mean)", {
@@ -243,7 +238,7 @@ test_that("convert_output_type fails correctly: wrong new_output_type_id (mean)"
     new_output_type = "mean"
     new_output_type_id = c("A", "B")
     expect_error(convert_output_type(
-        model_outputs, group_by_cols = c("grp1"), new_output_type,
+        model_outputs, new_output_type,
         new_output_type_id))
 })
 
@@ -257,9 +252,9 @@ test_that("convert_output_type fails correctly: wrong new_output_type_id (quanti
     )
     new_output_type = "quantile"
     new_output_type_id = c(-1,0,1)
-    expect_error(convert_output_type(
-        model_outputs, group_by_cols = c("grp1"), new_output_type,
-        new_output_type_id))
+    expect_error(
+      convert_output_type(model_outputs, new_output_type, new_output_type_id)
+      )
 })
 
 test_that("convert_output_type fails correctly: wrong new_output_type_id (cdf)", {
@@ -272,9 +267,9 @@ test_that("convert_output_type fails correctly: wrong new_output_type_id (cdf)",
     )
     new_output_type = "cdf"
     new_output_type_id = c("A", "B")
-    expect_error(convert_output_type(
-        model_outputs, group_by_cols = c("grp1"), new_output_type,
-        new_output_type_id))
+    expect_error(
+      convert_output_type(model_outputs, new_output_type, new_output_type_id)
+      )
 })
 
 ### test convert_from_sample()
