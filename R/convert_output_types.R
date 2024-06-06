@@ -75,12 +75,11 @@ get_samples_from_quantiles <- function(model_outputs, group_by_cols, n_samples, 
     set.seed(101)
     samples <- model_outputs %>%
         dplyr::group_by(model_id, dplyr::across(dplyr::all_of(group_by_cols))) %>%
-        dplyr::summarize(
+        dplyr::reframe(
             value = distfromq::make_q_fn(
                 ps = as.numeric(.data$output_type_id),
                 qs = .data$value, ...
-            )(runif(n_samples, 0, 1)),
-            .groups = "drop"
+            )(runif(n_samples, 0, 1))
         )
 
 
@@ -92,12 +91,11 @@ get_samples_from_cdf <- function(model_outputs, group_by_cols, n_samples, ...){
     set.seed(101)
     samples <- model_outputs %>%
         dplyr::group_by(model_id, dplyr::across(dplyr::all_of(group_by_cols))) %>%
-        dplyr::summarize(
+        dplyr::reframe(
             value = distfromq::make_q_fn(
                     ps = .data$value,
                     qs = as.numeric(.data$output_type_id), ...
-                )(runif(n_samples, 0, 1)),
-            .groups = "drop"
+                )(runif(n_samples, 0, 1))
         )
     return(samples)
 }
