@@ -175,7 +175,7 @@ test_that("convert_from_sample works (return mean)", {
     new_output_type = "mean"
     new_output_type_id = NA
     expected <- grouped_model_outputs %>%
-        dplyr::summarize(value = mean(value), .groups = "drop") %>%
+        dplyr::reframe(value = mean(value)) %>%
         dplyr::mutate(output_type = new_output_type,
                output_type_id = new_output_type_id) %>%
         hubUtils::as_model_out_tbl()
@@ -195,7 +195,7 @@ test_that("convert_from_sample works (return median)", {
     new_output_type = "median"
     new_output_type_id = NA
     expected <- grouped_model_outputs %>%
-        dplyr::summarize(value = median(value), .groups = "drop") %>%
+        dplyr::reframe(value = median(value)) %>%
         dplyr::mutate(output_type = new_output_type,
                       output_type_id = new_output_type_id) %>%
         hubUtils::as_model_out_tbl()
