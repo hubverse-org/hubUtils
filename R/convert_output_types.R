@@ -42,6 +42,7 @@ convert_output_type <- function(model_outputs, group_by_cols,
     # for cdf and quantile functions, get samples
     starting_output_type = model_outputs$output_type %>% unique()
     starting_output_type_ids = model_outputs$output_type_id %>% unique()
+    validate_new_output_type(starting_output_type, new_output_type)
     if(starting_output_type == "cdf"){
         # estimate from samples
         model_outputs <- get_samples_from_cdf(model_outputs, group_by_cols, n_samples)
@@ -68,6 +69,33 @@ convert_output_type <- function(model_outputs, group_by_cols,
         grouped_model_outputs, new_output_type, new_output_type_id
     )
     return(model_outputs_transform)
+}
+
+validate_new_output_type <- function(starting_output_type, new_output_type,
+                                     new_output_type_id){
+    valid_conversions <- list(
+        "sample" = c("mean", "median", "quantile", "cdf"),
+        "quantile" = c("mean", "median", "cdf"),
+        "cdf" = c("mean", "median", "quantile")
+    )
+    # check starting_output_type is supported
+    valid_starting_output_type <- starting_output_type %in% names(valid_conversions)
+    if (!valid_starting_output_type) {
+        cli::cli_abort(c(
+            "{.var output_type} provided cannot be transformed",
+            i = "must be of type {.var sample}, {.var quantile}, {.var cdf}."
+        )
+        )
+    }
+    # check new_output_type is supported
+    valid_new_output_type <- new_output_type %in% valid_conversions[[starting_output_type]]
+    if(!valid_new_output_type){
+        cli::cli_abort(c(
+            "{starting_output_type} cannot be transformed to
+            output_type {new_output_type}",
+            i = "new_output_type must be {valid_conversions[[starting_output_type]]}"
+        ))
+    }
 }
 
 #' @export
