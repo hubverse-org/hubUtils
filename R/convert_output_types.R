@@ -1,20 +1,21 @@
-#' Transform between output types, from one starting output_type into one new
-#' output_type. See details for supported conversions.
+#' Transform between output types, from one starting output_type into new
+#' output_types. See details for supported conversions.
 #'
 #' @param model_out_tbl an object of class `model_out_tbl` with component model
 #'    outputs (e.g., predictions). `model_out_tbl` should contain only one
 #'    unique value in the `output_type` column
 #' @param new_output_type `string` indicating the desired output_type after
-#'   transformation; can be `"mean"`, `"median"`, `"quantile"`, `"cdf"`; see
-#'   details for supported conversions
+#'   transformation (`"mean"`, `"median"`, `"quantile"`, `"cdf"`); can also be a
+#'   vector if multiple new output_types are desired
 #' @param new_output_type_id `vector` indicating desired output_type_ids for
 #'   corresponding `new_output_type`; only needs to be specified if
-#'   `new_output_type` is `"quantile"` or `"cdf"`
+#'   `new_output_type` includes `"quantile"` or `"cdf"` (see details for how to
+#'    specify when both `"quantile"` and `"cdf"` are desired)
 #' @param n_samples `numeric` that specifies the number of samples to use when
-#'   calculating quantiles from an estimated quantile function. Defaults to `1e4`.
+#'   calculating output_types from an estimated quantile function. Defaults to `1e4`.
 #' @param ... parameters that are passed to `distfromq::make_q_fn`, specifying
 #'   details of how to estimate a quantile function from provided quantile levels
-#'   and quantile values for `output_type` `"quantile"`.
+#'   and quantile values for `"quantile"` or `"cdf"` output types.
 #'
 #' @details
 #' The following transformations are supported: (i) `"sample"` can be
@@ -22,16 +23,20 @@
 #' `"quantile"` can be transformed to `"mean"`, `"median"`, or `"cdf"`; and
 #' (iii) `"cdf"` can be transformed to `"mean"`, `"median"`, or `"quantile"`.
 #'
-#' For `"quantile"` and `"cdf"` starting output types, we follow the below approach:
-#'     1. Interpolate and extrapolate from the provided quantiles or probabilities
+#' For `"quantile"` and `"cdf"` starting output types, we use the following approach:
+#'   1. Interpolate and extrapolate from the provided quantiles or probabilities
 #'        for each component model to obtain an estimate of the cdf of that distribution.
-#'     2. Draw samples from the distribution for each component model. To reduce
+#'   2. Draw samples from the distribution for each component model. To reduce
 #'        Monte Carlo variability, we use quasi-random samples corresponding to
 #'        quantiles of the estimated distribution.
-#'     3. Calculate the desired quantity (e.g., mean).
-#' If the median quantile is provided in the `model_out_tbl` object (i.e.,
-#'    the original output_type is `"median"` and 0.5 is contained in the original
-#'    output_type_id), the median value is extracted and returned directly.
+#'   3. Calculate the desired quantity (e.g., mean).
+#' If the median quantile is provided in the `model_out_tbl` object (i.e., the
+#' original output_type is `"median"` and 0.5 is contained in the original
+#' output_type_id), the median value is extracted and returned directly.
+#'
+#' If both `"quantile"` and `"cdf"` output_types are desired, `new_output_type_id`
+#' should be a named list, where each element specifies the corresponding
+#' `new_output_type_id`. See examples for an illustration.
 #'
 #' @examples
 #' # We illustrate the conversion between output types using normal distributions,
@@ -46,6 +51,20 @@
 #'
 #' convert_output_type(model_out_tbl, c("group1"), new_output_type = "median")
 #'
+#' # Next, we illustrate conversion from samples to quantile and cdf
+#' ex_bins <- seq(-2,2,1)
+#' ex_quantiles <- c(0.25, 0.5, 0.75)
+#' model_out_tbl <- expand.grid(
+#'   group1 = c(1,2),
+#'   model_id = "A
+#'   output_type = "sample",
+#'   output_type_id = 1:100
+#' ) %>%
+#' dplyr::mutate(value = rnorm(100, mean = group1))
+#'
+#' convert_output_type(model_out_tbl, new_output_type = c("quantile", "cdf"),
+#'    new_output_type_id = list("quantile" = ex_quantiles, "cdf" = ex_bins))
+#'
 #' @return object of class `model_out_tbl` containing new output_type
 #' @export
 convert_output_type <- function(model_out_tbl, new_output_type,
@@ -55,35 +74,50 @@ convert_output_type <- function(model_out_tbl, new_output_type,
   starting_output_type <- model_out_tbl$output_type %>% unique()
   starting_output_type_ids <- model_out_tbl$output_type_id %>% unique()
   task_id_cols <- get_task_id_cols(model_out_tbl)
-  validate_new_output_type(starting_output_type, new_output_type,
-                           new_output_type_id)
+  validate_new_output_type(
+    starting_output_type, new_output_type,
+    new_output_type_id
+  )
   # for cdf and quantile functions, get samples
   if (starting_output_type == "cdf") {
     # estimate from samples
     model_out_tbl <- get_samples_from_cdf(model_out_tbl, task_id_cols, n_samples)
   } else if (starting_output_type == "quantile") {
-    # if median output desired, and Q50 provided return exact value
-    if (new_output_type == "median" && 0.5 %in% starting_output_type_ids) {
-      model_out_tbl_transform <- model_out_tbl %>%
-        dplyr::filter(output_type_id == 0.5) %>%
-        dplyr::mutate(
-          output_type = new_output_type,
-          output_type_id = new_output_type_id
-        ) %>%
-        hubUtils::as_model_out_tbl()
-      return(model_out_tbl_transform)
-    } else {
-      # otherwise, estimate from samples
+    # if median output desired, and Q50 provided return exact value, otherwise
+    # estimate from samples
+    if (!("median" %in% new_output_type && 0.5 %in% starting_output_type_ids)) {
       model_out_tbl <- get_samples_from_quantiles(model_out_tbl, task_id_cols, n_samples)
     }
   }
   # transform based on new_output_type
   grouped_model_out_tbl <- model_out_tbl %>%
     dplyr::group_by(model_id, dplyr::across(dplyr::all_of(task_id_cols)))
-  model_out_tbl_transform <- convert_from_sample(
-    grouped_model_out_tbl, new_output_type, new_output_type_id
-  )
-  return(model_out_tbl_transform)
+  model_out_tbl_transform <- vector("list", length = length(new_output_type))
+  for (i in 1:length(new_output_type)) {
+    # if median output desired, and Q50 provided return exact value
+    if (new_output_type[i] == "median" && 0.5 %in% starting_output_type_ids) {
+      model_out_tbl_transform[[i]] <- model_out_tbl %>%
+        dplyr::filter(output_type_id == 0.5) %>%
+        dplyr::mutate(
+          output_type = new_output_type[i],
+          output_type_id = NA
+        ) %>%
+        hubUtils::as_model_out_tbl()
+    }
+    # otherwise calculate new values
+    # first find new_output_type_id
+    new_output_type_id_tmp <- new_output_type_id
+    if (new_output_type[i] %in% c("mean", "median")) {
+      new_output_type_id_tmp <- NA
+    } else
+      if (is.list(new_output_type_id)) {
+        new_output_type_id_tmp <- new_output_type_id[[new_output_type[i]]]
+      }
+    model_out_tbl_transform[[i]] <- convert_from_sample(
+      grouped_model_out_tbl, new_output_type[i], new_output_type_id_tmp
+    )
+  }
+  return(dplyr::bind_rows(model_out_tbl_transform))
 }
 
 validate_new_output_type <- function(starting_output_type, new_output_type,
@@ -102,29 +136,33 @@ validate_new_output_type <- function(starting_output_type, new_output_type,
     ))
   }
   # check new_output_type is supported
-  valid_new_output_type <- new_output_type %in% valid_conversions[[starting_output_type]]
-  if (!valid_new_output_type) {
+  invalid_new_output_type <- which(!(new_output_type %in% valid_conversions[[starting_output_type]]))
+  if (length(invalid_new_output_type) > 0) {
     cli::cli_abort(c(
-      "{starting_output_type} cannot be transformed to
-            output_type {new_output_type}",
+      "{invalid_new_output_type} cannot be transformed to the specified
+      {.var new_output_type}",
       i = "new_output_type must be {valid_conversions[[starting_output_type]]}"
     ))
   }
   # check new_output_type_id
-  if (new_output_type %in% c("mean", "median") && !all(is.na(new_output_type_id))) {
+  if (all(new_output_type %in% c("mean", "median")) && !all(is.na(new_output_type_id))) {
     cli::cli_abort(c(
       "{.var new_output_type_id} is incompatible with {.var new_output_type}",
       i = "{.var new_output_type_id} should be {.var NA}"
     ))
-  } else if (new_output_type == "quantile") {
-    if (!is.numeric(new_output_type_id)) {
+  } else if ("quantile" %in% new_output_type) {
+    new_output_type_id_tmp <- new_output_type_id
+    if (is.list(new_output_type_id)) {
+      new_output_type_id_tmp <- new_output_type_id[["quantile"]]
+    }
+    if (!is.numeric(new_output_type_id_tmp)) {
       cli::cli_abort(c(
         "elements of {.var new_output_type_id} should be numeric",
         i = "elements of {.var new_output_type_id} represent quantiles
                 of the predictive distribution"
       ))
     }
-    if (any(new_output_type_id < 0) || any(new_output_type_id > 1)) {
+    if (any(new_output_type_id_tmp < 0) || any(new_output_type_id_tmp > 1)) {
       cli::cli_abort(c(
         "elements of {.var new_output_type_id} should be between 0 and 1",
         i = "elements of {.var new_output_type_id} represent quantiles
@@ -132,7 +170,11 @@ validate_new_output_type <- function(starting_output_type, new_output_type,
       ))
     }
   } else if (new_output_type == "cdf") {
-    if (!is.numeric(new_output_type_id)) {
+    new_output_type_id_tmp <- new_output_type_id
+    if (is.list(new_output_type_id)) {
+      new_output_type_id_tmp <- new_output_type_id[["cdf"]]
+    }
+    if (!is.numeric(new_output_type_id_tmp)) {
       cli::cli_abort(c(
         "elements of {.var new_output_type_id} should be numeric",
         i = "elements of {.var new_output_type_id} represent possible
@@ -190,8 +232,7 @@ convert_from_sample <- function(grouped_model_out_tbl, new_output_type,
   } else if (new_output_type == "quantile") {
     model_out_tbl_transform <- grouped_model_out_tbl %>%
       dplyr::reframe(
-        value = quantile(value, as.numeric(new_output_type_id),
-          names = FALSE
+        value = quantile(value, as.numeric(new_output_type_id), names = FALSE
         ),
         output_type_id = new_output_type_id
       )
