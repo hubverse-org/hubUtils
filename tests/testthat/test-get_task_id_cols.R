@@ -1,5 +1,5 @@
 test_that("get_task_id_cols works", {
-  ex_qs <- seq(0,1,length.out = 5)
+  ex_qs <- seq(0, 1, length.out = 5)
   model_outputs <- expand.grid(
     grp1 = 1:2,
     grp2 = 1:3,
