@@ -8,12 +8,12 @@ get_schema_valid_versions(branch = "main")
 }
 \arguments{
 \item{branch}{The branch of the Infectious Disease Modeling Hubs
-\href{https://github.com/Infectious-Disease-Modeling-Hubs/schemas}{schemas repository}
+\href{https://github.com/hubverse-org/schemas}{schemas repository}
 from which to fetch schema. Defaults to \code{"main"}.}
 }
 \value{
 a character vector of valid versions of Infectious Disease Modeling Hubs
-\href{https://github.com/Infectious-Disease-Modeling-Hubs/schemas}{schema}.
+\href{https://github.com/hubverse-org/schemas}{schema}.
 }
 \description{
 Get a vector of valid schema version
