@@ -1,7 +1,7 @@
 #' Get the json schema download URL for a given config file version
 #'
 #' @param config Name of config file to validate. One of `"tasks"` or `"admin"`.
-#' @param version A valid version of Infectious Disease Modeling Hubs
+#' @param version A valid version of hubverse
 #'   [schema](https://github.com/hubverse-org/schemas)
 #'   (e.g. `"v0.0.1"`).
 #' @param branch The branch of the Infectious Disease Modeling Hubs
