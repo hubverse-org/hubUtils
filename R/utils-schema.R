@@ -31,7 +31,7 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 #'
 #' @inheritParams get_schema_url
 #'
-#' @return a character vector of valid versions of Infectious Disease Modeling Hubs
+#' @return a character vector of valid versions of hubverse
 #'   [schema](https://github.com/hubverse-org/schemas).
 #' @family functions supporting config file validation
 #' @export
