@@ -9,11 +9,11 @@ get_schema_url(config = c("tasks", "admin", "model"), version, branch = "main")
 \arguments{
 \item{config}{Name of config file to validate. One of \code{"tasks"} or \code{"admin"}.}
 
-\item{version}{A valid version of Infectious Disease Modeling Hubs
+\item{version}{A valid version of hubverse
 \href{https://github.com/hubverse-org/schemas}{schema}
 (e.g. \code{"v0.0.1"}).}
 
-\item{branch}{The branch of the Infectious Disease Modeling Hubs
+\item{branch}{The branch of the hubverse
 \href{https://github.com/hubverse-org/schemas}{schemas repository}
 from which to fetch schema. Defaults to \code{"main"}.}
 }

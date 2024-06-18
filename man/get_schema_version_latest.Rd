@@ -9,7 +9,7 @@ get_schema_version_latest(schema_version = "latest", branch = "main")
 \arguments{
 \item{schema_version}{A character vector. Either "latest" or a valid schema version.}
 
-\item{branch}{The branch of the Infectious Disease Modeling Hubs
+\item{branch}{The branch of the hubverse
 \href{https://github.com/hubverse-org/schemas}{schemas repository}
 from which to fetch schema. Defaults to \code{"main"}.}
 }
