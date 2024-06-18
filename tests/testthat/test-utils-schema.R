@@ -3,7 +3,7 @@ test_that("Schema URL created successfully", {
   expect_true(valid_url(schema_url))
   expect_equal(
     schema_url,
-    "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"
+    "https://raw.githubusercontent.com/hubverse-org/schemas/main/v0.0.1/tasks-schema.json"
   )
 })
 
@@ -48,7 +48,7 @@ test_that("validate_schema_version works", {
 test_that("extract_schema_version works", {
   expect_equal(
     extract_schema_version(
-      "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v3.0.0/tasks-schema.json"
+      "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/tasks-schema.json"
     ), "v3.0.0"
   )
 })

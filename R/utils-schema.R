@@ -1,11 +1,11 @@
 #' Get the json schema download URL for a given config file version
 #'
 #' @param config Name of config file to validate. One of `"tasks"` or `"admin"`.
-#' @param version A valid version of Infectious Disease Modeling Hubs
-#'   [schema](https://github.com/Infectious-Disease-Modeling-Hubs/schemas)
+#' @param version A valid version of hubverse
+#'   [schema](https://github.com/hubverse-org/schemas)
 #'   (e.g. `"v0.0.1"`).
-#' @param branch The branch of the Infectious Disease Modeling Hubs
-#'   [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas)
+#' @param branch The branch of the hubverse
+#'   [schemas repository](https://github.com/hubverse-org/schemas)
 #'   from which to fetch schema. Defaults to `"main"`.
 #'
 #' @return The json schema download URL for a given config file version.
@@ -23,7 +23,7 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
   # repo
   validate_schema_version(version, branch = branch)
 
-  schema_repo <- "Infectious-Disease-Modeling-Hubs/schemas"
+  schema_repo <- "hubverse-org/schemas"
   glue::glue("https://raw.githubusercontent.com/{schema_repo}/{branch}/{version}/{config}-schema.json")
 }
 
@@ -31,27 +31,27 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 #'
 #' @inheritParams get_schema_url
 #'
-#' @return a character vector of valid versions of Infectious Disease Modeling Hubs
-#'   [schema](https://github.com/Infectious-Disease-Modeling-Hubs/schemas).
+#' @return a character vector of valid versions of hubverse
+#'   [schema](https://github.com/hubverse-org/schemas).
 #' @family functions supporting config file validation
 #' @export
 #' @examples
 #' get_schema_valid_versions()
 get_schema_valid_versions <- function(branch = "main") {
   branches <- gh::gh(
-    "GET /repos/Infectious-Disease-Modeling-Hubs/schemas/branches"
+    "GET /repos/hubverse-org/schemas/branches"
   ) %>%
     vapply("[[", "", "name")
 
   if (!branch %in% branches) {
     cli::cli_abort(c(
       "x" = "{.val {branch}} is not a valid branch in schema repository
-                   {.url https://github.com/Infectious-Disease-Modeling-Hubs/schemas/branches}",
+                   {.url https://github.com/hubverse-org/schemas/branches}",
       "i" = "Current valid branches are: {.val {branches}}"
     ))
   }
 
-  req <- gh::gh("GET /repos/Infectious-Disease-Modeling-Hubs/schemas/git/trees/{branch}",
+  req <- gh::gh("GET /repos/hubverse-org/schemas/git/trees/{branch}",
     branch = branch
   )
 
@@ -79,7 +79,7 @@ get_schema <- function(schema_url) {
     cli::cli_abort(
       "Connection to schema repository failed. Please check your internet connection.
             If the problem persists, please open an issue at:
-            {.url https://github.com/Infectious-Disease-Modeling-Hubs/schemas}"
+            {.url https://github.com/hubverse-org/schemas}"
     )
   }
 
@@ -128,7 +128,7 @@ validate_schema_version <- function(schema_version, branch) {
     cli::cli_abort(
       "{.val {schema_version}} is not a valid schema version.
             Current valid schema version{?s} {?is/are}: {.val {valid_versions}}.
-            For more details, visit {.url https://github.com/Infectious-Disease-Modeling-Hubs/schemas}"
+            For more details, visit {.url https://github.com/hubverse-org/schemas}"
     )
   }
 }
