@@ -536,7 +536,7 @@
       read_config(hub_path = hubData::s3_bucket("hubverse/hubutils/testhubs/simple/"))
     Output
       $schema_version
-      [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
       
       $rounds
       $rounds[[1]]
