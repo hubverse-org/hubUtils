@@ -4,7 +4,7 @@
 #' @param version A valid version of hubverse
 #'   [schema](https://github.com/hubverse-org/schemas)
 #'   (e.g. `"v0.0.1"`).
-#' @param branch The branch of the Infectious Disease Modeling Hubs
+#' @param branch The branch of the hubverse
 #'   [schemas repository](https://github.com/hubverse-org/schemas)
 #'   from which to fetch schema. Defaults to `"main"`.
 #'
