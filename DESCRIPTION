@@ -1,6 +1,6 @@
 Package: hubUtils
 Title: Utility functions for Infectious Disease Modeling Hubs
-Version: 0.0.2
+Version: 0.1.0
 Authors@R: 
     c(person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2378-4915")),
@@ -16,9 +16,9 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
-URL: https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils,
-    https://infectious-disease-modeling-hubs.github.io/hubUtils/
-BugReports: https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils/issues
+URL: https://github.com/hubverse-org/hubUtils,
+    https://hubverse-org.github.io/hubUtils/
+BugReports: https://github.com/hubverse-org/hubUtils/issues
 Imports:
     checkmate,
     cli,
@@ -44,10 +44,10 @@ Suggests:
     rmarkdown,
     testthat (>= 3.2.0)
 Remotes:
-    Infectious-Disease-Modeling-Hubs/hubData,
-    Infectious-Disease-Modeling-Hubs/hubAdmin
+    hubverse-org/hubData,
+    hubverse-org/hubAdmin
 Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
 LazyData: true
-Config/Needs/website: Infectious-Disease-Modeling-Hubs/hubStyle
+Config/Needs/website: hubverse-org/hubStyle
