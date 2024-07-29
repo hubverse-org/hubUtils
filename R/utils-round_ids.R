@@ -8,6 +8,8 @@
 #' `round_id` property of `config_tasks`.
 #' Otherwise should match round's `round_id` value in config. Ignored if hub
 #' contains only a single round.
+#' @return the integer index of the element in `config_tasks$rounds` that a
+#' character round identifier maps to
 #' @export
 #' @describeIn get_round_idx Get an integer index of the element in
 #' `config_tasks$rounds` that a character round identifier maps to.
@@ -54,6 +56,7 @@ get_round_idx <- function(config_tasks, round_id) {
 #'  character vectors of round IDs.
 #'  If `round_id_from_variable` is `FALSE`,a list with a round ID for each round
 #'  is returned.
+#' @return a list or character vector of hub round IDs
 #' @describeIn get_round_idx Get a list or character vector of hub round IDs.
 #' For each round, if `round_id_from_variable` is `TRUE`, round IDs returned are the values of
 #' the task ID defined in the `round_id` property. Otherwise, if

@@ -48,6 +48,12 @@ If \code{round_id_from_variable} is \code{FALSE},a list with a round ID for each
 is returned.
 }}
 }
+\value{
+the integer index of the element in \code{config_tasks$rounds} that a
+character round identifier maps to
+
+a list or character vector of hub round IDs
+}
 \description{
 Utilities for accessing round ID metadata
 }
