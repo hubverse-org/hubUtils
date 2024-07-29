@@ -1,5 +1,5 @@
 Package: hubUtils
-Title: Utility functions for Infectious Disease Modeling Hubs
+Title: Utility Functions for Infectious Disease Modeling Hubs
 Version: 0.1.0
 Authors@R: c(
     person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
