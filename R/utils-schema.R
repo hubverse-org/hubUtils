@@ -1,4 +1,4 @@
-#' Get the json schema download URL for a given config file version
+#' Get the JSON schema download URL for a given config file version
 #'
 #' @param config Name of config file to validate. One of `"tasks"` or `"admin"`.
 #' @param version A valid version of hubverse
@@ -8,7 +8,7 @@
 #'   [schemas repository](https://github.com/hubverse-org/schemas)
 #'   from which to fetch schema. Defaults to `"main"`.
 #'
-#' @return The json schema download URL for a given config file version.
+#' @return The JSON schema download URL for a given config file version.
 #' @family functions supporting config file validation
 #' @export
 #'
@@ -66,7 +66,7 @@ get_schema_valid_versions <- function(branch = "main") {
 #'
 #' @param schema_url The download URL for a given config schema version.
 #'
-#' @return Contents of the json schema as a character string.
+#' @return Contents of the JSON schema as a character string.
 #' @family functions supporting config file validation
 #' @export
 #' @examples
