@@ -57,6 +57,8 @@ get_round_idx <- function(config_tasks, round_id) {
 #'  If `round_id_from_variable` is `FALSE`,a list with a round ID for each round
 #'  is returned.
 #' @return a list or character vector of hub round IDs
+#' - A character vector is returned only if `flatten = "all"`
+#' - A list is returned otherwise (see `flatten` for more details)
 #' @describeIn get_round_idx Get a list or character vector of hub round IDs.
 #' For each round, if `round_id_from_variable` is `TRUE`, round IDs returned are the values of
 #' the task ID defined in the `round_id` property. Otherwise, if

@@ -53,6 +53,10 @@ the integer index of the element in \code{config_tasks$rounds} that a
 character round identifier maps to
 
 a list or character vector of hub round IDs
+\itemize{
+\item A character vector is returned only if \code{flatten = "all"}
+\item A list is returned otherwise (see @param \code{flatten} for more details)
+}
 }
 \description{
 Utilities for accessing round ID metadata
