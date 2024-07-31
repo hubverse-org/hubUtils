@@ -82,7 +82,8 @@ as_model_out_tbl <- function(tbl, model_id_col = NULL, output_type_col = NULL,
 #'
 #' @param tbl a `model_out_tbl` S3 class object.
 #'
-#' @return If valid, returns a `tbl`. Otherwise throws an error.
+#' @return If valid, returns a `model_out_tbl` class object. Otherwise, throws an
+#' error.
 #' @export
 #'
 #' @examples

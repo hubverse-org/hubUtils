@@ -77,8 +77,8 @@ model_id_merge <- function(tbl, sep = "-") {
   return(tbl)
 }
 
-#' @return `tbl` with `model_id` column split into separate `team_abbr` and
-#' `model_abbr` columns
+#' @return a [tibble][tibble::tibble()] with `model_id` column split into separate
+#' `team_abbr` and `model_abbr` columns
 #' @export
 #' @describeIn model_id_merge split `model_id` column into separate `team_abbr`
 #' and `model_abbr` columns.
