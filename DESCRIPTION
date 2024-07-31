@@ -8,7 +8,7 @@ Authors@R: c(
     person("Nicholas G.", "Reich", , "nick@umass.edu", role = "ctb",
            comment = c(ORCID = "0000-0003-3503-9899")),
     person("Evan L.", "Ray", , "elray@umass.edu", role = "ctb"),
-    person(, "Consortium of Infectious Disease Modeling Hubs", role = "cph")
+    person("Consortium of Infectious Disease Modeling Hubs", role = "cph")
   )
 Description: A set of utility functions for downloading, plotting, and
     scoring forecast and truth data from Infectious Disease Modeling Hubs.
