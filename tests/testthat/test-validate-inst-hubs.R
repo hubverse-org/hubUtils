@@ -1,4 +1,5 @@
 test_that("simple example hub configured correctly", {
+  skip_if_not_installed("hubAdmin")
   expect_true(
     all(
       unlist(
@@ -15,6 +16,7 @@ test_that("simple example hub configured correctly", {
 })
 
 test_that("flusight example hub configured correctly", {
+  skip_if_not_installed("hubAdmin")
   expect_true(
     all(
       unlist(
