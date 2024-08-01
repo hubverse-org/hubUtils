@@ -29,15 +29,16 @@
 #' @export
 #'
 #' @examples
-#' library(dplyr)
-#' hub_path <- system.file("testhubs/flusight", package = "hubUtils")
-#' hub_con <- hubData::connect_hub(hub_path)
-#' hub_con %>%
-#'   filter(output_type == "quantile", location == "US") %>%
-#'   collect() %>%
-#'   filter(forecast_date == max(forecast_date)) %>%
-#'   as_model_out_tbl()
-#'
+#' if (requireNamespace("hubData", quietly = TRUE)) {
+#'   library(dplyr)
+#'   hub_path <- system.file("testhubs/flusight", package = "hubUtils")
+#'   hub_con <- hubData::connect_hub(hub_path)
+#'   hub_con %>%
+#'     filter(output_type == "quantile", location == "US") %>%
+#'     collect() %>%
+#'     filter(forecast_date == max(forecast_date)) %>%
+#'     as_model_out_tbl()
+#'}
 as_model_out_tbl <- function(tbl, model_id_col = NULL, output_type_col = NULL,
                              output_type_id_col = NULL, value_col = NULL, sep = "-",
                              trim_to_task_ids = FALSE, hub_con = NULL,
@@ -87,16 +88,18 @@ as_model_out_tbl <- function(tbl, model_id_col = NULL, output_type_col = NULL,
 #' @export
 #'
 #' @examples
-#' library(dplyr)
-#' hub_path <- system.file("testhubs/flusight", package = "hubUtils")
-#' hub_con <- hubData::connect_hub(hub_path)
-#' md_out <- hub_con %>%
-#'   filter(output_type == "quantile", location == "US") %>%
-#'   collect() %>%
-#'   filter(forecast_date == max(forecast_date)) %>%
-#'   as_model_out_tbl()
+#' if (requireNamespace("hubData", quietly = TRUE)) {
+#'   library(dplyr)
+#'   hub_path <- system.file("testhubs/flusight", package = "hubUtils")
+#'   hub_con <- hubData::connect_hub(hub_path)
+#'   md_out <- hub_con %>%
+#'     filter(output_type == "quantile", location == "US") %>%
+#'     collect() %>%
+#'     filter(forecast_date == max(forecast_date)) %>%
+#'     as_model_out_tbl()
 #'
-#' validate_model_out_tbl(md_out)
+#'   validate_model_out_tbl(md_out)
+#' }
 validate_model_out_tbl <- function(tbl) {
   if (!all(std_colnames %in% names(tbl))) {
     cli::cli_abort(

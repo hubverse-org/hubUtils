@@ -59,13 +59,14 @@ A \code{model_out_tbl} class object.
 Convert model output to a \code{model_out_tbl} class object.
 }
 \examples{
-library(dplyr)
-hub_path <- system.file("testhubs/flusight", package = "hubUtils")
-hub_con <- hubData::connect_hub(hub_path)
-hub_con \%>\%
-  filter(output_type == "quantile", location == "US") \%>\%
-  collect() \%>\%
-  filter(forecast_date == max(forecast_date)) \%>\%
-  as_model_out_tbl()
-
+if (requireNamespace("hubData", quietly = TRUE)) {
+  library(dplyr)
+  hub_path <- system.file("testhubs/flusight", package = "hubUtils")
+  hub_con <- hubData::connect_hub(hub_path)
+  hub_con \%>\%
+    filter(output_type == "quantile", location == "US") \%>\%
+    collect() \%>\%
+    filter(forecast_date == max(forecast_date)) \%>\%
+    as_model_out_tbl()
+}
 }

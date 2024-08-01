@@ -18,8 +18,8 @@ config file, accessed through the \code{"config_tasks"} attribute of a \verb{<hu
 object or function \code{\link[=read_config]{read_config()}}.}
 
 \item{round_id}{Character string. Round identifier. If the round is set to
-\code{round_id_from_variable: true}, IDs are values of the task ID defined in the round's
-\code{round_id} property of \code{config_tasks}.
+\code{round_id_from_variable: true}, IDs are values of the task ID defined in the
+round's \code{round_id} property of \code{config_tasks}.
 Otherwise should match round's \code{round_id} value in config. Ignored if hub
 contains only a single round.}
 
@@ -67,20 +67,24 @@ Utilities for accessing round ID metadata
 \code{config_tasks$rounds} that a character round identifier maps to.
 
 \item \code{get_round_ids()}: Get a list or character vector of hub round IDs.
-For each round, if \code{round_id_from_variable} is \code{TRUE}, round IDs returned are the values of
-the task ID defined in the \code{round_id} property. Otherwise, if
+For each round, if \code{round_id_from_variable} is \code{TRUE}, round IDs returned are
+the values of the task ID defined in the \code{round_id} property. Otherwise, if
 \code{round_id_from_variable} is \code{FALSE}, the value of the \code{round_id} property is
 returned.
 
 }}
 \examples{
-hub_con <- hubData::connect_hub(system.file("testhubs/simple", package = "hubUtils"))
-config_tasks <- attr(hub_con, "config_tasks")
-# Get round IDs
-get_round_ids(config_tasks)
-get_round_ids(config_tasks, flatten = "model_task")
-get_round_ids(config_tasks, flatten = "task_id")
-get_round_ids(config_tasks, flatten = "none")
-get_round_idx(config_tasks, "2022-10-01")
-get_round_idx(config_tasks, "2022-10-29")
+if (requireNamespace("hubData", quietly = TRUE)) {
+  hub_con <- hubData::connect_hub(system.file("testhubs/simple",
+                                              package = "hubUtils"))
+  config_tasks <- attr(hub_con, "config_tasks")
+  # Get round IDs
+  get_round_ids(config_tasks)
+  get_round_ids(config_tasks, flatten = "model_task")
+  get_round_ids(config_tasks, flatten = "task_id")
+  get_round_ids(config_tasks, flatten = "none")
+  # Get round integer index using a round_id
+  get_round_idx(config_tasks, "2022-10-01")
+  get_round_idx(config_tasks, "2022-10-29")
+}
 }
