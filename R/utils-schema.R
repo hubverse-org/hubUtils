@@ -35,10 +35,11 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 #'   [schema](https://github.com/hubverse-org/schemas).
 #' @family functions supporting config file validation
 #' @export
+#' @importFrom gh gh
 #' @examples
 #' get_schema_valid_versions()
 get_schema_valid_versions <- function(branch = "main") {
-  branches <- gh::gh(
+  branches <- gh(
     "GET /repos/hubverse-org/schemas/branches"
   ) %>%
     vapply("[[", "", "name")
@@ -51,7 +52,7 @@ get_schema_valid_versions <- function(branch = "main") {
     ))
   }
 
-  req <- gh::gh("GET /repos/hubverse-org/schemas/git/trees/{branch}",
+  req <- gh("GET /repos/hubverse-org/schemas/git/trees/{branch}",
     branch = branch
   )
 
@@ -69,11 +70,12 @@ get_schema_valid_versions <- function(branch = "main") {
 #' @return Contents of the JSON schema as a character string.
 #' @family functions supporting config file validation
 #' @export
+#' @importFrom curl curl_fetch_memory
 #' @examples
 #' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
 #' get_schema(schema_url)
 get_schema <- function(schema_url) {
-  response <- try(curl::curl_fetch_memory(schema_url), silent = TRUE)
+  response <- try(curl_fetch_memory(schema_url), silent = TRUE)
 
   if (inherits(response, "try-error")) {
     cli::cli_abort(

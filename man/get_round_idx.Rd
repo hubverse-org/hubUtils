@@ -55,7 +55,7 @@ character round identifier maps to
 a list or character vector of hub round IDs
 \itemize{
 \item A character vector is returned only if \code{flatten = "all"}
-\item A list is returned otherwise (see @param \code{flatten} for more details)
+\item A list is returned otherwise (see \code{flatten} for more details)
 }
 }
 \description{
