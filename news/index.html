@@ -82,7 +82,7 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9014" id="hubutils-0009014">hubUtils 0.0.0.9014<a class="anchor" aria-label="anchor" href="#hubutils-0009014"></a></h2>
 <ul><li>Added <code>coerce_to_character()</code> function for coercing all model output columns to character. This can be much faster than coercing to <code>coerce_to_hub_schema()</code>, especially for dates.</li>
-<li>Added the following params to <code>expand_model_out_val_grid()</code>:
+<li>Added the following parameters to <code>expand_model_out_val_grid()</code>:
 <ul><li>
 <code>all_character</code>: allow for returning all character columns.</li>
 <li>
@@ -97,16 +97,16 @@
 <ul><li>Introduced <code>coerce_to_hub_schema()</code> function and applied it to <code>create_model_out_submit_tmpl()</code> &amp; <code>expand_model_out_val_grid()</code> to ensure column data types in returned tibbles are consistent with the hub’s schema (<a href="https://github.com/hubverse-org/hubUtils/issues/100" class="external-link">#100</a>).</li>
 <li>Fixed bug where optional <code>mean</code>/<code>median</code> output types where being included erroneously when <code>required_vals_only = TRUE</code>.</li>
 <li>Exported function <code><a href="../reference/get_round_task_id_names.html">get_round_task_id_names()</a></code> (<a href="https://github.com/hubverse-org/hubUtils/issues/99" class="external-link">#99</a>).</li>
-<li>Memoised function <code><a href="../reference/read_config.html">read_config()</a></code> (<a href="https://github.com/hubverse-org/hubUtils/issues/101" class="external-link">#101</a>).</li>
+<li>Memoized function <code><a href="../reference/read_config.html">read_config()</a></code> (<a href="https://github.com/hubverse-org/hubUtils/issues/101" class="external-link">#101</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9012" id="hubutils-0009012">hubUtils 0.0.0.9012<a class="anchor" aria-label="anchor" href="#hubutils-0009012"></a></h2>
-<ul><li>Fixed bug (<a href="https://github.com/hubverse-org/hubUtils/issues/95" class="external-link">#95</a> &amp; <a href="https://github.com/hubverse-org/hubUtils/issues/97" class="external-link">#97</a>) which was causing <code>connect_hub()</code> to error when <code>"csv"</code> was an accepted hub file format but there were no csv in the model output directory. Now <code>connect_hub()</code> checks for the presence of files of each accepted file format and only opens datasets for file formats of which files exists. If there are no files of any accepted file_format in the model output directory, the S3 <code>hub_connection</code> object returned consists of an empty list.</li>
+<ul><li>Fixed bug (<a href="https://github.com/hubverse-org/hubUtils/issues/95" class="external-link">#95</a> &amp; <a href="https://github.com/hubverse-org/hubUtils/issues/97" class="external-link">#97</a>) which was causing <code>connect_hub()</code> to error when <code>"csv"</code> was an accepted hub file format but there were no CSV in the model output directory. Now <code>connect_hub()</code> checks for the presence of files of each accepted file format and only opens datasets for file formats of which files exists. If there are no files of any accepted file_format in the model output directory, the S3 <code>hub_connection</code> object returned consists of an empty list.</li>
 <li>Fixed bug (<a href="https://github.com/hubverse-org/hubUtils/issues/96" class="external-link">#96</a>) which was required <code>hubUtils</code> to be loaded for <code>std_colnames</code> to be internally available.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9011" id="hubutils-0009011">hubUtils 0.0.0.9011<a class="anchor" aria-label="anchor" href="#hubutils-0009011"></a></h2>
-<ul><li>Changed default behaviour of <code>create_model_out_submit_tmpl()</code>. Function now, by default, returns rows of complete cases only and the behaviour is controlled by argument <code>complete_cases_only</code>. Argument <code>remove_empty_cols</code> was also removed.</li>
+<ul><li>Changed default behavior of <code>create_model_out_submit_tmpl()</code>. Function now, by default, returns rows of complete cases only and the behavior is controlled by argument <code>complete_cases_only</code>. Argument <code>remove_empty_cols</code> was also removed.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9010" id="hubutils-0009010">hubUtils 0.0.0.9010<a class="anchor" aria-label="anchor" href="#hubutils-0009010"></a></h2>
@@ -123,19 +123,19 @@
 </ul></li>
 <li>Added additional <code>tasks.json</code> validation checks via <code>validate_config()</code>:
 <ul><li>Check that all task_id and output_type_id values are unique across <code>required</code> and <code>optional</code> properties.</li>
-<li>In rounds where <code>round_id_from_variable</code> is <code>TRUE</code>, check that the specification of the task_id set as <code>round_id</code> is consistent across modelling tasks.</li>
+<li>In rounds where <code>round_id_from_variable</code> is <code>TRUE</code>, check that the specification of the task_id set as <code>round_id</code> is consistent across modeling tasks.</li>
 <li>Check that <code>round_id</code> values are unique across rounds.</li>
 </ul></li>
 <li>Exported object <code>std_colnames</code> which contains standard column names used in hubverse model output data files, for use in other hubverse packages (<a href="https://github.com/hubverse-org/hubUtils/issues/88" class="external-link">#88</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9009" id="hubutils-0009009">hubUtils 0.0.0.9009<a class="anchor" aria-label="anchor" href="#hubutils-0009009"></a></h2>
-<ul><li>Added <code><a href="../reference/as_model_out_tbl.html">as_model_out_tbl()</a></code> function to standardise model output data by converting to a <code>model_out_tbl</code> S3 class object. (<a href="https://github.com/hubverse-org/hubUtils/issues/32" class="external-link">#32</a>, <a href="https://github.com/hubverse-org/hubUtils/issues/33" class="external-link">#33</a>, <a href="https://github.com/hubverse-org/hubUtils/issues/63" class="external-link">#63</a>, <a href="https://github.com/hubverse-org/hubUtils/issues/64" class="external-link">#64</a>, <a href="https://github.com/hubverse-org/hubUtils/issues/66" class="external-link">#66</a>)</li>
+<ul><li>Added <code><a href="../reference/as_model_out_tbl.html">as_model_out_tbl()</a></code> function to standardize model output data by converting to a <code>model_out_tbl</code> S3 class object. (<a href="https://github.com/hubverse-org/hubUtils/issues/32" class="external-link">#32</a>, <a href="https://github.com/hubverse-org/hubUtils/issues/33" class="external-link">#33</a>, <a href="https://github.com/hubverse-org/hubUtils/issues/63" class="external-link">#63</a>, <a href="https://github.com/hubverse-org/hubUtils/issues/64" class="external-link">#64</a>, <a href="https://github.com/hubverse-org/hubUtils/issues/66" class="external-link">#66</a>)</li>
 <li>To support back-compatibility with model output data in older hubs, added functions <code><a href="../reference/model_id_merge.html">model_id_merge()</a></code> and <code><a href="../reference/model_id_merge.html">model_id_split()</a></code> to create <code>model_id</code> column from separate <code>team_abbr</code> and <code>model_abbr</code> columns and vice versa (<a href="https://github.com/hubverse-org/hubUtils/issues/63" class="external-link">#63</a>).</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9008" id="hubutils-0009008">hubUtils 0.0.0.9008<a class="anchor" aria-label="anchor" href="#hubutils-0009008"></a></h2>
-<ul><li>Added argument <code>output_type_id_datatype</code> to <code>connect_hub()</code> to allow overriding default behaviour of automatically detecting the <code>output_type_id</code> column data type from the <code>tasks.json</code> config file (<a href="https://github.com/hubverse-org/hubUtils/issues/70" class="external-link">#70</a>).</li>
+<ul><li>Added argument <code>output_type_id_datatype</code> to <code>connect_hub()</code> to allow overriding default behavior of automatically detecting the <code>output_type_id</code> column data type from the <code>tasks.json</code> config file (<a href="https://github.com/hubverse-org/hubUtils/issues/70" class="external-link">#70</a>).</li>
 <li>Exposed <code>create_hub_schema()</code> argument <code>partitions</code> to <code>connect_hub()</code> function to accommodate custom hub partitioning.</li>
 <li>Added argument <code>partition_names</code> to <code>connect_model_output()</code> to accommodate custom hub partitioning.</li>
 <li>Added argument <code>schema</code> to <code>connect_model_output()</code> to allow for overriding default <code>arrow</code> schema auto-detection.</li>
@@ -150,8 +150,8 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9006" id="hubutils-0009006">hubUtils 0.0.0.9006<a class="anchor" aria-label="anchor" href="#hubutils-0009006"></a></h2>
 <ul><li>
-<code>connect_hub()</code> now automatically determines the <code>output_type_id</code> column data type from the tasks.json config file coercing to the highest possible data type, “character” being the lowest denominator.</li>
-<li>Introduced function <code>create_hub_schema()</code> for determining the schema for data in a hub’s model-output directory from a tasks.json config file.</li>
+<code>connect_hub()</code> now automatically determines the <code>output_type_id</code> column data type from the <code>tasks.json</code> config file coercing to the highest possible data type, “character” being the lowest denominator.</li>
+<li>Introduced function <code>create_hub_schema()</code> for determining the schema for data in a hub’s model-output directory from a <code>tasks.json</code> config file.</li>
 <li>
 <code>connect_hub()</code> now allows establishing connections to hubs with multiple file type formats.</li>
 <li>
@@ -164,11 +164,11 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9004" id="hubutils-0009004">hubUtils 0.0.0.9004<a class="anchor" aria-label="anchor" href="#hubutils-0009004"></a></h2>
-<ul><li>Added functionality to help create json configuration files.</li>
+<ul><li>Added functionality to help create JSON configuration files.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9003" id="hubutils-0009003">hubUtils 0.0.0.9003<a class="anchor" aria-label="anchor" href="#hubutils-0009003"></a></h2>
-<ul><li>Added <code>validate_config()</code> function to validate json configuration files against Hub schema as well as function <code>view_config_val_errors()</code> for viewing a concise and easier to navigate table of validation errors.</li>
+<ul><li>Added <code>validate_config()</code> function to validate JSON configuration files against Hub schema as well as function <code>view_config_val_errors()</code> for viewing a concise and easier to navigate table of validation errors.</li>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 </ul></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
