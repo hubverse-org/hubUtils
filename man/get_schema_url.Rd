@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-schema.R
 \name{get_schema_url}
 \alias{get_schema_url}
-\title{Get the json schema download URL for a given config file version}
+\title{Get the JSON schema download URL for a given config file version}
 \usage{
 get_schema_url(config = c("tasks", "admin", "model"), version, branch = "main")
 }
@@ -18,10 +18,10 @@ get_schema_url(config = c("tasks", "admin", "model"), version, branch = "main")
 from which to fetch schema. Defaults to \code{"main"}.}
 }
 \value{
-The json schema download URL for a given config file version.
+The JSON schema download URL for a given config file version.
 }
 \description{
-Get the json schema download URL for a given config file version
+Get the JSON schema download URL for a given config file version
 }
 \examples{
 get_schema_url(config = "tasks", version = "v0.0.0.9")

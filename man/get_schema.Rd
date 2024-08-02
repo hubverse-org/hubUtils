@@ -10,7 +10,7 @@ get_schema(schema_url)
 \item{schema_url}{The download URL for a given config schema version.}
 }
 \value{
-Contents of the json schema as a character string.
+Contents of the JSON schema as a character string.
 }
 \description{
 Download a schema

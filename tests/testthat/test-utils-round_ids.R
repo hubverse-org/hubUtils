@@ -1,4 +1,5 @@
 test_that("get_round_ids works correctly", {
+  skip_if_not_installed("hubData")
   hub_con <- hubData::connect_hub(system.file("testhubs/simple", package = "hubUtils"))
   config_tasks <- attr(hub_con, "config_tasks")
   expect_snapshot(get_round_ids(config_tasks))
@@ -16,6 +17,7 @@ test_that("get_round_ids works correctly", {
 })
 
 test_that("get_round_idx works correctly", {
+  skip_if_not_installed("hubData")
   hub_con <- hubData::connect_hub(system.file("testhubs/simple", package = "hubUtils"))
   config_tasks <- attr(hub_con, "config_tasks")
   expect_snapshot(get_round_idx(config_tasks, "2022-10-01"))

@@ -29,12 +29,14 @@ remotes::install_github("hubverse-org/hubUtils")
 ## Code of Conduct
 
 Please note that the hubUtils package is released with a [Contributor
-Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this
-project, you agree to abide by its terms.
+Code of
+Conduct](https://hubverse-org.github.io/hubUtils/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
 
 ## Contributing
 
 Interested in contributing back to the open-source Hubverse project?
 Learn more about how to [get involved in the Hubverse
-Community](https://hubverse.io/en/latest/overview/contribute.html)
-or [how to contribute to the hubUtils package](.github/CONTRIBUTING.md).
+Community](https://hubverse.io/en/latest/overview/contribute.html) or
+[how to contribute to the hubUtils
+package](https://hubverse-org.github.io/hubUtils/CONTRIBUTING.html).

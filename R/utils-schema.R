@@ -1,4 +1,4 @@
-#' Get the json schema download URL for a given config file version
+#' Get the JSON schema download URL for a given config file version
 #'
 #' @param config Name of config file to validate. One of `"tasks"` or `"admin"`.
 #' @param version A valid version of hubverse
@@ -8,7 +8,7 @@
 #'   [schemas repository](https://github.com/hubverse-org/schemas)
 #'   from which to fetch schema. Defaults to `"main"`.
 #'
-#' @return The json schema download URL for a given config file version.
+#' @return The JSON schema download URL for a given config file version.
 #' @family functions supporting config file validation
 #' @export
 #'
@@ -35,10 +35,11 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 #'   [schema](https://github.com/hubverse-org/schemas).
 #' @family functions supporting config file validation
 #' @export
+#' @importFrom gh gh
 #' @examples
 #' get_schema_valid_versions()
 get_schema_valid_versions <- function(branch = "main") {
-  branches <- gh::gh(
+  branches <- gh(
     "GET /repos/hubverse-org/schemas/branches"
   ) %>%
     vapply("[[", "", "name")
@@ -51,7 +52,7 @@ get_schema_valid_versions <- function(branch = "main") {
     ))
   }
 
-  req <- gh::gh("GET /repos/hubverse-org/schemas/git/trees/{branch}",
+  req <- gh("GET /repos/hubverse-org/schemas/git/trees/{branch}",
     branch = branch
   )
 
@@ -66,14 +67,15 @@ get_schema_valid_versions <- function(branch = "main") {
 #'
 #' @param schema_url The download URL for a given config schema version.
 #'
-#' @return Contents of the json schema as a character string.
+#' @return Contents of the JSON schema as a character string.
 #' @family functions supporting config file validation
 #' @export
+#' @importFrom curl curl_fetch_memory
 #' @examples
 #' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
 #' get_schema(schema_url)
 get_schema <- function(schema_url) {
-  response <- try(curl::curl_fetch_memory(schema_url), silent = TRUE)
+  response <- try(curl_fetch_memory(schema_url), silent = TRUE)
 
   if (inherits(response, "try-error")) {
     cli::cli_abort(

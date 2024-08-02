@@ -12,8 +12,8 @@ config file, accessed through the \code{"config_tasks"} attribute of a \verb{<hu
 object or function \code{\link[=read_config]{read_config()}}.}
 
 \item{round_id}{Character string. Round identifier. If the round is set to
-\code{round_id_from_variable: true}, IDs are values of the task ID defined in the round's
-\code{round_id} property of \code{config_tasks}.
+\code{round_id_from_variable: true}, IDs are values of the task ID defined in the
+round's \code{round_id} property of \code{config_tasks}.
 Otherwise should match round's \code{round_id} value in config. Ignored if hub
 contains only a single round.}
 }

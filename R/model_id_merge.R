@@ -13,26 +13,28 @@
 #' @describeIn model_id_merge merge `team_abbr` and `model_abbr` into a single
 #' `model_id` column.
 #' @examples
-#' hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
-#' tbl <- hub_con %>%
-#'   dplyr::filter(output_type == "quantile", location == "US") %>%
-#'   dplyr::collect() %>%
-#'   dplyr::filter(forecast_date == max(forecast_date))
+#' if (requireNamespace("hubData", quietly = TRUE)) {
+#'   hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
+#'   tbl <- hub_con %>%
+#'     dplyr::filter(output_type == "quantile", location == "US") %>%
+#'     dplyr::collect() %>%
+#'     dplyr::filter(forecast_date == max(forecast_date))
 #'
-#' tbl_split <- model_id_split(tbl)
-#' tbl_split
+#'   tbl_split <- model_id_split(tbl)
+#'   tbl_split
 #'
-#' # Merge model_id
-#' tbl_merged <- model_id_merge(tbl_split)
-#' tbl_merged
+#'   # Merge model_id
+#'   tbl_merged <- model_id_merge(tbl_split)
+#'   tbl_merged
 #'
-#' # Split / Merge using custom separator
-#' tbl_sep <- tbl
-#' tbl_sep$model_id <- gsub("-", "_", tbl_sep$model_id)
-#' tbl_sep <- model_id_split(tbl_sep, sep = "_")
-#' tbl_sep
-#' tbl_sep <- model_id_merge(tbl_sep, sep = "_")
-#' tbl_sep
+#'   # Split / Merge using custom separator
+#'   tbl_sep <- tbl
+#'   tbl_sep$model_id <- gsub("-", "_", tbl_sep$model_id)
+#'   tbl_sep <- model_id_split(tbl_sep, sep = "_")
+#'   tbl_sep
+#'   tbl_sep <- model_id_merge(tbl_sep, sep = "_")
+#'   tbl_sep
+#' }
 model_id_merge <- function(tbl, sep = "-") {
   # check all required columns present
   if (!all(c("model_abbr", "team_abbr") %in% names(tbl))) {
@@ -77,6 +79,8 @@ model_id_merge <- function(tbl, sep = "-") {
   return(tbl)
 }
 
+#' @return a [tibble][tibble::tibble()] with `model_id` column split into separate
+#' `team_abbr` and `model_abbr` columns
 #' @export
 #' @describeIn model_id_merge split `model_id` column into separate `team_abbr`
 #' and `model_abbr` columns.
