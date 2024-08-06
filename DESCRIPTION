@@ -1,6 +1,6 @@
 Package: hubUtils
 Title: Utility Functions for Infectious Disease Modeling Hubs
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2378-4915")),
@@ -36,14 +36,12 @@ Imports:
     utils
 Suggests: 
     dplyr,
-    hubAdmin,
     hubData,
     knitr,
     rmarkdown,
     testthat (>= 3.2.0)
 Additional_repositories: https://hubverse-org.r-universe.dev/
 Remotes:
-    hubverse-org/hubAdmin,
     hubverse-org/hubData
 Config/Needs/website: hubverse-org/hubStyle
 Config/testthat/edition: 3

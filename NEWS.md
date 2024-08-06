@@ -1,3 +1,9 @@
+# hubUtils 0.1.1
+
+* Remove `hubAdmin` Suggests dependency by moving test hub configuration validation to CI
+  (resolved: @annakrystalli, https://github.com/hubverse-org/hubUtils/issues/158)
+
+
 # hubUtils 0.1.0
 
 * Add `read_config_file()` helper function to read a JSON config file from a file path.
