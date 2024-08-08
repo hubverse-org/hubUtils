@@ -12,7 +12,7 @@
 #' is_v3_config(config)
 is_v3_config <- function(config) {
   checkmate::assert_list(config)
-  extract_schema_version(config$schema_version) == "v3.0.0"
+  extract_schema_version(config$schema_version) >= "v3.0.0"
 }
 
 #' Is config file using v3.0.0 schema?
@@ -28,7 +28,7 @@ is_v3_config <- function(config) {
 is_v3_config_file <- function(config_path) {
   checkmate::assert_file_exists(config_path)
   config <- read_config_file(config_path)
-  extract_schema_version(config$schema_version) == "v3.0.0"
+  extract_schema_version(config$schema_version) >= "v3.0.0"
 }
 
 #' Is hub configured using v3.0.0 schema?

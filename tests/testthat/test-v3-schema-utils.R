@@ -3,7 +3,16 @@ test_that("is_v3_config works", {
     system.file("config", "tasks.json", package = "hubUtils")
   )
   expect_true(is_v3_config(config))
+
+  v3.0.1_config <- config
+  v3.0.1_config$schema_version <- gsub("v3.0.0", "v3.0.1", config$schema_version)
+  expect_true(is_v3_config(v3.0.1_config))
+
+  v2.0.0_config <- config
+  v2.0.0_config$schema_version <- gsub("v3.0.0", "v2.0.0", config$schema_version)
+  expect_false(is_v3_config(v2.0.0_config))
 })
+
 test_that("is_v3_config_file works", {
   config_path <- system.file("config", "tasks.json", package = "hubUtils")
   expect_true(is_v3_config_file(config_path))
