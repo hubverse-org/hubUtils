@@ -19,7 +19,9 @@ a character vector of valid versions of hubverse
 Get a vector of valid schema version
 }
 \examples{
+\dontshow{if (curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 get_schema_valid_versions()
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions supporting config file validation: 

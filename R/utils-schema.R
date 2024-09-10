@@ -36,7 +36,7 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 #' @family functions supporting config file validation
 #' @export
 #' @importFrom gh gh
-#' @examples
+#' @examplesIf curl::has_internet()
 #' get_schema_valid_versions()
 get_schema_valid_versions <- function(branch = "main") {
   branches <- gh(
@@ -73,6 +73,7 @@ get_schema_valid_versions <- function(branch = "main") {
 #' @importFrom curl curl_fetch_memory
 #' @examples
 #' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
+#' @examplesIf interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' get_schema(schema_url)
 get_schema <- function(schema_url) {
   response <- try(curl_fetch_memory(schema_url), silent = TRUE)
@@ -108,6 +109,8 @@ get_schema <- function(schema_url) {
 #' @export
 #'
 #' @examples
+#' # Get the latest version of the schema
+#' @examplesIf interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' get_schema_version_latest()
 #' get_schema_version_latest(schema_version = "v1.0.0")
 get_schema_version_latest <- function(schema_version = "latest",
@@ -142,6 +145,8 @@ validate_schema_version <- function(schema_version, branch) {
 #'
 #' @return The schema version number as a character string.
 #' @export
+#' @examples
+#' extract_schema_version("schema_version: v1.0.0")
 extract_schema_version <- function(id) {
   stringr::str_extract(id, "v([0-9]\\.){2}[0-9](\\.[0-9]+)?")
 }

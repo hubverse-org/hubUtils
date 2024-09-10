@@ -22,6 +22,9 @@ Get the latest schema version from the schema repository if "latest" requested
 (default) or ignore if specific version provided.
 }
 \examples{
+# Get the latest version of the schema
+\dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 get_schema_version_latest()
 get_schema_version_latest(schema_version = "v1.0.0")
+\dontshow{\}) # examplesIf}
 }

@@ -17,7 +17,9 @@ Download a schema
 }
 \examples{
 schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
+\dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 get_schema(schema_url)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions supporting config file validation: 

@@ -17,3 +17,6 @@ The schema version number as a character string.
 Extract the schema version from a schema \code{id} or config \code{schema_version} property
 character string
 }
+\examples{
+extract_schema_version("schema_version: v1.0.0")
+}
