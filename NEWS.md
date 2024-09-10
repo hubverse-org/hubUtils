@@ -1,3 +1,7 @@
+# hubUtils 0.1.3
+
+* First submission to CRAN
+
 # hubUtils 0.1.2
 
 * Bug fix: Corrected bug in v3 config utilities so that configs are detected as `v3` if they are `v3.0.0` or above, not just `v3.0.0`. Thanks to @M-7th for reporting.
