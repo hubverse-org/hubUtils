@@ -3,9 +3,8 @@
 #' Transform between output types, from one starting output_type into new
 #' output_types. See details for supported conversions.
 #'
-#' @param model_out_tbl an object of class `model_out_tbl` with component model
-#'    outputs (e.g., predictions). `model_out_tbl` should contain only one
-#'    unique value in the `output_type` column.
+#' @param model_out_tbl an object of class `model_out_tbl` containing predictions
+#'    with only one unique value in the `output_type` column.
 #' @param new_output_type `string` indicating the desired output_type after
 #'   transformation (`"mean"`, `"median"`, `"quantile"`, `"cdf"`); can also be a
 #'   vector if multiple new output_types are desired.
