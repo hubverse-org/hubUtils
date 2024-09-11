@@ -1,3 +1,5 @@
+#' Transform between output types
+#' 
 #' Transform between output types, from one starting output_type into new
 #' output_types. See details for supported conversions.
 #'
