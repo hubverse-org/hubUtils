@@ -2,7 +2,7 @@
 
 This outlines how to propose a change to `hubUtils`. 
 For more general info about contributing to this, and other hubverse packages, please see the
-[**hubverse contributing guide**](https://hubdocs.readthedocs.io/en/latest/overview/contribute.html). 
+[**hubverse contributing guide**](https://hubverse.io/en/latest/overview/contribute.html). 
 
 You can fix typos, spelling mistakes, or grammatical errors in the documentation directly using the GitHub web interface, as long as the changes are made in the _source_ file. 
 This generally means you'll need to edit [roxygen2 comments](https://roxygen2.r-lib.org/articles/roxygen2.html) in an `.R`, not a `.Rd` file. 
@@ -18,7 +18,7 @@ Our procedures for contributing bigger changes, code in particular, generally fo
 
 ### Pull request process
 
-*   Fork the package and clone onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("Infectious-Disease-Modeling-Hubs/hubUtils", fork = TRUE)`.
+*   Fork the package and clone onto your computer. If you haven't done this before, we recommend using `usethis::create_from_github("hubverse-org/hubUtils", fork = TRUE)`.
 
 *   Install all development dependencies with `devtools::install_dev_deps()`, and then make sure the package passes R CMD check by running `devtools::check()`. 
     If R CMD check doesn't pass cleanly, it's a good idea to ask for help before continuing. 
@@ -43,5 +43,5 @@ Our procedures for contributing bigger changes, code in particular, generally fo
 ## Code of Conduct
 
 Please note that the hubUtils project is released with a
-[Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this
-project you agree to abide by its terms.
+[Contributor Code of Conduct](https://hubverse-org.github.io/hubUtils/CODE_OF_CONDUCT.html).
+By contributing to this project you agree to abide by its terms.

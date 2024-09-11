@@ -17,6 +17,8 @@
 #' hub_path <- system.file("testhubs/simple", package = "hubUtils")
 #' read_config(hub_path, "tasks")
 #' read_config(hub_path, "admin")
+#'
+#' @examplesIf requireNamespace("hubData", quietly = TRUE)
 #' # Read config file from AWS S3 bucket hub
 #' hub_path <- hubData::s3_bucket("hubverse/hubutils/testhubs/simple/")
 #' read_config(hub_path, "admin")
@@ -27,20 +29,18 @@ read_config <- function(hub_path, config = c("tasks", "admin", "model-metadata-s
 
 #' @export
 #' @importFrom jsonlite read_json
+#' @importFrom fs path
 read_config.default <- function(hub_path,
                                 config = c("tasks", "admin", "model-metadata-schema")) {
   config <- rlang::arg_match(config)
-  path <- fs::path(hub_path, "hub-config", config, ext = "json")
+  path <- path(hub_path, "hub-config", config, ext = "json")
 
   if (!fs::file_exists(path)) {
     cli::cli_abort(
       "Config file {.field {config}} does not exist at path {.path { path }}."
     )
   }
-  jsonlite::read_json(path,
-    simplifyVector = TRUE,
-    simplifyDataFrame = FALSE
-  )
+  read_config_file(path)
 }
 
 #' @export
@@ -48,7 +48,7 @@ read_config.default <- function(hub_path,
 read_config.SubTreeFileSystem <- function(hub_path,
                                           config = c("tasks", "admin", "model-metadata-schema")) {
   config <- rlang::arg_match(config)
-  path <- hub_path$path(fs::path("hub-config", config, ext = "json")) # nolint: object_usage_linter
+  path <- hub_path$path(path("hub-config", config, ext = "json")) # nolint: object_usage_linter
 
   if (!paste0(config, ".json") %in% basename(hub_path$ls("hub-config"))) {
     cli::cli_abort(
@@ -66,7 +66,21 @@ read_config.SubTreeFileSystem <- function(hub_path,
     "https://{split_base_path[1]}.s3.amazonaws.com/{split_base_path[2]}hub-config/{config}.json"
   )
 
-  jsonlite::fromJSON(path_url,
+  read_config_file(path_url)
+}
+
+#' Read a JSON config file from a path
+#'
+#' @param config_path path to JSON config file
+#'
+#' @return a list representation of the JSON config file
+#' @export
+#'
+#' @examples
+#' read_config_file(system.file("config", "tasks.json", package = "hubUtils"))
+read_config_file <- function(config_path) {
+  jsonlite::fromJSON(
+    config_path,
     simplifyVector = TRUE,
     simplifyDataFrame = FALSE
   )

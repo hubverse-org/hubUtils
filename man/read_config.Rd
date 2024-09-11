@@ -28,7 +28,10 @@ Read a hub config file into R
 hub_path <- system.file("testhubs/simple", package = "hubUtils")
 read_config(hub_path, "tasks")
 read_config(hub_path, "admin")
+
+\dontshow{if (requireNamespace("hubData", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Read config file from AWS S3 bucket hub
 hub_path <- hubData::s3_bucket("hubverse/hubutils/testhubs/simple/")
 read_config(hub_path, "admin")
+\dontshow{\}) # examplesIf}
 }

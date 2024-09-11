@@ -2,26 +2,26 @@
 % Please edit documentation in R/utils-schema.R
 \name{get_schema_url}
 \alias{get_schema_url}
-\title{Get the json schema download URL for a given config file version}
+\title{Get the JSON schema download URL for a given config file version}
 \usage{
 get_schema_url(config = c("tasks", "admin", "model"), version, branch = "main")
 }
 \arguments{
 \item{config}{Name of config file to validate. One of \code{"tasks"} or \code{"admin"}.}
 
-\item{version}{A valid version of Infectious Disease Modeling Hubs
-\href{https://github.com/Infectious-Disease-Modeling-Hubs/schemas}{schema}
+\item{version}{A valid version of hubverse
+\href{https://github.com/hubverse-org/schemas}{schema}
 (e.g. \code{"v0.0.1"}).}
 
-\item{branch}{The branch of the Infectious Disease Modeling Hubs
-\href{https://github.com/Infectious-Disease-Modeling-Hubs/schemas}{schemas repository}
+\item{branch}{The branch of the hubverse
+\href{https://github.com/hubverse-org/schemas}{schemas repository}
 from which to fetch schema. Defaults to \code{"main"}.}
 }
 \value{
-The json schema download URL for a given config file version.
+The JSON schema download URL for a given config file version.
 }
 \description{
-Get the json schema download URL for a given config file version
+Get the JSON schema download URL for a given config file version
 }
 \examples{
 get_schema_url(config = "tasks", version = "v0.0.0.9")
