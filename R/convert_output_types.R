@@ -5,14 +5,14 @@
 #'
 #' @param model_out_tbl an object of class `model_out_tbl` with component model
 #'    outputs (e.g., predictions). `model_out_tbl` should contain only one
-#'    unique value in the `output_type` column
+#'    unique value in the `output_type` column.
 #' @param new_output_type `string` indicating the desired output_type after
 #'   transformation (`"mean"`, `"median"`, `"quantile"`, `"cdf"`); can also be a
-#'   vector if multiple new output_types are desired
+#'   vector if multiple new output_types are desired.
 #' @param new_output_type_id `vector` indicating desired output_type_ids for
 #'   corresponding `new_output_type`; only needs to be specified if
 #'   `new_output_type` includes `"quantile"` or `"cdf"` (see details for how to
-#'    specify when both `"quantile"` and `"cdf"` are desired)
+#'    specify when both `"quantile"` and `"cdf"` are desired.)
 #' @param n_samples `numeric` that specifies the number of samples to use when
 #'   calculating output_types from an estimated quantile function. Defaults to `1e4`.
 #' @param ... parameters that are passed to `distfromq::make_q_fn`, specifying
