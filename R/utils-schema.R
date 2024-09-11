@@ -71,9 +71,8 @@ get_schema_valid_versions <- function(branch = "main") {
 #' @family functions supporting config file validation
 #' @export
 #' @importFrom curl curl_fetch_memory
-#' @examples
-#' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
 #' @examplesIf asNamespace("hubUtils")$not_rcmd_check()
+#' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
 #' get_schema(schema_url)
 get_schema <- function(schema_url) {
   response <- try(curl_fetch_memory(schema_url), silent = TRUE)
