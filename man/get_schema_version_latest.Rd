@@ -23,7 +23,7 @@ Get the latest schema version from the schema repository if "latest" requested
 }
 \examples{
 # Get the latest version of the schema
-\dontshow{if (interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 get_schema_version_latest()
 get_schema_version_latest(schema_version = "v1.0.0")
 \dontshow{\}) # examplesIf}

@@ -12,7 +12,7 @@
 #' @family functions supporting config file validation
 #' @export
 #'
-#' @examples
+#' @examplesIf asNamespace("hubUtils")$not_rcmd_check()
 #' get_schema_url(config = "tasks", version = "v0.0.0.9")
 get_schema_url <- function(config = c("tasks", "admin", "model"),
                            version, branch = "main") {
@@ -36,7 +36,7 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 #' @family functions supporting config file validation
 #' @export
 #' @importFrom gh gh
-#' @examplesIf curl::has_internet()
+#' @examplesIf asNamespace("hubUtils")$not_rcmd_check()
 #' get_schema_valid_versions()
 get_schema_valid_versions <- function(branch = "main") {
   branches <- gh(
@@ -73,7 +73,7 @@ get_schema_valid_versions <- function(branch = "main") {
 #' @importFrom curl curl_fetch_memory
 #' @examples
 #' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
-#' @examplesIf interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")
+#' @examplesIf asNamespace("hubUtils")$not_rcmd_check()
 #' get_schema(schema_url)
 get_schema <- function(schema_url) {
   response <- try(curl_fetch_memory(schema_url), silent = TRUE)
@@ -110,7 +110,7 @@ get_schema <- function(schema_url) {
 #'
 #' @examples
 #' # Get the latest version of the schema
-#' @examplesIf interactive() || identical(Sys.getenv("IN_PKGDOWN"), "true")
+#' @examplesIf asNamespace("hubUtils")$not_rcmd_check()
 #' get_schema_version_latest()
 #' get_schema_version_latest(schema_version = "v1.0.0")
 get_schema_version_latest <- function(schema_version = "latest",

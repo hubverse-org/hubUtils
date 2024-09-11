@@ -18,7 +18,7 @@
 #' read_config(hub_path, "tasks")
 #' read_config(hub_path, "admin")
 #'
-#' @examplesIf requireNamespace("hubData", quietly = TRUE)
+#' @examplesIf asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("hubData", quietly = TRUE)
 #' # Read config file from AWS S3 bucket hub
 #' hub_path <- hubData::s3_bucket("hubverse/hubutils/testhubs/simple/")
 #' read_config(hub_path, "admin")
