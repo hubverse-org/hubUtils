@@ -19,7 +19,7 @@ test_that("convert_output_type works (quantile >> mean)", {
     dplyr:: mutate(value = grp1 * ifelse(model_id == "A", 1, 3)) %>%
     dplyr::mutate(output_type <- new_output_type,
                   output_type_id <- new_output_type_id) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   test <- convert_output_type(model_out_tbl, new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
 })
@@ -44,7 +44,7 @@ test_that("convert_output_type works (quantile >> median)", {
     dplyr:: mutate(value = grp1 * ifelse(model_id == "A", 1, 3)) %>%
     dplyr::mutate(output_type <- new_output_type,
                   output_type_id <- new_output_type_id) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   test <- convert_output_type(model_out_tbl, new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
 })
@@ -73,7 +73,7 @@ test_that("convert_output_type works (quantile >> cdf)", {
   )) %>%
     dplyr:: mutate(value = pnorm(output_type_id, grp1 * ifelse(model_id == "A", 1, 3))) %>%
     dplyr::arrange(model_id, grp1) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   test <- convert_output_type(model_out_tbl, new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
 })
@@ -98,7 +98,7 @@ test_that("convert_output_type works (cdf >> mean)", {
     dplyr:: mutate(value = grp1 * ifelse(model_id == "A", 1, 3)) %>%
     dplyr::mutate(output_type <- new_output_type,
                   output_type_id <- new_output_type_id) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   test <- convert_output_type(model_out_tbl, new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
 })
@@ -123,7 +123,7 @@ test_that("convert_output_type works (cdf >> median)", {
     dplyr:: mutate(value = grp1 * ifelse(model_id == "A", 1, 3)) %>%
     dplyr::mutate(output_type <- new_output_type,
                   output_type_id <- new_output_type_id) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   test <- convert_output_type(model_out_tbl,
                               new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
@@ -153,7 +153,7 @@ test_that("convert_output_type works (cdf >> quantile)", {
   )) %>%
     dplyr:: mutate(value = qnorm(output_type_id, grp1 * ifelse(model_id == "A", 1, 3))) %>%
     dplyr::arrange(model_id, grp1) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   test <- convert_output_type(model_out_tbl,
                               new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
@@ -184,7 +184,7 @@ test_that("convert_output_type works (sample >> quantile, cdf, mean)", {
   )) %>%
     dplyr:: mutate(value = qnorm(output_type_id, grp1 * ifelse(model_id == "A", 1, 3))) %>%
     dplyr::arrange(model_id, grp1) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   expected_cdf <- tibble::as_tibble(expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
@@ -195,7 +195,7 @@ test_that("convert_output_type works (sample >> quantile, cdf, mean)", {
   )) %>%
     dplyr:: mutate(value = pnorm(output_type_id, grp1 * ifelse(model_id == "A", 1, 3))) %>%
     dplyr::arrange(model_id, grp1) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   expected_mean <- tibble::as_tibble(expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
@@ -206,7 +206,7 @@ test_that("convert_output_type works (sample >> quantile, cdf, mean)", {
   )) %>%
     dplyr:: mutate(value = grp1 * ifelse(model_id == "A", 1, 3)) %>%
     dplyr::arrange(model_id, grp1) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   expected <- dplyr::bind_rows(expected_mean, expected_quantile, expected_cdf)
   test <- convert_output_type(model_out_tbl, new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
@@ -236,7 +236,7 @@ test_that("convert_output_type fails correctly (quantile)", {
   )) %>%
     dplyr:: mutate(value = qnorm(output_type_id, grp1 * ifelse(model_id == "A", 1, 3))) %>%
     dplyr::arrange(model_id, grp1) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   test <- convert_output_type(model_out_tbl, new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
 })
@@ -335,7 +335,7 @@ test_that("convert_from_sample works (return mean)", {
     dplyr::reframe(value = mean(value)) %>%
     dplyr::mutate(output_type <- new_output_type,
                   output_type_id <- new_output_type_id) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   test <- convert_from_sample(grouped_model_out_tbl, new_output_type,
                               new_output_type_id)
   expect_equal(test, expected)
@@ -355,7 +355,7 @@ test_that("convert_from_sample works (return median)", {
     dplyr::reframe(value = median(value)) %>%
     dplyr::mutate(output_type <- new_output_type,
                   output_type_id <- new_output_type_id) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   test <- convert_from_sample(grouped_model_out_tbl, new_output_type,
                               new_output_type_id)
   expect_equal(test, expected)
@@ -375,7 +375,7 @@ test_that("convert_from_sample works (return quantile)", {
     dplyr::reframe(value = quantile(value, new_output_type_id, names = FALSE),
                    output_type_id <- new_output_type_id) %>%
     dplyr::mutate(output_type <- new_output_type) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   test <- convert_from_sample(grouped_model_out_tbl, new_output_type,
                               new_output_type_id)
   expect_equal(test, expected)
@@ -395,7 +395,7 @@ test_that("convert_from_sample works (return cdf)", {
     dplyr::reframe(value = ecdf(value)(new_output_type_id),
                    output_type_id <- new_output_type_id) %>%
     dplyr::mutate(output_type <- new_output_type) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   test <- convert_from_sample(grouped_model_out_tbl, new_output_type,
                               new_output_type_id)
   expect_equal(test, expected)

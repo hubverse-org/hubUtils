@@ -104,7 +104,7 @@ convert_output_type <- function(model_out_tbl, new_output_type,
           output_type = new_output_type[i],
           output_type_id = NA
         ) %>%
-        hubUtils::as_model_out_tbl()
+        as_model_out_tbl()
     }
     # otherwise calculate new values
     # first find new_output_type_id
@@ -248,6 +248,6 @@ convert_from_sample <- function(grouped_model_out_tbl, new_output_type,
   # update output_type and output_type_id columns
   model_out_tbl_transform <- model_out_tbl_transform %>%
     dplyr::mutate(output_type = new_output_type) %>%
-    hubUtils::as_model_out_tbl()
+    as_model_out_tbl()
   return(model_out_tbl_transform)
 }
