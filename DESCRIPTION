@@ -36,7 +36,6 @@ Imports:
     utils
 Suggests: 
     covr,
-    curl,
     digest,
     distfromq,
     dplyr,
@@ -46,7 +45,7 @@ Suggests:
     testthat (>= 3.2.0)
 Additional_repositories: https://hubverse-org.r-universe.dev/
 Remotes:
-    hubverse-org/hubData
+    hubverse-org/hubData,
     reichlab/distfromq
 Config/Needs/website: hubverse-org/hubStyle
 Config/testthat/edition: 3
