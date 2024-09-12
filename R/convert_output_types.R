@@ -185,7 +185,7 @@ validate_new_output_type <- function(starting_output_type, new_output_type,
   }
 }
 
-#' @export
+#' @noRd
 get_samples_from_quantiles <- function(model_out_tbl, task_id_cols, n_samples, ...) {
   set.seed(101)
   samples <- model_out_tbl %>%
@@ -199,7 +199,7 @@ get_samples_from_quantiles <- function(model_out_tbl, task_id_cols, n_samples, .
   return(samples)
 }
 
-#' @export
+#' @noRd
 get_samples_from_cdf <- function(model_out_tbl, task_id_cols, n_samples, ...) {
   set.seed(101)
   samples <- model_out_tbl %>%
@@ -213,7 +213,7 @@ get_samples_from_cdf <- function(model_out_tbl, task_id_cols, n_samples, ...) {
   return(samples)
 }
 
-#' @export
+#' @noRd
 convert_from_sample <- function(grouped_model_out_tbl, new_output_type,
                                 new_output_type_id) {
   if (new_output_type == "mean") {
