@@ -4,8 +4,8 @@ test_that("convert_output_type works (quantile >> mean)", {
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "quantile",
-    output_type_id <- ex_qs,
+    output_type = "quantile",
+    output_type_id = ex_qs,
     stringsAsFactors = FALSE
   ) %>%
     dplyr::mutate(mean = grp1 * ifelse(model_id == "A", 1, 3),
@@ -16,9 +16,9 @@ test_that("convert_output_type works (quantile >> mean)", {
   expected <- tibble::tibble(
     grp1 = rep(1:2, 2), model_id = sort(rep(LETTERS[1:2], 2))
   ) %>%
-    dplyr:: mutate(value = grp1 * ifelse(model_id == "A", 1, 3)) %>%
-    dplyr::mutate(output_type <- new_output_type,
-                  output_type_id <- new_output_type_id) %>%
+    dplyr::mutate(value = grp1 * ifelse(model_id == "A", 1, 3)) %>%
+    dplyr::mutate(output_type = new_output_type,
+                  output_type_id = new_output_type_id) %>%
     as_model_out_tbl()
   test <- convert_output_type(model_out_tbl, new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
@@ -29,8 +29,8 @@ test_that("convert_output_type works (quantile >> median)", {
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "quantile",
-    output_type_id <- ex_qs,
+    output_type = "quantile",
+    output_type_id = ex_qs,
     stringsAsFactors = FALSE
   ) %>%
     dplyr::mutate(mean = grp1 * ifelse(model_id == "A", 1, 3),
@@ -42,8 +42,8 @@ test_that("convert_output_type works (quantile >> median)", {
     grp1 = rep(1:2, 2), model_id = sort(rep(LETTERS[1:2], 2))
   ) %>%
     dplyr:: mutate(value = grp1 * ifelse(model_id == "A", 1, 3)) %>%
-    dplyr::mutate(output_type <- new_output_type,
-                  output_type_id <- new_output_type_id) %>%
+    dplyr::mutate(output_type = new_output_type,
+                  output_type_id = new_output_type_id) %>%
     as_model_out_tbl()
   test <- convert_output_type(model_out_tbl, new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
@@ -54,8 +54,8 @@ test_that("convert_output_type works (quantile >> cdf)", {
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "quantile",
-    output_type_id <- ex_qs,
+    output_type  = "quantile",
+    output_type_id = ex_qs,
     stringsAsFactors = FALSE
   ) %>%
     dplyr::mutate(mean = grp1 * ifelse(model_id == "A", 1, 3),
@@ -66,8 +66,8 @@ test_that("convert_output_type works (quantile >> cdf)", {
   expected <- tibble::as_tibble(expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- new_output_type,
-    output_type_id <- new_output_type_id,
+    output_type = new_output_type,
+    output_type_id = new_output_type_id,
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )) %>%
@@ -83,8 +83,8 @@ test_that("convert_output_type works (cdf >> mean)", {
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "cdf",
-    output_type_id <- ex_ps,
+    output_type = "cdf",
+    output_type_id = ex_ps,
     stringsAsFactors = FALSE
   ) %>%
     dplyr::mutate(mean = grp1 * ifelse(model_id == "A", 1, 3),
@@ -96,8 +96,8 @@ test_that("convert_output_type works (cdf >> mean)", {
     grp1 = rep(1:2, 2), model_id = sort(rep(LETTERS[1:2], 2))
   ) %>%
     dplyr:: mutate(value = grp1 * ifelse(model_id == "A", 1, 3)) %>%
-    dplyr::mutate(output_type <- new_output_type,
-                  output_type_id <- new_output_type_id) %>%
+    dplyr::mutate(output_type = new_output_type,
+                  output_type_id = new_output_type_id) %>%
     as_model_out_tbl()
   test <- convert_output_type(model_out_tbl, new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
@@ -108,8 +108,8 @@ test_that("convert_output_type works (cdf >> median)", {
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "cdf",
-    output_type_id <- ex_ps,
+    output_type = "cdf",
+    output_type_id = ex_ps,
     stringsAsFactors = FALSE
   ) %>%
     dplyr::mutate(mean = grp1 * ifelse(model_id == "A", 1, 3),
@@ -121,8 +121,8 @@ test_that("convert_output_type works (cdf >> median)", {
     grp1 = rep(1:2, 2), model_id = sort(rep(LETTERS[1:2], 2))
   ) %>%
     dplyr:: mutate(value = grp1 * ifelse(model_id == "A", 1, 3)) %>%
-    dplyr::mutate(output_type <- new_output_type,
-                  output_type_id <- new_output_type_id) %>%
+    dplyr::mutate(output_type = new_output_type,
+                  output_type_id = new_output_type_id) %>%
     as_model_out_tbl()
   test <- convert_output_type(model_out_tbl,
                               new_output_type, new_output_type_id)
@@ -134,8 +134,8 @@ test_that("convert_output_type works (cdf >> quantile)", {
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "cdf",
-    output_type_id <- ex_ps,
+    output_type = "cdf",
+    output_type_id = ex_ps,
     stringsAsFactors = FALSE
   ) %>%
     dplyr::mutate(mean = grp1 * ifelse(model_id == "A", 1, 3),
@@ -146,8 +146,8 @@ test_that("convert_output_type works (cdf >> quantile)", {
   expected <- tibble::as_tibble(expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- new_output_type,
-    output_type_id <- new_output_type_id,
+    output_type = new_output_type,
+    output_type_id = new_output_type_id,
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )) %>%
@@ -165,8 +165,8 @@ test_that("convert_output_type works (sample >> quantile, cdf, mean)", {
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "sample",
-    output_type_id <- 1:1e5,
+    output_type = "sample",
+    output_type_id = 1:1e5,
     stringsAsFactors = FALSE
   ) %>%
     dplyr::mutate(mean = grp1 * ifelse(model_id == "A", 1, 3),
@@ -177,8 +177,8 @@ test_that("convert_output_type works (sample >> quantile, cdf, mean)", {
   expected_quantile <- tibble::as_tibble(expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "quantile",
-    output_type_id <- ex_quantiles,
+    output_type = "quantile",
+    output_type_id = ex_quantiles,
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )) %>%
@@ -188,8 +188,8 @@ test_that("convert_output_type works (sample >> quantile, cdf, mean)", {
   expected_cdf <- tibble::as_tibble(expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "cdf",
-    output_type_id <- ex_bins,
+    output_type = "cdf",
+    output_type_id = ex_bins,
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )) %>%
@@ -199,8 +199,8 @@ test_that("convert_output_type works (sample >> quantile, cdf, mean)", {
   expected_mean <- tibble::as_tibble(expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "mean",
-    output_type_id <- NA,
+    output_type = "mean",
+    output_type_id = NA,
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )) %>%
@@ -217,8 +217,8 @@ test_that("convert_output_type fails correctly (quantile)", {
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "cdf",
-    output_type_id <- ex_ps,
+    output_type = "cdf",
+    output_type_id = ex_ps,
     stringsAsFactors = FALSE
   ) %>%
     dplyr::mutate(mean = grp1 * ifelse(model_id == "A", 1, 3),
@@ -229,8 +229,8 @@ test_that("convert_output_type fails correctly (quantile)", {
   expected <- tibble::as_tibble(expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- new_output_type,
-    output_type_id <- new_output_type_id,
+    output_type = new_output_type,
+    output_type_id = new_output_type_id,
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )) %>%
@@ -245,7 +245,7 @@ test_that("convert_output_type fails correctly: wrong starting output_type", {
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "pmf",
+    output_type = "pmf",
     output_type_id <- c("bin1", "bin2"),
     stringsAsFactors = FALSE
   )
@@ -257,7 +257,7 @@ test_that("convert_output_type fails correctly: wrong new_output_type (quantile 
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "quantile",
+    output_type = "quantile",
     output_type_id <- c(0.25, 0.5, 0.75),
     stringsAsFactors = FALSE
   )
@@ -269,7 +269,7 @@ test_that("convert_output_type fails correctly: wrong new_output_type (cdf >> sa
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "cdf",
+    output_type = "cdf",
     output_type_id <- -1:1,
     stringsAsFactors = FALSE
   )
@@ -281,7 +281,7 @@ test_that("convert_output_type fails correctly: wrong new_output_type_id (mean)"
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "cdf",
+    output_type = "cdf",
     output_type_id <- -1:1,
     stringsAsFactors = FALSE
   )
@@ -294,7 +294,7 @@ test_that("convert_output_type fails correctly: wrong new_output_type_id (quanti
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "cdf",
+    output_type = "cdf",
     output_type_id <- -1:1,
     stringsAsFactors = FALSE
   )
@@ -309,7 +309,7 @@ test_that("convert_output_type fails correctly: wrong new_output_type_id (cdf)",
   model_out_tbl <- expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
-    output_type <- "quantile",
+    output_type = "quantile",
     output_type_id <- seq(0, 1, 0.5),
     stringsAsFactors = FALSE
   )
@@ -333,8 +333,8 @@ test_that("convert_from_sample works (return mean)", {
   new_output_type_id <- NA
   expected <- grouped_model_out_tbl %>%
     dplyr::reframe(value = mean(value)) %>%
-    dplyr::mutate(output_type <- new_output_type,
-                  output_type_id <- new_output_type_id) %>%
+    dplyr::mutate(output_type = new_output_type,
+                  output_type_id = new_output_type_id) %>%
     as_model_out_tbl()
   test <- convert_from_sample(grouped_model_out_tbl, new_output_type,
                               new_output_type_id)
@@ -353,8 +353,8 @@ test_that("convert_from_sample works (return median)", {
   new_output_type_id <- NA
   expected <- grouped_model_out_tbl %>%
     dplyr::reframe(value = median(value)) %>%
-    dplyr::mutate(output_type <- new_output_type,
-                  output_type_id <- new_output_type_id) %>%
+    dplyr::mutate(output_type = new_output_type,
+                  output_type_id = new_output_type_id) %>%
     as_model_out_tbl()
   test <- convert_from_sample(grouped_model_out_tbl, new_output_type,
                               new_output_type_id)
@@ -373,8 +373,8 @@ test_that("convert_from_sample works (return quantile)", {
   new_output_type_id <- c(0.25, 0.75)
   expected <- grouped_model_out_tbl %>%
     dplyr::reframe(value = quantile(value, new_output_type_id, names = FALSE),
-                   output_type_id <- new_output_type_id) %>%
-    dplyr::mutate(output_type <- new_output_type) %>%
+                   output_type_id = new_output_type_id) %>%
+    dplyr::mutate(output_type = new_output_type) %>%
     as_model_out_tbl()
   test <- convert_from_sample(grouped_model_out_tbl, new_output_type,
                               new_output_type_id)
@@ -393,8 +393,8 @@ test_that("convert_from_sample works (return cdf)", {
   new_output_type_id <- seq(0, 30, 5)
   expected <- grouped_model_out_tbl %>%
     dplyr::reframe(value = ecdf(value)(new_output_type_id),
-                   output_type_id <- new_output_type_id) %>%
-    dplyr::mutate(output_type <- new_output_type) %>%
+                   output_type_id = new_output_type_id) %>%
+    dplyr::mutate(output_type = new_output_type) %>%
     as_model_out_tbl()
   test <- convert_from_sample(grouped_model_out_tbl, new_output_type,
                               new_output_type_id)
