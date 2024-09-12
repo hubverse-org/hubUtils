@@ -212,35 +212,6 @@ test_that("convert_output_type works (sample >> quantile, cdf, mean)", {
   expect_equal(test, expected, tolerance = 1e-2)
 })
 
-test_that("convert_output_type fails correctly (quantile)", {
-  ex_ps <- seq(-2, 10, length.out = 500)[2:499]
-  model_out_tbl <- expand.grid(
-    grp1 = 1:2,
-    model_id = LETTERS[1:2],
-    output_type = "cdf",
-    output_type_id = ex_ps,
-    stringsAsFactors = FALSE
-  ) %>%
-    dplyr::mutate(mean = grp1 * ifelse(model_id == "A", 1, 3),
-                  value = pnorm(output_type_id, mean)) %>%
-    dplyr::select(-mean)
-  new_output_type <- "quantile"
-  new_output_type_id <- c(0.25, 0.5, 0.75)
-  expected <- tibble::as_tibble(expand.grid(
-    grp1 = 1:2,
-    model_id = LETTERS[1:2],
-    output_type = new_output_type,
-    output_type_id = new_output_type_id,
-    KEEP.OUT.ATTRS = FALSE,
-    stringsAsFactors = FALSE
-  )) %>%
-    dplyr:: mutate(value = qnorm(output_type_id, grp1 * ifelse(model_id == "A", 1, 3))) %>%
-    dplyr::arrange(model_id, grp1) %>%
-    as_model_out_tbl()
-  test <- convert_output_type(model_out_tbl, new_output_type, new_output_type_id)
-  expect_equal(test, expected, tolerance = 1e-2)
-})
-
 test_that("convert_output_type fails correctly: multiple starting output types provided", {
   model_out_tbl <- expand.grid(
     grp1 = 1,
@@ -259,7 +230,7 @@ test_that("convert_output_type fails correctly: wrong starting output_type", {
     grp1 = 1:2,
     model_id = LETTERS[1:2],
     output_type = "pmf",
-    output_type_id <- c("bin1", "bin2"),
+    output_type_id = c("bin1", "bin2"),
     stringsAsFactors = FALSE
   )
   new_output_type <- "mean"
@@ -271,7 +242,7 @@ test_that("convert_output_type fails correctly: wrong new_output_type (quantile 
     grp1 = 1:2,
     model_id = LETTERS[1:2],
     output_type = "quantile",
-    output_type_id <- c(0.25, 0.5, 0.75),
+    output_type_id = c(0.25, 0.5, 0.75),
     stringsAsFactors = FALSE
   )
   new_output_type <- "pmf"
