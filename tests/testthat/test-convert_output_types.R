@@ -74,6 +74,7 @@ test_that("convert_output_type works (quantile >> cdf)", {
     dplyr:: mutate(value = pnorm(output_type_id, grp1 * ifelse(model_id == "A", 1, 3))) %>%
     dplyr::arrange(model_id, grp1) %>%
     as_model_out_tbl()
+  set.seed(101)
   test <- convert_output_type(model_out_tbl, new_output_type, new_output_type_id)
   expect_equal(test, expected, tolerance = 1e-2)
 })
