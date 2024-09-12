@@ -194,7 +194,14 @@ validate_new_output_type <- function(starting_output_type, new_output_type,
 
 #' @noRd
 get_samples_from_quantiles <- function(model_out_tbl, task_id_cols, n_samples, ...) {
-  set.seed(101)
+  if (!requireNamespace("distfromq")) {
+    cli::cli_abort(
+      c("x" = "{.pkg distfromq} must be installed to convert {.val cdf} 
+                   or {.val quantile} output types.",
+        "i" = "Use {.code remotes::install_github('reichlab/distfromq')} to install."
+      )
+    )
+  }
   samples <- model_out_tbl %>%
     dplyr::group_by(.data[["model_id"]], dplyr::across(dplyr::all_of(task_id_cols))) %>%
     dplyr::reframe(
@@ -208,7 +215,14 @@ get_samples_from_quantiles <- function(model_out_tbl, task_id_cols, n_samples, .
 
 #' @noRd
 get_samples_from_cdf <- function(model_out_tbl, task_id_cols, n_samples, ...) {
-  set.seed(101)
+  if (!requireNamespace("distfromq")) {
+    cli::cli_abort(
+      c("x" = "{.pkg distfromq} must be installed to convert {.val cdf} 
+                   or {.val quantile} output types.",
+        "i" = "Use {.code remotes::install_github('reichlab/distfromq')} to install."
+      )
+    )
+  }
   samples <- model_out_tbl %>%
     dplyr::group_by(.data[["model_id"]], dplyr::across(dplyr::all_of(task_id_cols))) %>%
     dplyr::reframe(
