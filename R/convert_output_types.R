@@ -195,7 +195,7 @@ get_samples_from_quantiles <- function(model_out_tbl, task_id_cols, n_samples, .
       value = distfromq::make_q_fn(
         ps = as.numeric(.data[["output_type_id"]]),
         qs = .data[["value"]], ...
-      )(runif(n_samples, 0, 1))
+      )(stats::runif(n_samples, 0, 1))
     )
 
 
@@ -211,7 +211,7 @@ get_samples_from_cdf <- function(model_out_tbl, task_id_cols, n_samples, ...) {
       value = distfromq::make_q_fn(
         ps = .data[["value"]],
         qs = as.numeric(.data[["output_type_id"]]), ...
-      )(runif(n_samples, 0, 1))
+      )(stats::runif(n_samples, 0, 1))
     )
   return(samples)
 }
@@ -234,13 +234,13 @@ convert_from_sample <- function(grouped_model_out_tbl, new_output_type,
   } else if (new_output_type == "quantile") {
     model_out_tbl_transform <- grouped_model_out_tbl %>%
       dplyr::reframe(
-        value = quantile(.data[["value"]], as.numeric(new_output_type_id), names = FALSE),
+        value = stats::quantile(.data[["value"]], as.numeric(new_output_type_id), names = FALSE),
         output_type_id = new_output_type_id
       )
   } else if (new_output_type == "cdf") {
     model_out_tbl_transform <- grouped_model_out_tbl %>%
       dplyr::reframe(
-        value = ecdf(.data[["value"]])(as.numeric(new_output_type_id)),
+        value = stats::ecdf(.data[["value"]])(as.numeric(new_output_type_id)),
         output_type_id = new_output_type_id
       )
   }
