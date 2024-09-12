@@ -72,9 +72,8 @@
 convert_output_type <- function(model_out_tbl, new_output_type,
                                 new_output_type_id = NA, n_samples = 1e4, ...) {
   # validations
-  task_id_cols <- get_task_id_cols(model_out_tbl)
-  starting_output_type <- model_out_tbl$output_type %>% unique()
-  starting_output_type_ids <- model_out_tbl$output_type_id %>% unique()
+  starting_output_type <- unique(model_out_tbl$output_type)
+  starting_output_type_ids <- unique(model_out_tbl$output_type_id)
   task_id_cols <- get_task_id_cols(model_out_tbl)
   validate_new_output_type(
     starting_output_type, new_output_type,
@@ -111,10 +110,9 @@ convert_output_type <- function(model_out_tbl, new_output_type,
     new_output_type_id_tmp <- new_output_type_id
     if (new_output_type[i] %in% c("mean", "median")) {
       new_output_type_id_tmp <- NA
-    } else
-      if (is.list(new_output_type_id)) {
-        new_output_type_id_tmp <- new_output_type_id[[new_output_type[i]]]
-      }
+    } else if (is.list(new_output_type_id)) {
+      new_output_type_id_tmp <- new_output_type_id[[new_output_type[i]]]
+    }
     model_out_tbl_transform[[i]] <- convert_from_sample(
       grouped_model_out_tbl, new_output_type[i], new_output_type_id_tmp
     )
@@ -122,6 +120,7 @@ convert_output_type <- function(model_out_tbl, new_output_type,
   return(dplyr::bind_rows(model_out_tbl_transform))
 }
 
+#' @noRd
 validate_new_output_type <- function(starting_output_type, new_output_type,
                                      new_output_type_id) {
   valid_conversions <- list(
@@ -197,8 +196,6 @@ get_samples_from_quantiles <- function(model_out_tbl, task_id_cols, n_samples, .
         qs = .data[["value"]], ...
       )(stats::runif(n_samples, 0, 1))
     )
-
-
   return(samples)
 }
 
