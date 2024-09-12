@@ -133,17 +133,17 @@ validate_new_output_type <- function(starting_output_type, new_output_type,
   valid_starting_output_type <- starting_output_type %in% names(valid_conversions)
   if (!valid_starting_output_type) {
     cli::cli_abort(c(
-      "{.var output_type} provided cannot be transformed",
-      i = "must be of type {.var sample}, {.var quantile}, {.var cdf}."
+      "{.var output_type} {.val {starting_output_type}} provided cannot be transformed",
+      i = "must be of type {.val sample}, {.val quantile} or {.val cdf}."
     ))
   }
   # check new_output_type is supported
   invalid_new_output_type <- which(!(new_output_type %in% valid_conversions[[starting_output_type]]))
   if (length(invalid_new_output_type) > 0) {
     cli::cli_abort(c(
-      "{invalid_new_output_type} cannot be transformed to the specified
-      {.var new_output_type}",
-      i = "new_output_type must be {valid_conversions[[starting_output_type]]}"
+      "Output type {.val {starting_output_type}} cannot be converted to the specified
+      {.val {new_output_type[invalid_new_output_type]}}",
+      i = "{.var new_output_type} values must be one of {.val {valid_conversions[[starting_output_type]]}}"
     ))
   }
   # check new_output_type_id
