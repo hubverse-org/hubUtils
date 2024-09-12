@@ -1,6 +1,6 @@
 #' Get task ID column names from `model_out_tbl` object
 #'
-#' @param model_out_tbl an object of class `model_out_tbl` 
+#' @param model_out_tbl an object of class `model_out_tbl`
 #'
 #' @return a character vector of task ID column names
 #' @export
