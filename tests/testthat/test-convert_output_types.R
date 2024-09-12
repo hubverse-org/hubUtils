@@ -241,6 +241,19 @@ test_that("convert_output_type fails correctly (quantile)", {
   expect_equal(test, expected, tolerance = 1e-2)
 })
 
+test_that("convert_output_type fails correctly: multiple starting output types provided", {
+  model_out_tbl <- expand.grid(
+    grp1 = 1,
+    model_id = "A",
+    output_type = c("cdf", "quantile"),
+    output_type_id = 1:2,
+    stringsAsFactors = FALSE
+  )
+  model_out_tbl$output_type_id <- c(5, 0.25, 10, 0.75)
+  new_output_type <- "mean"
+  expect_error(convert_output_type(model_out_tbl, new_output_type))
+})
+
 test_that("convert_output_type fails correctly: wrong starting output_type", {
   model_out_tbl <- expand.grid(
     grp1 = 1:2,

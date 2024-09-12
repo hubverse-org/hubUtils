@@ -126,6 +126,10 @@ convert_output_type <- function(model_out_tbl, new_output_type,
 #' @noRd
 validate_new_output_type <- function(starting_output_type, new_output_type,
                                      new_output_type_id) {
+  # check only one starting_output_type is provided
+  if (length(starting_output_type) != 1) {
+    cli::cli_abort(c("Only one {.var starting_output_type} may be provided"))
+  }
   valid_conversions <- list(
     "sample" = c("mean", "median", "quantile", "cdf"),
     "quantile" = c("mean", "median", "cdf"),
