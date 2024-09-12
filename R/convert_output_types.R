@@ -1,10 +1,12 @@
 #' Transform between output types
 #'
-#' Transform between output types, from one starting output_type into new
-#' output_types. See details for supported conversions.
+#' Transform between output types for each unique combination of task IDs for
+#' each model. Conversion must be from a single starting output type to one or more
+#' new output types, and the resulting output will only contain the new output types.
+#' See details for supported conversions.
 #'
 #' @param model_out_tbl an object of class `model_out_tbl` containing predictions
-#'    with only one unique value in the `output_type` column.
+#'    with a single, unique value in the `output_type` column.
 #' @param new_output_type `string` indicating the desired output_type after
 #'   transformation (`"mean"`, `"median"`, `"quantile"`, `"cdf"`); can also be a
 #'   vector if multiple new output_types are desired.
@@ -66,7 +68,8 @@
 #' convert_output_type(model_out_tbl, new_output_type = c("quantile", "cdf"),
 #'    new_output_type_id = list("quantile" = ex_quantiles, "cdf" = ex_bins))
 #'
-#' @return object of class `model_out_tbl` containing new output_type
+#' @return object of class `model_out_tbl` containing (only) the new output_type(s)
+#'   for each unique combination of task IDs for each model
 #' @export
 #' @importFrom rlang .data
 convert_output_type <- function(model_out_tbl, new_output_type,
