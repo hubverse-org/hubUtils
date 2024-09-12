@@ -62,3 +62,31 @@ If both \code{"quantile"} and \code{"cdf"} output_types are desired, \code{new_o
 should be a named list, where each element specifies the corresponding
 \code{new_output_type_id}. See examples for an illustration.
 }
+\examples{
+# We illustrate the conversion between output types using normal distributions,
+ex_quantiles <- c(0.25, 0.5, 0.75)
+model_out_tbl <- expand.grid(
+  group1 = c(1,2),
+  model_id = "A",
+  output_type = "quantile",
+  output_type_id = ex_quantiles
+) \%>\%
+dplyr::mutate(value = qnorm(p = output_type_id, mean = group1))
+
+convert_output_type(model_out_tbl, new_output_type = "median", new_output_type_id = NA)
+
+# Next, we illustrate conversion from samples to quantile and cdf
+ex_bins <- seq(-2,2,1)
+ex_quantiles <- c(0.25, 0.5, 0.75)
+model_out_tbl <- expand.grid(
+  group1 = c(1,2),
+  model_id = "A",
+  output_type = "sample",
+  output_type_id = 1:100
+) \%>\%
+dplyr::mutate(value = rnorm(200, mean = group1))
+
+convert_output_type(model_out_tbl, new_output_type = c("quantile", "cdf"),
+   new_output_type_id = list("quantile" = ex_quantiles, "cdf" = ex_bins))
+
+}
