@@ -174,7 +174,7 @@ test_that("convert_output_type works (sample >> quantile, cdf, mean)", {
                   value = rnorm(dplyr::n(), mean)) %>%
     dplyr::select(-mean)
   new_output_type <- c("mean", "quantile", "cdf")
-  new_output_type_id <- list("quantile" = ex_quantiles, "cdf" = ex_bins)
+  new_output_type_id <- list("mean" = NA, "quantile" = ex_quantiles, "cdf" = ex_bins)
   expected_quantile <- tibble::as_tibble(expand.grid(
     grp1 = 1:2,
     model_id = LETTERS[1:2],
