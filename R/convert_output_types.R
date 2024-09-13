@@ -153,24 +153,35 @@ validate_new_output_type <- function(starting_output_type, new_output_type,
     ))
   }
   # check new_output_type_id
-  if (all(new_output_type %in% c("mean", "median")) && !all(is.na(new_output_type_id))) {
+  if (length(new_output_type) == 1) {
+    validate_new_output_type_id(new_output_type, new_output_type_id)
+  } else if (length(new_output_type > 1)) {
+    purrr::imap(.x = new_output_type,
+                ~ validate_new_output_type_id(new_output_type = .x,
+                                              new_output_type_id = new_output_type_id[[.y]]))
+  }
+}
+
+#' @noRd
+validate_new_output_type_id <- function(new_output_type, new_output_type_id) {
+  if (new_output_type %in% c("mean", "median") && !all(is.na(new_output_type_id))) {
     cli::cli_abort(c(
       "{.var new_output_type_id} is incompatible with {.var new_output_type}",
       i = "{.var new_output_type_id} should be {.var NA}"
     ))
-  } else if ("quantile" %in% new_output_type) {
-    new_output_type_id_tmp <- new_output_type_id
+  } else if (new_output_type == "quantile") {
+    new_output_type_id_quantile <- new_output_type_id
     if (is.list(new_output_type_id)) {
-      new_output_type_id_tmp <- new_output_type_id[["quantile"]]
+      new_output_type_id_quantile <- new_output_type_id[["quantile"]]
     }
-    if (!is.numeric(new_output_type_id_tmp)) {
+    if (!is.numeric(new_output_type_id_quantile)) {
       cli::cli_abort(c(
         "elements of {.var new_output_type_id} should be numeric",
         i = "elements of {.var new_output_type_id} represent quantiles
                 of the predictive distribution"
       ))
     }
-    if (any(new_output_type_id_tmp < 0) || any(new_output_type_id_tmp > 1)) {
+    if (any(new_output_type_id_quantile < 0) || any(new_output_type_id_quantile > 1)) {
       cli::cli_abort(c(
         "elements of {.var new_output_type_id} should be between 0 and 1",
         i = "elements of {.var new_output_type_id} represent quantiles
@@ -178,11 +189,11 @@ validate_new_output_type <- function(starting_output_type, new_output_type,
       ))
     }
   } else if (new_output_type == "cdf") {
-    new_output_type_id_tmp <- new_output_type_id
+    new_output_type_id_cdf <- new_output_type_id
     if (is.list(new_output_type_id)) {
-      new_output_type_id_tmp <- new_output_type_id[["cdf"]]
+      new_output_type_id_cdf <- new_output_type_id[["cdf"]]
     }
-    if (!is.numeric(new_output_type_id_tmp)) {
+    if (!is.numeric(new_output_type_id_cdf)) {
       cli::cli_abort(c(
         "elements of {.var new_output_type_id} should be numeric",
         i = "elements of {.var new_output_type_id} represent possible
