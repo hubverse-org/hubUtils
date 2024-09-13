@@ -14,7 +14,7 @@ convert_output_type(
 }
 \arguments{
 \item{model_out_tbl}{an object of class \code{model_out_tbl} containing predictions
-with only one unique value in the \code{output_type} column.}
+with a single, unique value in the \code{output_type} column.}
 
 \item{new_output_type}{\code{string} indicating the desired output_type after
 transformation (\code{"mean"}, \code{"median"}, \code{"quantile"}, \code{"cdf"}); can also be a
@@ -33,11 +33,14 @@ details of how to estimate a quantile function from provided quantile levels
 and quantile values for \code{"quantile"} or \code{"cdf"} output types.}
 }
 \value{
-object of class \code{model_out_tbl} containing new output_type
+object of class \code{model_out_tbl} containing (only) the new output_type(s)
+for each unique combination of task IDs for each model
 }
 \description{
-Transform between output types, from one starting output_type into new
-output_types. See details for supported conversions.
+Transform between output types for each unique combination of task IDs for
+each model. Conversion must be from a single starting output type to one or more
+new output types, and the resulting output will only contain the new output types.
+See details for supported conversions.
 }
 \details{
 The following transformations are supported: (i) \code{"sample"} can be
