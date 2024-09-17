@@ -19,6 +19,13 @@ designed to be primarily used internally by other hubverse packages.
 
 ## Installation
 
+You can install the released version of `hubUtils` from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("hubUtils")
+```
+
 You can install the development version of `hubUtils` like so:
 
 ``` r

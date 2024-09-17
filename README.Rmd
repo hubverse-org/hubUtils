@@ -25,6 +25,12 @@ The goal of `hubUtils` is to provide a core set of low-level utility functions c
 
 ## Installation
 
+You can install the released version of `hubUtils` from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("hubUtils")
+```
+
 You can install the development version of `hubUtils` like so:
 
 ``` r
