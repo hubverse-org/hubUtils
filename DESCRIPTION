@@ -1,6 +1,6 @@
 Package: hubUtils
 Version: 0.1.4
-Title: Core Set of 'hubverse' Utility Functions
+Title: Core 'hubverse' Utilities
 Authors@R: c(
     person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2378-4915")),
@@ -10,7 +10,7 @@ Authors@R: c(
     person("Evan L.", "Ray", , "elray@umass.edu", role = "ctb"),
     person("Consortium of Infectious Disease Modeling Hubs", role = "cph")
   )
-Description: Core set of low-level utility functions common across the 
+Description: Core set of low-level utilities common across the 
   'hubverse'. Used to interact with 'hubverse' schema, Hub configuration files 
   and model outputs and designed to be primarily used internally by other 
   'hubverse' packages. See Reich et al. (2022) <doi:10.2105/AJPH.2022.306831> 
