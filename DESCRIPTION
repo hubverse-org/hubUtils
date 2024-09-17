@@ -11,7 +11,7 @@ Authors@R: c(
     person("Consortium of Infectious Disease Modeling Hubs", role = "cph")
   )
 Description: Core set of low-level utility functions common across the 'hubverse'. 
-  Used to interact with 'hubverse' schema, hub config files and model outputs 
+  Used to interact with 'hubverse' schema, hub configuration files and model outputs 
   and designed to be primarily used internally by other 'hubverse' packages. 
 License: MIT + file LICENSE
 URL: https://github.com/hubverse-org/hubUtils,

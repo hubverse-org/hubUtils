@@ -38,7 +38,7 @@ remotes::install_github("hubverse-org/hubUtils")
 
 Please note that the hubUtils package is released with a [Contributor
 Code of
-Conduct](https://hubverse-org.github.io/hubUtils/CODE_of_CONDUCT.html).
+Conduct](https://hubverse-org.github.io/hubUtils/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
 ## Contributing
