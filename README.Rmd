@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/hubverse-org/hubUtils/branch/main/graph/badge.svg)](https://app.codecov.io/gh/hubverse-org/hubUtils?branch=main)
 <!-- badges: end -->
 
-The goal of `hubUtils` is to provide a set of utility functions for downloading, plotting, and scoring forecast and truth data from Infectious Disease Modeling Hubs
+The goal of `hubUtils` is to provide a core set of low-level utility functions common across the hubverse. Functions are used to interact with hubverse schema, hub config files and model outputs and are designed to be primarily used internally by other hubverse packages. 
 
 ## Installation
 

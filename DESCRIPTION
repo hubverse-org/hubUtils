@@ -1,5 +1,5 @@
 Package: hubUtils
-Title: Utility Functions for Infectious Disease Modeling Hubs
+Title: Core hubverse utility functions
 Version: 0.1.3
 Authors@R: c(
     person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
@@ -10,8 +10,9 @@ Authors@R: c(
     person("Evan L.", "Ray", , "elray@umass.edu", role = "ctb"),
     person("Consortium of Infectious Disease Modeling Hubs", role = "cph")
   )
-Description: A set of utility functions for downloading, plotting, and
-    scoring forecast and truth data from Infectious Disease Modeling Hubs.
+Description: Core set of low-level utility functions common across the hubverse. 
+Used to interact with hubverse schema, hub config files and model outputs 
+and designed to be primarily used internally by other hubverse packages. 
 License: MIT + file LICENSE
 URL: https://github.com/hubverse-org/hubUtils,
     https://hubverse-org.github.io/hubUtils/
