@@ -1,4 +1,4 @@
-# hubUtils 0.1.3
+# hubUtils 0.1.4
 
 * First submission to CRAN
 
