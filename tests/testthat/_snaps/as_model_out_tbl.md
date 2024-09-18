@@ -22,16 +22,6 @@
       x `output_type_col` value "output_type_rename_error" not a valid column name in `x`
       ! Must be one of "forecast_date", "horizon", "target", "location", "output_type_rename", "output_type_id", "value", and "model_id"
 
-# triming to task ids works
-
-    Code
-      names(as_model_out_tbl(tbl, trim_to_task_ids = TRUE, hub_con = hub_con))
-    Message
-      ! `task_id_cols` value "location" not a valid `tbl` column name. Ignored.
-    Output
-      [1] "model_id"       "forecast_date"  "target"         "horizon"       
-      [5] "output_type"    "output_type_id" "value"         
-
 # validating model_out_tbl std column datatypes works
 
     Code

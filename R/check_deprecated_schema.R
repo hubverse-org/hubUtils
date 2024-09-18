@@ -47,6 +47,11 @@ deprecate_schema_warn <- function(config_version, valid_version, hubutils_versio
     "Please upgrade Hub config files to conform to, at minimum, version
     {.field {valid_version}} as soon as possible."
   )
+  # The function below just issues a deprecation message.
+  # Specifying the global environment as the user environment ensure the
+  # deprecation message is issued to users even when the function is called
+  # from within other functions. It does not modify the global environment in
+  # any way.
   lifecycle::deprecate_warn(
     hubutils_version,
     I(what),

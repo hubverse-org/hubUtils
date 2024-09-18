@@ -16,3 +16,5 @@
 ^\.httr-oauth$
 ^\.secrets$
 ^\.lintr$
+^CRAN-SUBMISSION$
+^cran-comments\.md$

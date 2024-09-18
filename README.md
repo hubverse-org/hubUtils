@@ -12,11 +12,19 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/hubverse-org/hubUtils/branch/main/graph/badge.svg)](https://app.codecov.io/gh/hubverse-org/hubUtils?branch=main)
 <!-- badges: end -->
 
-The goal of `hubUtils` is to provide a set of utility functions for
-downloading, plotting, and scoring forecast and truth data from
-Infectious Disease Modeling Hubs
+The goal of `hubUtils` is to provide a core set of low-level utility
+functions common across the hubverse. Functions are used to interact
+with hubverse schema, hub config files and model outputs and are
+designed to be primarily used internally by other hubverse packages.
 
 ## Installation
+
+You can install the released version of `hubUtils` from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("hubUtils")
+```
 
 You can install the development version of `hubUtils` like so:
 
@@ -35,7 +43,7 @@ By contributing to this project, you agree to abide by its terms.
 
 ## Contributing
 
-Interested in contributing back to the open-source Hubverse project?
+Interested in contributing back to the open-source hubverse project?
 Learn more about how to [get involved in the Hubverse
 Community](https://hubverse.io/en/latest/overview/contribute.html) or
 [how to contribute to the hubUtils
