@@ -1,3 +1,5 @@
+# hubUtils (development version)
+
 # hubUtils 0.1.7
 
 * First submission to CRAN
