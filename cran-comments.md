@@ -1,6 +1,6 @@
 ## Resubmission
 
-This is a resubmission. In this version I have removed the remote dependency on 'hubData'.
+This is a resubmission. In this version I have set 17.0.0 as the minimum version of the 'arrow' dependency.
 
 ## R CMD check results
 
@@ -13,7 +13,9 @@ This is a resubmission. In this version I have removed the remote dependency on 
     
     False positive
 
-Additional previous actions in response to manual review
+Additional previous actions in response to automated and manual reviews
+
+*   Removed the remote dependency on 'hubData'.
 
 *   More details and DOI to relevant publication added to Description field.
 
