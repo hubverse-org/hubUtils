@@ -1,3 +1,7 @@
+## Resubmission
+
+This is a resubmission. In this version I have removed the remote dependency on 'hubData'.
+
 ## R CMD check results
 
 0 errors | 0 warnings | 1 notes
@@ -9,7 +13,7 @@
     
     False positive
 
-Additional actions in response to manual review
+Additional previous actions in response to manual review
 
 *   More details and DOI to relevant publication added to Description field.
 
