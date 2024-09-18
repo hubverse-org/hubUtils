@@ -533,7 +533,7 @@
 # read_config works on S3 cloud hubs
 
     Code
-      read_config(hub_path = hubData::s3_bucket("hubverse/hubutils/testhubs/simple/"))
+      read_config(hub_path = arrow::s3_bucket("hubverse/hubutils/testhubs/simple/"))
     Output
       $schema_version
       [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
