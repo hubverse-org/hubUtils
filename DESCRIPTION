@@ -38,7 +38,7 @@ Imports:
     tibble,
     utils
 Suggests: 
-    arrow,
+    arrow (>= 17.0.0),
     dplyr,
     knitr,
     rmarkdown,
