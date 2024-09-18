@@ -21,7 +21,9 @@ test_that("read_config works on local hubs", {
 test_that("read_config works on S3 cloud hubs", {
   expect_snapshot(
     read_config(
-      hub_path = arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
+      hub_path = suppressMessages(
+        arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
+      )
     )
   )
 })
