@@ -1,6 +1,6 @@
 ## Resubmission
 
-This is a resubmission. In this version I have set 17.0.0 as the minimum version of the 'arrow' dependency.
+This is a resubmission. In this version I have set the test that requires arrow s3 support to skip if it is not available.
 
 ## R CMD check results
 
@@ -15,7 +15,7 @@ This is a resubmission. In this version I have set 17.0.0 as the minimum version
 
 Additional previous actions in response to automated and manual reviews
 
-*   Removed the remote dependency on 'hubData'.
+*   Removed the remote dependency on 'hubData' and used 'arrow' where applicable instead.
 
 *   More details and DOI to relevant publication added to Description field.
 
