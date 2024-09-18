@@ -1,5 +1,5 @@
 Package: hubUtils
-Version: 0.1.5
+Version: 0.1.6
 Title: Core 'hubverse' Utilities
 Authors@R: c(
     person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
