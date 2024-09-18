@@ -8,8 +8,8 @@ read_config(hub_path, config = c("tasks", "admin", "model-metadata-schema"))
 }
 \arguments{
 \item{hub_path}{Either a character string path to a local Modeling Hub directory
-or an object of class \verb{<SubTreeFileSystem>} created using functions \code{\link[hubData:s3_bucket]{hubData::s3_bucket()}}
-or \code{\link[hubData:gs_bucket]{hubData::gs_bucket()}} by providing a string S3 or GCS bucket name or path to a
+or an object of class \verb{<SubTreeFileSystem>} created using functions \code{\link[arrow:s3_bucket]{arrow::s3_bucket()}}
+or \code{\link[arrow:gs_bucket]{arrow::gs_bucket()}} by providing a string S3 or GCS bucket name or path to a
 Modeling Hub directory stored in the cloud.
 For more details consult the
 \href{https://arrow.apache.org/docs/r/articles/fs.html}{Using cloud storage (S3, GCS)}
@@ -29,9 +29,9 @@ hub_path <- system.file("testhubs/simple", package = "hubUtils")
 read_config(hub_path, "tasks")
 read_config(hub_path, "admin")
 
-\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("hubData", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Read config file from AWS S3 bucket hub
-hub_path <- hubData::s3_bucket("hubverse/hubutils/testhubs/simple/")
+hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
 read_config(hub_path, "admin")
 \dontshow{\}) # examplesIf}
 }

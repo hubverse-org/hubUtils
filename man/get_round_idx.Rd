@@ -74,17 +74,15 @@ returned.
 
 }}
 \examples{
-if (requireNamespace("hubData", quietly = TRUE)) {
-  hub_con <- hubData::connect_hub(system.file("testhubs/simple",
-                                              package = "hubUtils"))
-  config_tasks <- attr(hub_con, "config_tasks")
-  # Get round IDs
-  get_round_ids(config_tasks)
-  get_round_ids(config_tasks, flatten = "model_task")
-  get_round_ids(config_tasks, flatten = "task_id")
-  get_round_ids(config_tasks, flatten = "none")
-  # Get round integer index using a round_id
-  get_round_idx(config_tasks, "2022-10-01")
-  get_round_idx(config_tasks, "2022-10-29")
-}
+config_tasks <- read_config(
+  hub_path = system.file("testhubs/simple", package = "hubUtils")
+)
+# Get round IDs
+get_round_ids(config_tasks)
+get_round_ids(config_tasks, flatten = "model_task")
+get_round_ids(config_tasks, flatten = "task_id")
+get_round_ids(config_tasks, flatten = "none")
+# Get round integer index using a round_id
+get_round_idx(config_tasks, "2022-10-01")
+get_round_idx(config_tasks, "2022-10-29")
 }

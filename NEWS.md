@@ -1,6 +1,7 @@
-# hubUtils 0.1.4
+# hubUtils 0.1.5
 
 * First submission to CRAN
+* Removed `hubData` dependency
 
 # hubUtils 0.1.2
 

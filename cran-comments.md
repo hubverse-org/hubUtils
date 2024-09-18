@@ -1,10 +1,11 @@
+## Resubmission
+
+This is a resubmission. In this version I have removed the remote dependency on 'hubData'.
+
 ## R CMD check results
 
-0 errors | 0 warnings | 3 notes
+0 errors | 0 warnings | 1 notes
 
-*   New Submission
-
-    This is a new release.
 
 *   Possibly misspelled words in DESCRIPTION:
     al (16:37)
@@ -12,18 +13,10 @@
     
     False positive
 
-*   Suggests or Enhances not in mainstream repositories:
-    hubData
-  Availability using Additional_repositories specification:
-    hubData   yes   https://hubverse-org.r-universe.dev/
-    
-    This is a core 'hubverse' package and an Import to 'hubData'. Once 'hubUtils' is 
-    on CRAN, 'hubData' will be submitted to CRAN also and the use if Remotes removed.
-
-Additional actions in response to manual review
+Additional previous actions in response to manual review
 
 *   More details and DOI to relevant publication added to Description field.
 
 *   Installation instructions updated in README.md.
 
-*   Comments added to `zzz.R` to clarify use of `<<-` 
+*   Comments added to `zzz.R` to clarify use of `<<-` and `check_deprecated_schema.R` to clarify use of `.GlobalEnv` in `lifecycle::deprecate_warn()`.

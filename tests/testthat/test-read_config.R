@@ -19,10 +19,9 @@ test_that("read_config works on local hubs", {
 })
 
 test_that("read_config works on S3 cloud hubs", {
-  skip_if_not_installed("hubData")
   expect_snapshot(
     read_config(
-      hub_path = hubData::s3_bucket("hubverse/hubutils/testhubs/simple/")
+      hub_path = arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
     )
   )
 })
