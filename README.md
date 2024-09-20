@@ -12,6 +12,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/hubverse-org/hubUtils/branch/main/graph/badge.svg)](https://app.codecov.io/gh/hubverse-org/hubUtils?branch=main)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/hubUtils)](https://CRAN.R-project.org/package=hubUtils)
+
 <!-- badges: end -->
 
 The goal of `hubUtils` is to provide a core set of low-level utility
@@ -28,7 +29,20 @@ You can install the released version of `hubUtils` from
 install.packages("hubUtils")
 ```
 
-You can install the development version of `hubUtils` like so:
+### Latest
+
+You can install the [latest version of hubUtils from the
+R-universe](https://hubverse-org.r-universe.dev/hubAdmin):
+
+``` r
+install.packages("hubUtils", repos = c("https://hubverse-org.r-universe.dev", "https://cloud.r-project.org"))
+```
+
+### Development
+
+If you want to test out new features that have not yet been released,
+you can install the development version of hubUtils from
+[GitHub](https://github.com/) with:
 
 ``` r
 remotes::install_github("hubverse-org/hubUtils")
