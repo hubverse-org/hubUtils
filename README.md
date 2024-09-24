@@ -32,7 +32,7 @@ install.packages("hubUtils")
 ### Latest
 
 You can install the [latest version of hubUtils from the
-R-universe](https://hubverse-org.r-universe.dev/hubAdmin):
+R-universe](https://hubverse-org.r-universe.dev/hubUtils):
 
 ``` r
 install.packages("hubUtils", repos = c("https://hubverse-org.r-universe.dev", "https://cloud.r-project.org"))
