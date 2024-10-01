@@ -1,12 +1,5 @@
 test_that("column renaming works", {
-  skip_if_not_installed("hubData")
-  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
-
-  x <- hub_con %>%
-    dplyr::filter(output_type == "quantile", location == "US") %>%
-    dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date)) %>%
-    dplyr::arrange(model_id)
+  x <- dplyr::arrange(hub_con_output, model_id)
 
   names(x)[names(x) == "output_type"] <- "output_type_rename"
 
@@ -39,57 +32,8 @@ test_that("column renaming works", {
   )
 })
 
-test_that("triming to task ids works", {
-  skip_if_not_installed("hubData")
-  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
-  tbl <- hub_con %>%
-    dplyr::filter(output_type == "quantile", location == "US") %>%
-    dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date)) %>%
-    dplyr::arrange(model_id)
-
-  tbl$age_group <- NA
-  expect_equal(
-    names(as_model_out_tbl(tbl,
-      trim_to_task_ids = TRUE,
-      hub_con = hub_con
-    )),
-    c(
-      "model_id", "forecast_date", "target", "horizon", "location",
-      "output_type", "output_type_id", "value"
-    )
-  )
-
-  expect_equal(
-    names(as_model_out_tbl(tbl,
-      trim_to_task_ids = TRUE,
-      task_id_cols = c("forecast_date", "target"),
-      hub_con = hub_con
-    )),
-    c(
-      "model_id", "forecast_date", "target",
-      "output_type", "output_type_id", "value"
-    )
-  )
-
-  tbl$location <- NULL
-  expect_snapshot(
-    names(as_model_out_tbl(tbl,
-      trim_to_task_ids = TRUE,
-      hub_con = hub_con
-    ))
-  )
-})
-
 test_that("removing empty columns works", {
-  skip_if_not_installed("hubData")
-  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
-  tbl <- hub_con %>%
-    dplyr::filter(output_type == "quantile", location == "US") %>%
-    dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date)) %>%
-    dplyr::arrange(model_id)
-
+  tbl <- dplyr::arrange(hub_con_output, model_id)
   tbl$age_group <- NA
 
   expect_equal(
@@ -112,15 +56,8 @@ test_that("removing empty columns works", {
 })
 
 test_that("validating model_out_tbl std column datatypes works", {
-  skip_if_not_installed("hubData")
-
   # test that correct data types succeed
-  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
-  tbl <- hub_con %>%
-    dplyr::filter(output_type == "quantile", location == "US") %>%
-    dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date)) %>%
-    dplyr::arrange(model_id)
+  tbl <- dplyr::arrange(hub_con_output, model_id)
 
   expect_s3_class(as_model_out_tbl(tbl), "model_out_tbl")
 

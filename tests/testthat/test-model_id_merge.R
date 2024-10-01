@@ -1,12 +1,5 @@
 test_that("merging-splitting model_id works", {
-  skip_if_not_installed("hubData")
-  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
-  tbl <- hub_con %>%
-    dplyr::filter(output_type == "quantile", location == "US") %>%
-    dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date)) %>%
-    dplyr::arrange(model_id)
-
+  tbl <- dplyr::arrange(hub_con_output, model_id)
   # Test splitting
   expect_snapshot(model_id_split(tbl))
   tbl <- model_id_split(tbl)
@@ -68,14 +61,7 @@ test_that("merging-splitting model_id works", {
 })
 
 test_that("Splitting model_id fails if seperator detected", {
-  skip_if_not_installed("hubData")
-  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
-  tbl <- hub_con %>%
-    dplyr::filter(output_type == "quantile", location == "US") %>%
-    dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date)) %>%
-    dplyr::arrange(model_id)
-
+  tbl <- dplyr::arrange(hub_con_output, model_id)
   tbl$model_id[c(1, 7, 10)] <- "hub-base-line"
 
   # Test splitting
@@ -83,16 +69,8 @@ test_that("Splitting model_id fails if seperator detected", {
 })
 
 test_that("Merging model_id fails if seperator detected", {
-  skip_if_not_installed("hubData")
-  hub_con <- hubData::connect_hub(system.file("testhubs/flusight", package = "hubUtils"))
-  tbl <- hub_con %>%
-    dplyr::filter(output_type == "quantile", location == "US") %>%
-    dplyr::collect() %>%
-    dplyr::filter(forecast_date == max(forecast_date)) %>%
-    dplyr::arrange(model_id)
-
+  tbl <- dplyr::arrange(hub_con_output, model_id)
   tbl <- model_id_split(tbl)
-
   tbl$model_abbr[c(1, 7, 10)] <- "base-line"
   tbl$team_abbr[78] <- "h-ub"
 

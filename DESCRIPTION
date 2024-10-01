@@ -1,6 +1,6 @@
 Package: hubUtils
-Title: Utility Functions for Infectious Disease Modeling Hubs
-Version: 0.1.2
+Version: 0.1.7.9000
+Title: Core 'hubverse' Utilities
 Authors@R: c(
     person("Anna", "Krystalli", , "annakrystalli@googlemail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2378-4915")),
@@ -10,8 +10,11 @@ Authors@R: c(
     person("Evan L.", "Ray", , "elray@umass.edu", role = "ctb"),
     person("Consortium of Infectious Disease Modeling Hubs", role = "cph")
   )
-Description: A set of utility functions for downloading, plotting, and
-    scoring forecast and truth data from Infectious Disease Modeling Hubs.
+Description: Core set of low-level utilities common across the 
+  'hubverse'. Used to interact with 'hubverse' schema, Hub configuration files 
+  and model outputs and designed to be primarily used internally by other 
+  'hubverse' packages. See Reich et al. (2022) <doi:10.2105/AJPH.2022.306831> 
+  for an overview of Collaborative Hubs.
 License: MIT + file LICENSE
 URL: https://github.com/hubverse-org/hubUtils,
     https://hubverse-org.github.io/hubUtils/
@@ -23,7 +26,6 @@ Imports:
     cli,
     curl,
     distfromq,
-    dplyr,
     fs,
     gh,
     glue,
@@ -37,6 +39,8 @@ Imports:
     tibble,
     utils
 Suggests: 
+    arrow (>= 17.0.0),
+    dplyr,
     hubData,
     knitr,
     rmarkdown,
@@ -50,4 +54,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
