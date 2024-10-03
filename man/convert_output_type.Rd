@@ -16,14 +16,15 @@ convert_output_type(
 \item{model_out_tbl}{an object of class \code{model_out_tbl} containing predictions
 with a single, unique value in the \code{output_type} column.}
 
-\item{new_output_type}{\code{string} indicating the desired output_type after
-transformation (\code{"mean"}, \code{"median"}, \code{"quantile"}, \code{"cdf"}); can also be a
-vector if multiple new output_types are desired.}
+\item{new_output_type}{character vector of the desired output type(s) after
+transformation. May contain any of the following output types:
+\code{"mean"}, \code{"median"}, \code{"quantile"}, \code{"cdf"}.}
 
-\item{new_output_type_id}{\code{vector} indicating desired output_type_ids for
-corresponding \code{new_output_type}; only needs to be specified if
-\code{new_output_type} includes \code{"quantile"} or \code{"cdf"} (see details for how to
-specify when both \code{"quantile"} and \code{"cdf"} are desired.)}
+\item{new_output_type_id}{A named list indicating the desired output type IDs
+for each new output type, in which each element is a vector of output type IDs.
+If only one new output type is requested, then it may be a single numeric vector
+(for \code{"quantile"} or \code{"cdf"}) or not required (\code{"mean"} or \code{"median"}). See
+the examples for an illustration of both cases.}
 
 \item{n_samples}{\code{numeric} that specifies the number of samples to use when
 calculating output_types from an estimated quantile function. Defaults to \code{1e4}.}
@@ -66,7 +67,7 @@ should be a named list, where each element specifies the corresponding
 \code{new_output_type_id}. See examples for an illustration.
 }
 \examples{
-# We illustrate the conversion between output types using normal distributions,
+# We illustrate the conversion between output types using normal distributions
 ex_quantiles <- c(0.25, 0.5, 0.75)
 model_out_tbl <- expand.grid(
   stringsAsFactors = FALSE,

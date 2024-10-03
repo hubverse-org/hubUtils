@@ -7,13 +7,14 @@
 #'
 #' @param model_out_tbl an object of class `model_out_tbl` containing predictions
 #'    with a single, unique value in the `output_type` column.
-#' @param new_output_type `string` indicating the desired output_type after
-#'   transformation (`"mean"`, `"median"`, `"quantile"`, `"cdf"`); can also be a
-#'   vector if multiple new output_types are desired.
-#' @param new_output_type_id `vector` indicating desired output_type_ids for
-#'   corresponding `new_output_type`; only needs to be specified if
-#'   `new_output_type` includes `"quantile"` or `"cdf"` (see details for how to
-#'    specify when both `"quantile"` and `"cdf"` are desired.)
+#' @param new_output_type character vector of the desired output type(s) after
+#'   transformation. May contain any of the following output types:
+#'   `"mean"`, `"median"`, `"quantile"`, `"cdf"`.
+#' @param new_output_type_id A named list indicating the desired output type IDs
+#'   for each new output type, in which each element is a vector of output type IDs.
+#'   If only one new output type is requested, then it may be a single numeric vector
+#'   (for `"quantile"` or `"cdf"`) or not required (`"mean"` or `"median"`). See
+#'   the examples for an illustration of both cases.
 #' @param n_samples `numeric` that specifies the number of samples to use when
 #'   calculating output_types from an estimated quantile function. Defaults to `1e4`.
 #' @param ... parameters that are passed to `distfromq::make_q_fn`, specifying
@@ -42,7 +43,7 @@
 #' `new_output_type_id`. See examples for an illustration.
 #'
 #' @examples
-#' # We illustrate the conversion between output types using normal distributions,
+#' # We illustrate the conversion between output types using normal distributions
 #' ex_quantiles <- c(0.25, 0.5, 0.75)
 #' model_out_tbl <- expand.grid(
 #'   stringsAsFactors = FALSE,
@@ -158,9 +159,9 @@ validate_new_output_type <- function(starting_output_type, new_output_type,
   if (length(new_output_type) == 1) {
     validate_new_output_type_id(new_output_type, new_output_type_id)
   } else if (length(new_output_type > 1)) {
-    purrr::imap(.x = new_output_type,
-                ~ validate_new_output_type_id(new_output_type = .x,
-                                              new_output_type_id = new_output_type_id[[.y]]))
+    purrr::map(.x = new_output_type,
+               ~ validate_new_output_type_id(new_output_type = .x,
+                                             new_output_type_id = new_output_type_id[[.x]]))
   }
 }
 
@@ -173,9 +174,6 @@ validate_new_output_type_id <- function(new_output_type, new_output_type_id) {
     ))
   } else if (new_output_type == "quantile") {
     new_output_type_id_quantile <- new_output_type_id
-    if (is.list(new_output_type_id)) {
-      new_output_type_id_quantile <- new_output_type_id[["quantile"]]
-    }
     if (!is.numeric(new_output_type_id_quantile)) {
       cli::cli_abort(c(
         "elements of {.var new_output_type_id} should be numeric",
@@ -192,9 +190,6 @@ validate_new_output_type_id <- function(new_output_type, new_output_type_id) {
     }
   } else if (new_output_type == "cdf") {
     new_output_type_id_cdf <- new_output_type_id
-    if (is.list(new_output_type_id)) {
-      new_output_type_id_cdf <- new_output_type_id[["cdf"]]
-    }
     if (!is.numeric(new_output_type_id_cdf)) {
       cli::cli_abort(c(
         "elements of {.var new_output_type_id} should be numeric",
