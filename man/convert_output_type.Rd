@@ -69,6 +69,7 @@ should be a named list, where each element specifies the corresponding
 # We illustrate the conversion between output types using normal distributions,
 ex_quantiles <- c(0.25, 0.5, 0.75)
 model_out_tbl <- expand.grid(
+  stringsAsFactors = FALSE,
   group1 = c(1,2),
   model_id = "A",
   output_type = "quantile",
@@ -82,6 +83,7 @@ convert_output_type(model_out_tbl, new_output_type = "median", new_output_type_i
 ex_bins <- seq(-2,2,1)
 ex_quantiles <- c(0.25, 0.5, 0.75)
 model_out_tbl <- expand.grid(
+  stringsAsFactors = FALSE,
   group1 = c(1,2),
   model_id = "A",
   output_type = "sample",

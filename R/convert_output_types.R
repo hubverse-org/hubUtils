@@ -45,6 +45,7 @@
 #' # We illustrate the conversion between output types using normal distributions,
 #' ex_quantiles <- c(0.25, 0.5, 0.75)
 #' model_out_tbl <- expand.grid(
+#'   stringsAsFactors = FALSE,
 #'   group1 = c(1,2),
 #'   model_id = "A",
 #'   output_type = "quantile",
@@ -58,6 +59,7 @@
 #' ex_bins <- seq(-2,2,1)
 #' ex_quantiles <- c(0.25, 0.5, 0.75)
 #' model_out_tbl <- expand.grid(
+#'   stringsAsFactors = FALSE,
 #'   group1 = c(1,2),
 #'   model_id = "A",
 #'   output_type = "sample",
