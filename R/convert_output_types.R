@@ -92,26 +92,15 @@ convert_output_type <- function(model_out_tbl, new_output_type,
   } else if (starting_output_type == "quantile") {
     # if median output desired, and Q50 provided return exact value, otherwise
     # estimate from samples
-    if (!("median" %in% new_output_type && 0.5 %in% starting_output_type_ids)) {
-      model_out_tbl <- get_samples_from_quantiles(model_out_tbl, task_id_cols, n_samples)
+    if (any(new_output_type != "median") || !(0.5 %in% starting_output_type_ids)) {
+      model_out_tbl <- model_out_tbl %>%
+        get_samples_from_quantiles(task_id_cols, n_samples) %>%
+        rbind(model_out_tbl)
     }
   }
   # transform based on new_output_type
-  grouped_model_out_tbl <- model_out_tbl %>%
-    dplyr::group_by(.data[["model_id"]], dplyr::across(dplyr::all_of(task_id_cols)))
   model_out_tbl_transform <- vector("list", length = length(new_output_type))
   for (i in seq_along(new_output_type)) {
-    # if median output desired, and Q50 provided return exact value
-    if (new_output_type[i] == "median" && 0.5 %in% starting_output_type_ids) {
-      model_out_tbl_transform[[i]] <- model_out_tbl %>%
-        dplyr::filter(.data[["output_type_id"]] == 0.5) %>%
-        dplyr::mutate(
-          output_type = new_output_type[i],
-          output_type_id = NA
-        ) %>%
-        as_model_out_tbl()
-    }
-    # otherwise calculate new values
     # first find new_output_type_id
     new_output_type_id_tmp <- new_output_type_id
     if (new_output_type[i] %in% c("mean", "median")) {
@@ -119,9 +108,26 @@ convert_output_type <- function(model_out_tbl, new_output_type,
     } else if (is.list(new_output_type_id)) {
       new_output_type_id_tmp <- new_output_type_id[[new_output_type[i]]]
     }
-    model_out_tbl_transform[[i]] <- convert_from_sample(
-      grouped_model_out_tbl, new_output_type[i], new_output_type_id_tmp
-    )
+    # if median output desired, and Q50 provided return exact value
+    if (new_output_type[i] == "median" && 0.5 %in% starting_output_type_ids) {
+      model_out_tbl_transform[[i]] <- model_out_tbl %>%
+        dplyr::filter(
+          .data[["output_type"]] != "sample",
+          .data[["output_type_id"]] == 0.5
+        ) %>%
+        dplyr::mutate(
+          output_type = new_output_type[i],
+          output_type_id = NA
+        ) %>%
+        as_model_out_tbl()
+    } else {  # otherwise calculate new values
+      grouped_model_out_tbl <- model_out_tbl %>%
+        dplyr::filter(.data[["output_type"]] == "sample") %>%
+        dplyr::group_by(dplyr::across(dplyr::all_of(c("model_id", task_id_cols))))
+      model_out_tbl_transform[[i]] <- grouped_model_out_tbl %>%
+        convert_from_sample(new_output_type[i], new_output_type_id_tmp) %>%
+        dplyr::ungroup()
+    }
   }
   return(dplyr::bind_rows(model_out_tbl_transform))
 }
@@ -210,15 +216,27 @@ get_samples_from_quantiles <- function(model_out_tbl, task_id_cols, n_samples, .
       )
     )
   }
+
   samples <- model_out_tbl %>%
-    dplyr::group_by(.data[["model_id"]], dplyr::across(dplyr::all_of(task_id_cols))) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(c("model_id", task_id_cols)))) %>%
     dplyr::reframe(
       value = distfromq::make_q_fn(
         ps = as.numeric(.data[["output_type_id"]]),
         qs = .data[["value"]], ...
       )(stats::runif(n_samples, 0, 1))
-    )
-  return(samples)
+    ) %>%
+    dplyr::ungroup()
+  split_samples <- split(samples, f = samples[[task_id_cols]])
+  formatted_samples <- split_samples %>%
+    purrr::map(.f = function(split_samples) {
+      dplyr::mutate(split_samples,
+                    output_type = "sample",
+                    output_type_id = as.numeric(dplyr::row_number()),
+                    .before = "value")
+    }) %>%
+    purrr::list_rbind() %>%
+    as_model_out_tbl()
+  return(formatted_samples)
 }
 
 #' @noRd
@@ -231,15 +249,27 @@ get_samples_from_cdf <- function(model_out_tbl, task_id_cols, n_samples, ...) {
       )
     )
   }
+
   samples <- model_out_tbl %>%
-    dplyr::group_by(.data[["model_id"]], dplyr::across(dplyr::all_of(task_id_cols))) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(c("model_id", task_id_cols)))) %>%
     dplyr::reframe(
       value = distfromq::make_q_fn(
         ps = .data[["value"]],
         qs = as.numeric(.data[["output_type_id"]]), ...
       )(stats::runif(n_samples, 0, 1))
-    )
-  return(samples)
+    ) %>%
+    dplyr::ungroup()
+  split_samples <- split(samples, f = samples[[task_id_cols]])
+  formatted_samples <- split_samples %>%
+    purrr::map(.f = function(split_samples) {
+      dplyr::mutate(split_samples,
+                    output_type = "sample",
+                    output_type_id = as.numeric(dplyr::row_number()),
+                    .before = "value")
+    }) %>%
+    purrr::list_rbind() %>%
+    as_model_out_tbl()
+  return(formatted_samples)
 }
 
 #' @noRd
