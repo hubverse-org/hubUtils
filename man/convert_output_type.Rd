@@ -81,7 +81,7 @@ dplyr::mutate(value = qnorm(p = output_type_id, mean = group1))
 convert_output_type(model_out_tbl, new_output_type = "median", new_output_type_id = NA)
 
 # Next, we illustrate conversion from samples to quantile and cdf
-ex_bins <- seq(-2,2,1)
+ex_cdf_values <- seq(-2,2,1)
 ex_quantiles <- c(0.25, 0.5, 0.75)
 model_out_tbl <- expand.grid(
   stringsAsFactors = FALSE,
@@ -93,6 +93,6 @@ model_out_tbl <- expand.grid(
 dplyr::mutate(value = rnorm(200, mean = group1))
 
 convert_output_type(model_out_tbl, new_output_type = c("quantile", "cdf"),
-   new_output_type_id = list("quantile" = ex_quantiles, "cdf" = ex_bins))
+   new_output_type_id = list("quantile" = ex_quantiles, "cdf" = ex_cdf_values))
 
 }
