@@ -4,13 +4,13 @@
 \alias{get_version_config}
 \alias{get_version_file}
 \alias{get_version_hub}
-\title{Get and compare hub config schema versions}
+\title{Get hub config schema versions}
 \usage{
 get_version_config(config)
 
 get_version_file(config_path)
 
-get_version_hub(hub_path, config = c("tasks", "admin"))
+get_version_hub(hub_path, config_type = c("tasks", "admin"))
 }
 \arguments{
 \item{config}{List representation of the JSON config file.}
@@ -24,12 +24,15 @@ Modeling Hub directory stored in the cloud.
 For more details consult the
 \href{https://arrow.apache.org/docs/r/articles/fs.html}{Using cloud storage (S3, GCS)}
 in the \code{arrow} package.}
+
+\item{config_type}{Character vector specifying the type of config file to read.
+One of "tasks" or "admin". Default is "tasks".}
 }
 \value{
 The schema version number as a character string.
 }
 \description{
-Get and compare hub config schema versions
+Get hub config schema versions
 }
 \section{Functions}{
 \itemize{
