@@ -1076,9 +1076,6 @@
     Code
       read_config(system.file("testhubs", "simple", package = "hubUtils"),
       "model-metadata-schema")
-    Condition
-      Warning:
-      Could not convert to <config>: No schema_version property found.
     Output
       $`$schema`
       [1] "http://json-schema.org/draft-07/schema"
