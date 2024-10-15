@@ -36,3 +36,12 @@ test_that("read_config_file works", {
     )
   )
 })
+
+test_that("read_config_file outputs warning when can't convert to config class", {
+  expect_snapshot(
+    read_config(
+      system.file("testhubs", "simple", package = "hubUtils"),
+      "model-metadata-schema"
+    )
+  )
+})

@@ -79,9 +79,19 @@ read_config.SubTreeFileSystem <- function(hub_path,
 #' @examples
 #' read_config_file(system.file("config", "tasks.json", package = "hubUtils"))
 read_config_file <- function(config_path) {
-  jsonlite::fromJSON(
+  config <- jsonlite::fromJSON(
     config_path,
     simplifyVector = TRUE,
     simplifyDataFrame = FALSE
+  )
+
+  tryCatch(
+    as_config(config),
+    error = function(e) {
+      cli::cli_warn(
+        "Could not convert to {.cls config}: {e$message}"
+      )
+      config
+    }
   )
 }
