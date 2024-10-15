@@ -10,13 +10,16 @@
 #'   hub_path = system.file("testhubs/simple", package = "hubUtils")
 #' )
 #' # Remove all attributes except names to demonstrate functionality
-#' attributes(config) <- attributes(config)[names(attributes(config)) == "names"]
+#' attributes(config_tasks) <- attributes(config_tasks)[
+#'   names(attributes(config_tasks)) == "names"
+#' ]
 #' # Convert to config object
 #' as_config(config_tasks)
 as_config <- function(x) {
   if (is.null(x$schema_version)) {
     cli::cli_abort(
-      c("!" = "No {.field schema_version} property found.",
+      c(
+        "!" = "No {.field schema_version} property found.",
         "x" = "Can't convert to {.cls config}."
       )
     )

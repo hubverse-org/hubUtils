@@ -7,9 +7,7 @@
 as_config(x)
 }
 \arguments{
-\item{x}{a list representation of the contents a \code{tasks.json} config file.
-Often the output of \code{\link[=read_config]{read_config()}} or
-\code{\link[=read_config_file]{read_config_file()}}.}
+\item{x}{a list representation of the contents a \code{tasks.json} config file.}
 }
 \value{
 a config list object with subclass \verb{<config>}.
@@ -21,5 +19,10 @@ Coerce a config list to a config class object
 config_tasks <- read_config(
   hub_path = system.file("testhubs/simple", package = "hubUtils")
 )
+# Remove all attributes except names to demonstrate functionality
+attributes(config_tasks) <- attributes(config_tasks)[
+  names(attributes(config_tasks)) == "names"
+]
+# Convert to config object
 as_config(config_tasks)
 }
