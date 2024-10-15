@@ -47,3 +47,14 @@ test_that("invalid config_tasks properties flagged", {
 
     expect_snapshot(as_config(config_tasks), error = TRUE)
 })
+
+
+test_that("missing schema_id flagged", {
+    skip_if_offline()
+    config_tasks <- read_config_file(
+        config_path = test_path("testdata/tasks-append.json")
+    )
+    # URL prefix incorrect
+    config_tasks$schema_version <- NULL
+    expect_snapshot(as_config(config_tasks), error = TRUE)
+})

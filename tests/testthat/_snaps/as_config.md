@@ -127,6 +127,8 @@
       
       attr(,"schema_id")
       [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.1/tasks-schema.json"
+      attr(,"type")
+      [1] "tasks"
       attr(,"class")
       [1] "config" "list"  
 
@@ -146,4 +148,13 @@
       Error in `as_config()`:
       x Invalid properties in `config_list`: "random_property"
       ! Must be members of "schema_version", "rounds", and "output_type_id_datatype"
+
+# missing schema_id flagged
+
+    Code
+      as_config(config_tasks)
+    Condition
+      Error in `as_config()`:
+      ! No schema_version property found.
+      x Can't convert to <config>.
 

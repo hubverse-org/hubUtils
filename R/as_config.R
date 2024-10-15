@@ -13,6 +13,13 @@
 #' )
 #' as_config(config_tasks)
 as_config <- function(x) {
+  if (is.null(x$schema_version)) {
+    cli::cli_abort(
+      c("!" = "No {.field schema_version} property found.",
+        "x" = "Can't convert to {.cls config}."
+      )
+    )
+  }
   x$schema_version <- schema_id <- validate_schema_url_prefix(
     x$schema_version,
     property_name = "schema_version",
