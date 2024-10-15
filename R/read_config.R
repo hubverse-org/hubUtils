@@ -7,9 +7,11 @@
 #' For more details consult the
 #' [Using cloud storage (S3, GCS)](https://arrow.apache.org/docs/r/articles/fs.html)
 #' in the `arrow` package.
-#' @param config Name of config file to validate. One of `"tasks"` or `"admin"`.
+#' @param config Type of config file to read. One of `"tasks"`, `"admin"` or
+#' `"model-metadata-schema"`. Default is `"tasks"`.
 #'
-#' @return The contents of the config as an R list.
+#' @return The contents of the config file as an R list. If possible, the output is
+#' further converted to a `<config>` class object before returning.
 #' @export
 #'
 #' @examples
@@ -73,7 +75,7 @@ read_config.SubTreeFileSystem <- function(hub_path,
 #'
 #' @param config_path Character string. Path to JSON config file.
 #'
-#' @return a list representation of the JSON config file
+#' @inherit read_config return
 #' @export
 #'
 #' @examples

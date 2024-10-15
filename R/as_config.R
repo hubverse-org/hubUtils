@@ -1,16 +1,17 @@
 #' Coerce a config list to a config class object
 #'
 #' @param x a list representation of the contents a `tasks.json` config file.
-#' Often the output of [read_config()] or
-#' [read_config_file()].
 #'
-#' @return a config list object with superclass `<config>`.
+#' @return a config list object with subclass `<config>`.
 #' @export
 #'
 #' @examples
 #' config_tasks <- read_config(
 #'   hub_path = system.file("testhubs/simple", package = "hubUtils")
 #' )
+#' # Remove all attributes except names to demonstrate functionality
+#' attributes(config) <- attributes(config)[names(attributes(config)) == "names"]
+#' # Convert to config object
 #' as_config(config_tasks)
 as_config <- function(x) {
   if (is.null(x$schema_version)) {
