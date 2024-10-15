@@ -10,7 +10,8 @@ read_config_file(config_path)
 \item{config_path}{Character string. Path to JSON config file.}
 }
 \value{
-a list representation of the JSON config file
+The contents of the config file as an R list. If possible, the output is
+further converted to a \verb{<config>} class object before returning.
 }
 \description{
 Read a JSON config file from a path

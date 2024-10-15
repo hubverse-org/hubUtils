@@ -12,13 +12,13 @@ Often the output of \code{\link[=read_config]{read_config()}} or
 \code{\link[=read_config_file]{read_config_file()}}.}
 }
 \value{
-a config list object with superclass \verb{<config>}.
+a config list object with subclass \verb{<config>}.
 }
 \description{
 Coerce a config list to a config class object
 }
 \examples{
-config_tasks <- hubUtils::read_config(
+config_tasks <- read_config(
   hub_path = system.file("testhubs/simple", package = "hubUtils")
 )
 as_config(config_tasks)
