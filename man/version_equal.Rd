@@ -52,9 +52,9 @@ version_lt(
 \arguments{
 \item{version}{Character string. Version number to compare against.}
 
-\item{config}{List representation of the JSON config file.}
+\item{config}{A \verb{<config>} class object. Usually the output of \code{read_config} or \code{read_config_file}.}
 
-\item{config_path}{path to JSON config file}
+\item{config_path}{Character string. Path to JSON config file.}
 
 \item{hub_path}{Either a character string path to a local Modeling Hub directory
 or an object of class \verb{<SubTreeFileSystem>} created using functions \code{\link[arrow:s3_bucket]{arrow::s3_bucket()}}

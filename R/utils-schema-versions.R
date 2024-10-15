@@ -1,6 +1,6 @@
 #' Get hub config schema versions
 #'
-#' @param config List representation of the JSON config file.
+#' @param config A `<config>` class object. Usually the output of `read_config` or `read_config_file`.
 #' @inherit extract_schema_version return
 #'
 #' @export
@@ -51,7 +51,7 @@ get_version_hub <- function(hub_path, config_type = c("tasks", "admin")) {
 #' Compare hub config `schema_version`s to specific version numbers from
 #' a variety of sources
 #'
-#' @param config List representation of the JSON config file.
+#' @param config A `<config>` class object. Usually the output of `read_config` or `read_config_file`.
 #' @param version Character string. Version number to compare against.
 #' @param schema_version Character string. A config `schema_version` property to
 #' compare against.
