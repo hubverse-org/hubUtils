@@ -30,6 +30,7 @@ as_config <- function(x) {
   validate_config_properties(schema_id, x, call = rlang::current_env())
 
   attr(x, "schema_id") <- schema_id
+  attr(x, "type") <- extract_config_type(schema_id)
   class(x) <- c("config", "list")
 
   return(x)
@@ -107,4 +108,10 @@ validate_schema_url_prefix <- function(schema_url, property_name = "schema_versi
     )
   }
   return(invisible(schema_url))
+}
+
+extract_config_type <- function(schema_version) {
+  checkmate::assert_character(schema_version, len = 1L)
+  basename(schema_version) |>
+    stringr::str_remove("-schema\\.json$")
 }
