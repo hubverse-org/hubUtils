@@ -7,7 +7,7 @@
 read_config_file(config_path)
 }
 \arguments{
-\item{config_path}{path to JSON config file}
+\item{config_path}{Character string. Path to JSON config file.}
 }
 \value{
 a list representation of the JSON config file

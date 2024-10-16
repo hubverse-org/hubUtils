@@ -1,5 +1,17 @@
 # hubUtils (development version)
 
+* Add family of functions for extracting the version number from a variety of sources:
+  - `get_version_config()`: extract version from a `<config>` class object.
+  - `get_version_config_file()`: extract version from a config file by specifying a `config_path`.
+  - `get_version_hub()`: extract version from a config file by specifying a `hub_path`.
+* Add family of functions for comparing the version number extracted from a variety of sources to a given version number (#171):
+  - `version_equal()`: Check whether a schema version property is equal to.
+  - `version_gte()`: Check whether a schema version property is equal to or greater than.
+  - `version_gt()`: Check whether a schema version property is greater than.
+  - `version_lte()`: Check whether a schema version property is equal to or less than.
+  - `version_lt()`: Check whether a schema version property is less than.
+  
+
 # hubUtils 0.1.7
 
 * First submission to CRAN

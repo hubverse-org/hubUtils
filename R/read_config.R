@@ -71,7 +71,7 @@ read_config.SubTreeFileSystem <- function(hub_path,
 
 #' Read a JSON config file from a path
 #'
-#' @param config_path path to JSON config file
+#' @param config_path Character string. Path to JSON config file.
 #'
 #' @return a list representation of the JSON config file
 #' @export
