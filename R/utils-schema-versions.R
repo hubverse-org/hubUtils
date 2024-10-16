@@ -52,8 +52,8 @@ get_version_hub <- function(hub_path, config_type = c("tasks", "admin")) {
 #' a variety of sources
 #'
 #' @param config A `<config>` class object. Usually the output of `read_config` or `read_config_file`.
-#' @param version Character string. Version number to compare against, must be in 
-#'    the format `"v#.#.#"`.
+#' @param version Character string. Version number to compare against, must be in
+#' the format `"v#.#.#"`.
 #' @param schema_version Character string. A config `schema_version` property to
 #' compare against.
 #' @return `TRUE` or `FALSE` depending on how the schema version compares to the
@@ -67,7 +67,9 @@ get_version_hub <- function(hub_path, config_type = c("tasks", "admin")) {
 #' to a specific version number.
 #'
 #' @examples
+#' # Actual version "v2.0.0"
 #' hub_path <- system.file("testhubs/simple", package = "hubUtils")
+#' # Actual version "v3.0.0"
 #' config_path <- system.file("config", "tasks.json", package = "hubUtils")
 #' config <- read_config_file(config_path)
 #' schema_version <- config$schema_version
