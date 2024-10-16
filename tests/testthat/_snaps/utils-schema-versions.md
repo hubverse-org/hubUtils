@@ -4,7 +4,7 @@
       version_lt("v2.0.0")
     Condition
       Error in `version_lt()`:
-      x Exactly one of `config`, `config_path`, or `hub_path` must be provided.
+      x Exactly one of `config`, `config_path`, `hub_path` or `schema_version` must be provided.
       i None provided.
 
 ---
@@ -13,7 +13,7 @@
       version_lt("v2.0.0", config = NULL)
     Condition
       Error in `version_lt()`:
-      x Exactly one of `config`, `config_path`, or `hub_path` must be provided.
+      x Exactly one of `config`, `config_path`, `hub_path` or `schema_version` must be provided.
       i None provided.
 
 ---
@@ -22,7 +22,7 @@
       version_lt("v2.0.0", hub_path = hub_path, config_path = config_path)
     Condition
       Error in `version_lt()`:
-      x Exactly one of `config`, `config_path`, or `hub_path` must be provided.
+      x Exactly one of `config`, `config_path`, `hub_path` or `schema_version` must be provided.
       i Provided arguments: `config_path` and `hub_path`.
 
 ---

@@ -172,8 +172,8 @@ get_comp_version <- function(config, config_path, hub_path, schema_version,
   arg_names <- names(non_null_args)[non_null_args]
 
   if (sum(non_null_args) != 1) {
-    abort_msg <- c("x" = "Exactly one of {.arg config}, {.arg config_path}, or
-              {.arg hub_path} must be provided.")
+    abort_msg <- c("x" = "Exactly one of {.arg config}, {.arg config_path},
+              {.arg hub_path} or {.arg schema_version} must be provided.")
     if (length(arg_names) > 0) {
       abort_msg <- c(abort_msg,
         "i" = "Provided arguments: {.arg {arg_names}}."
