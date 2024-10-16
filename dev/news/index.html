@@ -33,7 +33,27 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="hubutils-development-version">hubUtils (development version)<a class="anchor" aria-label="anchor" href="#hubutils-development-version"></a></h2>
-</div>
+<ul><li>Add family of functions for extracting the version number from a variety of sources:
+<ul><li>
+<code><a href="../reference/get_version_config.html">get_version_config()</a></code>: extract version from a <code>&lt;config&gt;</code> class object.</li>
+<li>
+<code>get_version_config_file()</code>: extract version from a config file by specifying a <code>config_path</code>.</li>
+<li>
+<code><a href="../reference/get_version_config.html">get_version_hub()</a></code>: extract version from a config file by specifying a <code>hub_path</code>.</li>
+</ul></li>
+<li>Add family of functions for comparing the version number extracted from a variety of sources to a given version number (<a href="https://github.com/hubverse-org/hubUtils/issues/171" class="external-link">#171</a>):
+<ul><li>
+<code><a href="../reference/version_equal.html">version_equal()</a></code>: Check whether a schema version property is equal to.</li>
+<li>
+<code><a href="../reference/version_equal.html">version_gte()</a></code>: Check whether a schema version property is equal to or greater than.</li>
+<li>
+<code><a href="../reference/version_equal.html">version_gt()</a></code>: Check whether a schema version property is greater than.</li>
+<li>
+<code><a href="../reference/version_equal.html">version_lte()</a></code>: Check whether a schema version property is equal to or less than.</li>
+<li>
+<code><a href="../reference/version_equal.html">version_lt()</a></code>: Check whether a schema version property is less than.</li>
+</ul></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.7" id="hubutils-017">hubUtils 0.1.7<a class="anchor" aria-label="anchor" href="#hubutils-017"></a></h2><p class="text-muted">CRAN release: 2024-09-18</p>
 <ul><li>First submission to CRAN</li>
