@@ -50,7 +50,8 @@ version_lt(
 )
 }
 \arguments{
-\item{version}{Character string. Version number to compare against.}
+\item{version}{Character string. Version number to compare against, must be in
+the format \code{"v#.#.#"}.}
 
 \item{config}{A \verb{<config>} class object. Usually the output of \code{read_config} or \code{read_config_file}.}
 
@@ -94,7 +95,9 @@ than a specific version number.
 
 }}
 \examples{
+# Actual version "v2.0.0"
 hub_path <- system.file("testhubs/simple", package = "hubUtils")
+# Actual version "v3.0.0"
 config_path <- system.file("config", "tasks.json", package = "hubUtils")
 config <- read_config_file(config_path)
 schema_version <- config$schema_version
