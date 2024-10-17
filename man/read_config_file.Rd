@@ -4,14 +4,17 @@
 \alias{read_config_file}
 \title{Read a JSON config file from a path}
 \usage{
-read_config_file(config_path)
+read_config_file(config_path, silent = FALSE)
 }
 \arguments{
 \item{config_path}{Character string. Path to JSON config file.}
+
+\item{silent}{Logical. If \code{TRUE}, suppress warnings. Default is \code{FALSE}.}
 }
 \value{
 The contents of the config file as an R list. If possible, the output is
-further converted to a \verb{<config>} class object before returning.
+further converted to a \verb{<config>} class object before returning. Note that
+\code{"model-metadata-schema"} files are never converted to a \verb{<config>} object.
 }
 \description{
 Read a JSON config file from a path

@@ -332,9 +332,6 @@
     Code
       read_config(hub_path = system.file("testhubs", "simple", package = "hubUtils"),
       config = "model-metadata-schema")
-    Condition
-      Warning:
-      Could not convert to <config>: No schema_version property found.
     Output
       $`$schema`
       [1] "http://json-schema.org/draft-07/schema"
@@ -1074,215 +1071,17 @@
 # read_config_file outputs warning when can't convert to config class
 
     Code
-      read_config(system.file("testhubs", "simple", package = "hubUtils"),
-      "model-metadata-schema")
+      read_config_file(test_path("testdata", "empty.json"))
+    Condition
+      Warning:
+      Could not convert to <config>: No schema_version property found.
     Output
-      $`$schema`
-      [1] "http://json-schema.org/draft-07/schema"
-      
-      $title
-      [1] "ForecastHub model metadata"
-      
-      $description
-      [1] "This is the schema of the model metadata file."
-      
-      $type
-      [1] "object"
-      
-      $properties
-      $properties$team_name
-      $properties$team_name$description
-      [1] "The name of the team submitting the model"
-      
-      $properties$team_name$type
-      [1] "string"
-      
-      
-      $properties$team_abbr
-      $properties$team_abbr$description
-      [1] "Abbreviated name of the team submitting the model"
-      
-      $properties$team_abbr$type
-      [1] "string"
-      
-      $properties$team_abbr$pattern
-      [1] "^[a-zA-Z0-9_+]+$"
-      
-      $properties$team_abbr$maxLength
-      [1] 16
-      
-      
-      $properties$model_name
-      $properties$model_name$description
-      [1] "The name of the model"
-      
-      $properties$model_name$type
-      [1] "string"
-      
-      
-      $properties$model_abbr
-      $properties$model_abbr$description
-      [1] "Abbreviated name of the model"
-      
-      $properties$model_abbr$type
-      [1] "string"
-      
-      $properties$model_abbr$pattern
-      [1] "^[a-zA-Z0-9_+]+$"
-      
-      $properties$model_abbr$maxLength
-      [1] 16
-      
-      
-      $properties$model_version
-      $properties$model_version$description
-      [1] "Identifier of the version of the model"
-      
-      $properties$model_version$type
-      [1] "string"
-      
-      
-      $properties$model_contributors
-      $properties$model_contributors$type
-      [1] "array"
-      
-      $properties$model_contributors$items
-      $properties$model_contributors$items$type
-      [1] "object"
-      
-      $properties$model_contributors$items$properties
-      $properties$model_contributors$items$properties$name
-      $properties$model_contributors$items$properties$name$type
-      [1] "string"
-      
-      
-      $properties$model_contributors$items$properties$email
-      $properties$model_contributors$items$properties$email$type
-      [1] "string"
-      
-      $properties$model_contributors$items$properties$email$format
-      [1] "email"
-      
-      
-      $properties$model_contributors$items$properties$twitter
-      $properties$model_contributors$items$properties$twitter$type
-      [1] "string"
-      
-      
-      
-      $properties$model_contributors$items$additionalProperties
-      [1] FALSE
-      
-      $properties$model_contributors$items$required
-      [1] "name"  "email"
-      
-      
-      
-      $properties$website_url
-      $properties$website_url$description
-      [1] "Public facing website for the model"
-      
-      $properties$website_url$type
-      [1] "string"
-      
-      $properties$website_url$format
-      [1] "uri"
-      
-      
-      $properties$repo_url
-      $properties$repo_url$description
-      [1] "Repository containing code for the model"
-      
-      $properties$repo_url$type
-      [1] "string"
-      
-      $properties$repo_url$format
-      [1] "uri"
-      
-      
-      $properties$license
-      $properties$license$description
-      [1] "License for use of model output data"
-      
-      $properties$license$type
-      [1] "string"
-      
-      $properties$license$enum
-      [1] "apache-2.0"      "cc-by-4.0"       "cc-by-nc-4.0"    "cc-by-nc-nd-4.0"
-      [5] "cc-by-sa-4.0"    "gpl-3.0"         "lgpl-3.0"        "mit"            
-      
-      
-      $properties$include_viz
-      $properties$include_viz$description
-      [1] "Indicator for whether the model should be included in the Hub’s visualization"
-      
-      $properties$include_viz$type
-      [1] "boolean"
-      
-      
-      $properties$include_ensemble
-      $properties$include_ensemble$description
-      [1] "Indicator for whether the model should be included in the Hub’s ensemble"
-      
-      $properties$include_ensemble$type
-      [1] "boolean"
-      
-      
-      $properties$include_eval
-      $properties$include_eval$description
-      [1] "Indicator for whether the model should be scored for inclusion in the Hub’s evaluations"
-      
-      $properties$include_eval$type
-      [1] "boolean"
-      
-      
-      $properties$model_details
-      $properties$model_details$type
-      [1] "object"
-      
-      $properties$model_details$properties
-      $properties$model_details$properties$data_inputs
-      $properties$model_details$properties$data_inputs$type
-      [1] "string"
-      
-      
-      $properties$model_details$properties$methods
-      $properties$model_details$properties$methods$type
-      [1] "string"
-      
-      $properties$model_details$properties$methods$maxLength
-      [1] 200
-      
-      
-      $properties$model_details$properties$methods_long
-      $properties$model_details$properties$methods_long$type
-      [1] "string"
-      
-      
-      
-      $properties$model_details$additionalProperties
-      [1] FALSE
-      
-      $properties$model_details$required
-      [1] "data_inputs" "methods"    
-      
-      
-      $properties$ensemble_of_hub_models
-      $properties$ensemble_of_hub_models$description
-      [1] "Indicator for whether this model is an ensemble of other Hub models"
-      
-      $properties$ensemble_of_hub_models$type
-      [1] "boolean"
-      
-      
-      
-      $additionalProperties
-      [1] FALSE
-      
-      $required
-       [1] "team_name"          "team_abbr"          "model_name"        
-       [4] "model_abbr"         "model_contributors" "website_url"       
-       [7] "license"            "include_viz"        "include_ensemble"  
-      [10] "include_eval"       "model_details"     
-      
+      named list()
+
+# read_config_file warning silencing works
+
+    Code
+      read_config_file(test_path("testdata", "empty.json"), silent = TRUE)
+    Output
+      named list()
 
