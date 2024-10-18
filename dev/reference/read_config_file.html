@@ -38,7 +38,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_config_file</span><span class="op">(</span><span class="va">config_path</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_config_file</span><span class="op">(</span><span class="va">config_path</span>, silent <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -48,10 +48,16 @@
 <dl><dt id="arg-config-path">config_path<a class="anchor" aria-label="anchor" href="#arg-config-path"></a></dt>
 <dd><p>Character string. Path to JSON config file.</p></dd>
 
+
+<dt id="arg-silent">silent<a class="anchor" aria-label="anchor" href="#arg-silent"></a></dt>
+<dd><p>Logical. If <code>TRUE</code>, suppress warnings. Default is <code>FALSE</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>a list representation of the JSON config file</p>
+    <p>The contents of the config file as an R list. If possible, the output is
+further converted to a <code>&lt;config&gt;</code> class object before returning. Note that
+<code>"model-metadata-schema"</code> files are never converted to a <code>&lt;config&gt;</code> object.</p>
     </div>
 
     <div class="section level2">
@@ -291,6 +297,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_id")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/tasks-schema.json"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"type")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "tasks"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "config" "list"  </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
