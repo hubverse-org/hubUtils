@@ -15,7 +15,8 @@ For more details consult the
 \href{https://arrow.apache.org/docs/r/articles/fs.html}{Using cloud storage (S3, GCS)}
 in the \code{arrow} package.}
 
-\item{config}{Name of config file to validate. One of \code{"tasks"} or \code{"admin"}.}
+\item{config}{Type of config file to read. One of \code{"tasks"}, \code{"admin"} or
+\code{"model-metadata-schema"}. Default is \code{"tasks"}.}
 }
 \value{
 Logical, whether the hub is configured using v3.0.0 schema.

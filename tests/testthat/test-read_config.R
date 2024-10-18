@@ -36,3 +36,17 @@ test_that("read_config_file works", {
     )
   )
 })
+
+test_that("read_config_file outputs warning when can't convert to config class", {
+  expect_snapshot(
+    read_config_file(test_path("testdata", "empty.json"))
+  )
+})
+
+test_that("read_config_file warning silencing works", {
+  expect_snapshot(
+    read_config_file(test_path("testdata", "empty.json"),
+      silent = TRUE
+    )
+  )
+})

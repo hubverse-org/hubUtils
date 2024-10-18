@@ -13,7 +13,7 @@
       check_deprecated_schema(config)
     Condition
       Error in `check_deprecated_schema()`:
-      ! Assertion on 'config_version' failed: Must be of type 'string', not 'list'.
+      ! Assertion on 'config_version' failed: Must be of type 'string', not 'config/list'.
 
 ---
 

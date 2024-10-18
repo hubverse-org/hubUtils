@@ -10,6 +10,9 @@
   - `version_gt()`: Check whether a schema version property is greater than.
   - `version_lte()`: Check whether a schema version property is equal to or less than.
   - `version_lt()`: Check whether a schema version property is less than.
+* Move `as_config()` from `hubAdmin` to `hubUtils` package (#173).
+* `<config>` class objects now have a `type` attribute to track what type of config they contain (i.e `"tasks"` or `"admin"`).
+* Attempt to convert output of `read_config()` and `read_config_file()` to a `<config>` class object (#173).
   
 
 # hubUtils 0.1.7

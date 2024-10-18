@@ -3,6 +3,7 @@
 S3method(read_config,SubTreeFileSystem)
 S3method(read_config,default)
 export("%>%")
+export(as_config)
 export(as_model_out_tbl)
 export(check_deprecated_schema)
 export(extract_schema_version)

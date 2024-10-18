@@ -7,9 +7,13 @@
 #' For more details consult the
 #' [Using cloud storage (S3, GCS)](https://arrow.apache.org/docs/r/articles/fs.html)
 #' in the `arrow` package.
-#' @param config Name of config file to validate. One of `"tasks"` or `"admin"`.
+#' @param config Type of config file to read. One of `"tasks"`, `"admin"` or
+#' `"model-metadata-schema"`. Default is `"tasks"`.
+#' @param silent Logical. If `TRUE`, suppress warnings. Default is `FALSE`.
 #'
-#' @return The contents of the config as an R list.
+#' @return The contents of the config file as an R list. If possible, the output is
+#' further converted to a `<config>` class object before returning. Note that
+#' `"model-metadata-schema"` files are never converted to a `<config>` object.
 #' @export
 #'
 #' @examples
@@ -22,7 +26,9 @@
 #' # Read config file from AWS S3 bucket hub
 #' hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
 #' read_config(hub_path, "admin")
-read_config <- function(hub_path, config = c("tasks", "admin", "model-metadata-schema")) {
+read_config <- function(hub_path,
+                        config = c("tasks", "admin", "model-metadata-schema"),
+                        silent = FALSE) {
   UseMethod("read_config")
 }
 
@@ -31,7 +37,8 @@ read_config <- function(hub_path, config = c("tasks", "admin", "model-metadata-s
 #' @importFrom jsonlite read_json
 #' @importFrom fs path
 read_config.default <- function(hub_path,
-                                config = c("tasks", "admin", "model-metadata-schema")) {
+                                config = c("tasks", "admin", "model-metadata-schema"),
+                                silent = FALSE) {
   config <- rlang::arg_match(config)
   path <- path(hub_path, "hub-config", config, ext = "json")
 
@@ -40,13 +47,17 @@ read_config.default <- function(hub_path,
       "Config file {.field {config}} does not exist at path {.path { path }}."
     )
   }
-  read_config_file(path)
+  read_config_file(path, silent = silent)
 }
 
 #' @export
 #' @importFrom jsonlite fromJSON
 read_config.SubTreeFileSystem <- function(hub_path,
-                                          config = c("tasks", "admin", "model-metadata-schema")) {
+                                          config = c(
+                                            "tasks", "admin",
+                                            "model-metadata-schema"
+                                          ),
+                                          silent = FALSE) {
   config <- rlang::arg_match(config)
   path <- hub_path$path(path("hub-config", config, ext = "json")) # nolint: object_usage_linter
 
@@ -66,22 +77,36 @@ read_config.SubTreeFileSystem <- function(hub_path,
     "https://{split_base_path[1]}.s3.amazonaws.com/{split_base_path[2]}hub-config/{config}.json"
   )
 
-  read_config_file(path_url)
+  read_config_file(path_url, silent = silent)
 }
 
 #' Read a JSON config file from a path
 #'
 #' @param config_path Character string. Path to JSON config file.
 #'
-#' @return a list representation of the JSON config file
+#' @inherit read_config return params
 #' @export
 #'
 #' @examples
 #' read_config_file(system.file("config", "tasks.json", package = "hubUtils"))
-read_config_file <- function(config_path) {
-  jsonlite::fromJSON(
+read_config_file <- function(config_path, silent = FALSE) {
+  config <- jsonlite::fromJSON(
     config_path,
     simplifyVector = TRUE,
     simplifyDataFrame = FALSE
+  )
+  if (grepl("model-metadata-schema", config_path)) {
+    return(config)
+  }
+  tryCatch(
+    as_config(config),
+    error = function(e) {
+      if (!silent) {
+        cli::cli_warn(
+          "Could not convert to {.cls config}: {e$message}"
+        )
+      }
+      config
+    }
   )
 }

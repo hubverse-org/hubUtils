@@ -4,7 +4,11 @@
 \alias{read_config}
 \title{Read a hub config file into R}
 \usage{
-read_config(hub_path, config = c("tasks", "admin", "model-metadata-schema"))
+read_config(
+  hub_path,
+  config = c("tasks", "admin", "model-metadata-schema"),
+  silent = FALSE
+)
 }
 \arguments{
 \item{hub_path}{Either a character string path to a local Modeling Hub directory
@@ -15,10 +19,15 @@ For more details consult the
 \href{https://arrow.apache.org/docs/r/articles/fs.html}{Using cloud storage (S3, GCS)}
 in the \code{arrow} package.}
 
-\item{config}{Name of config file to validate. One of \code{"tasks"} or \code{"admin"}.}
+\item{config}{Type of config file to read. One of \code{"tasks"}, \code{"admin"} or
+\code{"model-metadata-schema"}. Default is \code{"tasks"}.}
+
+\item{silent}{Logical. If \code{TRUE}, suppress warnings. Default is \code{FALSE}.}
 }
 \value{
-The contents of the config as an R list.
+The contents of the config file as an R list. If possible, the output is
+further converted to a \verb{<config>} class object before returning. Note that
+\code{"model-metadata-schema"} files are never converted to a \verb{<config>} object.
 }
 \description{
 Read a hub config file into R

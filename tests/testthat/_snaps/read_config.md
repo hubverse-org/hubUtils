@@ -268,6 +268,12 @@
       
       
       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.0/tasks-schema.json"
+      attr(,"type")
+      [1] "tasks"
+      attr(,"class")
+      [1] "config" "list"  
 
 ---
 
@@ -314,6 +320,12 @@
       $timezone
       [1] "US/Eastern"
       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.0/admin-schema.json"
+      attr(,"type")
+      [1] "admin"
+      attr(,"class")
+      [1] "config" "list"  
 
 ---
 
@@ -535,9 +547,11 @@
     Code
       read_config(hub_path = suppressMessages(arrow::s3_bucket(
         "hubverse/hubutils/testhubs/simple/")))
+    Message
+      i Updating superseded URL `Infectious-Disease-Modeling-hubs` to `hubverse-org`
     Output
       $schema_version
-      [1] "https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.0/tasks-schema.json"
+      [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.0/tasks-schema.json"
       
       $rounds
       $rounds[[1]]
@@ -801,6 +815,12 @@
       
       
       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.0/tasks-schema.json"
+      attr(,"type")
+      [1] "tasks"
+      attr(,"class")
+      [1] "config" "list"  
 
 # read_config_file works
 
@@ -1041,4 +1061,27 @@
       
       
       
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/tasks-schema.json"
+      attr(,"type")
+      [1] "tasks"
+      attr(,"class")
+      [1] "config" "list"  
+
+# read_config_file outputs warning when can't convert to config class
+
+    Code
+      read_config_file(test_path("testdata", "empty.json"))
+    Condition
+      Warning:
+      Could not convert to <config>: No schema_version property found.
+    Output
+      named list()
+
+# read_config_file warning silencing works
+
+    Code
+      read_config_file(test_path("testdata", "empty.json"), silent = TRUE)
+    Output
+      named list()
 
