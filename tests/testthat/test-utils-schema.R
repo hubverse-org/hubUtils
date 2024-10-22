@@ -65,5 +65,3 @@ test_that("check extract_schema_version on multidigit versions", {
     ), "v3.20.13.900004"
   )
 })
-
-
