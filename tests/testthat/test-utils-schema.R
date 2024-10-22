@@ -65,3 +65,11 @@ test_that("check extract_schema_version on multidigit versions", {
     ), "v3.20.13.900004"
   )
 })
+
+test_that("check extract_schema_version on single digit version component", {
+  expect_equal(
+    extract_schema_version(
+      "https://raw.githubusercontent.com/hubverse-org/schemas/main/v0.0.0.9/tasks-schema.json"
+    ), "v0.0.0.9"
+  )
+})
