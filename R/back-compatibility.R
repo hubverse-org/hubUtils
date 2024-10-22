@@ -13,7 +13,7 @@
 #' print(get_config_tid("v2.0.0"))
 #' @examplesIf asNamespace("hubUtils")$not_rcmd_check()
 #' # this will produce a warning because support for schema version 1.0.0
-#' # has been dropped. 
+#' # has been dropped.
 #' print(get_config_tid("v1.0.0"))
 get_config_tid <- function(config_version, config_tasks) {
   tid_check <- check_deprecated_schema( # nolint: object_usage_linter
