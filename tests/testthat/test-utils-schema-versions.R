@@ -148,3 +148,25 @@ test_that("version comparison utilities fail correctly", {
     error = TRUE
   )
 })
+
+test_that("version comparisons interpret pkg versions correctly", {
+  schema_version <- "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.11/tasks-schema.json"
+  expect_true(
+    version_gt("v3.0.2", schema_version = schema_version)
+  )
+  expect_true(
+    version_gte("v3.0.2", schema_version = schema_version)
+  )
+  expect_false(
+    version_lte("v3.0.2", schema_version = schema_version)
+  )
+  expect_false(
+    version_lt("v3.0.2", schema_version = schema_version)
+  )
+  expect_false(
+    version_equal("v3.0.0", schema_version = schema_version)
+  )
+  expect_true(
+    version_equal("v3.0.11", schema_version = schema_version)
+  )
+})

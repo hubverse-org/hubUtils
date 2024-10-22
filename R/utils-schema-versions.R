@@ -82,7 +82,7 @@ version_equal <- function(version, config = NULL, config_path = NULL,
                           hub_path = NULL, schema_version = NULL) {
   validate_version_format(version)
   comp_version <- get_comp_version(config, config_path, hub_path, schema_version)
-  comp_version == version
+  comp_version == as_pkg_version(version)
 }
 
 #' @inheritParams read_config_file
@@ -100,7 +100,7 @@ version_gte <- function(version, config = NULL, config_path = NULL,
                         hub_path = NULL, schema_version = NULL) {
   validate_version_format(version)
   comp_version <- get_comp_version(config, config_path, hub_path, schema_version)
-  comp_version >= version
+  comp_version >= as_pkg_version(version)
 }
 
 #' @inheritParams read_config_file
@@ -118,7 +118,7 @@ version_gt <- function(version, config = NULL, config_path = NULL,
                        hub_path = NULL, schema_version = NULL) {
   validate_version_format(version)
   comp_version <- get_comp_version(config, config_path, hub_path, schema_version)
-  comp_version > version
+  comp_version > as_pkg_version(version)
 }
 
 #' @inheritParams read_config_file
@@ -136,7 +136,7 @@ version_lte <- function(version, config = NULL, config_path = NULL,
                         hub_path = NULL, schema_version = NULL) {
   validate_version_format(version)
   comp_version <- get_comp_version(config, config_path, hub_path, schema_version)
-  comp_version <= version
+  comp_version <= as_pkg_version(version)
 }
 
 #' @inheritParams read_config_file
@@ -154,7 +154,7 @@ version_lt <- function(version, config = NULL, config_path = NULL,
                        hub_path = NULL, schema_version = NULL) {
   validate_version_format(version)
   comp_version <- get_comp_version(config, config_path, hub_path, schema_version)
-  comp_version < version
+  comp_version < as_pkg_version(version)
 }
 
 # Get the schema version from the provided argument
@@ -186,12 +186,14 @@ get_comp_version <- function(config, config_path, hub_path, schema_version,
     cli::cli_abort(abort_msg, call = call)
   }
 
-  switch(arg_names,
+  v <- switch(arg_names,
     config = get_version_config(config),
     config_path = get_version_file(config_path),
     hub_path = get_version_hub(hub_path),
     schema_version = extract_schema_version(schema_version)
   )
+
+  as_pkg_version(v)
 }
 
 validate_version_format <- function(version, call = rlang::caller_env()) {
@@ -203,4 +205,8 @@ validate_version_format <- function(version, call = rlang::caller_env()) {
       call = call
     )
   }
+}
+
+as_pkg_version <- function(version) {
+  package_version(gsub("^v", "", version))
 }

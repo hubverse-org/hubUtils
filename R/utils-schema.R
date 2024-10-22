@@ -147,5 +147,7 @@ validate_schema_version <- function(schema_version, branch) {
 #' @examples
 #' extract_schema_version("schema_version: v1.0.0")
 extract_schema_version <- function(id) {
-  stringr::str_extract(id, "v([0-9]\\.){2}[0-9](\\.[0-9]+)?")
+  stringr::str_extract(
+    id, "v[0-9]+\\.[0-9]+\\.[0-9]+(\\.9[0-9]+)?"
+  )
 }
