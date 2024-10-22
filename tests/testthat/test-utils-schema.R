@@ -52,3 +52,22 @@ test_that("extract_schema_version works", {
     ), "v3.0.0"
   )
 })
+
+test_that("check extract_schema_version on multidigit versions", {
+  expect_equal(
+    extract_schema_version(
+      "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.11/tasks-schema.json"
+    ), "v3.0.11"
+  )
+  expect_equal(
+    extract_schema_version(
+      "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.20.13.900004/tasks-schema.json"
+    ), "v3.20.13.900004"
+  )
+
+
+
+
+})
+
+

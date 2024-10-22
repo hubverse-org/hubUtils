@@ -60,10 +60,3 @@ deprecate_schema_warn <- function(config_version, valid_version, hubutils_versio
     user_env = .GlobalEnv
   )
 }
-
-extract_schema_version <- function(schema_version_url) {
-  stringr::str_extract(
-    schema_version_url,
-    "v([0-9]\\.){2}[0-9](\\.[0-9]+)?"
-  )
-}
