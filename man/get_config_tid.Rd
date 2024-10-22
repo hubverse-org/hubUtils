@@ -21,6 +21,11 @@ Version can be provided either directly through the \code{config_version} argume
 or extracted from a \code{config_tasks} object.
 }
 \examples{
-get_config_tid("v1.0.0")
-get_config_tid("v2.0.0")
+print(get_config_tid("v3.0.0"))
+print(get_config_tid("v2.0.0"))
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# this will produce a warning because support for schema version 1.0.0
+# has been dropped. 
+print(get_config_tid("v1.0.0"))
+\dontshow{\}) # examplesIf}
 }

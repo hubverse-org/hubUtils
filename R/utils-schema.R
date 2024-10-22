@@ -111,7 +111,7 @@ get_schema <- function(schema_url) {
 #' # Get the latest version of the schema
 #' @examplesIf asNamespace("hubUtils")$not_rcmd_check()
 #' get_schema_version_latest()
-#' get_schema_version_latest(schema_version = "v1.0.0")
+#' get_schema_version_latest(schema_version = "v3.0.0")
 get_schema_version_latest <- function(schema_version = "latest",
                                       branch = "main") {
   if (schema_version == "latest") {
@@ -145,7 +145,8 @@ validate_schema_version <- function(schema_version, branch) {
 #' @return The schema version number as a character string.
 #' @export
 #' @examples
-#' extract_schema_version("schema_version: v1.0.0")
+#' extract_schema_version("schema_version: v3.0.0")
+#' extract_schema_version("refs/heads/main/v3.0.0")
 extract_schema_version <- function(id) {
   stringr::str_extract(
     id, "v[0-9]+\\.[0-9]+\\.[0-9]+(\\.9([0-9]+)?)?"

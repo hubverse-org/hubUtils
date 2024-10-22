@@ -14,6 +14,7 @@
 * `<config>` class objects now have a `type` attribute to track what type of config they contain (i.e `"tasks"` or `"admin"`).
 * Attempt to convert output of `read_config()` and `read_config_file()` to a `<config>` class object (#173).`
 * Fix bug in `extract_schema_version()` where only single digits from each version component were being extracted.
+* Fix documentation for `get_schema_version_latest()` to no longer use `v1.0.0`
   
 
 # hubUtils 0.1.7
