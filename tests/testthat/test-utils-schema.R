@@ -64,10 +64,6 @@ test_that("check extract_schema_version on multidigit versions", {
       "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.20.13.900004/tasks-schema.json"
     ), "v3.20.13.900004"
   )
-
-
-
-
 })
 
 
