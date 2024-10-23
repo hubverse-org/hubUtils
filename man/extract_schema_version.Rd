@@ -18,5 +18,6 @@ Extract the schema version from a schema \code{id} or config \code{schema_versio
 character string
 }
 \examples{
-extract_schema_version("schema_version: v1.0.0")
+extract_schema_version("schema_version: v3.0.0")
+extract_schema_version("refs/heads/main/v3.0.0")
 }
