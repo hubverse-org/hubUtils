@@ -65,14 +65,18 @@ object or function <code><a href="read_config.html">read_config()</a></code>.</p
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_config_tid</span><span class="op">(</span><span class="st">"v1.0.0"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_config_tid</span><span class="op">(</span><span class="st">"v3.0.0"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "output_type_id"</span>
+<span class="r-in"><span><span class="fu">get_config_tid</span><span class="op">(</span><span class="st">"v2.0.0"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "output_type_id"</span>
+<span class="r-in"><span><span class="co"># this will produce a warning because support for schema version 1.0.0</span></span></span>
+<span class="r-in"><span><span class="co"># has been dropped.</span></span></span>
+<span class="r-in"><span><span class="fu">get_config_tid</span><span class="op">(</span><span class="st">"v1.0.0"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Hub configured using schema version <span style="color: #00BB00;">v1.0.0</span>. Support for schema earlier than</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">v2.0.0</span> was deprecated in hubUtils 0.0.0.9010.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please upgrade Hub config files to conform to, at minimum, version <span style="color: #00BB00;">v2.0.0</span> as</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span>   soon as possible.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "type_id"</span>
-<span class="r-in"><span><span class="fu">get_config_tid</span><span class="op">(</span><span class="st">"v2.0.0"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "output_type_id"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
