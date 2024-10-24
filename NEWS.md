@@ -1,4 +1,4 @@
-# hubUtils (development version)
+# hubUtils 0.2.0
 
 * Add family of functions for extracting the version number from a variety of sources:
   - `get_version_config()`: extract version from a `<config>` class object.
@@ -10,12 +10,11 @@
   - `version_gt()`: Check whether a schema version property is greater than.
   - `version_lte()`: Check whether a schema version property is equal to or less than.
   - `version_lt()`: Check whether a schema version property is less than.
-* Move `as_config()` from `hubAdmin` to `hubUtils` package (#173).
 * `<config>` class objects now have a `type` attribute to track what type of config they contain (i.e `"tasks"` or `"admin"`).
-* Attempt to convert output of `read_config()` and `read_config_file()` to a `<config>` class object (#173).`
+* `read_config()` and `read_config_file()` will attempt to coerce their output a `<config>` class object, with a warning if unsuccessful (#173).
+* Add `as_config()` function to coerce a config list to a `<config>` class object (from the `hubAdmin` package) (#173).
 * Fix bug in `extract_schema_version()` where only single digits from each version component were being extracted.
 * Fix documentation for `get_schema_version_latest()` to no longer use `v1.0.0`
-  
 
 # hubUtils 0.1.7
 

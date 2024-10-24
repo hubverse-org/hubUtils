@@ -12,7 +12,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/hubverse-org/hubUtils/branch/main/graph/badge.svg)](https://app.codecov.io/gh/hubverse-org/hubUtils?branch=main)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/hubUtils)](https://CRAN.R-project.org/package=hubUtils)
-
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 The goal of `hubUtils` is to provide a core set of low-level utility
