@@ -1,3 +1,5 @@
+# hubUtils (development version)
+
 # hubUtils 0.2.0
 
 * Add family of functions for extracting the version number from a variety of sources:
