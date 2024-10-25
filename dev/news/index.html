@@ -7,7 +7,7 @@
     <a href="https://hubdocs.readthedocs.io/en/latest/" class="external-link"><img src="https://raw.githubusercontent.com/hubverse-org/hubStyle/main/inst/hubverse.png" id="logo" height="30" alt="hubverse"></a>
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.7.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +33,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="hubutils-development-version">hubUtils (development version)<a class="anchor" aria-label="anchor" href="#hubutils-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.0" id="hubutils-020">hubUtils 0.2.0<a class="anchor" aria-label="anchor" href="#hubutils-020"></a></h2>
 <ul><li>Add family of functions for extracting the version number from a variety of sources:
 <ul><li>
 <code><a href="../reference/get_version_config.html">get_version_config()</a></code>: extract version from a <code>&lt;config&gt;</code> class object.</li>
@@ -53,10 +56,11 @@
 <li>
 <code><a href="../reference/version_equal.html">version_lt()</a></code>: Check whether a schema version property is less than.</li>
 </ul></li>
-<li>Move <code><a href="../reference/as_config.html">as_config()</a></code> from <code>hubAdmin</code> to <code>hubUtils</code> package (<a href="https://github.com/hubverse-org/hubUtils/issues/173" class="external-link">#173</a>).</li>
 <li>
 <code>&lt;config&gt;</code> class objects now have a <code>type</code> attribute to track what type of config they contain (i.e <code>"tasks"</code> or <code>"admin"</code>).</li>
-<li>Attempt to convert output of <code><a href="../reference/read_config.html">read_config()</a></code> and <code><a href="../reference/read_config_file.html">read_config_file()</a></code> to a <code>&lt;config&gt;</code> class object (<a href="https://github.com/hubverse-org/hubUtils/issues/173" class="external-link">#173</a>).`</li>
+<li>
+<code><a href="../reference/read_config.html">read_config()</a></code> and <code><a href="../reference/read_config_file.html">read_config_file()</a></code> will attempt to coerce their output a <code>&lt;config&gt;</code> class object, with a warning if unsuccessful (<a href="https://github.com/hubverse-org/hubUtils/issues/173" class="external-link">#173</a>).</li>
+<li>Add <code><a href="../reference/as_config.html">as_config()</a></code> function to coerce a config list to a <code>&lt;config&gt;</code> class object (from the <code>hubAdmin</code> package) (<a href="https://github.com/hubverse-org/hubUtils/issues/173" class="external-link">#173</a>).</li>
 <li>Fix bug in <code><a href="../reference/extract_schema_version.html">extract_schema_version()</a></code> where only single digits from each version component were being extracted.</li>
 <li>Fix documentation for <code><a href="../reference/get_schema_version_latest.html">get_schema_version_latest()</a></code> to no longer use <code>v1.0.0</code>
 </li>
