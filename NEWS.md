@@ -1,5 +1,7 @@
 # hubUtils (development version)
 
+* Add functions `get_hub_timezone()`, `get_hub_model_output_dir()` and `get_hub_file_formats()`  for extracting hub metadata to `hubUtils` package.
+
 # hubUtils 0.2.0
 
 * Add family of functions for extracting the version number from a variety of sources:
