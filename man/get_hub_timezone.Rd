@@ -4,6 +4,7 @@
 \alias{get_hub_timezone}
 \alias{get_hub_model_output_dir}
 \alias{get_hub_file_formats}
+\alias{get_derived_task_ids}
 \title{Get hub configuration fields}
 \usage{
 get_hub_timezone(hub_path)
@@ -11,6 +12,8 @@ get_hub_timezone(hub_path)
 get_hub_model_output_dir(hub_path)
 
 get_hub_file_formats(hub_path, round_id = NULL)
+
+get_derived_task_ids(hub_path, round_id = NULL)
 }
 \arguments{
 \item{hub_path}{Either a character string path to a local Modeling Hub directory
@@ -37,7 +40,15 @@ contains only a single round.}
 }
 
 \itemize{
-\item \code{get_hub_file_formats}: The accepted hub or round file formats
+\item \code{get_hub_file_formats}: character vector accepted hub or round level
+file formats. If \code{round_id} is \code{NULL} or the round does not have a round level
+\code{file_format} setting, returns the hub level \code{file_format} setting.
+}
+
+\itemize{
+\item \code{get_derived_task_ids}: character vector of hub or round level derived
+task ID names. If \code{round_id} is \code{NULL} or the round does not have a round level
+\code{derived_tasks_ids} setting, returns the hub level \code{derived_tasks_ids} setting.
 }
 }
 \description{
@@ -49,7 +60,9 @@ Get hub configuration fields
 
 \item \code{get_hub_model_output_dir()}: Get the model output directory name
 
-\item \code{get_hub_file_formats()}: Get the hub or round file formats
+\item \code{get_hub_file_formats()}: Get the hub or round level file formats
+
+\item \code{get_derived_task_ids()}: Get the hub or round level \code{derived_tasks_ids}
 
 }}
 \examples{
