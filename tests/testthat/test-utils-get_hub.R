@@ -19,3 +19,21 @@ test_that("get_hub_file_formats functions work", {
     c("csv", "parquet", "arrow")
   )
 })
+
+test_that("get_derived_task_ids functions work", {
+  expect_equal(
+    suppressWarnings(
+      get_derived_task_ids(
+        hub_path = system.file("testhubs", "v4", "flusight", package = "hubUtils")
+      )
+    ),
+    "target_date"
+  )
+  expect_null(
+    suppressWarnings(
+      get_derived_task_ids(
+        hub_path = system.file("testhubs", "simple", package = "hubUtils")
+      )
+    )
+  )
+})
