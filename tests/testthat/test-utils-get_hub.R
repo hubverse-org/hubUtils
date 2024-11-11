@@ -1,7 +1,7 @@
 test_that("get_hub_model_output_dir functions work", {
   hub_path <- system.file("testhubs", "flusight", package = "hubUtils")
   expect_equal(get_hub_model_output_dir(hub_path), "forecasts")
-  hub_path <- system.file("testhubs/simple", package = "hubValidations")
+  hub_path <- system.file("testhubs", "simple", package = "hubUtils")
   expect_equal(get_hub_model_output_dir(hub_path), "model-output")
 })
 
