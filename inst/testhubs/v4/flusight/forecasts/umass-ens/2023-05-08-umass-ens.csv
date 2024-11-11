@@ -1,0 +1,6 @@
+forecast_date,horizon,target,target_date,location,output_type,output_type_id,value
+2023-05-08,2,wk flu hosp rate change,2023-05-22,US,pmf,large_increase,0
+2023-05-08,2,wk flu hosp rate change,2023-05-22,US,pmf,increase,0
+2023-05-08,2,wk flu hosp rate change,2023-05-22,US,pmf,stable,1
+2023-05-08,2,wk flu hosp rate change,2023-05-22,US,pmf,large_decrease,0
+2023-05-08,2,wk flu hosp rate change,2023-05-22,US,pmf,decrease,0

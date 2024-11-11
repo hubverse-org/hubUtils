@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "ForecastHub model metadata",
+  "description": "This is the schema of the model metadata file.",
+  "type": "object",
+  "properties": {
+    "team_name": {
+      "description": "The name of the team submitting the model",
+      "type": "string"
+    },
+    "team_abbr": {
+      "description": "Abbreviated name of the team submitting the model",
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_+]+$",
+      "maxLength": 16
+    },
+    "model_name": {
+      "description": "The name of the model",
+      "type": "string"
+    },
+    "model_abbr": {
+      "description": "Abbreviated name of the model",
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_+]+$",
+      "maxLength": 16
+    },
+    "model_version": {
+      "description": "Identifier of the version of the model",
+      "type": "string"
+    },
+    "model_contributors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "twitter": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["name", "email"]
+      }
+    },
+    "website_url": {
+      "description": "Public facing website for the model",
+      "type": "string",
+      "format": "uri"
+    },
+    "repo_url": {
+      "description": "Repository containing code for the model",
+      "type": "string",
+      "format": "uri"
+    },
+    "license": {
+      "description": "License for use of model output data",
+      "type": "string",
+      "enum": [
+        "apache-2.0",
+        "cc-by-4.0",
+        "cc-by-nc-4.0",
+        "cc-by-nc-nd-4.0",
+        "cc-by-sa-4.0",
+        "gpl-3.0",
+        "lgpl-3.0",
+        "mit"
+      ]
+    },
+    "include_viz": {
+      "description": "Indicator for whether the model should be included in the Hub’s visualization",
+      "type": "boolean"
+    },
+    "include_ensemble": {
+      "description": "Indicator for whether the model should be included in the Hub’s ensemble",
+      "type": "boolean"
+    },
+    "include_eval": {
+      "description": "Indicator for whether the model should be scored for inclusion in the Hub’s evaluations",
+      "type": "boolean"
+    },
+    "model_details": {
+      "type": "object",
+      "properties": {
+        "data_inputs": {
+          "type": "string"
+        },
+        "methods": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "methods_long": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["data_inputs", "methods"]
+    },
+    "ensemble_of_hub_models": {
+      "description": "Indicator for whether this model is an ensemble of other Hub models",
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "team_name",
+    "team_abbr",
+    "model_name",
+    "model_abbr",
+    "model_contributors",
+    "website_url",
+    "license",
+    "include_viz",
+    "include_ensemble",
+    "include_eval",
+    "model_details"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+    "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v4.0.0/admin-schema.json",
+    "name": "US CDC FluSight",
+    "maintainer": "US CDC",
+    "contact": {
+        "name": "Joe Bloggs",
+        "email": "joe.blogs@cdc.gov"
+    },
+    "repository": {
+        "host": "github",
+        "owner": "cdcepi",
+        "name": "Flusight-forecast-data"
+    },
+    "file_format": ["csv", "parquet", "arrow"],
+    "timezone": "US/Eastern",
+    "model_output_dir": "forecasts"
+}
