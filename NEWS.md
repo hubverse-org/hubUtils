@@ -1,5 +1,8 @@
 # hubUtils (development version)
 
+* Add and export `hubValidations` functions `get_hub_timezone()`, `get_hub_model_output_dir()` and `get_hub_file_formats()`  for extracting hub metadata to `hubUtils` package.
+* Add new function `get_derived_task_ids()` to extract round or hub level derived task ID values from a `tasks.json` config file.
+
 # hubUtils 0.2.0
 
 * Add family of functions for extracting the version number from a variety of sources:
