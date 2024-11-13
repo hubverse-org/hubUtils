@@ -30,10 +30,8 @@ test_that("get_derived_task_ids functions work", {
     "target_date"
   )
   expect_null(
-    suppressWarnings(
-      get_derived_task_ids(
-        hub_path = system.file("testhubs", "simple", package = "hubUtils")
-      )
+    get_derived_task_ids(
+      hub_path = system.file("testhubs", "simple", package = "hubUtils")
     )
   )
 })
