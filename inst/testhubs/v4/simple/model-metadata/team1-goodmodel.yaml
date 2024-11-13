@@ -21,6 +21,6 @@ include_ensemble: true
 include_eval: true
 model_details: {
     methods: "this the method description of the model.",
-    data_inputs: "description of the data imputs"
+    data_inputs: "description of the data inputs"
 }
 ensemble_of_hub_models: false
