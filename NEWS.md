@@ -1,7 +1,6 @@
 # hubUtils (development version)
 
-* `schema_id` version checks silenced by default in `read_config()` and `read_config_file()`.
-
+* `schema_id` version checks silenced by default in `read_config()` and `read_config_file()`.  
 * Add and export `hubValidations` functions `get_hub_timezone()`, `get_hub_model_output_dir()` and `get_hub_file_formats()`  for extracting hub metadata to `hubUtils` package.
 * Add new function `get_derived_task_ids()` to extract round or hub level derived task ID values from a `tasks.json` config file.
 
