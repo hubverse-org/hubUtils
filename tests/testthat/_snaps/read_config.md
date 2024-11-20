@@ -1071,7 +1071,7 @@
 # read_config_file outputs warning when can't convert to config class
 
     Code
-      read_config_file(test_path("testdata", "empty.json"))
+      read_config_file(test_path("testdata", "empty.json"), silent = FALSE)
     Condition
       Warning:
       Could not convert to <config>: No schema_version property found.
@@ -1081,7 +1081,7 @@
 # read_config_file warning silencing works
 
     Code
-      read_config_file(test_path("testdata", "empty.json"), silent = TRUE)
+      read_config_file(test_path("testdata", "empty.json"))
     Output
       named list()
 

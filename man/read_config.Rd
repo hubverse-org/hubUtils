@@ -7,7 +7,7 @@
 read_config(
   hub_path,
   config = c("tasks", "admin", "model-metadata-schema"),
-  silent = FALSE
+  silent = TRUE
 )
 }
 \arguments{

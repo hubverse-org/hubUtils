@@ -28,7 +28,7 @@
 #' read_config(hub_path, "admin")
 read_config <- function(hub_path,
                         config = c("tasks", "admin", "model-metadata-schema"),
-                        silent = FALSE) {
+                        silent = TRUE) {
   UseMethod("read_config")
 }
 
@@ -38,7 +38,7 @@ read_config <- function(hub_path,
 #' @importFrom fs path
 read_config.default <- function(hub_path,
                                 config = c("tasks", "admin", "model-metadata-schema"),
-                                silent = FALSE) {
+                                silent = TRUE) {
   config <- rlang::arg_match(config)
   path <- path(hub_path, "hub-config", config, ext = "json")
 
@@ -57,7 +57,7 @@ read_config.SubTreeFileSystem <- function(hub_path,
                                             "tasks", "admin",
                                             "model-metadata-schema"
                                           ),
-                                          silent = FALSE) {
+                                          silent = TRUE) {
   config <- rlang::arg_match(config)
   path <- hub_path$path(path("hub-config", config, ext = "json")) # nolint: object_usage_linter
 
@@ -89,7 +89,7 @@ read_config.SubTreeFileSystem <- function(hub_path,
 #'
 #' @examples
 #' read_config_file(system.file("config", "tasks.json", package = "hubUtils"))
-read_config_file <- function(config_path, silent = FALSE) {
+read_config_file <- function(config_path, silent = TRUE) {
   config <- jsonlite::fromJSON(
     config_path,
     simplifyVector = TRUE,
