@@ -44,7 +44,7 @@
 <span></span>
 <span><span class="fu">get_hub_file_formats</span><span class="op">(</span><span class="va">hub_path</span>, round_id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">get_derived_task_ids</span><span class="op">(</span><span class="va">hub_path</span>, round_id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">get_hub_derived_task_ids</span><span class="op">(</span><span class="va">hub_path</span>, round_id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -77,7 +77,7 @@ contains only a single round.</p></dd>
 </ul><ul><li><p><code>get_hub_file_formats</code>: character vector accepted hub or round level
 file formats. If <code>round_id</code> is <code>NULL</code> or the round does not have a round level
 <code>file_format</code> setting, returns the hub level <code>file_format</code> setting.</p></li>
-</ul><ul><li><p><code>get_derived_task_ids</code>: character vector of hub or round level derived
+</ul><ul><li><p><code>get_hub_derived_task_ids</code>: character vector of hub or round level derived
 task ID names. If <code>round_id</code> is <code>NULL</code> or the round does not have a round level
 <code>derived_tasks_ids</code> setting, returns the hub level <code>derived_tasks_ids</code> setting.</p></li>
 </ul></div>
@@ -87,7 +87,7 @@ task ID names. If <code>round_id</code> is <code>NULL</code> or the round does n
 <ul><li><p><code>get_hub_timezone()</code>: Get the hub timezone</p></li>
 <li><p><code>get_hub_model_output_dir()</code>: Get the model output directory name</p></li>
 <li><p><code>get_hub_file_formats()</code>: Get the hub or round level file formats</p></li>
-<li><p><code>get_derived_task_ids()</code>: Get the hub or round level <code>derived_tasks_ids</code></p></li>
+<li><p><code>get_hub_derived_task_ids()</code>: Get the hub or round level <code>derived_tasks_ids</code></p></li>
 </ul></div>
 
     <div class="section level2">
