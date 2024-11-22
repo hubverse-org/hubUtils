@@ -20,20 +20,20 @@ test_that("get_hub_file_formats functions work", {
   )
 })
 
-test_that("get_derived_task_ids functions work", {
+test_that("get_hub_derived_task_ids functions work", {
   expect_equal(
     # TODO: remove suppressWarnings once schemas v4.0.0 is released.
     # 2024-11-12: `read_config_file()` throws a warning about 4.0.0 not being a
     # valid schema version. We are suppressing this temporary warning for now.
     suppressWarnings(
-      get_derived_task_ids(
+      get_hub_derived_task_ids(
         hub_path = system.file("testhubs", "v4", "flusight", package = "hubUtils")
       )
     ),
     "target_date"
   )
   expect_null(
-    get_derived_task_ids(
+    get_hub_derived_task_ids(
       hub_path = system.file("testhubs", "simple", package = "hubUtils")
     )
   )
