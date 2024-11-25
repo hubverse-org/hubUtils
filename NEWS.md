@@ -1,4 +1,4 @@
-# hubUtils (development version)
+# hubUtils 0.3.0
 
 * `schema_id` version checks silenced by default in `read_config()` and `read_config_file()`.  
 * Add and export `hubValidations` functions `get_hub_timezone()`, `get_hub_model_output_dir()` and `get_hub_file_formats()`  for extracting hub metadata to `hubUtils` package.
