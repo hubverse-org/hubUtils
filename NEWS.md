@@ -1,3 +1,5 @@
+# hubUtils (development version)
+
 # hubUtils 0.3.0
 
 * `schema_id` version checks silenced by default in `read_config()` and `read_config_file()`.  
