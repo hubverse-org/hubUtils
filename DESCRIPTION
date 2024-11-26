@@ -27,6 +27,7 @@ Imports:
     checkmate,
     cli,
     curl,
+    distfromq,
     fs,
     gh,
     glue,
@@ -42,9 +43,14 @@ Imports:
 Suggests: 
     arrow (>= 17.0.0),
     dplyr,
+    hubData,
     knitr,
     rmarkdown,
     testthat (>= 3.2.0)
+Remotes:
+    hubverse-org/hubData,
+    reichlab/distfromq
+Additional_repositories: https://hubverse-org.r-universe.dev/
 Config/Needs/website: hubverse-org/hubStyle
 Config/testthat/edition: 3
 Encoding: UTF-8
