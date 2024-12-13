@@ -31,6 +31,8 @@
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/read_config.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/read_config_file.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/std_colnames.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/subset_task_id_cols.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/subset_task_id_names.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/validate_model_out_tbl.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/version_equal.html</loc></url>
 </urlset>
