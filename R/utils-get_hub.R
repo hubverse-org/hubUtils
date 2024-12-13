@@ -43,12 +43,12 @@ get_hub_file_formats <- function(hub_path, round_id = NULL) {
   }
   config_admin$file_format
 }
-#' @return * `get_derived_task_ids`: character vector of hub or round level derived
+#' @return * `get_hub_derived_task_ids`: character vector of hub or round level derived
 #' task ID names. If `round_id` is `NULL` or the round does not have a round level
 #' `derived_tasks_ids` setting, returns the hub level `derived_tasks_ids` setting.
 #' @export
 #' @describeIn get_hub_timezone Get the hub or round level `derived_tasks_ids`
-get_derived_task_ids <- function(hub_path, round_id = NULL) {
+get_hub_derived_task_ids <- function(hub_path, round_id = NULL) {
   config_tasks <- read_config(hub_path)
   derived_task_ids_hub <- config_tasks$derived_task_ids
   if (is.null(round_id)) {

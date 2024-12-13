@@ -4,7 +4,7 @@
 \alias{read_config_file}
 \title{Read a JSON config file from a path}
 \usage{
-read_config_file(config_path, silent = FALSE)
+read_config_file(config_path, silent = TRUE)
 }
 \arguments{
 \item{config_path}{Character string. Path to JSON config file.}
