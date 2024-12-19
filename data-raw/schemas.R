@@ -16,8 +16,17 @@
 #
 # USAGE:
 #
-# This is designed to take a single environment variable called
-# `hubUtils.dev.branch`: 
+#
+# The script will check for any updates to the main branch by default. If there
+# are no updates to be had, nothing will be done:
+#
+# ```
+# source("data-raw/schemas.R")
+# #> ✔ Schemas up-to-date with the `main` branch!
+# ```
+#
+# TO CHANGE THE BRANCH, update the environment variable called
+# `hubUtils.dev.branch`:
 #
 # ```
 # Sys.setenv("hubUtils.dev.branch" = "br-4.0.1")
