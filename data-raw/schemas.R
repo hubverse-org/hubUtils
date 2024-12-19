@@ -7,8 +7,8 @@
 # Since every release is static and the schemas do not materially change, we
 # should not see any diffs in the established schemas
 #
-# This will update the schemas in this repository and update a tracker yaml file
-# called inst/schemas/update.yml with the following information:
+# This will update the schemas in this repository and update a tracker json file
+# called inst/schemas/update.json with the following information:
 #
 # - branch: The branch the latest version was updated from
 # - sha: The schemas repo commit hash of the latest version
@@ -17,21 +17,53 @@
 #
 # USAGE:
 #
+# GIT HOOK
+# ========
 #
-# The script will check for any updates to the main branch by default. If there
-# are no updates to be had, nothing will be done:
+# This script can be used as a pre-commit hook and will run every time before
+# you commit. You can install it with:
+#
+# ```
+# usethis::use_git_hook("pre-commit", readLines("data-raw/schemas.R"))
+# ```
+#
+# If you run this and the schema updates, then you will need to double-check
+# your tests to make sure the updates did not affect your work.
+#
+# STANDALONE
+# ==========
+#
+# This script will check for updates to be had in the branch defined in
+# `inst/schemas/update.json` by default. If are no updates to be had, nothing
+# will be done:
 #
 # ```
 # source("data-raw/schemas.R")
-# #> ✔ Schemas up-to-date with the `main` branch!
+# #> ✔ Schemas up-to-date!
+# #> ℹ branch: "main"
+# #> ℹ sha: "0163a89cc38ba3846cd829545f6d65c1e40501a6"
+# #> ℹ timestamp: "2024-12-19T16:26:33Z"
 # ```
 #
 # TO CHANGE THE BRANCH, update the environment variable called
 # `hubUtils.dev.branch`:
 #
 # ```
-# Sys.setenv("hubUtils.dev.branch" = "br-4.0.1")
+# Sys.setenv("hubUtils.dev.branch" = "br-v4.0.1")
 # source("data-raw/schemas.R")
+# #> ✔ removing /path/to/hubUtils/inst/schemas
+# #> ✔ Creating inst/schemas/.
+# #> ℹ Fetching the latest version of the schemas from GitHub
+# #> Cloning into '/var/folders/9p/m996p3_55hjf1hc62552cqfr0000gr/T//Rtmp3Q4dnp/file377d
+# #> 71aaebd4'...
+# #> ✔ Copying v4.0.1, v4.0.0, v3.0.1, v3.0.0, v2.0.1, v2.0.0, v1.0.0, v0.0.1, v0.0.0.9,
+ # #> and NEWS.md to inst/schemas
+# #> [ ... snip ... ]
+# #> ✔ Done
+# #> ✔ Schemas up-to-date!
+# #> ℹ branch: "br-v4.0.1"
+# #> ℹ sha: "43b2c8aceb3a316b7a1929dbe8d8ead2711d4e84"
+# #> ℹ timestamp: "2024-12-19T16:40:16Z"
 # ```
 
 get_branch <- function(update_cfg_path) {
@@ -72,8 +104,9 @@ check_for_update <- function(update_cfg_path, branch) {
   the_commit <- get_latest_commit(branch)
   branch_change <- cfg$branch != branch
   outdated <- cfg$timestamp < the_commit$commit$author$date
+  sha_different <- cfg$sha != the_commit$sha
 
-  update <- update || (branch_change || outdated)
+  update <- update || (branch_change || outdated || sha_different)
   if (update) {
     cfg$branch <- branch
     cfg$sha <- the_commit$sha
@@ -110,12 +143,15 @@ if (new$update) {
   cli::cli_alert_success("Done")
 }
 
+# Reporting current status of installed schemas
 cli::cli_alert_success("Schemas up-to-date!")
 cli::cli_alert_info("branch: {.val {new$cfg$branch}}")
 cli::cli_alert_info("sha: {.val {new$cfg$sha}}")
 cli::cli_alert_info("timestamp: {.val {new$cfg$timestamp}}")
 
-
+# If this is being run as a git hook and the schemas were updated, we need
+# to signal that the tests should be run again
 if (!interactive() && new$update) {
-  stop("Schema updated. Double-check your tests.")
+  cli::cli_alert("Schema updated. Re-running tests.")
+  devtools::test(usethis::proj_path())
 } 
