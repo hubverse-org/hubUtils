@@ -57,7 +57,7 @@
 # #> Cloning into '/var/folders/9p/m996p3_55hjf1hc62552cqfr0000gr/T//Rtmp3Q4dnp/file377d
 # #> 71aaebd4'...
 # #> ✔ Copying v4.0.1, v4.0.0, v3.0.1, v3.0.0, v2.0.1, v2.0.0, v1.0.0, v0.0.1, v0.0.0.9,
- # #> and NEWS.md to inst/schemas
+# #>  and NEWS.md to inst/schemas
 # #> [ ... snip ... ]
 # #> ✔ Done
 # #> ✔ Schemas up-to-date!
@@ -79,9 +79,10 @@ check_hook <- function(repo_path) {
     schema_script <- fs::path(repo_path, "data-raw/schemas.R")
     okay <- tools::md5sum(hook) == tools::md5sum(schema_script)
     if (!isTRUE(okay)) {
-      cmd <- r"[usethis::use_git_hook("pre-commit", readLines("data-raw/schemas.R"))]"
-     cli::cli_abort(c("git hook outdated",
-    "i" = r"[Use {.code {cmd}} to update your hook.]"))
+      cmd <- r"[usethis::use_git_hook("pre-commit", readLines("data-raw/schemas.R"))]" # nolint: object_usage_linter
+      cli::cli_abort(c("git hook outdated",
+        "i" = r"[Use {.code {cmd}} to update your hook.]")
+      )
     }
   }
 }
@@ -178,4 +179,4 @@ cli::cli_alert_info("timestamp: {.val {new$cfg$timestamp}}")
 if (!interactive() && new$update) {
   cli::cli_alert_warning("Schema updated. Re-running tests.")
   devtools::test(usethis::proj_path())
-} 
+}
