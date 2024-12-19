@@ -62,7 +62,7 @@ check_for_update <- function(update_cfg_path, branch) {
       timestamp = "2024-07-16T00:00:00Z"
     )
   } else {
-    cfg <- yaml::read_yaml(update_cfg_path, eval.expr = FALSE)
+    cfg <- jsonlite::read_json(update_cfg_path)
   }
   # Fetch the latest commit, and check if either the branch has changed, or its
   # outdated (based on commit date)
@@ -78,7 +78,7 @@ check_for_update <- function(update_cfg_path, branch) {
 }
 
 schemas <- usethis::proj_path("inst/schemas")
-new <- check_for_update(fs::path(schemas, "update.yml"), branch)
+new <- check_for_update(fs::path(schemas, "update.json"), branch)
 if (new$update) {
   cli::cli_alert_success("removing {.file {schemas}}")
   fs::dir_delete(schemas)
@@ -94,7 +94,11 @@ if (new$update) {
   fs::file_copy(fs::path(tmp, "NEWS.md"), schemas)
   fs::dir_tree(schemas)
   fs::dir_delete(tmp)
-  yaml::write_yaml(new$cfg, fs::path(schemas, "update.yml"))
+  jsonlite::write_json(new$cfg,
+    path = fs::path(schemas, "update.json"),
+    pretty = TRUE,
+    autounbox = TRUE
+  )
   cli::cli_alert_success("Done")
 } else {
   cli::cli_alert_success("Schemas up-to-date with the {.var {branch}} branch!")
