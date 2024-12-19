@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 # Update the schemas with our repository
 #
 # This will delete our existing schemas folder, re-clone the git repository,
@@ -32,21 +33,23 @@
 # Sys.setenv("hubUtils.dev.branch" = "br-4.0.1")
 # source("data-raw/schemas.R")
 # ```
-branch <- Sys.getenv("hubUtils.dev.branch", unset = "main")
+
+get_branch <- function(update_cfg_path) {
+  if (fs::file_exists(update_cfg_path)) {
+    branch <- jsonlite::read_json(update_cfg_path)$branch
+  } else {
+    branch <- "main"
+  }
+  branch
+}
 
 timestamp <- function() {
   format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
 }
 
 get_latest_commit <- function(branch) {
-  res <- tryCatch({
-    gh::gh("GET /repos/hubverse-org/schemas/branches/{branch}", branch = branch)
-  },
-    github_error = function(e) {
-      cli::cli_alert_danger("something went wrong")
-      cli::cli_alert(e$message)
-      stop(e)
-    }
+  res <- gh::gh("GET /repos/hubverse-org/schemas/branches/{branch}",
+    branch = branch
   )
   res$commit
 }
@@ -71,14 +74,19 @@ check_for_update <- function(update_cfg_path, branch) {
   outdated <- cfg$timestamp < the_commit$commit$author$date
 
   update <- update || (branch_change || outdated)
-  cfg$branch <- branch
-  cfg$sha <- the_commit$sha
-  cfg$timestamp <- timestamp()
+  if (update) {
+    cfg$branch <- branch
+    cfg$sha <- the_commit$sha
+    cfg$timestamp <- timestamp()
+  }
   return(list(update = update, cfg = cfg))
 }
 
 schemas <- usethis::proj_path("inst/schemas")
-new <- check_for_update(fs::path(schemas, "update.json"), branch)
+cfg_path <- fs::path(schemas, "update.json")
+branch <- Sys.getenv("hubUtils.dev.branch", unset = get_branch(cfg_path))
+new <- check_for_update(cfg_path, branch)
+
 if (new$update) {
   cli::cli_alert_success("removing {.file {schemas}}")
   fs::dir_delete(schemas)
@@ -95,11 +103,19 @@ if (new$update) {
   fs::dir_tree(schemas)
   fs::dir_delete(tmp)
   jsonlite::write_json(new$cfg,
-    path = fs::path(schemas, "update.json"),
+    path = cfg_path,
     pretty = TRUE,
-    autounbox = TRUE
+    auto_unbox = TRUE
   )
   cli::cli_alert_success("Done")
-} else {
-  cli::cli_alert_success("Schemas up-to-date with the {.var {branch}} branch!")
 }
+
+cli::cli_alert_success("Schemas up-to-date!")
+cli::cli_alert_info("branch: {.val {new$cfg$branch}}")
+cli::cli_alert_info("sha: {.val {new$cfg$sha}}")
+cli::cli_alert_info("timestamp: {.val {new$cfg$timestamp}}")
+
+
+if (!interactive() && new$update) {
+  stop("Schema updated. Double-check your tests.")
+} 
