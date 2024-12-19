@@ -46,10 +46,10 @@
 # ```
 #
 # TO CHANGE THE BRANCH, update the environment variable called
-# `hubUtils.dev.branch`:
+# `HUBUTILS_DEV_BRANCH`:
 #
 # ```
-# Sys.setenv("hubUtils.dev.branch" = "br-v4.0.1")
+# Sys.setenv("HUBUTILS_DEV_BRANCH" = "br-v4.0.1")
 # source("data-raw/schemas.R")
 # #> ✔ removing /path/to/hubUtils/inst/schemas
 # #> ✔ Creating inst/schemas/.
@@ -139,7 +139,7 @@ check_for_update <- function(update_cfg_path, branch) {
 check_hook(usethis::proj_path())
 schemas <- usethis::proj_path("inst/schemas")
 cfg_path <- fs::path(schemas, "update.json")
-branch <- Sys.getenv("hubUtils.dev.branch", unset = get_branch(cfg_path))
+branch <- Sys.getenv("HUBUTILS_DEV_BRANCH", unset = get_branch(cfg_path))
 new <- check_for_update(cfg_path, branch)
 
 # PROCESS UPDATE IF NEEDED ---------------------------------------------------
