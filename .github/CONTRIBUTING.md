@@ -41,6 +41,139 @@ Our procedures for contributing bigger changes, code in particular, generally fo
 - We use [testthat](https://cran.r-project.org/package=testthat) for unit tests.
   Contributions with test cases included are easier to accept.
 
+## Working with a development version of `hubverse-org/schemas`
+
+The canonical home for the hubverse schemas are at
+https://github.com/hubverse-org/schemas. These schemas are copied over here
+under the `inst/schemas` folder, which allows offline validation for hubs.
+
+**If you are developing against an in-development version of the hubverse
+schemas, you must ensure that the schemas in this repository are synchronized**
+
+### Synchronization script
+
+The script that synchronizes the schemas is in
+[data-raw/schemas.R](https://github.com/hubverse-org/hubUtils/blob/main/data-raw/schemas.R)
+and it can be run from within R, as a standalone script, or as a git hook. It
+takes one environment variable `HUBUTILS_DEV_BRANCH`. If the environment
+variable is unset, the branch information from the `inst/schemas/update.json`
+is used.
+
+#### Usage: within R
+
+```r
+source("data-raw/schemas.R")
+```
+
+#### Usage: from BASH
+
+```bash
+Rscript data-raw/schemas.R
+```
+
+#### Usage: commit hook
+
+See [Installing the Git Hook](#installing-the-git-hook). A Git hook is a way to
+run a local script before or after you do something in Git. For example, a
+pre-commit hook (the one we use here) will run every time before you make a
+commit. Likewise, a pre-push hook will run every time before you push to a
+repository.
+
+#### Details
+
+By default, this script will make a single call to the GitHub API to determine
+the status of the most recent commit on the branch listed in
+`inst/schemas/update.json`. If the sha and branch match and the timestamp is
+ahead of the the most recent commit, then you are good to go!
+
+If an update is needed, then your system git is used to clone the branch and
+copy it over to `inst/schemas`.
+
+When running this as a script (not interactive), then when a schema update
+happens, the tests are re-run.
+
+
+### Installing the Git Hook
+
+It is optional, but recommended to use this script as a pre-commit hook so that
+the schemas are checked for updates before each commit.
+
+```r
+usethis::use_git_hook("pre-commit", readLines("data-raw/schemas.R"))
+```
+
+This will create or overwrite `.git/hooks/pre-commit`.
+
+**If you want to uninstall the git hook, remove the `.git/hooks/pre-commit`
+file**
+
+### Synchronizing a development branch
+
+In order to synchronize a development branch, you should set a temporary environment variable called `HUBUTILS_DEV_BRANCH` to the name of the branch. This can only be done interactively in R or as a BASH script.
+
+#### Via R
+
+```r
+Sys.setenv("HUBUTILS_DEV_BRANCH" = "br-v4.0.1")
+source("data-raw/schemas.R")
+#> ✔ removing /path/to/hubUtils/inst/schemas
+#> ✔ Creating inst/schemas/.
+#> ℹ Fetching the latest version of the schemas from GitHub
+#> Cloning into '/path/to/temp/folder'...
+#> ✔ Copying v4.0.1, v4.0.0, v3.0.1, v3.0.0, v2.0.1, v2.0.0, v1.0.0, v0.0.1, v0.0.0.9,
+#>  and NEWS.md to inst/schemas
+#> [ ... snip ... ]
+#> ✔ Done
+#> ✔ Schemas up-to-date!
+#> ℹ branch: "br-v4.0.1"
+#> ℹ sha: "43b2c8aceb3a316b7a1929dbe8d8ead2711d4e84"
+#> ℹ timestamp: "2024-12-19T16:40:16Z"
+Sys.unsetenv("HUBUTILS_DEV_BRANCH")
+```
+
+#### Via BASH
+
+When run via script, if any synchronization happens, tests are automatically run:
+
+```bash
+HUBUTILS_DEV_BRANCH=br-v4.0.1 Rscript data-raw/schemas.R \
+&& unsetenv HUBUTILS_DEV_BRANCH
+#> ✔ removing /path/to/hubUtils/inst/schemas
+#> ✔ Creating inst/schemas/.
+#> ℹ Fetching the latest version of the schemas from GitHub
+#> Cloning into '/path/to/temp/folder'...
+#> ✔ Copying v4.0.1, v4.0.0, v3.0.1, v3.0.0, v2.0.1, v2.0.0, v1.0.0, v0.0.1, v0.0.0.9,
+#>  and NEWS.md to inst/schemas
+#> [ ... snip ... ]
+#> ✔ Done
+#> ✔ Schemas up-to-date!
+#> ℹ branch: "br-v4.0.1"
+#> ℹ sha: "43b2c8aceb3a316b7a1929dbe8d8ead2711d4e84"
+#> ℹ timestamp: "2024-12-19T16:40:16Z"
+#> ! Schema updated. Re-running tests.
+#> ℹ Testing hubUtils
+#> ✔ | F W  S  OK | Context
+#> ✔ |          7 | as_config
+#> ✔ |          9 | as_model_out_tbl
+#> ✔ |          5 | check_deprecated_schema
+#> ✔ |         17 | model_id_merge
+#> ✔ |          7 | read_config [6.4s]
+#> ✔ |          7 | utils-get_hub
+#> ✔ |         16 | utils-model_out_tbl
+#> ✔ |         14 | utils-round_ids
+#> ✔ |          8 | utils-round-config
+#> ✔ |         39 | utils-schema-versions
+#> ✔ |         14 | utils-schema [1.2s]
+#> ✔ |          3 | utils-task_ids
+#> ✔ |          7 | v3-schema-utils
+#>
+#> ══ Results ════════════════════════════
+#> Duration: 9.0 s
+#>
+#> [ FAIL 0 | WARN 0 | SKIP 0 | PASS 153 ]
+```
+
+
 ## Code of Conduct
 
 Please note that the hubUtils project is released with a
