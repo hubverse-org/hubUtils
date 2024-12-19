@@ -67,6 +67,25 @@
 # ```
 
 # FUNCTIONS -------------------------------------------------------------------
+check_hook <- function(repo_path) {
+  # if this is running as a git hook, then the first thing to do is to make sure
+  # it is up to date with the source material. If it's not, error until it is
+  # fixed.
+  if (interactive()) {
+    return()
+  }
+  hook <- fs::path(repo_path, ".git/hooks/pre-commit")
+  if (fs::file_exists(hook)) {
+    schema_script <- fs::path(repo_path, "data-raw/schemas.R")
+    okay <- tools::md5sum(hook) == tools::md5sum(schema_script)
+    if (!isTRUE(okay)) {
+      cmd <- r"[usethis::use_git_hook("pre-commit", readLines("data-raw/schemas.R"))]"
+     cli::cli_abort(c("git hook outdated",
+    "i" = r"[Use {.code {cmd}} to update your hook.]"))
+    }
+  }
+}
+
 get_branch <- function(update_cfg_path) {
   if (fs::file_exists(update_cfg_path)) {
     branch <- jsonlite::read_json(update_cfg_path)$branch
@@ -117,6 +136,7 @@ check_for_update <- function(update_cfg_path, branch) {
 }
 
 # VARIABLES ------------------------------------------------------------------
+check_hook(usethis::proj_path())
 schemas <- usethis::proj_path("inst/schemas")
 cfg_path <- fs::path(schemas, "update.json")
 branch <- Sys.getenv("hubUtils.dev.branch", unset = get_branch(cfg_path))
