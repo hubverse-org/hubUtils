@@ -66,6 +66,7 @@
 # #> ℹ timestamp: "2024-12-19T16:40:16Z"
 # ```
 
+# FUNCTIONS -------------------------------------------------------------------
 get_branch <- function(update_cfg_path) {
   if (fs::file_exists(update_cfg_path)) {
     branch <- jsonlite::read_json(update_cfg_path)$branch
@@ -115,11 +116,13 @@ check_for_update <- function(update_cfg_path, branch) {
   return(list(update = update, cfg = cfg))
 }
 
+# VARIABLES ------------------------------------------------------------------
 schemas <- usethis::proj_path("inst/schemas")
 cfg_path <- fs::path(schemas, "update.json")
 branch <- Sys.getenv("hubUtils.dev.branch", unset = get_branch(cfg_path))
 new <- check_for_update(cfg_path, branch)
 
+# PROCESS UPDATE IF NEEDED ---------------------------------------------------
 if (new$update) {
   cli::cli_alert_success("removing {.file {schemas}}")
   fs::dir_delete(schemas)
@@ -143,15 +146,16 @@ if (new$update) {
   cli::cli_alert_success("Done")
 }
 
-# Reporting current status of installed schemas
+# REPORT STATUS --------------------------------------------------------------
 cli::cli_alert_success("Schemas up-to-date!")
 cli::cli_alert_info("branch: {.val {new$cfg$branch}}")
 cli::cli_alert_info("sha: {.val {new$cfg$sha}}")
 cli::cli_alert_info("timestamp: {.val {new$cfg$timestamp}}")
 
+# GIT HOOK: RE-TEST ON UPDATE ------------------------------------------------
 # If this is being run as a git hook and the schemas were updated, we need
 # to signal that the tests should be run again
 if (!interactive() && new$update) {
-  cli::cli_alert("Schema updated. Re-running tests.")
+  cli::cli_alert_warning("Schema updated. Re-running tests.")
   devtools::test(usethis::proj_path())
 } 
