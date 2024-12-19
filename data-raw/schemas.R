@@ -6,12 +6,23 @@
 # Since every release is static and the schemas do not materially change, we
 # should not see any diffs in the established schemas
 #
-# For traceability, I also think inclusion of an additional file (yml?) in the
-# inst folder that records:
-# - The branch the latest version was updated from
-# - The schemas repo commit hash of the latest version
-# - A timestamp of the last update
-
+# This will update the schemas in this repository and update a tracker yaml file
+# called inst/schemas/update.yml with the following information:
+#
+# - branch: The branch the latest version was updated from
+# - sha: The schemas repo commit hash of the latest version
+# - timestamp: A timestamp of the last update (in ISO 8601 timestamp format,
+#   UTC time)
+#
+# USAGE:
+#
+# This is designed to take a single environment variable called
+# `hubUtils.dev.branch`: 
+#
+# ```
+# Sys.setenv("hubUtils.dev.branch" = "br-4.0.1")
+# source("data-raw/schemas.R")
+# ```
 branch <- Sys.getenv("hubUtils.dev.branch", unset = "main")
 
 timestamp <- function() {
@@ -25,7 +36,7 @@ get_latest_commit <- function(branch) {
     github_error = function(e) {
       cli::cli_alert_danger("something went wrong")
       cli::cli_alert(e$message)
-      e
+      stop(e)
     }
   )
   res$commit
