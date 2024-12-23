@@ -93,23 +93,7 @@ When running this as a script (not interactive), then when a schema update
 happens, the tests are re-run.
 
 
-### Installing the Git Hook
 
-It is optional, but recommended to use this script as a pre-push hook so that
-the schemas are checked for updates before each commit.
-
-```r
-usethis::use_git_hook("pre-push", readLines(usethis::proj_path("data-raw/schemas.R")))
-```
-
-This will create or overwrite `.git/hooks/pre-push`.
-
-**If you want to uninstall the git hook, remove the `.git/hooks/pre-push`
-file**
-
-In addition to checking that the schemas are synchronized, this hook will also
-check to make sure the schemas are committed. This prevents you from pushing
-your updates without ensuring the schemas are included.
 
 ### Synchronizing a development branch
 
@@ -139,7 +123,8 @@ Sys.unsetenv("HUBUTILS_DEV_BRANCH")
 
 #### Via BASH
 
-When run via script, if any synchronization happens, tests are automatically run:
+When run via script (both manually and via git hook), if any synchronization
+happens, tests are automatically run:
 
 ```bash
 HUBUTILS_DEV_BRANCH=br-v4.0.1 Rscript data-raw/schemas.R \
@@ -156,7 +141,10 @@ HUBUTILS_DEV_BRANCH=br-v4.0.1 Rscript data-raw/schemas.R \
 #> ℹ branch: "br-v4.0.1"
 #> ℹ sha: "43b2c8aceb3a316b7a1929dbe8d8ead2711d4e84"
 #> ℹ timestamp: "2024-12-19T16:40:16Z"
-#> ! Schema updated. Re-running tests.
+#>
+#> ── ⚠ schema updated ──
+#>
+#> ! Re-running tests.
 #> ℹ Testing hubUtils
 #> ✔ | F W  S  OK | Context
 #> ✔ |          7 | as_config
@@ -177,8 +165,92 @@ HUBUTILS_DEV_BRANCH=br-v4.0.1 Rscript data-raw/schemas.R \
 #> Duration: 9.0 s
 #>
 #> [ FAIL 0 | WARN 0 | SKIP 0 | PASS 153 ]
+#> ✔ OK
 ```
 
+### Installing the Git Hook
+
+It is optional, but recommended to use this script as a pre-push hook so that
+the schemas are checked for updates before each commit.
+
+```r
+usethis::use_git_hook("pre-push", readLines(usethis::proj_path("data-raw/schemas.R")))
+```
+
+This will create or overwrite `.git/hooks/pre-push`.
+
+**If you want to uninstall the git hook, remove the `.git/hooks/pre-push`
+file**
+
+In addition to checking that the schemas in `inst/schemas` are synchronized, [as
+demonstrated above](#via-bash), this hook will also check:
+
+ 1. the local hook is up-to-date
+ 2. the `inst/schemas` folder contents are all committed
+
+
+When you install this as a git hook, you will get a message before every
+successful push:
+
+```
+$ git push
+#> ✔ Setting active project to "/path/to/hubUtils".
+#> ✔ Schemas up-to-date!
+#> ℹ branch: "main"
+#> ℹ sha: "0163a89cc38ba3846cd829545f6d65c1e40501a6"
+#> ℹ timestamp: "2024-12-19T16:56:13Z"
+#> 
+#> ── pre-push: checking for changes in inst/schemas ──
+#> 
+#> ✔ OK
+```
+
+#### When the schema updates
+
+If the schemas are updated but not committed, this hook will prevent you from
+pushing the changes until they are updated:
+
+```
+$ git push 
+#> [ ... snip ... ]
+#>
+#> ── ⚠ schema updated ──
+#>
+#> [ ... snip ... ]
+#> ✔ OK
+#>
+#> ── pre-push: checking for changes in inst/schemas ──
+#> 
+#> Error in `check_status()`:
+#> ! New schemas must be committed before pushing.
+#> Backtrace:
+#>     ▆
+#>  1. └─global check_status(usethis::proj_path())
+#>  2.   └─cli::cli_abort(c("New schemas must be committed before pushing."))
+#>  3.     └─rlang::abort(...)
+#> Execution halted
+#> error: failed to push some refs to 'https://github.com/hubverse-org/hubUtils.git'
+```
+
+#### When the script changes
+
+If the git hook script changes, you will be given instructions to update:
+
+```
+$ git push
+#> ✔ Setting active project to "/path/to/hubUtils".
+Error in `check_hook()`:
+! git hook outdated
+ℹ Use `usethis::use_git_hook("pre-push", readLines(usethis::proj_path("data-raw/schemas.R")))`
+  to update your hook.
+Backtrace:
+    ▆
+ 1. └─global check_hook(usethis::proj_path())
+ 2.   └─cli::cli_abort(c("git hook outdated", i = "Use {.code {cmd}} to update your hook."))
+ 3.     └─rlang::abort(...)
+Execution halted
+error: failed to push some refs to 'https://github.com/hubverse-org/hubUtils.git'
+```
 
 ## Code of Conduct
 
