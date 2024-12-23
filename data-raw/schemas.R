@@ -78,7 +78,9 @@ check_status <- function(repo_path) {
     stdout = TRUE)
   paths <- dirname(substring(git_stat, 4, nchar(git_stat)))
   if (any(startsWith(paths, "inst/schemas"))) {
-    stop("New schemas must be committed before pushing.")
+    cli::cli_abort(c(
+      "New schemas must be committed before pushing."
+    ))
   }
 }
 
@@ -195,10 +197,12 @@ cli::cli_alert_info("timestamp: {.val {new$cfg$timestamp}}")
 # If this is being run as a git hook and the schemas were updated, we need
 # to signal that the tests should be run again
 if (!interactive() && new$update) {
-  cli::cli_alert_warning("Schema updated. Re-running tests.")
+  cli::cli_h2("{cli::symbol$warning} {.strong schema updated}")
+  cli::cli_alert_info("Re-running tests")
   devtools::test(usethis::proj_path())
 }
 # GIT HOOK: RE-TEST ON UPDATE ------------------------------------------------
 if (is_hook()) {
+  cli::cli_h2("{.strong pre-push}: checking for changes in {.path inst/schemas}")
   check_status(usethis::proj_path())
 }
