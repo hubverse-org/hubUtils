@@ -55,9 +55,9 @@ schemas, you must ensure that the schemas in this repository are synchronized**
 The script that synchronizes the schemas is in
 [data-raw/schemas.R](https://github.com/hubverse-org/hubUtils/blob/main/data-raw/schemas.R)
 and it can be run from within R, as a standalone script, or as a git hook. It
-takes one environment variable `HUBUTILS_DEV_BRANCH`. If the environment
+takes one environment variable `HUBUTILS_DEV_BRANCH`. **If the environment
 variable is unset, the branch information from the `inst/schemas/update.json`
-is used.
+is used.**
 
 #### Usage: within R
 
@@ -75,9 +75,8 @@ Rscript data-raw/schemas.R
 
 See [Installing the Git Hook](#installing-the-git-hook). A Git hook is a way to
 run a local script before or after you do something in Git. For example, a
-pre-push hook (the one we use here) will run every time before you make a
-commit. Likewise, a pre-push hook will run every time before you push to a
-repository.
+pre-push hook (the one we use here) will run every time before you push to the
+remote repository.
 
 #### Details
 
@@ -91,8 +90,6 @@ copy it over to `inst/schemas`.
 
 When running this as a script (not interactive), then when a schema update
 happens, the tests are re-run.
-
-
 
 
 ### Synchronizing a development branch
