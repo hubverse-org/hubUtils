@@ -75,7 +75,7 @@ Rscript data-raw/schemas.R
 
 See [Installing the Git Hook](#installing-the-git-hook). A Git hook is a way to
 run a local script before or after you do something in Git. For example, a
-pre-commit hook (the one we use here) will run every time before you make a
+pre-push hook (the one we use here) will run every time before you make a
 commit. Likewise, a pre-push hook will run every time before you push to a
 repository.
 
@@ -95,21 +95,27 @@ happens, the tests are re-run.
 
 ### Installing the Git Hook
 
-It is optional, but recommended to use this script as a pre-commit hook so that
+It is optional, but recommended to use this script as a pre-push hook so that
 the schemas are checked for updates before each commit.
 
 ```r
-usethis::use_git_hook("pre-commit", readLines("data-raw/schemas.R"))
+usethis::use_git_hook("pre-push", readLines(usethis::proj_path("data-raw/schemas.R")))
 ```
 
-This will create or overwrite `.git/hooks/pre-commit`.
+This will create or overwrite `.git/hooks/pre-push`.
 
-**If you want to uninstall the git hook, remove the `.git/hooks/pre-commit`
+**If you want to uninstall the git hook, remove the `.git/hooks/pre-push`
 file**
+
+In addition to checking that the schemas are synchronized, this hook will also
+check to make sure the schemas are committed. This prevents you from pushing
+your updates without ensuring the schemas are included.
 
 ### Synchronizing a development branch
 
-In order to synchronize a development branch, you should set a temporary environment variable called `HUBUTILS_DEV_BRANCH` to the name of the branch. This can only be done interactively in R or as a BASH script.
+In order to synchronize a development branch, you should set a temporary
+environment variable called `HUBUTILS_DEV_BRANCH` to the name of the branch.
+This can only be done interactively in R or as a BASH script.
 
 #### Via R
 

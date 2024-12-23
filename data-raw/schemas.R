@@ -20,11 +20,11 @@
 # GIT HOOK
 # ========
 #
-# This script can be used as a pre-commit hook and will run every time before
-# you commit. You can install it with:
+# This script can be used as a pre-push hook and will run every time before
+# you push. You can install it with:
 #
 # ```
-# usethis::use_git_hook("pre-commit", readLines("data-raw/schemas.R"))
+# usethis::use_git_hook("pre-push", readLines("data-raw/schemas.R"))
 # ```
 #
 # If you run this and the schema updates, then you will need to double-check
@@ -67,19 +67,37 @@
 # ```
 
 # FUNCTIONS -------------------------------------------------------------------
+script_name <- function() {
+  cmd <- commandArgs()
+  basename(sub("--file=", "", cmd[grepl("--file=", cmd, fixed = TRUE)], fixed = TRUE))
+}
+
+check_status <- function(repo_path) {
+  git_stat <- system2("git",
+    c("-C", repo_path, "status", "--short", "--porcelian"),
+    stdout = TRUE)
+  paths <- dirname(substring(git_stat, 4, nchar(git_stat)))
+  if (any(startsWith(paths, "inst/schemas"))) {
+    stop("New schemas must be committed before pushing.")
+  }
+}
+
+not_hook <- function() interactive() || script_name() != "pre-push"
+is_hook <- Negate(not_hook)
+
 check_hook <- function(repo_path) {
   # if this is running as a git hook, then the first thing to do is to make sure
   # it is up to date with the source material. If it's not, error until it is
   # fixed.
-  if (interactive()) {
+  if (not_hook()) {
     return()
   }
-  hook <- fs::path(repo_path, ".git/hooks/pre-commit")
+  hook <- fs::path(repo_path, ".git/hooks/pre-push")
   if (fs::file_exists(hook)) {
     schema_script <- fs::path(repo_path, "data-raw/schemas.R")
     okay <- tools::md5sum(hook) == tools::md5sum(schema_script)
     if (!isTRUE(okay)) {
-      cmd <- r"[usethis::use_git_hook("pre-commit", readLines("data-raw/schemas.R"))]" # nolint: object_usage_linter
+      cmd <- r"[usethis::use_git_hook("pre-push", readLines(usethis::proj_path("data-raw/schemas.R")))]" # nolint: object_usage_linter
       cli::cli_abort(c("git hook outdated",
         "i" = r"[Use {.code {cmd}} to update your hook.]")
       )
@@ -179,4 +197,8 @@ cli::cli_alert_info("timestamp: {.val {new$cfg$timestamp}}")
 if (!interactive() && new$update) {
   cli::cli_alert_warning("Schema updated. Re-running tests.")
   devtools::test(usethis::proj_path())
+}
+# GIT HOOK: RE-TEST ON UPDATE ------------------------------------------------
+if (is_hook()) {
+  check_status(usethis::proj_path())
 }
