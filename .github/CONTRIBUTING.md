@@ -41,14 +41,14 @@ Our procedures for contributing bigger changes, code in particular, generally fo
 - We use [testthat](https://cran.r-project.org/package=testthat) for unit tests.
   Contributions with test cases included are easier to accept.
 
-## Working with a development version of `hubverse-org/schemas`
+## Synchronizing with `hubverse-org/schemas`
 
 The canonical home for the hubverse schemas are at
 https://github.com/hubverse-org/schemas. These schemas are copied over here
 under the `inst/schemas` folder, which allows offline validation for hubs.
 
 **If you are developing against an in-development version of the hubverse
-schemas, you must ensure that the schemas in this repository are synchronized**
+schemas, you must ensure that the schemas in this repository are synchronized.**
 
 ### Synchronization script
 
@@ -72,6 +72,10 @@ Rscript data-raw/schemas.R
 ```
 
 #### Usage: commit hook
+
+```bash
+git push
+```
 
 See [Installing the Git Hook](#installing-the-git-hook). A Git hook is a way to
 run a local script before or after you do something in Git. For example, a
