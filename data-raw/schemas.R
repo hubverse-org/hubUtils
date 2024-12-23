@@ -74,7 +74,7 @@ script_name <- function() {
 
 check_status <- function(repo_path) {
   git_stat <- system2("git",
-    c("-C", repo_path, "status", "--short", "--porcelian"),
+    c("-C", repo_path, "status", "--short", "--porcelain"),
     stdout = TRUE)
   paths <- dirname(substring(git_stat, 4, nchar(git_stat)))
   if (any(startsWith(paths, "inst/schemas"))) {
