@@ -73,14 +73,18 @@ script_name <- function() {
 }
 
 check_status <- function(repo_path) {
-  git_stat <- system2("git",
+  git_stat <- system2(
+    "git",
     c("-C", repo_path, "status", "--short", "--porcelain"),
-    stdout = TRUE)
+    stdout = TRUE
+  )
   paths <- dirname(substring(git_stat, 4, nchar(git_stat)))
   if (any(startsWith(paths, "inst/schemas"))) {
-    cli::cli_abort(c(
-      "New schemas must be committed before pushing."
-    ))
+    cli::cli_abort(
+      c(
+        "New schemas must be committed before pushing."
+      )
+    )
   }
 }
 
@@ -100,8 +104,11 @@ check_hook <- function(repo_path) {
     okay <- tools::md5sum(hook) == tools::md5sum(schema_script)
     if (!isTRUE(okay)) {
       cmd <- r"[usethis::use_git_hook("pre-push", readLines(usethis::proj_path("data-raw/schemas.R")))]" # nolint: object_usage_linter
-      cli::cli_abort(c("git hook outdated",
-        "i" = r"[Use {.code {cmd}} to update your hook.]")
+      cli::cli_abort(
+        c(
+          "git hook outdated",
+          "i" = r"[Use {.code {cmd}} to update your hook.]"
+        )
       )
     }
   }
