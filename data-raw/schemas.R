@@ -200,9 +200,11 @@ if (!interactive() && new$update) {
   cli::cli_h2("{cli::symbol$warning} {.strong schema updated}")
   cli::cli_alert_info("Re-running tests")
   devtools::test(usethis::proj_path())
+  cli::cli_alert_success("OK")
 }
-# GIT HOOK: RE-TEST ON UPDATE ------------------------------------------------
+# GIT HOOK: CHECK FOR UNCOMMITTED CHANGES ------------------------------------
 if (is_hook()) {
   cli::cli_h2("{.strong pre-push}: checking for changes in {.path inst/schemas}")
   check_status(usethis::proj_path())
+  cli::cli_alert_success("OK")
 }
