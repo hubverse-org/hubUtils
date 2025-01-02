@@ -98,11 +98,14 @@ check_hook <- function(repo_path) {
   if (not_hook()) {
     return()
   }
+  cli::cli_h2("{.strong pre-push}: checking that the hook is up-to-date")
   hook <- fs::path(repo_path, ".git/hooks/pre-push")
   if (fs::file_exists(hook)) {
     schema_script <- fs::path(repo_path, "data-raw/schemas.R")
     okay <- tools::md5sum(hook) == tools::md5sum(schema_script)
-    if (!isTRUE(okay)) {
+    if (isTRUE(okay)) {
+      cli::cli_alert_success("OK")
+    } else {
       cmd <- r"[usethis::use_git_hook("pre-push", readLines(usethis::proj_path("data-raw/schemas.R")))]" # nolint: object_usage_linter
       cli::cli_abort(
         c(
@@ -111,6 +114,8 @@ check_hook <- function(repo_path) {
         )
       )
     }
+  } else {
+    cli::cli_alert("No pre-push hook registered")
   }
 }
 
@@ -136,6 +141,9 @@ get_latest_commit <- function(branch) {
 
 check_for_update <- function(update_cfg_path, branch) {
   update <- FALSE
+  if (is_hook()) {
+    cli::cli_h2("{.strong pre-push}: checking that schemas are up-to-date")
+  }
   # If there is no config file, then we automatically update
   if (!fs::file_exists(update_cfg_path)) {
     update <- TRUE
@@ -164,6 +172,9 @@ check_for_update <- function(update_cfg_path, branch) {
 }
 
 # VARIABLES ------------------------------------------------------------------
+if (is_hook()) {
+  cli::cli_h1("{.strong pre-push}: schema synchronization")
+}
 check_hook(usethis::proj_path())
 schemas <- usethis::proj_path("inst/schemas")
 cfg_path <- fs::path(schemas, "update.json")
@@ -195,10 +206,10 @@ if (new$update) {
 }
 
 # REPORT STATUS --------------------------------------------------------------
-cli::cli_alert_success("Schemas up-to-date!")
-cli::cli_alert_info("branch: {.val {new$cfg$branch}}")
-cli::cli_alert_info("sha: {.val {new$cfg$sha}}")
-cli::cli_alert_info("timestamp: {.val {new$cfg$timestamp}}")
+cli::cli_alert("branch: {.val {new$cfg$branch}}")
+cli::cli_alert("sha: {.val {new$cfg$sha}}")
+cli::cli_alert("timestamp: {.val {new$cfg$timestamp}}")
+cli::cli_alert_success("OK")
 
 # GIT HOOK: RE-TEST ON UPDATE ------------------------------------------------
 # If this is being run as a git hook and the schemas were updated, we need
