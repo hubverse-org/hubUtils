@@ -195,11 +195,20 @@ successful push:
 
 ```
 $ git push
+#> 
+#> ── pre-push: schema synchronization ───────────────────────────────────────
+#> 
+#> ── pre-push: checking that the hook is up-to-date ──
+#> 
 #> ✔ Setting active project to "/path/to/hubUtils".
-#> ✔ Schemas up-to-date!
-#> ℹ branch: "main"
-#> ℹ sha: "0163a89cc38ba3846cd829545f6d65c1e40501a6"
-#> ℹ timestamp: "2024-12-19T16:56:13Z"
+#> ✔ OK
+#> 
+#> ── pre-push: checking that schemas are up-to-date ──
+#> 
+#> → branch: "main"
+#> → sha: "0163a89cc38ba3846cd829545f6d65c1e40501a6"
+#> → timestamp: "2024-12-19T16:56:13Z"
+#> ✔ OK
 #> 
 #> ── pre-push: checking for changes in inst/schemas ──
 #> 
@@ -239,18 +248,23 @@ If the git hook script changes, you will be given instructions to update:
 
 ```
 $ git push
+#> 
+#> ── pre-push: schema synchronization ───────────────────────────────────────
+#> 
+#> ── pre-push: checking that the hook is up-to-date ──
+#> 
 #> ✔ Setting active project to "/path/to/hubUtils".
-Error in `check_hook()`:
-! git hook outdated
-ℹ Use `usethis::use_git_hook("pre-push", readLines(usethis::proj_path("data-raw/schemas.R")))`
-  to update your hook.
-Backtrace:
-    ▆
- 1. └─global check_hook(usethis::proj_path())
- 2.   └─cli::cli_abort(c("git hook outdated", i = "Use {.code {cmd}} to update your hook."))
- 3.     └─rlang::abort(...)
-Execution halted
-error: failed to push some refs to 'https://github.com/hubverse-org/hubUtils.git'
+#> Error in `check_hook()`:
+#> ! git hook outdated
+#> ℹ Use `usethis::use_git_hook("pre-push", readLines(usethis::proj_path("data-raw/schemas.R")))`
+#>   to update your hook.
+#> Backtrace:
+#>     ▆
+#>  1. └─global check_hook(usethis::proj_path())
+#>  2.   └─cli::cli_abort(c("git hook outdated", i = "Use {.code {cmd}} to update your hook."))
+#>  3.     └─rlang::abort(...)
+#> Execution halted
+#> error: failed to push some refs to 'https://github.com/hubverse-org/hubUtils.git'
 ```
 
 ## Code of Conduct
