@@ -10,7 +10,7 @@ is_v3_config(config)
 \item{config}{List representation of the JSON config file.}
 }
 \value{
-Logical, whether the config list representation is using v3.0.0 schema.
+Logical, whether the config list representation is using v3.0.0 schema or greater.
 }
 \description{
 Is config list representation using v3.0.0 schema?

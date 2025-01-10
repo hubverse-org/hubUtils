@@ -2,7 +2,7 @@
 #'
 #' @param config List representation of the JSON config file.
 #'
-#' @return Logical, whether the config list representation is using v3.0.0 schema.
+#' @return Logical, whether the config list representation is using v3.0.0 schema or greater.
 #' @export
 #'
 #' @examples
@@ -12,14 +12,14 @@
 #' is_v3_config(config)
 is_v3_config <- function(config) {
   checkmate::assert_list(config)
-  extract_schema_version(config$schema_version) >= "v3.0.0"
+  version_gte("v3.0.0", config = config)
 }
 
 #' Is config file using v3.0.0 schema?
 #'
 #' @param config_path Path to the config file.
 #'
-#' @return Logical, whether the config file is using v3.0.0 schema.
+#' @return Logical, whether the config file is using v3.0.0 schema or greater.
 #' @export
 #'
 #' @examples
@@ -27,15 +27,14 @@ is_v3_config <- function(config) {
 #' is_v3_config_file(config_path)
 is_v3_config_file <- function(config_path) {
   checkmate::assert_file_exists(config_path)
-  config <- read_config_file(config_path)
-  extract_schema_version(config$schema_version) >= "v3.0.0"
+  version_gte("v3.0.0", config_path = config_path)
 }
 
 #' Is hub configured using v3.0.0 schema?
 #'
 #' @inheritParams read_config
 #'
-#' @return Logical, whether the hub is configured using v3.0.0 schema.
+#' @return Logical, whether the hub is configured using v3.0.0 schema or greater.
 #' @export
 #'
 #' @examples
