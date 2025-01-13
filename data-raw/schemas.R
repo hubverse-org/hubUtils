@@ -151,11 +151,13 @@ check_main_ahead <- function(the_commit) {
     main_sha <- main_commit$sha |> substr(1, 7)  # nolint: object_usage_linter
     old_sha <- the_commit$sha |> substr(1, 7) # nolint: object_usage_linter
     if (not_hook()) {
+      # nolint start
       script <- r"[Sys.setenv("HUBUTILS_SCHEMA_BRANCH" = "main");
-      source("data-raw/schemas.R")]" # nolint: object_usage_linter
+      source("data-raw/schemas.R")]" 
     } else {
       script <- r"[HUBUTILS_SCHEMA_BRANCH=main Rscript data-raw/schemas.R &&
-      unsetenv HUBUTILS_SCHEMA_BRANCH]" # nolint: object_usage_linter
+      unsetenv HUBUTILS_SCHEMA_BRANCH]"
+      # nolint end
     }
     cli::cli_abort(
       c(
