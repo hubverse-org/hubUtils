@@ -43,7 +43,7 @@ Our procedures for contributing bigger changes, code in particular, generally fo
 
 ## Synchronizing with `hubverse-org/schemas`
 
-The canonical home for the hubverse schemas are at
+The official home for the hubverse schemas are at
 https://github.com/hubverse-org/schemas. These schemas are copied over here
 under the `inst/schemas` folder, which allows offline validation for hubs.
 
@@ -55,7 +55,7 @@ schemas, you must ensure that the schemas in this repository are synchronized.**
 The script that synchronizes the schemas is in
 [data-raw/schemas.R](https://github.com/hubverse-org/hubUtils/blob/main/data-raw/schemas.R)
 and it can be run from within R, as a standalone script, or as a git hook. It
-takes one environment variable `HUBUTILS_DEV_BRANCH`. **If the environment
+takes one environment variable `HUBUTILS_SCHEMA_BRANCH`. **If the environment
 variable is unset, the branch information from the `inst/schemas/update.json`
 is used.**
 
@@ -99,13 +99,13 @@ happens, the tests are re-run.
 ### Synchronizing a development branch
 
 In order to synchronize a development branch, you should set a temporary
-environment variable called `HUBUTILS_DEV_BRANCH` to the name of the branch.
+environment variable called `HUBUTILS_SCHEMA_BRANCH` to the name of the branch.
 This can only be done interactively in R or as a BASH script.
 
 #### Via R
 
 ```r
-Sys.setenv("HUBUTILS_DEV_BRANCH" = "br-v4.0.1")
+Sys.setenv("HUBUTILS_SCHEMA_BRANCH" = "br-v4.0.1")
 source("data-raw/schemas.R")
 #> ✔ removing /path/to/hubUtils/inst/schemas
 #> ✔ Creating inst/schemas/.
@@ -128,8 +128,8 @@ When run via script (both manually and via git hook), if any synchronization
 happens, tests are automatically run:
 
 ```bash
-HUBUTILS_DEV_BRANCH=br-v4.0.1 Rscript data-raw/schemas.R \
-&& unsetenv HUBUTILS_DEV_BRANCH
+HUBUTILS_SCHEMA_BRANCH=br-v4.0.1 Rscript data-raw/schemas.R \
+&& unsetenv HUBUTILS_SCHEMA_BRANCH
 #> ✔ removing /path/to/hubUtils/inst/schemas
 #> ✔ Creating inst/schemas/.
 #> ℹ Fetching the latest version of the schemas from GitHub

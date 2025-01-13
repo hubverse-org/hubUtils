@@ -46,10 +46,10 @@
 # ```
 #
 # TO CHANGE THE BRANCH, update the environment variable called
-# `HUBUTILS_DEV_BRANCH`:
+# `HUBUTILS_SCHEMA_BRANCH`:
 #
 # ```
-# Sys.setenv("HUBUTILS_DEV_BRANCH" = "br-v4.0.1")
+# Sys.setenv("HUBUTILS_SCHEMA_BRANCH" = "br-v4.0.1")
 # source("data-raw/schemas.R")
 # #> ✔ removing /path/to/hubUtils/inst/schemas
 # #> ✔ Creating inst/schemas/.
@@ -67,6 +67,11 @@
 # ```
 
 # FUNCTIONS -------------------------------------------------------------------
+# Get the name of the currently running script
+# 
+# When this is run from `Rscript`, then the script name is the `--file` component 
+# from the command line arguments. This extracts the script name so we can use it
+# later to check if we are in a Git hook
 script_name <- function() {
   cmd <- commandArgs()
   basename(sub("--file=", "", cmd[grepl("--file=", cmd, fixed = TRUE)], fixed = TRUE))
@@ -119,7 +124,7 @@ check_hook <- function(repo_path) {
   }
 }
 
-get_branch <- function(update_cfg_path) {
+get_branch <- function(update_cfg_path = "inst/schemas/update.json") {
   if (fs::file_exists(update_cfg_path)) {
     branch <- jsonlite::read_json(update_cfg_path)$branch
   } else {
@@ -178,7 +183,7 @@ if (is_hook()) {
 check_hook(usethis::proj_path())
 schemas <- usethis::proj_path("inst/schemas")
 cfg_path <- fs::path(schemas, "update.json")
-branch <- Sys.getenv("HUBUTILS_DEV_BRANCH", unset = get_branch(cfg_path))
+branch <- Sys.getenv("HUBUTILS_SCHEMA_BRANCH", unset = get_branch(cfg_path))
 new <- check_for_update(cfg_path, branch)
 
 # PROCESS UPDATE IF NEEDED ---------------------------------------------------

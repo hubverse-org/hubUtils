@@ -83,13 +83,13 @@ get_schema <- function(schema_url) {
   # package.
   pieces <- extract_schema_info(schema_url)
   if (pieces$branch[1] == "main") {
-    ver <- pieces$version
-    cfg <- pieces$config
-    path <- system.file("schemas", ver, cfg, package = "hubUtils")
+    version <- pieces$version
+    config <- pieces$config
+    path <- system.file("schemas", version, config, package = "hubUtils")
     if (fs::file_exists(path)) {
       return(jsonlite::prettify(readLines(path)))
     } else {
-      cli::cli_alert_warning("{.file {ver}/{cfg}} not found.
+      cli::cli_alert_warning("{.file {version}/{config}} not found.
         This could mean your version of hubUtils is outdated.
         Attempting to connect to GitHub.")
     }
@@ -118,7 +118,7 @@ get_schema <- function(schema_url) {
 #' Given a vector of URLs, this will extract the branch version and config for
 #' each
 #'
-#' @param id a url for a given hubverse schema
+#' @param id a url for a given hubverse schema file
 #' @return a data frame with three columns: branch, version, and config
 #'
 #' @noRd
