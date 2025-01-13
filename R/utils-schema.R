@@ -39,6 +39,10 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
 #' @examplesIf asNamespace("hubUtils")$not_rcmd_check()
 #' get_schema_valid_versions()
 get_schema_valid_versions <- function(branch = "main") {
+  if (branch == "main") {
+    schema_path <- system.file("schemas", package = "hubUtils")
+    return(list.files(schema_path, pattern = "^v"))
+  }
   branches <- gh(
     "GET /repos/hubverse-org/schemas/branches"
   ) %>%
@@ -75,6 +79,21 @@ get_schema_valid_versions <- function(branch = "main") {
 #' schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
 #' get_schema(schema_url)
 get_schema <- function(schema_url) {
+  # If the branch is "main", then we can use the stored schemas inside the
+  # package.
+  pieces <- extract_schema_info(schema_url)
+  if (pieces$branch[1] == "main") {
+    version <- pieces$version
+    config <- pieces$config
+    path <- system.file("schemas", version, config, package = "hubUtils")
+    if (fs::file_exists(path)) {
+      return(jsonlite::prettify(readLines(path)))
+    } else {
+      cli::cli_alert_warning("{.file {version}/{config}} not found.
+        This could mean your version of hubUtils is outdated.
+        Attempting to connect to GitHub.")
+    }
+  }
   response <- try(curl_fetch_memory(schema_url), silent = TRUE)
 
   if (inherits(response, "try-error")) {
@@ -94,6 +113,28 @@ get_schema <- function(schema_url) {
       "Attempt to download schema from {.url {schema_url}} failed with status code: {.field {response$status_code}}."
     )
   }
+}
+
+#' Given a vector of URLs, this will extract the branch version and config for
+#' each
+#'
+#' @param id a url for a given hubverse schema file
+#' @return a data frame with three columns: branch, version, and config
+#'
+#' @noRd
+#' @examples
+#' urls <- c(
+#'   "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.1/tasks-schema.json",
+#'   "https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.0/admin-schema.json",
+#'   "https://raw.githubusercontent.com/hubverse-org/schemas/br-v4.0.0/v4.0.0/tasks-schema.json"
+#' )
+#' extract_schema_info(urls)
+extract_schema_info <- function(id) {
+  lead <- "^https[:][/][/]raw.githubusercontent.com[/]hubverse-org[/]schemas[/]"
+  good_stuff <- "(.+?)[/](v[0-9.]+?)[/]([a-z]+?-schema.json)$"
+  pattern <- paste0(lead, good_stuff)
+  proto <- setNames(character(3), c("branch", "version", "config"))
+  utils::strcapture(pattern, id, proto)
 }
 
 #' Get the latest schema version

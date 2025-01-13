@@ -1,5 +1,7 @@
 # hubUtils (development version)
 
+* Released schemas are now shipped with the package, so an internet connection
+  is no longer necessary for local validation. Released versions of `hubUtils` will always only contain released versions of schemas while dev versions from `hubUtils` (installed from GitHub) may contain versions of schema under active development.
 * Added `subset_task_id_names()` function to subset task ID names from a character vector of column names (#149).
 * Added functions `subset_task_id_cols()` and `subset_std_cols()` to subset a `model_out_tbl` or submission `tbl` to task ID or standard (non-task ID) columns respectively (#149).
 
