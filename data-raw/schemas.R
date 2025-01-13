@@ -148,14 +148,14 @@ check_main_ahead <- function(the_commit) {
   main_time <- main_commit$commit$author$date
   newer_main <- curr_time < main_time
   if (newer_main) {
-    main_sha <- main_commit$sha |> substr(1, 7)
-    old_sha <- the_commit$sha |> substr(1, 7)
+    main_sha <- main_commit$sha |> substr(1, 7)  # nolint: object_usage_linter
+    old_sha <- the_commit$sha |> substr(1, 7) # nolint: object_usage_linter
     if (not_hook()) {
       script <- r"[Sys.setenv("HUBUTILS_SCHEMA_BRANCH" = "main");
-      source("data-raw/schemas.R")]"
+      source("data-raw/schemas.R")]" # nolint: object_usage_linter
     } else {
       script <- r"[HUBUTILS_SCHEMA_BRANCH=main Rscript data-raw/schemas.R &&
-      unsetenv HUBUTILS_SCHEMA_BRANCH]"
+      unsetenv HUBUTILS_SCHEMA_BRANCH]" # nolint: object_usage_linter
     }
     cli::cli_abort(
       c(
