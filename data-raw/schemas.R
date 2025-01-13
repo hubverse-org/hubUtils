@@ -68,21 +68,26 @@
 
 # FUNCTIONS -------------------------------------------------------------------
 # Get the name of the currently running script
-# 
-# When this is run from `Rscript`, then the script name is the `--file` component 
-# from the command line arguments. This extracts the script name so we can use it
-# later to check if we are in a Git hook
+#
+# When this is run from `Rscript`, then the script name is the `--file`
+# component from the command line arguments. This extracts the script name so
+# we can use it later to check if we are in a Git hook
 script_name <- function() {
   cmd <- commandArgs()
   basename(sub("--file=", "", cmd[grepl("--file=", cmd, fixed = TRUE)], fixed = TRUE))
 }
 
+# Check if any schemas are changed but not committed and throw an error
 check_status <- function(repo_path) {
   git_stat <- system2(
     "git",
     c("-C", repo_path, "status", "--short", "--porcelain"),
     stdout = TRUE
   )
+  # git status --short --porcelain
+  #  M inst/schemas/NEWS.md
+  # ?? inst/schemas/vX.Y.Z/
+  #  M R/blah.R
   paths <- dirname(substring(git_stat, 4, nchar(git_stat)))
   if (any(startsWith(paths, "inst/schemas"))) {
     cli::cli_abort(
@@ -137,10 +142,37 @@ timestamp <- function() {
   format(Sys.time(), "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
 }
 
+check_main_ahead <- function(the_commit) {
+  main_commit <- get_latest_commit("main")
+  curr_time <- the_commit$commit$author$date
+  main_time <- main_commit$commit$author$date
+  newer_main <- curr_time < main_time
+  if (newer_main) {
+    main_sha <- main_commit$sha |> substr(1, 7)
+    old_sha <- the_commit$sha |> substr(1, 7)
+    if (not_hook()) {
+      script <- r"[Sys.setenv("HUBUTILS_SCHEMA_BRANCH" = "main");
+      source("data-raw/schemas.R")]"
+    } else {
+      script <- r"[HUBUTILS_SCHEMA_BRANCH=main Rscript data-raw/schemas.R &&
+      unsetenv HUBUTILS_SCHEMA_BRANCH]"
+    }
+    cli::cli_abort(
+      c(
+        "{.val schemas@main} ({main_sha}, {main_time}) newer than {.val schemas@{branch}} ({old_sha}, {curr_time})",
+        "i" = r"[Run this code to update to the main branch: {.code {script}}]"
+      )
+    )
+  }
+}
+
 get_latest_commit <- function(branch) {
   res <- gh::gh("GET /repos/hubverse-org/schemas/branches/{branch}",
     branch = branch
   )
+  if (branch != "main") {
+    check_main_ahead(res$commit)
+  }
   res$commit
 }
 
@@ -163,6 +195,7 @@ check_for_update <- function(update_cfg_path, branch) {
   # Fetch the latest commit, and check if either the branch has changed, or its
   # outdated (based on commit date)
   the_commit <- get_latest_commit(branch)
+  # Fetch the main branch commit to check if we need to update
   branch_change <- cfg$branch != branch
   outdated <- cfg$timestamp < the_commit$commit$author$date
   sha_different <- cfg$sha != the_commit$sha
