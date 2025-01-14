@@ -55,6 +55,178 @@
 </ul></div>
 </div>
 <div class="section level2">
+<h2 id="synchronizing-with-hubverse-orgschemas">Synchronizing with <code>hubverse-org/schemas</code>
+<a class="anchor" aria-label="anchor" href="#synchronizing-with-hubverse-orgschemas"></a></h2>
+<p>The official home for the hubverse schemas are at <a href="https://github.com/hubverse-org/schemas" class="external-link uri">https://github.com/hubverse-org/schemas</a>. These schemas are copied over here under the <code>inst/schemas</code> folder, which allows offline validation for hubs.</p>
+<p><strong>If you are developing against an in-development version of the hubverse schemas, you must ensure that the schemas in this repository are synchronized.</strong></p>
+<div class="section level3">
+<h3 id="synchronization-script">Synchronization script<a class="anchor" aria-label="anchor" href="#synchronization-script"></a></h3>
+<p>The script that synchronizes the schemas is in <a href="https://github.com/hubverse-org/hubUtils/blob/main/data-raw/schemas.R" class="external-link">data-raw/schemas.R</a> and it can be run from within R, as a standalone script, or as a git hook. It takes one environment variable <code>HUBUTILS_SCHEMA_BRANCH</code>. <strong>If the environment variable is unset, the branch information from the <code>inst/schemas/update.json</code> is used.</strong></p>
+<div class="section level4">
+<h4 id="usage-within-r">Usage: within R<a class="anchor" aria-label="anchor" href="#usage-within-r"></a></h4>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">"data-raw/schemas.R"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="usage-from-bash">Usage: from BASH<a class="anchor" aria-label="anchor" href="#usage-from-bash"></a></h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">Rscript</span> data-raw/schemas.R</span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="usage-commit-hook">Usage: commit hook<a class="anchor" aria-label="anchor" href="#usage-commit-hook"></a></h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">git</span> push</span></code></pre></div>
+<p>See <a href="#installing-the-git-hook">Installing the Git Hook</a>. A Git hook is a way to run a local script before or after you do something in Git. For example, a pre-push hook (the one we use here) will run every time before you push to the remote repository.</p>
+</div>
+<div class="section level4">
+<h4 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h4>
+<p>By default, this script will make a single call to the GitHub API to determine the status of the most recent commit on the branch listed in <code>inst/schemas/update.json</code>. If the sha and branch match and the timestamp is ahead of the the most recent commit, then you are good to go!</p>
+<p>If an update is needed, then your system git is used to clone the branch and copy it over to <code>inst/schemas</code>.</p>
+<p>When running this as a script (not interactive), then when a schema update happens, the tests are re-run.</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="synchronizing-a-development-branch">Synchronizing a development branch<a class="anchor" aria-label="anchor" href="#synchronizing-a-development-branch"></a></h3>
+<p>In order to synchronize a development branch, you should set a temporary environment variable called <code>HUBUTILS_SCHEMA_BRANCH</code> to the name of the branch. This can only be done interactively in R or as a BASH script.</p>
+<div class="section level4">
+<h4 id="via-r">Via R<a class="anchor" aria-label="anchor" href="#via-r"></a></h4>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span><span class="st">"HUBUTILS_SCHEMA_BRANCH"</span> <span class="op">=</span> <span class="st">"br-v4.0.1"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">"data-raw/schemas.R"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ removing /path/to/hubUtils/inst/schemas</span></span>
+<span><span class="co">#&gt; ✔ Creating inst/schemas/.</span></span>
+<span><span class="co">#&gt; ℹ Fetching the latest version of the schemas from GitHub</span></span>
+<span><span class="co">#&gt; Cloning into '/path/to/temp/folder'...</span></span>
+<span><span class="co">#&gt; ✔ Copying v4.0.1, v4.0.0, v3.0.1, v3.0.0, v2.0.1, v2.0.0, v1.0.0, v0.0.1, v0.0.0.9,</span></span>
+<span><span class="co">#&gt;  and NEWS.md to inst/schemas</span></span>
+<span><span class="co">#&gt; [ ... snip ... ]</span></span>
+<span><span class="co">#&gt; ✔ Done</span></span>
+<span><span class="co">#&gt; ✔ Schemas up-to-date!</span></span>
+<span><span class="co">#&gt; ℹ branch: "br-v4.0.1"</span></span>
+<span><span class="co">#&gt; ℹ sha: "43b2c8aceb3a316b7a1929dbe8d8ead2711d4e84"</span></span>
+<span><span class="co">#&gt; ℹ timestamp: "2024-12-19T16:40:16Z"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.unsetenv</a></span><span class="op">(</span><span class="st">"HUBUTILS_DEV_BRANCH"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="via-bash">Via BASH<a class="anchor" aria-label="anchor" href="#via-bash"></a></h4>
+<p>When run via script (both manually and via git hook), if any synchronization happens, tests are automatically run:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="va">HUBUTILS_SCHEMA_BRANCH</span><span class="op">=</span>br-v4.0.1 <span class="ex">Rscript</span> data-raw/schemas.R <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="kw">&amp;&amp;</span> <span class="ex">unsetenv</span> HUBUTILS_SCHEMA_BRANCH</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; ✔ removing /path/to/hubUtils/inst/schemas</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; ✔ Creating inst/schemas/.</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; ℹ Fetching the latest version of the schemas from GitHub</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; Cloning into '/path/to/temp/folder'...</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; ✔ Copying v4.0.1, v4.0.0, v3.0.1, v3.0.0, v2.0.1, v2.0.0, v1.0.0, v0.0.1, v0.0.0.9,</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;  and NEWS.md to inst/schemas</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; [ ... snip ... ]</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; ✔ Done</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; ✔ Schemas up-to-date!</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; ℹ branch: "br-v4.0.1"</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; ℹ sha: "43b2c8aceb3a316b7a1929dbe8d8ead2711d4e84"</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; ℹ timestamp: "2024-12-19T16:40:16Z"</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt;</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; ── ⚠ schema updated ──</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt;</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; ! Re-running tests.</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; ℹ Testing hubUtils</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; ✔ | F W  S  OK | Context</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; ✔ |          7 | as_config</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; ✔ |          9 | as_model_out_tbl</span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt; ✔ |          5 | check_deprecated_schema</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt; ✔ |         17 | model_id_merge</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="co">#&gt; ✔ |          7 | read_config [6.4s]</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt; ✔ |          7 | utils-get_hub</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; ✔ |         16 | utils-model_out_tbl</span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; ✔ |         14 | utils-round_ids</span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="co">#&gt; ✔ |          8 | utils-round-config</span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt; ✔ |         39 | utils-schema-versions</span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="co">#&gt; ✔ |         14 | utils-schema [1.2s]</span></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="co">#&gt; ✔ |          3 | utils-task_ids</span></span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="co">#&gt; ✔ |          7 | v3-schema-utils</span></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="co">#&gt;</span></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt; ══ Results ════════════════════════════</span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="co">#&gt; Duration: 9.0 s</span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="co">#&gt;</span></span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="co">#&gt; [ FAIL 0 | WARN 0 | SKIP 0 | PASS 153 ]</span></span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="co">#&gt; ✔ OK</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="installing-the-git-hook">Installing the Git Hook<a class="anchor" aria-label="anchor" href="#installing-the-git-hook"></a></h3>
+<p>It is optional, but recommended to use this script as a pre-push hook so that the schemas are checked for updates before each commit.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_git_hook</span><span class="op">(</span><span class="st">"pre-push"</span>, <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">proj_path</span><span class="op">(</span><span class="st">"data-raw/schemas.R"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>This will create or overwrite <code>.git/hooks/pre-push</code>.</p>
+<p><strong>If you want to uninstall the git hook, remove the <code>.git/hooks/pre-push</code> file</strong></p>
+<p>In addition to checking that the schemas in <code>inst/schemas</code> are synchronized, <a href="#via-bash">as demonstrated above</a>, this hook will also check:</p>
+<ol style="list-style-type: decimal"><li>the local hook is up-to-date</li>
+<li>the <code>inst/schemas</code> folder contents are all committed</li>
+</ol><p>When you install this as a git hook, you will get a message before every successful push:</p>
+<pre><code>$ git push
+#&gt;
+#&gt; ── pre-push: schema synchronization ───────────────────────────────────────
+#&gt;
+#&gt; ── pre-push: checking that the hook is up-to-date ──
+#&gt;
+#&gt; ✔ Setting active project to "/path/to/hubUtils".
+#&gt; ✔ OK
+#&gt;
+#&gt; ── pre-push: checking that schemas are up-to-date ──
+#&gt;
+#&gt; → branch: "main"
+#&gt; → sha: "0163a89cc38ba3846cd829545f6d65c1e40501a6"
+#&gt; → timestamp: "2024-12-19T16:56:13Z"
+#&gt; ✔ OK
+#&gt;
+#&gt; ── pre-push: checking for changes in inst/schemas ──
+#&gt;
+#&gt; ✔ OK</code></pre>
+<div class="section level4">
+<h4 id="when-the-schema-updates">When the schema updates<a class="anchor" aria-label="anchor" href="#when-the-schema-updates"></a></h4>
+<p>If the schemas are updated but not committed, this hook will prevent you from pushing the changes until they are updated:</p>
+<pre><code>$ git push
+#&gt; [ ... snip ... ]
+#&gt;
+#&gt; ── ⚠ schema updated ──
+#&gt;
+#&gt; [ ... snip ... ]
+#&gt; ✔ OK
+#&gt;
+#&gt; ── pre-push: checking for changes in inst/schemas ──
+#&gt;
+#&gt; Error in `check_status()`:
+#&gt; ! New schemas must be committed before pushing.
+#&gt; Backtrace:
+#&gt;     ▆
+#&gt;  1. └─global check_status(usethis::proj_path())
+#&gt;  2.   └─cli::cli_abort(c("New schemas must be committed before pushing."))
+#&gt;  3.     └─rlang::abort(...)
+#&gt; Execution halted
+#&gt; error: failed to push some refs to 'https://github.com/hubverse-org/hubUtils.git'</code></pre>
+</div>
+<div class="section level4">
+<h4 id="when-the-script-changes">When the script changes<a class="anchor" aria-label="anchor" href="#when-the-script-changes"></a></h4>
+<p>If the git hook script changes, you will be given instructions to update:</p>
+<pre><code>$ git push
+#&gt;
+#&gt; ── pre-push: schema synchronization ───────────────────────────────────────
+#&gt;
+#&gt; ── pre-push: checking that the hook is up-to-date ──
+#&gt;
+#&gt; ✔ Setting active project to "/path/to/hubUtils".
+#&gt; Error in `check_hook()`:
+#&gt; ! git hook outdated
+#&gt; ℹ Use `usethis::use_git_hook("pre-push", readLines(usethis::proj_path("data-raw/schemas.R")))`
+#&gt;   to update your hook.
+#&gt; Backtrace:
+#&gt;     ▆
+#&gt;  1. └─global check_hook(usethis::proj_path())
+#&gt;  2.   └─cli::cli_abort(c("git hook outdated", i = "Use {.code {cmd}} to update your hook."))
+#&gt;  3.     └─rlang::abort(...)
+#&gt; Execution halted
+#&gt; error: failed to push some refs to 'https://github.com/hubverse-org/hubUtils.git'</code></pre>
+</div>
+</div>
+</div>
+<div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a></h2>
 <p>Please note that the hubUtils project is released with a <a href="https://hubverse-org.github.io/hubUtils/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project you agree to abide by its terms.</p>
 </div>
