@@ -3,7 +3,7 @@
 \name{subset_task_id_cols}
 \alias{subset_task_id_cols}
 \alias{subset_std_cols}
-\title{Subset a \code{model_out_tbl} or submission \code{tbl} to only include task_id columns}
+\title{Subset a \code{model_out_tbl} or submission \code{tbl}.}
 \usage{
 subset_task_id_cols(model_out_tbl)
 
@@ -26,7 +26,7 @@ task_id columns).
 }
 }
 \description{
-Subset a \code{model_out_tbl} or submission \code{tbl} to only include task_id columns
+Subset a \code{model_out_tbl} or submission \code{tbl}.
 }
 \section{Functions}{
 \itemize{
