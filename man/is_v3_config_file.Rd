@@ -10,7 +10,7 @@ is_v3_config_file(config_path)
 \item{config_path}{Path to the config file.}
 }
 \value{
-Logical, whether the config file is using v3.0.0 schema.
+Logical, whether the config file is using v3.0.0 schema or greater.
 }
 \description{
 Is config file using v3.0.0 schema?

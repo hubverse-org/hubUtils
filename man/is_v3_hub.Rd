@@ -19,7 +19,7 @@ in the \code{arrow} package.}
 \code{"model-metadata-schema"}. Default is \code{"tasks"}.}
 }
 \value{
-Logical, whether the hub is configured using v3.0.0 schema.
+Logical, whether the hub is configured using v3.0.0 schema or greater.
 }
 \description{
 Is hub configured using v3.0.0 schema?
