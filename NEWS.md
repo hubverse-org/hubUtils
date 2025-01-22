@@ -1,3 +1,5 @@
+# hubUtils (development version)
+
 # hubUtils 0.4.0
 
 * Released schemas are now shipped with the package, so an internet connection
