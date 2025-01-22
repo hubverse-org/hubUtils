@@ -1,4 +1,4 @@
-# hubUtils (development version)
+# hubUtils 0.4.0
 
 * Released schemas are now shipped with the package, so an internet connection
   is no longer necessary for local validation. Released versions of `hubUtils` will always only contain released versions of schemas while dev versions from `hubUtils` (installed from GitHub) may contain versions of schema under active development.
