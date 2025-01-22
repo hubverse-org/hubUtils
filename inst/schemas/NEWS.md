@@ -1,9 +1,10 @@
 # v5.0.0
 
-This release contains the following non-breaking changes: 
+This release contains the following changes: 
 
 * Added explicit checks of `round_id` format through a regex `pattern` check to the `round.round_id` property when `round.round_id_from_variable` is `false`. This provides upfront validation of the expected format of manual round IDs (i.e. those not source from a task ID) (#112).
 * BREAKING CHANGE: Restricted the `target_keys` object to contain only a single key value pair (if not `null`). This means that target keys can now only consist of a single value from a single task ID (#117).
+* BREAKING CHANGE: Removed `target_variable` and `target_outcome` from standard task ID properties.
 
 # v4.0.0
 
