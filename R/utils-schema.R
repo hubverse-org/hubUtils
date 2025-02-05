@@ -120,6 +120,7 @@ get_schema <- function(schema_url) {
 #'
 #' @param id a url for a given hubverse schema file
 #' @return a data frame with three columns: branch, version, and config
+#' @importFrom stats setNames
 #'
 #' @noRd
 #' @examples
