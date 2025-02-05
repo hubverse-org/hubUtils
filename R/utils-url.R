@@ -90,3 +90,15 @@ sanitize_url <- function(url) {
   out <- gsub("([^:])/{2,}", "\\1/", url)
   gsub("/$", "", out)
 }
+
+# Convert a GitHub URL to a raw GitHub URL
+convert_to_raw_github_url <- function(url) {
+  url <- sub("github.com", "raw.githubusercontent.com", url)  # Replace domain
+  paste(url, "refs/heads/main/", sep = "/") |>
+    sanitize_url()
+}
+
+# Detect a github URL
+is_github_url <- function(url) {
+  grepl("^https?://(www\\.)?github\\.com/[^/]+/[^/]+", url)
+}

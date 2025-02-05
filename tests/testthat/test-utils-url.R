@@ -67,3 +67,15 @@ test_that("create_s3_url works", {
     regexp = "Assertion on 'base_fs' failed: Must be of type 'character', not 'integer'."
   )
 })
+
+test_that("GitHub utils work", {
+  hub_url <- "https://github.com/hubverse-org/example-simple-forecast-hub"
+
+  expect_true(is_github_url(hub_url))
+  expect_false(is_github_url("https://hubverse.io"))
+
+  expect_equal(
+    convert_to_raw_github_url(hub_url),
+    "https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub/refs/heads/main"
+  )
+})

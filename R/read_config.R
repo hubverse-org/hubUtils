@@ -1,6 +1,7 @@
 #' Read a hub config file into R
 #'
-#' @param hub_path Either a character string path to a local Modeling Hub directory
+#' @param hub_path Either a character string path to a local Modeling Hub directory,
+#' a character string of a URL to a GitHub repository
 #' or an object of class `<SubTreeFileSystem>` created using functions [arrow::s3_bucket()]
 #' or [arrow::gs_bucket()] by providing a string S3 or GCS bucket name or path to a
 #' Modeling Hub directory stored in the cloud.
@@ -22,6 +23,10 @@
 #' read_config(hub_path, "tasks")
 #' read_config(hub_path, "admin")
 #'
+#' # Read config file from a GitHub hub repository
+#' github_url <- "https://github.com/hubverse-org/example-simple-forecast-hub"
+#' read_config(github_url)
+#' read_config(github_url, "admin")
 #' @examplesIf asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)
 #' # Read config file from AWS S3 bucket hub
 #' hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
@@ -40,12 +45,25 @@ read_config.default <- function(hub_path,
                                 config = c("tasks", "admin", "model-metadata-schema"),
                                 silent = TRUE) {
   config <- rlang::arg_match(config)
-  path <- path(hub_path, "hub-config", config, ext = "json")
-
-  if (!fs::file_exists(path)) {
-    cli::cli_abort(
-      "Config file {.field {config}} does not exist at path {.path { path }}."
-    )
+  config_path <- path("hub-config", config, ext = "json")
+  if (is_url(hub_path)) {
+    if (is_github_url(hub_path)) {
+      hub_path <- convert_to_raw_github_url(hub_path)
+    }
+    path <- paste(hub_path, config_path, sep = "/") |>
+      sanitize_url()
+    if (!is_valid_url(path)) {
+      cli::cli_abort(
+        "URL {.path {path}} is invalid or unreachable."
+      )
+    }
+  } else {
+    path <- path(hub_path, config_path)
+    if (!fs::file_exists(path)) {
+      cli::cli_abort(
+        "Config file {.field {config}} does not exist at path {.path { path }}."
+      )
+    }
   }
   read_config_file(path, silent = silent)
 }

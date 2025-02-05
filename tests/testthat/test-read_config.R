@@ -20,6 +20,7 @@ test_that("read_config works on local hubs", {
 
 test_that("read_config works on S3 cloud hubs", {
   skip_if_not(arrow::arrow_with_s3())
+  skip_if_offline()
   expect_snapshot(
     read_config(
       hub_path = suppressMessages(
@@ -27,6 +28,25 @@ test_that("read_config works on S3 cloud hubs", {
       )
     )
   )
+})
+
+test_that("read_config with GitHub urls", {
+  skip_if_offline()
+  github_hub <- "https://github.com/hubverse-org/example-simple-forecast-hub"
+  github_config <- read_config(github_hub)
+  expect_s3_class(github_config, "config")
+  expect_equal(
+    attr(github_config, "schema_id"),
+    "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/tasks-schema.json"
+  )
+
+  github_config_admin <- read_config(github_hub, config = "admin")
+  expect_s3_class(github_config_admin, "config")
+  expect_equal(
+    attr(github_config_admin, "schema_id"),
+    "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/admin-schema.json"
+  )
+
 })
 
 test_that("read_config_file works", {
