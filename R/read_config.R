@@ -47,7 +47,15 @@ read_config.default <- function(hub_path,
   config <- rlang::arg_match(config)
   config_path <- path("hub-config", config, ext = "json")
   if (is_url(hub_path)) {
+    # Check and process Github URLs
     if (is_github_url(hub_path)) {
+      # ensure the path is to a GitHub repo
+      if (!is_github_repo_url(hub_path)) {
+        cli::cli_abort(
+          "URL {.path {hub_path}} is not a GitHub repo URL."
+        )
+      }
+      # Convert to raw GitHub URL prefix
       hub_path <- convert_to_raw_github_url(hub_path)
     }
     path <- paste(hub_path, config_path, sep = "/") |>

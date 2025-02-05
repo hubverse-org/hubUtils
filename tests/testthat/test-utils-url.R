@@ -79,3 +79,21 @@ test_that("GitHub utils work", {
     "https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub/refs/heads/main"
   )
 })
+
+test_that("is_github_repo_url correctly identifies GitHub repo URLs", {
+  # Valid GitHub Repo URLs
+  expect_true(is_github_repo_url("https://github.com/user/repo"))
+  expect_true(is_github_repo_url("https://www.github.com/user/repo"))
+  expect_true(is_github_repo_url("http://github.com/user/repo"))
+  expect_true(is_github_repo_url("https://github.com/user/repo/")) # With trailing slash
+
+  # Invalid GitHub URLs
+  expect_false(is_github_repo_url("https://github.com/user/repo/blob/main/file.txt")) # File path
+  expect_false(is_github_repo_url("https://github.com/user/repo/issues/12")) # Issue page
+  expect_false(is_github_repo_url("https://raw.githubusercontent.com/user/repo/main/file.txt")) # Raw content
+  expect_false(is_github_repo_url("https://gitlab.com/user/repo")) # GitLab repo
+  expect_false(is_github_repo_url("github.com/user/repo")) # Missing `https://`
+  expect_false(is_github_repo_url("https://github.com/user")) # Only user, no repo
+  expect_false(is_github_repo_url("https://github.com/user/repo/extra/path")) # Too many path parts
+  expect_false(is_github_repo_url("not_a_url")) # Not a URL at all
+})

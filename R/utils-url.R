@@ -84,6 +84,26 @@ is_valid_url <- function(url) {
   )
 }
 
+#' Detect if a URL is a GitHub repository URL
+#'
+#' @param url character string of the URL to check.
+#'
+#' @returns Logical. `TRUE` if the URL is a GitHub repository URL, `FALSE` otherwise.
+#' @export
+#'
+#' @examples
+#' is_github_repo_url("https://github.com/hubverse-org/example-simple-forecast-hub")
+#' raw_url <- paste0(
+#'   "https://raw.githubusercontent.com/hubverse-org/",
+#'   "example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"
+#' )
+#' is_github_repo_url(raw_url)
+#' url_to_blob <- "https://github.com/hubverse-org/example-simple-forecast-hub/blob/main/README.md"
+#' is_github_repo_url(url_to_blob)
+is_github_repo_url <- function(url) {
+  grepl("^https?://(www\\.)?github\\.com/[^/]+/[^/]+/?$", url)
+}
+
 # Replace multiple slashes with a single slash except after 'https:' and clean up
 # any trailing slashes
 sanitize_url <- function(url) {
@@ -91,9 +111,10 @@ sanitize_url <- function(url) {
   gsub("/$", "", out)
 }
 
-# Convert a GitHub URL to a raw GitHub URL
-convert_to_raw_github_url <- function(url) {
-  url <- sub("github.com", "raw.githubusercontent.com", url)  # Replace domain
+# Convert a GitHub repo URL to a raw GitHub URL prefix. Input must not contain
+# file paths within the repo.
+convert_to_raw_github_url <- function(repo_url) {
+  url <- sub("github.com", "raw.githubusercontent.com", repo_url)  # Replace domain
   paste(url, "refs/heads/main/", sep = "/") |>
     sanitize_url()
 }

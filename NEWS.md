@@ -5,6 +5,7 @@
 * Added utilities for working with URLs:
   - `is_url()`: checks whether a character string is a URL.
   - `is_valid_url()`: checks whether a URL is valid and reachable.
+  - `is_github_repo_url()`: checks whether a URL is a GitHub repository URL.
   - `create_s3_url()`: creates an S3 URL from a bucket name and object path.
 
 # hubUtils 0.4.0
