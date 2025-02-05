@@ -123,3 +123,23 @@ convert_to_raw_github_url <- function(repo_url) {
 is_github_url <- function(url) {
   grepl("^https?://(www\\.)?github\\.com/[^/]+/[^/]+", url)
 }
+
+
+#' Detect whether An object of class `<SubTreeFileSystem>` represents the base
+#' path of an S3 file system (i.e. the root of a cloud hub)
+#'
+#' @param s3_fs An object of class `<SubTreeFileSystem>`.
+#'
+#' @returns Logical. `TRUE` if the object represents the base path of an S3 file,
+#' `FALSE` otherwise.
+#' @export
+#'
+#' @examplesIf asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)
+#' hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
+#' config_path <- hub_path$path("hub-config/admin.json")
+#' is_s3_base_fs(hub_path)
+#' is_s3_base_fs(config_path)
+is_s3_base_fs <- function(s3_fs) {
+  checkmate::assert_class(s3_fs, "SubTreeFileSystem")
+  is.null(s3_fs$base_fs$base_path)
+}

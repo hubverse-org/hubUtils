@@ -97,3 +97,13 @@ test_that("is_github_repo_url correctly identifies GitHub repo URLs", {
   expect_false(is_github_repo_url("https://github.com/user/repo/extra/path")) # Too many path parts
   expect_false(is_github_repo_url("not_a_url")) # Not a URL at all
 })
+
+test_that("is_s3_base_fs correctly detects base file systems", {
+  skip_if_not(arrow::arrow_with_s3())
+  skip_if_offline()
+
+  hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
+  config_path <- hub_path$path("hub-config/admin.json")
+  expect_true(is_s3_base_fs(hub_path))
+  expect_false(is_s3_base_fs(config_path))
+})
