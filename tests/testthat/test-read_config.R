@@ -48,3 +48,45 @@ test_that("read_config_file warning silencing works", {
     read_config_file(test_path("testdata", "empty.json"))
   )
 })
+
+test_that("read_config_file with urls works", {
+  skip_if_offline()
+
+  # Read from a GitHub url
+  config_github <- read_config_file(
+    "https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"
+  )
+
+  skip_if_not(arrow::arrow_with_s3())
+  expect_s3_class(config_github, "config")
+  expect_equal(
+    attr(config_github, "schema_id"),
+    "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/tasks-schema.json"
+  )
+
+  # Error if not a JSON file
+  md_url <-
+    "https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub/refs/heads/main/README.md"
+  expect_error(
+    read_config_file(md_url),
+    regexp = " is not a JSON file"
+  )
+
+  # Read from an S3 bucket config file
+  hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
+  config_path <- hub_path$path("hub-config/admin.json")
+  config_s3 <- suppressMessages(read_config_file(config_path))
+
+  expect_s3_class(config_s3, "config")
+  expect_equal(
+    attr(config_s3, "schema_id"),
+    "https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.0/admin-schema.json"
+  )
+
+  # Error if file does not exist
+  config_path <- hub_path$path("README.md")
+  expect_error(
+    read_config_file(config_path),
+    regexp = "does not exist"
+  )
+})

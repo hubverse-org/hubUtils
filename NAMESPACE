@@ -2,6 +2,8 @@
 
 S3method(read_config,SubTreeFileSystem)
 S3method(read_config,default)
+S3method(read_config_file,SubTreeFileSystem)
+S3method(read_config_file,default)
 export("%>%")
 export(as_config)
 export(as_model_out_tbl)
