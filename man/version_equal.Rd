@@ -55,9 +55,14 @@ the format \code{"v#.#.#"}.}
 
 \item{config}{A \verb{<config>} class object. Usually the output of \code{read_config} or \code{read_config_file}.}
 
-\item{config_path}{Character string. Path to JSON config file.}
+\item{config_path}{Either a character string of a path to a local JSON config
+file, a character string of the URL to a JSON config file (e.g on GitHub) or
+an object of class \verb{<SubTreeFileSystem>} created using functions
+\code{\link[arrow:s3_bucket]{arrow::s3_bucket()}} and associated methods for creating paths to JSON config
+files within the bucket.}
 
-\item{hub_path}{Either a character string path to a local Modeling Hub directory
+\item{hub_path}{Either a character string path to a local Modeling Hub directory,
+a character string of a URL to a GitHub repository
 or an object of class \verb{<SubTreeFileSystem>} created using functions \code{\link[arrow:s3_bucket]{arrow::s3_bucket()}}
 or \code{\link[arrow:gs_bucket]{arrow::gs_bucket()}} by providing a string S3 or GCS bucket name or path to a
 Modeling Hub directory stored in the cloud.

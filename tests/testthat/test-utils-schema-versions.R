@@ -15,11 +15,43 @@ test_that("get_version_* utilities works", {
 
   hub_path <- system.file("testhubs/simple", package = "hubUtils")
   expect_equal(
-    get_version_hub(hub_path),
+    get_version_hub(hub_path, "admin"),
     "v2.0.0"
   )
+})
+
+test_that("get_version_* utilities works with URLs", {
+  skip_if_offline()
+
+  file_url <- paste0(
+    "https://raw.githubusercontent.com/hubverse-org/",
+    "example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"
+  )
   expect_equal(
-    get_version_hub(hub_path, "admin"),
+    get_version_file(file_url),
+    "v3.0.0"
+  )
+
+  hub_url <- "https://github.com/hubverse-org/example-simple-forecast-hub"
+  expect_equal(
+    get_version_hub(hub_url),
+    "v3.0.0"
+  )
+})
+
+test_that("get_version_* utilities works with SubTreeFileSystem objects", {
+  skip_if_offline()
+  skip_if_not(arrow::arrow_with_s3())
+
+  hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
+  expect_equal(
+    suppressMessages(get_version_hub(hub_path, "admin")),
+    "v2.0.0"
+  )
+
+  config_path <- hub_path$path("hub-config/admin.json")
+  expect_equal(
+    suppressMessages(get_version_file(config_path)),
     "v2.0.0"
   )
 })

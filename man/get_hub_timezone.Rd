@@ -16,7 +16,8 @@ get_hub_file_formats(hub_path, round_id = NULL)
 get_hub_derived_task_ids(hub_path, round_id = NULL)
 }
 \arguments{
-\item{hub_path}{Either a character string path to a local Modeling Hub directory
+\item{hub_path}{Either a character string path to a local Modeling Hub directory,
+a character string of a URL to a GitHub repository
 or an object of class \verb{<SubTreeFileSystem>} created using functions \code{\link[arrow:s3_bucket]{arrow::s3_bucket()}}
 or \code{\link[arrow:gs_bucket]{arrow::gs_bucket()}} by providing a string S3 or GCS bucket name or path to a
 Modeling Hub directory stored in the cloud.

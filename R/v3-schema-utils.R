@@ -17,7 +17,7 @@ is_v3_config <- function(config) {
 
 #' Is config file using v3.0.0 schema?
 #'
-#' @param config_path Path to the config file.
+#' @inheritParams read_config_file
 #'
 #' @return Logical, whether the config file is using v3.0.0 schema or greater.
 #' @export
@@ -26,7 +26,6 @@ is_v3_config <- function(config) {
 #' config_path <- system.file("config", "tasks.json", package = "hubUtils")
 #' is_v3_config_file(config_path)
 is_v3_config_file <- function(config_path) {
-  checkmate::assert_file_exists(config_path)
   version_gte("v3.0.0", config_path = config_path)
 }
 

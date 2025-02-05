@@ -25,8 +25,18 @@ get_version_config <- function(config) {
 #' @examples
 #' config_path <- system.file("config", "tasks.json", package = "hubUtils")
 #' get_version_file(config_path)
+#' # Get version from a URL of a hub config file
+#' url <- paste0(
+#'   "https://raw.githubusercontent.com/hubverse-org/",
+#'   "example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"
+#' )
+#' get_version_file(url)
+#' @examplesIf asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)
+#' # Get version from an AWS S3 cloud hub config file
+#' hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
+#' config_path <- hub_path$path("hub-config/admin.json")
+#' get_version_file(config_path)
 get_version_file <- function(config_path) {
-  checkmate::assert_file_exists(config_path)
   read_config_file(config_path) |>
     get_version_config()
 }
@@ -41,6 +51,10 @@ get_version_file <- function(config_path) {
 #' hub_path <- system.file("testhubs/simple", package = "hubUtils")
 #' get_version_hub(hub_path)
 #' get_version_hub(hub_path, "admin")
+#' @examplesIf asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)
+#' # Get version from an AWS S3 cloud hub config file
+#' hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
+#' get_version_hub(hub_path)
 get_version_hub <- function(hub_path, config_type = c("tasks", "admin")) {
   config_type <- rlang::arg_match(config_type)
   read_config(hub_path, config_type) |>
