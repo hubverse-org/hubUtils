@@ -1,5 +1,14 @@
 # hubUtils (development version)
 
+* `read_config_file` now accepts a URL to the **raw contents** of a JSON config file as well as an object of class `<SubTreeFileSystem>` pointing to a config file in an S3 cloud hub  (#209). This enables reading config files directly from GitHub S3 cloud hubs without having to clone the contents of a hub locally.   
+* `read_config` now also accepts a URL to of a fully configured hub repository hosted on GitHub.
+* Added utilities for working with URLs:
+  - `is_url()`: checks whether a character string is a URL.
+  - `is_valid_url()`: checks whether a URL is valid and reachable.
+  - `is_github_repo_url()`: checks whether a URL is a GitHub repository URL.
+  - `create_s3_url()`: creates an S3 URL from a bucket name and object path.
+  - `is_s3_base_fs()`: checks whether an object of class `<SubTreeFileSystem>` is a base file system (i.e. the root of a cloud hub).
+
 # hubUtils 0.4.0
 
 * Released schemas are now shipped with the package, so an internet connection

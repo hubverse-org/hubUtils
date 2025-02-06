@@ -15,9 +15,15 @@ get_version_hub(hub_path, config_type = c("tasks", "admin"))
 \arguments{
 \item{config}{A \verb{<config>} class object. Usually the output of \code{read_config} or \code{read_config_file}.}
 
-\item{config_path}{Character string. Path to JSON config file.}
+\item{config_path}{Either a character string of a path to a local JSON config
+file, a character string of the URL to the \strong{raw contents} of a JSON config
+file (e.g on GitHub) or
+an object of class \verb{<SubTreeFileSystem>} created using functions
+\code{\link[arrow:s3_bucket]{arrow::s3_bucket()}} and associated methods for creating paths to JSON config
+files within the bucket.}
 
-\item{hub_path}{Either a character string path to a local Modeling Hub directory
+\item{hub_path}{Either a character string path to a local Modeling Hub directory,
+a character string of a URL to a GitHub repository
 or an object of class \verb{<SubTreeFileSystem>} created using functions \code{\link[arrow:s3_bucket]{arrow::s3_bucket()}}
 or \code{\link[arrow:gs_bucket]{arrow::gs_bucket()}} by providing a string S3 or GCS bucket name or path to a
 Modeling Hub directory stored in the cloud.
@@ -50,7 +56,24 @@ config <- read_config_file(
 get_version_config(config)
 config_path <- system.file("config", "tasks.json", package = "hubUtils")
 get_version_file(config_path)
+# Get version from a URL of a hub config file
+url <- paste0(
+  "https://raw.githubusercontent.com/hubverse-org/",
+  "example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"
+)
+get_version_file(url)
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# Get version from an AWS S3 cloud hub config file
+hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
+config_path <- hub_path$path("hub-config/admin.json")
+get_version_file(config_path)
+\dontshow{\}) # examplesIf}
 hub_path <- system.file("testhubs/simple", package = "hubUtils")
 get_version_hub(hub_path)
 get_version_hub(hub_path, "admin")
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# Get version from an AWS S3 cloud hub config file
+hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
+get_version_hub(hub_path)
+\dontshow{\}) # examplesIf}
 }
