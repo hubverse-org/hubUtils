@@ -33,7 +33,23 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="hubutils-development-version">hubUtils (development version)<a class="anchor" aria-label="anchor" href="#hubutils-development-version"></a></h2>
-</div>
+<ul><li>
+<code>read_config_file</code> now accepts a URL to the <strong>raw contents</strong> of a JSON config file as well as an object of class <code>&lt;SubTreeFileSystem&gt;</code> pointing to a config file in an S3 cloud hub (<a href="https://github.com/hubverse-org/hubUtils/issues/209" class="external-link">#209</a>). This enables reading config files directly from GitHub S3 cloud hubs without having to clone the contents of a hub locally.<br></li>
+<li>
+<code>read_config</code> now also accepts a URL to of a fully configured hub repository hosted on GitHub.</li>
+<li>Added utilities for working with URLs:
+<ul><li>
+<code><a href="../reference/is_url.html">is_url()</a></code>: checks whether a character string is a URL.</li>
+<li>
+<code><a href="../reference/is_valid_url.html">is_valid_url()</a></code>: checks whether a URL is valid and reachable.</li>
+<li>
+<code><a href="../reference/is_github_repo_url.html">is_github_repo_url()</a></code>: checks whether a URL is a GitHub repository URL.</li>
+<li>
+<code><a href="../reference/create_s3_url.html">create_s3_url()</a></code>: creates an S3 URL from a bucket name and object path.</li>
+<li>
+<code><a href="../reference/is_s3_base_fs.html">is_s3_base_fs()</a></code>: checks whether an object of class <code>&lt;SubTreeFileSystem&gt;</code> is a base file system (i.e. the root of a cloud hub).</li>
+</ul></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4.0" id="hubutils-040">hubUtils 0.4.0<a class="anchor" aria-label="anchor" href="#hubutils-040"></a></h2>
 <ul><li>Released schemas are now shipped with the package, so an internet connection is no longer necessary for local validation. Released versions of <code>hubUtils</code> will always only contain released versions of schemas while dev versions from <code>hubUtils</code> (installed from GitHub) may contain versions of schema under active development.</li>

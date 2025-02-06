@@ -46,7 +46,12 @@
 
 
 <dl><dt id="arg-config-path">config_path<a class="anchor" aria-label="anchor" href="#arg-config-path"></a></dt>
-<dd><p>Path to the config file.</p></dd>
+<dd><p>Either a character string of a path to a local JSON config
+file, a character string of the URL to the <strong>raw contents</strong> of a JSON config
+file (e.g on GitHub) or
+an object of class <code>&lt;SubTreeFileSystem&gt;</code> created using functions
+<code><a href="https://arrow.apache.org/docs/r/reference/s3_bucket.html" class="external-link">arrow::s3_bucket()</a></code> and associated methods for creating paths to JSON config
+files within the bucket.</p></dd>
 
 </dl></div>
     <div class="section level2">
