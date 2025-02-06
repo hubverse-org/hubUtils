@@ -104,27 +104,6 @@ is_github_repo_url <- function(url) {
   grepl("^https?://(www\\.)?github\\.com/[^/]+/[^/]+/?$", url)
 }
 
-# Replace multiple slashes with a single slash except after 'https:' and clean up
-# any trailing slashes
-sanitize_url <- function(url) {
-  out <- gsub("([^:])/{2,}", "\\1/", url)
-  gsub("/$", "", out)
-}
-
-# Convert a GitHub repo URL to a raw GitHub URL prefix. Input must not contain
-# file paths within the repo.
-convert_to_raw_github_url <- function(repo_url) {
-  url <- sub("github.com", "raw.githubusercontent.com", repo_url)  # Replace domain
-  paste(url, "refs/heads/main/", sep = "/") |>
-    sanitize_url()
-}
-
-# Detect a github URL
-is_github_url <- function(url) {
-  grepl("^https?://(www\\.)?github\\.com/[^/]+/[^/]+", url)
-}
-
-
 #' Detect whether An object of class `<SubTreeFileSystem>` represents the base
 #' path of an S3 file system (i.e. the root of a cloud hub)
 #'
@@ -142,4 +121,38 @@ is_github_url <- function(url) {
 is_s3_base_fs <- function(s3_fs) {
   checkmate::assert_class(s3_fs, "SubTreeFileSystem")
   is.null(s3_fs$base_fs$base_path)
+}
+
+# Replace multiple slashes with a single slash except after 'https:' and clean up
+# any trailing slashes
+sanitize_url <- function(url) {
+  out <- gsub("([^:])/{2,}", "\\1/", url)
+  gsub("/$", "", out)
+}
+
+# Convert a GitHub repo URL to a raw GitHub URL prefix. Input must not contain
+# file paths within the repo.
+convert_to_raw_github_url <- function(repo_url) {
+  url <- sub("github.com", "raw.githubusercontent.com", repo_url) # Replace domain
+  paste(url, "refs/heads/main/", sep = "/") |>
+    sanitize_url()
+}
+
+# Detect a github URL
+is_github_url <- function(url) {
+  grepl("^https?://(www\\.)?github\\.com/[^/]+/[^/]+", url)
+}
+
+is_raw_file_url <- function(url) {
+  # Define patterns for raw file URLs (GitHub, GitLab, AWS S3, Generic raw paths)
+  raw_patterns <- c(
+    "^https?://raw\\.githubusercontent\\.com/", # GitHub raw files
+    "^https?://gist\\.githubusercontent\\.com/", # GitHub Gist raw files
+    "^https?://.+\\.s3\\.amazonaws\\.com/", # AWS S3 raw file URLs
+    "^https?://gitlab\\.com/.+/raw/", # GitLab raw files
+    "^https?://.+/raw/" # Generic raw folder pattern
+  )
+
+  # Check if the URL matches any raw content pattern
+  grepl(paste(raw_patterns, collapse = "|"), url, ignore.case = TRUE)
 }

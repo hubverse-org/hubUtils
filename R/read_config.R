@@ -142,6 +142,11 @@ read_config_file <- function(config_path, silent = TRUE) {
 read_config_file.default <- function(config_path, silent = TRUE) {
   checkmate::assert_character(config_path, len = 1)
   if (is_url(config_path)) {
+    if (!is_raw_file_url(config_path)) {
+      cli::cli_abort(
+        "{.path {config_path}} is not a URL to raw file."
+      )
+    }
     if (!is_valid_url(config_path)) {
       cli::cli_abort(
         "URL {.path {config_path}} is invalid or unreachable."

@@ -31,7 +31,7 @@ test_that("read_config works on S3 cloud hubs", {
   )
 })
 
-test_that("read_config with GitHub urls", {
+test_that("read_config works with GitHub urls", {
   skip_if_offline()
   github_hub <- "https://github.com/hubverse-org/example-simple-forecast-hub"
   github_config <- read_config(github_hub)
@@ -78,7 +78,6 @@ test_that("read_config_file with urls works", {
     "https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"
   )
 
-  skip_if_not(arrow::arrow_with_s3())
   expect_s3_class(config_github, "config")
   expect_equal(
     attr(config_github, "schema_id"),
@@ -93,7 +92,17 @@ test_that("read_config_file with urls works", {
     regexp = " is not a JSON file"
   )
 
+  # Error if URL is not to a raw file
+  blob_url <-
+    "https://github.com/hubverse-org/example-simple-forecast-hub/blob/main/hub-config/admin.json"
+  expect_error(
+    read_config_file(blob_url),
+    regexp = " is not a URL to raw file."
+  )
+
   # Read from an S3 bucket config file
+  skip_if_not(arrow::arrow_with_s3())
+
   hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
   config_path <- hub_path$path("hub-config/admin.json")
   config_s3 <- suppressMessages(read_config_file(config_path))

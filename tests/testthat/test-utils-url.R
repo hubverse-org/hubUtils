@@ -107,3 +107,18 @@ test_that("is_s3_base_fs correctly detects base file systems", {
   expect_true(is_s3_base_fs(hub_path))
   expect_false(is_s3_base_fs(config_path))
 })
+
+test_that("is_raw_file_url correctly identifies raw content URLs", {
+  # Valid raw content URLs
+  expect_true(is_raw_file_url("https://raw.githubusercontent.com/user/repo/main/file.txt"))
+  expect_true(is_raw_file_url("https://gist.githubusercontent.com/user/123456/raw/file.csv"))
+  expect_true(is_raw_file_url("https://my-bucket.s3.amazonaws.com/data/file.json"))
+  expect_true(is_raw_file_url("https://example.com/raw/file.png"))
+  expect_true(is_raw_file_url("https://gitlab.com/user/repo/raw/main/file.txt"))
+
+  # Invalid (non-raw) URLs
+  expect_false(is_raw_file_url("https://www.example.com/page.html"))
+  expect_false(is_raw_file_url("https://github.com/user/repo/blob/main/file.txt"))
+  expect_false(is_raw_file_url("https://www.example.com/notraw/file.txt"))
+  expect_false(is_raw_file_url("not_a_url"))
+})
