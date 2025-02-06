@@ -112,7 +112,8 @@ read_config.SubTreeFileSystem <- function(hub_path,
 #' Read a JSON config file from a path
 #'
 #' @param config_path Either a character string of a path to a local JSON config
-#' file, a character string of the URL to a JSON config file (e.g on GitHub) or
+#' file, a character string of the URL to the **raw contents** of a JSON config
+#' file (e.g on GitHub) or
 #' an object of class `<SubTreeFileSystem>` created using functions
 #' [arrow::s3_bucket()] and associated methods for creating paths to JSON config
 #'  files within the bucket.

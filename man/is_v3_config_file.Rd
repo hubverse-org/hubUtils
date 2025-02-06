@@ -8,7 +8,8 @@ is_v3_config_file(config_path)
 }
 \arguments{
 \item{config_path}{Either a character string of a path to a local JSON config
-file, a character string of the URL to a JSON config file (e.g on GitHub) or
+file, a character string of the URL to the \strong{raw contents} of a JSON config
+file (e.g on GitHub) or
 an object of class \verb{<SubTreeFileSystem>} created using functions
 \code{\link[arrow:s3_bucket]{arrow::s3_bucket()}} and associated methods for creating paths to JSON config
 files within the bucket.}
