@@ -138,7 +138,25 @@ convert_to_raw_github_url <- function(repo_url) {
     sanitize_url()
 }
 
-# Detect a github URL
+
+#' Detect a URL on github.com
+#'
+#' @param url character string of the URL to check.
+#'
+#' @returns Logical. `TRUE` if the URL on `github.com`, `FALSE` otherwise.
+#' @export
+#'
+#' @examples
+#' # Returns TRUE
+#' is_github_url("https://github.com/hubverse-org/example-simple-forecast-hub")
+#' is_github_url("https://github.com/hubverse-org/schemas/tree/main/v5.0.0")
+#' # Returns FALSE
+#' is_github_url("https://gitlab.com/hubverse-org/schemas/tree/main/v5.0.0")
+#' raw_url <- paste0(
+#'   "https://raw.githubusercontent.com/hubverse-org/",
+#'   "example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"
+#' )
+#' is_github_url(raw_url)
 is_github_url <- function(url) {
   grepl("^https?://(www\\.)?github\\.com/[^/]+/[^/]+", url)
 }

@@ -70,9 +70,16 @@ test_that("create_s3_url works", {
 
 test_that("GitHub utils work", {
   hub_url <- "https://github.com/hubverse-org/example-simple-forecast-hub"
-
   expect_true(is_github_url(hub_url))
+  file_url <- "https://github.com/hubverse-org/schemas/tree/main/v5.0.0"
+  expect_true(is_github_url(hub_url))
+
   expect_false(is_github_url("https://hubverse.io"))
+  raw_url <- paste0(
+    "https://raw.githubusercontent.com/hubverse-org/",
+    "example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"
+  )
+  expect_false(is_github_url(raw_url))
 
   expect_equal(
     convert_to_raw_github_url(hub_url),
