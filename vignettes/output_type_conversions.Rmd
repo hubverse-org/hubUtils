@@ -129,7 +129,7 @@ Then plot the predictions, which are the quantile and median output types, along
 
 ```{r quantiles plot, warning = FALSE}
 hubVis::plot_step_ahead_model_output(
-  model_output_data = hubExamples::forecast_outputs |>
+  model_out_tbl = hubExamples::forecast_outputs |>
     filter(output_type %in% c("quantile", "median")),
   target_data = hubExamples::forecast_target_ts |>
     filter(location %in% c("25", "48"),
