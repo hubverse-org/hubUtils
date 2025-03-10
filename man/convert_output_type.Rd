@@ -24,9 +24,6 @@ types, for the following output types:
 \itemize{
 \item \code{NA} for \code{"mean"} and \code{"median"} (no associated output type ID)
 \item a numeric vector of probability levels for \code{"quantile"}
-\item a \code{data.frame} for terminal output types whose associated output type ID value
-definitions are dependent on one or more task ID variables. Columns will
-consist of those task ID variables and \code{output_type_id}
 }
 
 If only one new output type is requested, the singular list item may be supplied

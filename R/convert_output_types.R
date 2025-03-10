@@ -15,9 +15,6 @@
 #'   types, for the following output types:
 #'   - `NA` for `"mean"` and `"median"` (no associated output type ID)
 #'   - a numeric vector of probability levels for `"quantile"`
-#'   - a `data.frame` for terminal output types whose associated output type ID value
-#'     definitions are dependent on one or more task ID variables. Columns will
-#'     consist of those task ID variables and `output_type_id`
 #'
 #'   If only one new output type is requested, the singular list item may be supplied
 #'   directly. Defaults to `NA`. See the examples for an illustration of both cases.
