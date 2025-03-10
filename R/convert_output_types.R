@@ -140,7 +140,7 @@ validate_terminal_output_type_id <- function(terminal_output_type, terminal_outp
   if (terminal_output_type %in% c("mean", "median") && !all(is.na(terminal_output_type_id))) {
     cli::cli_abort(c(
       "{.var terminal_output_type_id} is incompatible with {.var terminal_output_type}",
-      i = "{.var terminal_output_type_id} should be {.var NA}"
+      i = "{.var terminal_output_type_id} should be {.val NA}"
     ))
   } else if (terminal_output_type == "quantile") {
     terminal_output_type_id_quantile <- terminal_output_type_id
