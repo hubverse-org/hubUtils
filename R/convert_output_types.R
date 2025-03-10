@@ -50,7 +50,6 @@ convert_output_type <- function(model_out_tbl, terminal_output_type,
                                 terminal_output_type_id = NA) {
   # validations
   initial_output_type <- unique(model_out_tbl$output_type)
-  initial_output_type_ids <- unique(model_out_tbl$output_type_id)
   task_id_cols <- subset_task_id_names(names(model_out_tbl))
   validate_conversion_inputs(
     initial_output_type, terminal_output_type,
