@@ -37,7 +37,7 @@ as_config <- function(x) {
   attr(x, "type") <- extract_config_type(schema_id)
   class(x) <- c("config", "list")
 
-  return(x)
+  x
 }
 
 validate_config_properties <- function(schema_id, config_list,

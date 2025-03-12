@@ -79,7 +79,7 @@ is_valid_url <- function(url) {
       return(status_code >= 200 && status_code < 400) # TRUE if status is 2xx or 3xx
     },
     error = function(e) {
-      return(FALSE) # Return FALSE if request fails
+      FALSE # Return FALSE if request fails
     }
   )
 }
