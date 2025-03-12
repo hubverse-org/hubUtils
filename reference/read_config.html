@@ -7,7 +7,7 @@
     <a href="https://hubdocs.readthedocs.io/en/latest/" class="external-link"><img src="https://raw.githubusercontent.com/hubverse-org/hubStyle/main/inst/hubverse.png" id="logo" height="30" alt="hubverse"></a>
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,8 @@
 
 
 <dl><dt id="arg-hub-path">hub_path<a class="anchor" aria-label="anchor" href="#arg-hub-path"></a></dt>
-<dd><p>Either a character string path to a local Modeling Hub directory
+<dd><p>Either a character string path to a local Modeling Hub directory,
+a character string of a URL to a GitHub repository
 or an object of class <code>&lt;SubTreeFileSystem&gt;</code> created using functions <code><a href="https://arrow.apache.org/docs/r/reference/s3_bucket.html" class="external-link">arrow::s3_bucket()</a></code>
 or <code><a href="https://arrow.apache.org/docs/r/reference/gs_bucket.html" class="external-link">arrow::gs_bucket()</a></code> by providing a string S3 or GCS bucket name or path to a
 Modeling Hub directory stored in the cloud.
@@ -398,6 +399,190 @@ further converted to a <code>&lt;config&gt;</code> class object before returning
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "config" "list"  </span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Read config file from a GitHub hub repository</span></span></span>
+<span class="r-in"><span><span class="va">github_url</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/hubverse-org/example-simple-forecast-hub"</span></span></span>
+<span class="r-in"><span><span class="fu">read_config</span><span class="op">(</span><span class="va">github_url</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $schema_version</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/tasks-schema.json"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$round_id_from_variable</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$round_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "origin_date"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$origin_date</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$origin_date$required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$origin_date$optional</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2022-11-28" "2022-12-05" "2022-12-12"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$target</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$target$required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "inc covid hosp"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$target$optional</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$horizon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$horizon$required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$horizon$optional</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -6 -5 -4 -3 -2 -1  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$location</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$location$required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$task_ids$location$optional</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "US" "01" "02" "04" "05" "06" "08" "09" "10" "11" "12" "13" "15" "16" "17"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "18" "19" "20" "21" "22" "23" "24" "25" "26" "27" "28" "29" "30" "31" "32"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "33" "34" "35" "36" "37" "38" "39" "40" "41" "42" "44" "45" "46" "47" "48"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [46] "49" "50" "51" "53" "54" "55" "56" "72" "78"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$mean</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$mean$output_type_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$mean$output_type_id$required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$mean$output_type_id$optional</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$mean$value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$mean$value$type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "integer"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$mean$value$minimum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$quantile</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$quantile$output_type_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$quantile$output_type_id$required</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.010 0.025 0.050 0.100 0.150 0.200 0.250 0.300 0.350 0.400 0.450 0.500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.550 0.600 0.650 0.700 0.750 0.800 0.850 0.900 0.950 0.975 0.990</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$quantile$output_type_id$optional</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$quantile$value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$quantile$value$type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "integer"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$output_type$quantile$value$minimum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$target_metadata</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$target_metadata[[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$target_metadata[[1]]$target_id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "inc covid hosp"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$target_metadata[[1]]$target_name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Daily incident COVID hospitalizations"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$target_metadata[[1]]$target_units</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "count"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$target_metadata[[1]]$target_keys</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$target_metadata[[1]]$target_keys$target</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "inc covid hosp"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$target_metadata[[1]]$description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$target_metadata[[1]]$target_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "discrete"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$target_metadata[[1]]$is_step_ahead</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$model_tasks[[1]]$target_metadata[[1]]$time_unit</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "day"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$submissions_due</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$submissions_due$relative_to</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "origin_date"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$submissions_due$start</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $rounds[[1]]$submissions_due$end</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_id")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/tasks-schema.json"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"type")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "tasks"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "config" "list"  </span>
+<span class="r-in"><span><span class="fu">read_config</span><span class="op">(</span><span class="va">github_url</span>, <span class="st">"admin"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $schema_version</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/admin-schema.json"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Simple Forecast Hub"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $maintainer</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Consortium of Infectious Disease Modeling Hubs"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $contact</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $contact$name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Joe Bloggs"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $contact$email</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "j.bloggs@cidmh.com"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $repository</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $repository$host</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "github"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $repository$owner</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "hubverse-org"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $repository$name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "example-simple-forecast-hub"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $file_format</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "csv"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $timezone</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "US/Eastern"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"schema_id")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/admin-schema.json"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"type")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "admin"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "config" "list"  </span>
 <span class="r-in"><span><span class="co"># Read config file from AWS S3 bucket hub</span></span></span>
 <span class="r-in"><span><span class="va">hub_path</span> <span class="op">&lt;-</span> <span class="fu">arrow</span><span class="fu">::</span><span class="fu"><a href="https://arrow.apache.org/docs/r/reference/s3_bucket.html" class="external-link">s3_bucket</a></span><span class="op">(</span><span class="st">"hubverse/hubutils/testhubs/simple/"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">read_config</span><span class="op">(</span><span class="va">hub_path</span>, <span class="st">"admin"</span><span class="op">)</span></span></span>

@@ -10,6 +10,7 @@
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/as_config.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/as_model_out_tbl.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/check_deprecated_schema.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/reference/create_s3_url.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/extract_schema_version.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/get_config_tid.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/get_hub_timezone.html</loc></url>
@@ -24,9 +25,14 @@
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/get_version_config.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/hub_con_output.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/index.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/reference/is_github_repo_url.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/reference/is_github_url.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/reference/is_s3_base_fs.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/reference/is_url.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/is_v3_config.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/is_v3_config_file.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/is_v3_hub.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/reference/is_valid_url.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/model_id_merge.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/pipe.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/reference/read_config.html</loc></url>
