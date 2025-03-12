@@ -99,7 +99,7 @@ validate_model_out_tbl <- function(tbl) {
     cli::cli_warn(c("!" = "{.arg tbl} has zero rows."))
   }
 
-  return(tbl)
+  tbl
 }
 
 # --- Unexported Utilities ----
@@ -159,7 +159,7 @@ rename_col <- function(x, col_name, old_names, call) {
     new_col_name <- gsub("_col", "", arg_name)
     names(x)[names(x) == col_name] <- new_col_name
   }
-  return(x)
+  x
 }
 
 trim_tbl_to_task_ids <- function(tbl, task_id_cols, hub_con,

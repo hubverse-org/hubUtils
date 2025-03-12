@@ -153,7 +153,7 @@ check_main_ahead <- function(the_commit) {
     if (not_hook()) {
       # nolint start
       script <- r"[Sys.setenv("HUBUTILS_SCHEMA_BRANCH" = "main");
-      source("data-raw/schemas.R")]" 
+      source("data-raw/schemas.R")]"
     } else {
       script <- r"[HUBUTILS_SCHEMA_BRANCH=main Rscript data-raw/schemas.R &&
       unsetenv HUBUTILS_SCHEMA_BRANCH]"
@@ -208,7 +208,7 @@ check_for_update <- function(update_cfg_path, branch) {
     cfg$sha <- the_commit$sha
     cfg$timestamp <- timestamp()
   }
-  return(list(update = update, cfg = cfg))
+  list(update = update, cfg = cfg)
 }
 
 # VARIABLES ------------------------------------------------------------------
