@@ -50,45 +50,48 @@ convert_output_type <- function(model_out_tbl, terminal_output_type,
                                 terminal_output_type_id = NA) {
   # validations
   initial_output_type <- unique(model_out_tbl$output_type)
-  task_id_cols <- subset_task_id_names(names(model_out_tbl))
   validate_conversion_inputs(
     initial_output_type, terminal_output_type,
     terminal_output_type_id
   )
 
-  # pre-processing
-  grouped_model_outputs <- dplyr::group_by(model_out_tbl, dplyr::across(dplyr::all_of(c("model_id", task_id_cols))))
-  # main calculations
-  purrr::map(terminal_output_type, .f = function(terminal_output_type_tmp) {
-    if (is.list(terminal_output_type_id)) {
-      terminal_output_type_id_tmp <- terminal_output_type_id[[terminal_output_type_tmp]]
-    } else {
-      terminal_output_type_id_tmp <- terminal_output_type_id
-    }
-
-    if (terminal_output_type_tmp == "mean") {
-      converted_outputs <- dplyr::reframe(
-        grouped_model_outputs,
-        output_type_id = terminal_output_type_id_tmp,
-        value = mean(.data[["value"]])
-      )
-    } else if (terminal_output_type_tmp == "median") {
-      converted_outputs <- dplyr::reframe(
-        grouped_model_outputs,
-        output_type_id = terminal_output_type_id_tmp,
-        value = stats::median(.data[["value"]])
-      )
-    } else if (terminal_output_type_tmp == "quantile") {
-      converted_outputs <- dplyr::reframe(
-        grouped_model_outputs,
-        output_type_id = terminal_output_type_id_tmp,
-        value = stats::quantile(.data[["value"]], as.numeric(terminal_output_type_id_tmp), names = FALSE)
-      )
-    }
-    dplyr::mutate(converted_outputs, output_type = terminal_output_type_tmp)
-  }) |>
+  terminal_output_type |>
+    purrr::map(convert_single_output_type, terminal_output_type_id, model_out_tbl) |>
     purrr::list_rbind() |>
     as_model_out_tbl()
+}
+
+#' Convert single output type
+#' @noRd
+#' @importFrom rlang .data
+convert_single_output_type <- function(terminal_output_type, terminal_output_type_id, model_out_tbl) {
+  task_id_cols <- subset_task_id_names(names(model_out_tbl))
+  grouped_model_outputs <- dplyr::group_by(model_out_tbl, dplyr::across(dplyr::all_of(c("model_id", task_id_cols))))
+  if (is.list(terminal_output_type_id)) {
+    terminal_output_type_id <- terminal_output_type_id[[terminal_output_type]]
+  }
+
+  if (terminal_output_type == "mean") {
+    converted_outputs_tmp <- dplyr::reframe(
+      grouped_model_outputs,
+      output_type_id = terminal_output_type_id,
+      value = mean(.data[["value"]])
+    )
+  } else if (terminal_output_type == "median") {
+    converted_outputs_tmp <- dplyr::reframe(
+      grouped_model_outputs,
+      output_type_id = terminal_output_type_id,
+      value = stats::median(.data[["value"]])
+    )
+  } else if (terminal_output_type == "quantile") {
+    converted_outputs_tmp <- dplyr::reframe(
+      grouped_model_outputs,
+      output_type_id = terminal_output_type_id,
+      value = stats::quantile(.data[["value"]], as.numeric(terminal_output_type_id), names = FALSE)
+    )
+  }
+
+  dplyr::mutate(converted_outputs_tmp, output_type = terminal_output_type, .before = "output_type_id")
 }
 
 #' Validate inputs to convert_output_types
