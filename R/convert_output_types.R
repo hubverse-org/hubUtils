@@ -143,15 +143,14 @@ validate_terminal_output_type_id <- function(terminal_output_type, terminal_outp
       i = "{.var terminal_output_type_id} should be {.val NA}"
     ))
   } else if (terminal_output_type == "quantile") {
-    terminal_output_type_id_quantile <- terminal_output_type_id
-    if (!is.numeric(terminal_output_type_id_quantile)) {
+    if (!is.numeric(terminal_output_type_id)) {
       cli::cli_abort(c(
         "elements of {.var terminal_output_type_id} should be numeric",
         i = "elements of {.var terminal_output_type_id} represent quantiles
                 of the predictive distribution"
       ))
     }
-    if (any(terminal_output_type_id_quantile < 0) || any(terminal_output_type_id_quantile > 1)) {
+    if (any(terminal_output_type_id < 0) || any(terminal_output_type_id > 1)) {
       cli::cli_abort(c(
         "elements of {.var terminal_output_type_id} should be between 0 and 1",
         i = "elements of {.var terminal_output_type_id} represent quantiles
