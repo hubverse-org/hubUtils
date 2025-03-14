@@ -49,10 +49,8 @@
 convert_output_type <- function(model_out_tbl, terminal_output_type,
                                 terminal_output_type_id = NA) {
   # validations
-  initial_output_type <- unique(model_out_tbl$output_type)
-  validate_conversion_inputs(
-    initial_output_type, terminal_output_type,
-    terminal_output_type_id
+  model_out_tbl <- validate_conversion_inputs(
+    model_out_tbl, terminal_output_type, terminal_output_type_id
   )
 
   terminal_output_type |>
@@ -96,9 +94,15 @@ convert_single_output_type <- function(terminal_output_type, terminal_output_typ
 
 #' Validate inputs to convert_output_types
 #' @noRd
-validate_conversion_inputs <- function(initial_output_type, terminal_output_type,
-                                       terminal_output_type_id) {
+validate_conversion_inputs <- function(model_out_tbl, terminal_output_type, terminal_output_type_id) {
+  # check model_out_tbl contains the "model_id" column
+  # otherwise, coercion to model_out_tbl will fail
+  model_cols <- colnames(model_out_tbl)
+  if (!("model_id" %in% model_cols)) {
+    cli::cli_abort(c("Provided {.arg model_output_tbl} must contain the column {.val {'model_id'}}"))
+  }
   # check only one initial_output_type is provided
+  initial_output_type <- unique(model_out_tbl$output_type)
   if (length(initial_output_type) != 1) {
     cli::cli_abort(c("Provided {.arg model_output_tbl} may only contain one output type"))
   }
@@ -134,6 +138,7 @@ validate_conversion_inputs <- function(initial_output_type, terminal_output_type
       )
     )
   }
+  as_model_out_tbl(model_out_tbl)
 }
 
 

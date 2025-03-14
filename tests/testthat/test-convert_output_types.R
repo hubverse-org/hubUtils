@@ -1,3 +1,13 @@
+test_that("providing a model_output_tbl with no model_id column throws an error", {
+  sample_outputs <- create_test_sample_outputs() |>
+    dplyr::select(-"model_id")
+  expect_error(
+    convert_output_type(sample_outputs, terminal_output_type = "mean", terminal_output_type_id = NA),
+    "Provided `model_output_tbl` must contain the column \"model_id\"",
+    fixed = TRUE
+  )
+})
+
 test_that("providing a model_output_tbl with multiple output types throws an error", {
   mixed_outputs <- expand.grid(
     stringsAsFactors = FALSE,
