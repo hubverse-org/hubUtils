@@ -7,17 +7,11 @@
 #'
 #' @param model_out_tbl an object of class `model_out_tbl` containing predictions
 #'    with a single, unique value in the `output_type` column.
-#' @param terminal_output_type character vector of the desired output type(s)
-#'   following transformation. May contain any of the following output types:
-#'   `"mean"`, `"median"`, `"quantile"`
-#' @param terminal_output_type_id (generally) a named list indicating the desired
-#'   output type IDs for each new output type. Can be one of three possible data
-#'   types, for the following output types:
-#'   - `NA` for `"mean"` and `"median"` (no associated output type ID)
-#'   - a numeric vector of probability levels for `"quantile"`
-#'
-#'   If only one new output type is requested, the singular list item may be supplied
-#'   directly. Defaults to `NA`. See the examples for an illustration of both cases.
+#' @param terminal_output_type_id a named list indicating the desired output types and
+#'   associated output type IDs. List item name and value pairs may be as follows:
+#'   - `mean`: `NA` (no associated output type ID)
+#'   - `median`: `NA` (no associated output type ID)
+#'   - `quantile`: a numeric vector of probability levels
 #'
 #' @details Currently, only `"sample"` can be converted to `"mean"`, `"median"`, or `"quantile"`
 #'
@@ -34,24 +28,22 @@
 #' dplyr::mutate(value = rnorm(200, mean = group1))
 #'
 #' # Multiple output type conversions in one call
-#' convert_output_type(model_out_tbl, terminal_output_type = c("quantile", "median"),
-#'    terminal_output_type_id = list("quantile" = ex_quantiles, "median" = NA))
+#' convert_output_type(model_out_tbl,
+#'   terminal_output_type_id = list("quantile" = ex_quantiles, "median" = NA))
 #'
 #' # Single output type conversion
-#' convert_output_type(model_out_tbl, terminal_output_type = "quantile",
-#'    terminal_output_type_id = ex_quantiles)
+#' convert_output_type(model_out_tbl, terminal_output_type_id = list("quantile" = ex_quantiles))
 #'
 #' @return object of class `model_out_tbl` containing (only) predictions of the
 #'   terminal output_type(s) for each unique combination of task IDs for each model
 #'
 #' @export
 #' @importFrom rlang .data
-convert_output_type <- function(model_out_tbl, terminal_output_type,
-                                terminal_output_type_id = NA) {
+convert_output_type <- function(model_out_tbl, terminal_output_type_id) {
   # validations
-  model_out_tbl <- validate_conversion_inputs(
-    model_out_tbl, terminal_output_type, terminal_output_type_id
-  )
+  terminal_output_type <- names(terminal_output_type_id)
+  model_out_tbl <- validate_conversion_inputs(model_out_tbl, terminal_output_type, terminal_output_type_id)
+
 
   terminal_output_type |>
     purrr::map(convert_single_output_type, terminal_output_type_id, model_out_tbl) |>
@@ -65,9 +57,7 @@ convert_output_type <- function(model_out_tbl, terminal_output_type,
 convert_single_output_type <- function(terminal_output_type, terminal_output_type_id, model_out_tbl) {
   task_id_cols <- subset_task_id_names(names(model_out_tbl))
   grouped_model_outputs <- dplyr::group_by(model_out_tbl, dplyr::across(dplyr::all_of(c("model_id", task_id_cols))))
-  if (is.list(terminal_output_type_id)) {
-    terminal_output_type_id <- terminal_output_type_id[[terminal_output_type]]
-  }
+  terminal_output_type_id <- terminal_output_type_id[[terminal_output_type]]
 
   if (terminal_output_type == "mean") {
     converted_outputs_tmp <- dplyr::reframe(
@@ -94,7 +84,8 @@ convert_single_output_type <- function(terminal_output_type, terminal_output_typ
 
 #' Validate inputs to convert_output_types
 #' @noRd
-validate_conversion_inputs <- function(model_out_tbl, terminal_output_type, terminal_output_type_id) {
+validate_conversion_inputs <- function(model_out_tbl, terminal_output_type,
+                                       terminal_output_type_id) {
   # check model_out_tbl contains the "model_id" column
   # otherwise, coercion to model_out_tbl will fail
   model_cols <- colnames(model_out_tbl)
@@ -127,17 +118,14 @@ validate_conversion_inputs <- function(model_out_tbl, terminal_output_type, term
     ))
   }
   # check terminal_output_type_id
-  if (length(terminal_output_type) == 1) {
-    validate_terminal_output_type_id(terminal_output_type, terminal_output_type_id)
-  } else if (length(terminal_output_type > 1)) {
-    purrr::map(
-      .x = terminal_output_type,
-      ~ validate_terminal_output_type_id(
-        terminal_output_type = .x,
-        terminal_output_type_id = terminal_output_type_id[[.x]]
-      )
+  purrr::walk(
+    .x = terminal_output_type,
+    ~ validate_terminal_output_type_id(
+      terminal_output_type = .x,
+      terminal_output_type_id = terminal_output_type_id[[.x]]
     )
-  }
+  )
+
   as_model_out_tbl(model_out_tbl)
 }
 
@@ -162,7 +150,7 @@ validate_terminal_output_type_id <- function(terminal_output_type, terminal_outp
       cli::cli_abort(c(
         "elements of {.var terminal_output_type_id} should be between 0 and 1",
         i = "elements of {.var terminal_output_type_id} represent quantiles
-                of the predictive distribution"
+                 the predictive distribution"
       ))
     }
   }

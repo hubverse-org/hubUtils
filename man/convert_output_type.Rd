@@ -4,30 +4,19 @@
 \alias{convert_output_type}
 \title{Transform between output types}
 \usage{
-convert_output_type(
-  model_out_tbl,
-  terminal_output_type,
-  terminal_output_type_id = NA
-)
+convert_output_type(model_out_tbl, terminal_output_type_id)
 }
 \arguments{
 \item{model_out_tbl}{an object of class \code{model_out_tbl} containing predictions
 with a single, unique value in the \code{output_type} column.}
 
-\item{terminal_output_type}{character vector of the desired output type(s)
-following transformation. May contain any of the following output types:
-\code{"mean"}, \code{"median"}, \code{"quantile"}}
-
-\item{terminal_output_type_id}{(generally) a named list indicating the desired
-output type IDs for each new output type. Can be one of three possible data
-types, for the following output types:
+\item{terminal_output_type_id}{a named list indicating the desired output types and
+associated output type IDs. List item name and value pairs may be as follows:
 \itemize{
-\item \code{NA} for \code{"mean"} and \code{"median"} (no associated output type ID)
-\item a numeric vector of probability levels for \code{"quantile"}
-}
-
-If only one new output type is requested, the singular list item may be supplied
-directly. Defaults to \code{NA}. See the examples for an illustration of both cases.}
+\item \code{mean}: \code{NA} (no associated output type ID)
+\item \code{median}: \code{NA} (no associated output type ID)
+\item \code{quantile}: a numeric vector of probability levels
+}}
 }
 \value{
 object of class \code{model_out_tbl} containing (only) predictions of the
@@ -55,11 +44,10 @@ model_out_tbl <- expand.grid(
 dplyr::mutate(value = rnorm(200, mean = group1))
 
 # Multiple output type conversions in one call
-convert_output_type(model_out_tbl, terminal_output_type = c("quantile", "median"),
-   terminal_output_type_id = list("quantile" = ex_quantiles, "median" = NA))
+convert_output_type(model_out_tbl,
+  terminal_output_type_id = list("quantile" = ex_quantiles, "median" = NA))
 
 # Single output type conversion
-convert_output_type(model_out_tbl, terminal_output_type = "quantile",
-   terminal_output_type_id = ex_quantiles)
+convert_output_type(model_out_tbl, terminal_output_type_id = list("quantile" = ex_quantiles))
 
 }
