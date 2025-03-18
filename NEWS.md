@@ -1,5 +1,9 @@
 # hubUtils (development version)
 
+* Added `convert_output_types()` function to convert model outputs from one output type to another (currently only supports sample to mean, median, and quantile) (#212, #214, #215)
+
+# hubUtils 0.5.0
+
 * `read_config_file` now accepts a URL to the **raw contents** of a JSON config file as well as an object of class `<SubTreeFileSystem>` pointing to a config file in an S3 cloud hub  (#209). This enables reading config files directly from GitHub S3 cloud hubs without having to clone the contents of a hub locally.   
 * `read_config` now also accepts a URL to of a fully configured hub repository hosted on GitHub.
 * Added utilities for working with URLs:
