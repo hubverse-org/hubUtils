@@ -8,6 +8,10 @@ on:
       - 'inst/testhubs/simple/hub-config/**'
       - '!inst/testhubs/simple/**README**'
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   validate-hub-config:
     runs-on: ubuntu-latest

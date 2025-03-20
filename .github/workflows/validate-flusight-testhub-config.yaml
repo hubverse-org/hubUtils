@@ -8,6 +8,10 @@ on:
       - 'inst/testhubs/flusight/hub-config/**'
       - '!inst/testhubs/flusight/**README**'
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   validate-hub-config:
     runs-on: ubuntu-latest
