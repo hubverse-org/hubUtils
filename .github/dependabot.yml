@@ -1,0 +1,10 @@
+# instruct GitHub dependabot to scan github actions for dependency updates
+
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    # dependabot automatically checks .github/workflows/ and .github/actions/
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
