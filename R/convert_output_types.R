@@ -55,31 +55,60 @@ convert_output_type <- function(model_out_tbl, terminal_output_type_id) {
 #' @noRd
 #' @importFrom rlang .data
 convert_single_output_type <- function(terminal_output_type, terminal_output_type_id, model_out_tbl) {
-  task_id_cols <- subset_task_id_names(names(model_out_tbl))
+  model_out_cols <- colnames(model_out_tbl)
+  task_id_cols <- subset_task_id_names(model_out_cols)
   grouped_model_outputs <- dplyr::group_by(model_out_tbl, dplyr::across(dplyr::all_of(c("model_id", task_id_cols))))
   terminal_output_type_id <- terminal_output_type_id[[terminal_output_type]]
 
-  if (terminal_output_type == "mean") {
-    converted_outputs_tmp <- dplyr::reframe(
-      grouped_model_outputs,
-      output_type_id = terminal_output_type_id,
-      value = mean(.data[["value"]])
-    )
-  } else if (terminal_output_type == "median") {
-    converted_outputs_tmp <- dplyr::reframe(
-      grouped_model_outputs,
-      output_type_id = terminal_output_type_id,
-      value = stats::median(.data[["value"]])
-    )
+  if (terminal_output_type %in% c("mean", "median")) {
+    otid_cols <- "output_type_id"
+    transform_fun <- get(terminal_output_type)
+    transform_args <- list(x = quote(.data[["value"]]))
+    converted_outputs <- grouped_model_outputs
   } else if (terminal_output_type == "quantile") {
-    converted_outputs_tmp <- dplyr::reframe(
+    otid_cols <- "output_type_id"
+    transform_fun <- stats::quantile
+    transform_args <- list(
+      x = quote(unlist(.data[["initial_value"]])),
+      probs = quote(unlist(.data[["output_type_id"]])),
+      names = FALSE
+    )
+    converted_outputs <- dplyr::summarize(
       grouped_model_outputs,
-      output_type_id = terminal_output_type_id,
-      value = stats::quantile(.data[["value"]], as.numeric(terminal_output_type_id), names = FALSE)
+      initial_value = list(.data[["value"]])
     )
   }
 
-  dplyr::mutate(converted_outputs_tmp, output_type = terminal_output_type, .before = "output_type_id")
+  # if overlapping columns, join converted_outputs with terminal_output_type_id
+  # else,
+  # else, we mutate a new nested column, then unnest in that case
+  join_cols <- task_id_cols[task_id_cols %in% colnames(terminal_output_type_id)]
+  if (length(join_cols) > 0) {
+    converted_outputs <- converted_outputs |>
+      dplyr::left_join(
+        terminal_output_type_id,
+        by = join_cols,
+        relationship = "many-to-many"
+      )
+  } else {
+    converted_outputs <- converted_outputs |>
+      dplyr::mutate(output_type_id = list(terminal_output_type_id)) |>
+      tidyr::unnest(cols = "output_type_id")
+  }
+
+  # compute prediction values, clean up included columns
+  converted_outputs |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(c("model_id", task_id_cols, otid_cols)))) |>
+    dplyr::summarize(
+      value = list(do.call(transform_fun, args = transform_args)),
+      .groups = "drop"
+    ) |>
+    tidyr::unnest(cols = "value") |>
+    dplyr::mutate(
+      output_type = terminal_output_type,
+      .before = "output_type_id"
+    ) |>
+    dplyr::select(dplyr::all_of(model_out_cols))
 }
 
 #' Validate inputs to convert_output_types
@@ -88,8 +117,9 @@ validate_conversion_inputs <- function(model_out_tbl, terminal_output_type,
                                        terminal_output_type_id) {
   # check model_out_tbl contains the "model_id" column
   # otherwise, coercion to model_out_tbl will fail
-  model_cols <- colnames(model_out_tbl)
-  if (!("model_id" %in% model_cols)) {
+  model_out_cols <- colnames(model_out_tbl)
+  task_id_cols <- subset_task_id_names(model_out_cols)
+  if (!("model_id" %in% model_out_cols)) {
     cli::cli_abort(c("Provided {.arg model_output_tbl} must contain the column {.val {'model_id'}}"))
   }
   # check only one initial_output_type is provided
@@ -122,7 +152,8 @@ validate_conversion_inputs <- function(model_out_tbl, terminal_output_type,
     .x = terminal_output_type,
     ~ validate_terminal_output_type_id(
       terminal_output_type = .x,
-      terminal_output_type_id = terminal_output_type_id[[.x]]
+      terminal_output_type_id = terminal_output_type_id[[.x]],
+      task_id_cols
     )
   )
 
@@ -132,26 +163,49 @@ validate_conversion_inputs <- function(model_out_tbl, terminal_output_type,
 
 #' Validate the terminal output type id values for a single terminal output type
 #' @noRd
-validate_terminal_output_type_id <- function(terminal_output_type, terminal_output_type_id) {
+validate_terminal_output_type_id <- function(terminal_output_type, terminal_output_type_id, task_id_cols) {
   if (terminal_output_type %in% c("mean", "median") && !all(is.na(terminal_output_type_id))) {
     cli::cli_abort(c(
       "{.var terminal_output_type_id} is incompatible with {.var terminal_output_type}",
       i = "{.var terminal_output_type_id} should be {.val NA}"
     ))
-  } else if (terminal_output_type == "quantile") {
-    if (!is.numeric(terminal_output_type_id)) {
-      cli::cli_abort(c(
-        "elements of {.var terminal_output_type_id} should be numeric",
-        i = "elements of {.var terminal_output_type_id} represent quantiles
-                of the predictive distribution"
-      ))
+  } else { # has non-NA associated output type id values
+    if (is.data.frame(terminal_output_type_id)) {
+      # joining_columns must be part of task_ids
+      req_term_otid_cols <- c("output_type_id") # PMF also needs "lower" and "upper"
+      if (!(req_term_otid_cols %in% names(terminal_output_type_id))) {
+        cli::cli_abort(c(
+          "{.var terminal_output_type_id} did not contain the required column {.val req_term_otid_cols}"
+        ))
+      }
+      join_by_cols <- names(terminal_output_type_id)[!(names(terminal_output_type_id) %in% req_term_otid_cols)]
+      invalid_cols <- join_by_cols[!(join_by_cols %in% task_id_cols)]
+      if (length(invalid_cols) > 0) {
+        cli::cli_abort(c(
+          "x" = "an element of {.arg terminal_output_type_id} included {length(invalid_cols)} task ID{?s} that
+                 {?was/were} not present in {.arg model_out_tbl}: {.val {invalid_cols}}"
+        ))
+      }
+
+      terminal_output_type_id <- terminal_output_type_id$output_type_id
     }
-    if (any(terminal_output_type_id < 0) || any(terminal_output_type_id > 1)) {
-      cli::cli_abort(c(
-        "elements of {.var terminal_output_type_id} should be between 0 and 1",
-        i = "elements of {.var terminal_output_type_id} represent quantiles
-                 the predictive distribution"
-      ))
+
+    if (terminal_output_type == "quantile") {
+      terminal_output_type_id_quantile <- terminal_output_type_id
+      if (!is.numeric(terminal_output_type_id_quantile)) {
+        cli::cli_abort(c(
+          "elements of {.var terminal_output_type_id} should be numeric",
+          i = "elements of {.var terminal_output_type_id} represent quantiles
+                  of the predictive distribution"
+        ))
+      }
+      if (any(terminal_output_type_id_quantile < 0) || any(terminal_output_type_id_quantile > 1)) {
+        cli::cli_abort(c(
+          "elements of {.var terminal_output_type_id} should be between 0 and 1",
+          i = "elements of {.var terminal_output_type_id} represent quantiles
+                  of the predictive distribution"
+        ))
+      }
     }
   }
 }
