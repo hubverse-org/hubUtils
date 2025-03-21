@@ -36,8 +36,10 @@ Imports:
     memoise,
     purrr,
     rlang,
+    stats,
     stringr,
     tibble,
+    tidyr,
     utils
 Suggests: 
     arrow (>= 17.0.0),
