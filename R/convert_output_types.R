@@ -117,7 +117,6 @@ validate_conversion_inputs <- function(model_out_tbl, terminal_output_type,
   # check model_out_tbl contains the "model_id" column
   # otherwise, coercion to model_out_tbl will fail
   model_out_cols <- colnames(model_out_tbl)
-  task_id_cols <- subset_task_id_names(model_out_cols)
   if (!("model_id" %in% model_out_cols)) {
     cli::cli_abort(c("Provided {.arg model_output_tbl} must contain the column {.val {'model_id'}}"))
   }
@@ -152,7 +151,7 @@ validate_conversion_inputs <- function(model_out_tbl, terminal_output_type,
     ~ validate_terminal_output_type_id(
       terminal_output_type = .x,
       terminal_output_type_id = terminal_output_type_id[[.x]],
-      task_id_cols
+      task_id_cols = subset_task_id_names(model_out_cols)
     )
   )
 

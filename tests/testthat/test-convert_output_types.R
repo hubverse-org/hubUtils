@@ -70,7 +70,10 @@ test_that("providing incompatible output_type_ids throws an error", {
 
   # data frame terminal_output_type_id contains the required columns
   expect_error(
-    convert_output_type(sample_outputs, terminal_output_type_id = list("quantile" = data.frame(value = c(0.25, 0.5, 0.75)))),
+    convert_output_type(
+      sample_outputs,
+      terminal_output_type_id = list("quantile" = data.frame(value = c(0.25, 0.5, 0.75)))
+    ),
     "`terminal_output_type_id` did not contain the required column ", fixed = TRUE
   )
   # data frame terminal_output_type_id includes task IDs not present in
