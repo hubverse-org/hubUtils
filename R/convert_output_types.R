@@ -64,7 +64,7 @@ convert_single_output_type <- function(terminal_output_type, terminal_output_typ
     otid_cols <- "output_type_id"
     transform_fun <- get(terminal_output_type)
     transform_args <- list(x = quote(.data[["value"]]))
-    converted_outputs <- grouped_model_outputs
+    grouped_model_outputs <- grouped_model_outputs
   } else if (terminal_output_type == "quantile") {
     otid_cols <- "output_type_id"
     transform_fun <- stats::quantile
@@ -73,31 +73,30 @@ convert_single_output_type <- function(terminal_output_type, terminal_output_typ
       probs = quote(unlist(.data[["output_type_id"]])),
       names = FALSE
     )
-    converted_outputs <- dplyr::summarize(
+    grouped_model_outputs <- dplyr::summarize(
       grouped_model_outputs,
       initial_value = list(.data[["value"]])
     )
   }
 
-  # if overlapping columns, join converted_outputs with terminal_output_type_id
-  # else,
+  # if overlapping columns, join grouped_model_outputs with terminal_output_type_id
   # else, we mutate a new nested column, then unnest in that case
   join_cols <- task_id_cols[task_id_cols %in% colnames(terminal_output_type_id)]
   if (length(join_cols) > 0) {
-    converted_outputs <- converted_outputs |>
+    grouped_model_outputs <- grouped_model_outputs |>
       dplyr::left_join(
         terminal_output_type_id,
         by = join_cols,
         relationship = "many-to-many"
       )
   } else {
-    converted_outputs <- converted_outputs |>
+    grouped_model_outputs <- grouped_model_outputs |>
       dplyr::mutate(output_type_id = list(terminal_output_type_id)) |>
       tidyr::unnest(cols = "output_type_id")
   }
 
   # compute prediction values, clean up included columns
-  converted_outputs |>
+  grouped_model_outputs |>
     dplyr::group_by(dplyr::across(dplyr::all_of(c("model_id", task_id_cols, otid_cols)))) |>
     dplyr::summarize(
       value = list(do.call(transform_fun, args = transform_args)),
