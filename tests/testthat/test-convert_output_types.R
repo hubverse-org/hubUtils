@@ -117,11 +117,11 @@ test_that("More complex conversions from samples works", {
   ps_222 <- c(0.25, 0.5, 0.75)
   ps_888 <- c(0.1, 0.25, 0.5, 0.75, 0.9)
   quantile_levels <- rbind(
-    expand.grid(
+    data.frame(
       location = "222",
       output_type_id = ps_222
     ),
-    expand.grid(
+    data.frame(
       location = "888",
       output_type_id = ps_888
     )
