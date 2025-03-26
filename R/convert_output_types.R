@@ -7,13 +7,17 @@
 #'
 #' @param model_out_tbl an object of class `model_out_tbl` containing predictions
 #'    with a single, unique value in the `output_type` column.
-#' @param terminal_output_type_id a named list indicating the desired output types and
-#'   associated output type IDs. List item name and value pairs may be as follows:
+#' @param terminal_output_type_id a named list indicating the desired output types
+#'   and associated output type IDs. List item name and value pairs may be as
+#'   follows:
 #'   - `mean`: `NA` (no associated output type ID)
 #'   - `median`: `NA` (no associated output type ID)
-#'   - `quantile`: a numeric vector of probability levels
+#'   - `quantile`: a numeric vector of probability levels OR a dataframe of
+#'     probability levels and the task ID variables they depend upon.
+#'     (See examples section for an example of each.)
 #'
-#' @details Currently, only `"sample"` can be converted to `"mean"`, `"median"`, or `"quantile"`
+#' @details Currently, only `"sample"` can be converted to `"mean"`, `"median"`,
+#' or `"quantile"`
 #'
 #' @examples
 #' # We illustrate the conversion between output types using normal distributions
@@ -27,12 +31,18 @@
 #' ) |>
 #' dplyr::mutate(value = rnorm(200, mean = group1))
 #'
-#' # Multiple output type conversions in one call
+#' # Output type conversions with vector `terminal_output_type_id` elements
 #' convert_output_type(model_out_tbl,
 #'   terminal_output_type_id = list("quantile" = ex_quantiles, "median" = NA))
 #'
-#' # Single output type conversion
-#' convert_output_type(model_out_tbl, terminal_output_type_id = list("quantile" = ex_quantiles))
+#' # Output type conversion with dataframe `terminal_output_type_id` element
+#' # Output type ID values (quantile levels) are determined by group1 value
+#' quantile_levels <- rbind(
+#'  data.frame(group1 = 1, output_type_id = 0.5),
+#'  data.frame(group1 = 2, output_type_id = c(0.25, 0.5, 0.75))
+#' )
+#' convert_output_type(model_out_tbl,
+#'   terminal_output_type_id = list("quantile" = quantile_levels))
 #'
 #' @return object of class `model_out_tbl` containing (only) predictions of the
 #'   terminal output_type(s) for each unique combination of task IDs for each model
