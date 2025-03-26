@@ -62,7 +62,7 @@ convert_single_output_type <- function(terminal_output_type, terminal_output_typ
 
   if (terminal_output_type %in% c("mean", "median")) {
     otid_cols <- "output_type_id"
-    transform_fun <- get(terminal_output_type)
+    transform_fun <- match.fun(terminal_output_type)
     transform_args <- list(x = quote(.data[["value"]]))
   } else if (terminal_output_type == "quantile") {
     otid_cols <- "output_type_id"
