@@ -1,5 +1,4 @@
-# instruct GitHub dependabot to scan github actions for dependency updates
-
+# instruct GitHub dependabot to scan github actions for updates
 version: 2
 updates:
   - package-ecosystem: "github-actions"
@@ -7,4 +6,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-
+    # group all run-of-the mill updates into a single pull request
+    groups:
+      updates:
+        applies-to: version-updates
+        update-types:
+          - patch
+          - minor
