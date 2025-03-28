@@ -39,7 +39,6 @@ Imports:
     stats,
     stringr,
     tibble,
-    tidyr,
     utils
 Suggests: 
     arrow (>= 17.0.0),
