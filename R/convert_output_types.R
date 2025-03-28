@@ -86,7 +86,7 @@ convert_single_output_type <- function(terminal_output_type, terminal_output_typ
   }
 
   # if overlapping columns, join grouped_model_outputs with terminal_output_type_id
-  # else, cross-join to avoid warnings (vector terminal_output_type_id elements 
+  # else, cross-join to avoid warnings (vector terminal_output_type_id elements
   #   are coerced to data frames during validation)
   join_cols <- task_id_cols[task_id_cols %in% colnames(terminal_output_type_id)]
   if (length(join_cols) > 0) {
@@ -208,8 +208,7 @@ validate_terminal_output_type_id <- function(terminal_output_type, terminal_outp
                   of the predictive distribution"
         ))
       }
-      if (any(terminal_output_type_id$output_type_id < 0) ||
-        any(terminal_output_type_id$output_type_id > 1)) {
+      if (any(terminal_output_type_id$output_type_id < 0) || any(terminal_output_type_id$output_type_id > 1)) {
         cli::cli_abort(c(
           "elements of {.var terminal_output_type_id} should be between 0 and 1",
           i = "elements of {.var terminal_output_type_id} represent quantiles
@@ -218,6 +217,6 @@ validate_terminal_output_type_id <- function(terminal_output_type, terminal_outp
       }
     }
 
-  terminal_output_type_id
+    terminal_output_type_id
   }
 }
