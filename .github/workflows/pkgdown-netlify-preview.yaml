@@ -27,7 +27,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-tinytex@14a7e741c1cb130261263aa1593718ba42cf443b  #v2.11.2
 
