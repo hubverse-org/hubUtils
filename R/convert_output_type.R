@@ -111,7 +111,6 @@ convert_single_output_type <- function(terminal_output_type, terminal_output_typ
       output_type = terminal_output_type,
       .before = "output_type_id"
     ) |>
-    dplyr::distinct(!!!rlang::syms(model_out_cols)) |>
     dplyr::select(dplyr::all_of(model_out_cols))
 }
 
