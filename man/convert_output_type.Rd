@@ -4,15 +4,14 @@
 \alias{convert_output_type}
 \title{Transform between output types}
 \usage{
-convert_output_type(model_out_tbl, terminal_output_type_id)
+convert_output_type(model_out_tbl, to)
 }
 \arguments{
 \item{model_out_tbl}{an object of class \code{model_out_tbl} containing predictions
 with a single, unique value in the \code{output_type} column.}
 
-\item{terminal_output_type_id}{a named list indicating the desired output types
-and associated output type IDs. List item name and value pairs may be as
-follows:
+\item{to}{a named list indicating the desired output types and associated
+output type IDs. List item name and value pairs may be as follows:
 \itemize{
 \item \code{mean}: \code{NA} (no associated output type ID)
 \item \code{median}: \code{NA} (no associated output type ID)
@@ -23,12 +22,12 @@ probability levels and the task ID variables they depend upon.
 }
 \value{
 object of class \code{model_out_tbl} containing (only) predictions of the
-terminal output_type(s) for each unique combination of task IDs for each model
+to output_type(s) for each unique combination of task IDs for each model
 }
 \description{
 Transform between output types for each unique combination of task IDs for each
 model. Conversion must be from a single initial output type to one or more
-terminal output types, and the resulting output will only contain the terminal
+to output types, and the resulting output will only contain the to
 output types. See details for supported conversions.
 }
 \details{
@@ -47,17 +46,17 @@ model_out_tbl <- expand.grid(
 ) |>
 dplyr::mutate(value = rnorm(200, mean = group1))
 
-# Output type conversions with vector `terminal_output_type_id` elements
+# Output type conversions with vector `to` elements
 convert_output_type(model_out_tbl,
-  terminal_output_type_id = list("quantile" = ex_quantiles, "median" = NA))
+  to = list("quantile" = ex_quantiles, "median" = NA))
 
-# Output type conversion with dataframe `terminal_output_type_id` element
+# Output type conversion with dataframe `to` element
 # Output type ID values (quantile levels) are determined by group1 value
 quantile_levels <- rbind(
  data.frame(group1 = 1, output_type_id = 0.5),
  data.frame(group1 = 2, output_type_id = c(0.25, 0.5, 0.75))
 )
 convert_output_type(model_out_tbl,
-  terminal_output_type_id = list("quantile" = quantile_levels))
+  to = list("quantile" = quantile_levels))
 
 }
