@@ -23,25 +23,27 @@
 #' ex_quantiles <- c(0.25, 0.5, 0.75)
 #' model_out_tbl <- expand.grid(
 #'   stringsAsFactors = FALSE,
-#'   group1 = c(1,2),
+#'   group1 = c(1, 2),
 #'   model_id = "A",
 #'   output_type = "sample",
 #'   output_type_id = 1:100
 #' ) |>
-#' dplyr::mutate(value = rnorm(200, mean = group1))
+#'   dplyr::mutate(value = rnorm(200, mean = group1))
 #'
 #' # Output type conversions with vector `to` elements
 #' convert_output_type(model_out_tbl,
-#'   to = list("quantile" = ex_quantiles, "median" = NA))
+#'   to = list("quantile" = ex_quantiles, "median" = NA)
+#' )
 #'
 #' # Output type conversion with dataframe `to` element
 #' # Output type ID values (quantile levels) are determined by group1 value
 #' quantile_levels <- rbind(
-#'  data.frame(group1 = 1, output_type_id = 0.5),
-#'  data.frame(group1 = 2, output_type_id = c(0.25, 0.5, 0.75))
+#'   data.frame(group1 = 1, output_type_id = 0.5),
+#'   data.frame(group1 = 2, output_type_id = c(0.25, 0.5, 0.75))
 #' )
 #' convert_output_type(model_out_tbl,
-#'   to = list("quantile" = quantile_levels))
+#'   to = list("quantile" = quantile_levels)
+#' )
 #'
 #' @return object of class `model_out_tbl` containing (only) predictions of the
 #'   to output_type(s) for each unique combination of task IDs for each model
@@ -123,9 +125,10 @@ validate_conversion_inputs <- function(model_out_tbl, to_output_type, to) {
   initial_output_type <- unique(model_out_tbl$output_type)
   if (length(initial_output_type) != 1L) {
     cli::cli_abort(
-      c("!" = "Provided {.arg model_out_tbl} may only contain one output type.",
+      c(
+        "!" = "Provided {.arg model_out_tbl} may only contain one output type.",
         "x" = "Found {length(initial_output_type)} output types: {.val {initial_output_type}}."
-        )
+      )
     )
   }
   valid_conversions <- list(
@@ -135,10 +138,12 @@ validate_conversion_inputs <- function(model_out_tbl, to_output_type, to) {
   valid_initial_output_type <- initial_output_type %in% names(valid_conversions)
   if (!valid_initial_output_type) {
     cli::cli_abort(
-      c("!" = "Conversion of {.arg output_type} {.val {initial_output_type}} is not supported",
-      i = "Only conversions of {.val {names(valid_conversions)}} output type{?s} 
+      c(
+        "!" = "Conversion of {.arg output_type} {.val {initial_output_type}} is not supported",
+        i = "Only conversions of {.val {names(valid_conversions)}} output type{?s}
       are currently supported"
-    ))
+      )
+    )
   }
   # check to_output_type is supported
   invalid_to_output_type <- setdiff(to_output_type, valid_conversions[[initial_output_type]])
@@ -188,7 +193,7 @@ validate_to_output <- function(to_output_type, to_otid, task_id_cols) {
     req_to_otid_cols <- "output_type_id"
     if (!all(req_to_otid_cols %in% names(to_otid))) {
       cli::cli_abort(c(
-        "the {.val {to_output_type}} element of {.arg to} did not contain 
+        "the {.val {to_output_type}} element of {.arg to} did not contain
         the required column {.val {req_to_otid_cols}}"
       ))
     }
@@ -198,8 +203,8 @@ validate_to_output <- function(to_output_type, to_otid, task_id_cols) {
     invalid_cols <- join_by_cols[!(join_by_cols %in% task_id_cols)]
     if (length(invalid_cols) > 0L) {
       cli::cli_abort(c(
-        "x" = "the {.val to_output_type} element of {.arg to} included 
-              {length(invalid_cols)} task ID{?s} that {?was/were} not present in 
+        "x" = "the {.val to_output_type} element of {.arg to} included
+              {length(invalid_cols)} task ID{?s} that {?was/were} not present in
               {.arg model_out_tbl}: {.val {invalid_cols}}"
       ))
     }
@@ -207,7 +212,7 @@ validate_to_output <- function(to_output_type, to_otid, task_id_cols) {
     if (to_output_type == "quantile") {
       if (!is.numeric(to_otid$output_type_id)) {
         cli::cli_abort(c(
-          "!" = "Values in {.arg to} representing {.val quantile} output type IDs 
+          "!" = "Values in {.arg to} representing {.val quantile} output type IDs
           should be numeric"
         ))
       }
@@ -215,7 +220,7 @@ validate_to_output <- function(to_output_type, to_otid, task_id_cols) {
       more_than_1 <- to_otid$output_type_id > 1
       if (any(less_than_0) || any(more_than_1)) {
         cli::cli_abort(c(
-          "!" = "Values in {.arg to} representing {.val quantile} output type IDs 
+          "!" = "Values in {.arg to} representing {.val quantile} output type IDs
           should be between {.val {0L}} and {.val {1L}}.",
           x = "Value{?s} outside this range found:
           {.val {to_otid$output_type_id[less_than_0 | more_than_1]}}"

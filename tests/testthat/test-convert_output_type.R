@@ -13,7 +13,7 @@ test_that("providing a model_output_tbl with multiple output types throws an err
     stringsAsFactors = FALSE,
     model_id = letters[1:4],
     location = "111",
-    horizon = 1, #week
+    horizon = 1, # week
     target = "inc death",
     target_date = as.Date("2021-12-25"),
     output_type = c("mean", "median"),
@@ -22,7 +22,8 @@ test_that("providing a model_output_tbl with multiple output types throws an err
   )
   expect_error(
     convert_output_type(mixed_outputs, to = list("quantile" = 0.5)),
-    "Provided `model_out_tbl` may only contain one output type", fixed = TRUE
+    "Provided `model_out_tbl` may only contain one output type",
+    fixed = TRUE
   )
 })
 
@@ -31,7 +32,7 @@ test_that("providing a model_out_tbl containing an unsupported output type throw
     stringsAsFactors = FALSE,
     model_id = letters[1:4],
     location = "111",
-    horizon = 1, #week
+    horizon = 1, # week
     target = "inc death",
     target_date = as.Date("2021-12-25"),
     output_type = c("median"),
@@ -40,7 +41,8 @@ test_that("providing a model_out_tbl containing an unsupported output type throw
   )
   expect_error(
     convert_output_type(median_outputs, to = list("quantile" = 0.5)),
-    "Conversion of `output_type` ", fixed = TRUE
+    "Conversion of `output_type` ",
+    fixed = TRUE
   )
 })
 
@@ -48,7 +50,8 @@ test_that("requesting an unsupported or invalid conversion throws an error", {
   sample_outputs <- create_test_sample_outputs()
   expect_error(
     convert_output_type(sample_outputs, to = list("cdf" = 0.5)),
-    " cannot be converted to", fixed = TRUE
+    " cannot be converted to",
+    fixed = TRUE
   )
 })
 
@@ -57,7 +60,8 @@ test_that("providing incompatible output_type_ids throws an error", {
   # mean and median have to NA
   expect_warning(
     convert_output_type(sample_outputs, to = list("mean" = 0.5)),
-    "`to` is incompatible with ", fixed = TRUE
+    "`to` is incompatible with ",
+    fixed = TRUE
   )
   # quantile has numeric to between 0 and 1
   expect_error(
@@ -65,7 +69,8 @@ test_that("providing incompatible output_type_ids throws an error", {
       sample_outputs,
       to = list("mean" = NA, "quantile" = c(0.25, 1.75))
     ),
-    "Values in `to` representing ", fixed = TRUE
+    "Values in `to` representing ",
+    fixed = TRUE
   )
   # quantile has numeric to values
   expect_error(
@@ -83,7 +88,8 @@ test_that("providing incompatible output_type_ids throws an error", {
       sample_outputs,
       to = list("quantile" = data.frame(value = c(0.25, 0.5, 0.75)))
     ),
-    "`to` did not contain the required column ", fixed = TRUE
+    "`to` did not contain the required column ",
+    fixed = TRUE
   )
   # data frame to includes task IDs not present in
   # the original model output data
@@ -92,7 +98,8 @@ test_that("providing incompatible output_type_ids throws an error", {
       sample_outputs,
       to = list("quantile" = expand.grid(group = c(1, 2), output_type_id = c(0.33, 0.66)))
     ),
-    " element of `to` included ", fixed = TRUE
+    " element of `to` included ",
+    fixed = TRUE
   )
 })
 
@@ -102,7 +109,7 @@ test_that("Simple conversions from samples works", {
     KEEP.OUT.ATTRS = FALSE,
     model_id = letters[1:4],
     location = c("222", "888"),
-    horizon = 1, #week
+    horizon = 1, # week
     target = "inc death",
     target_date = as.Date("2021-12-25"),
     output_type = c("mean", "median"),
@@ -141,7 +148,7 @@ test_that("More complex conversions from samples works", {
     KEEP.OUT.ATTRS = FALSE,
     model_id = letters[1:4],
     location = c("222", "888"),
-    horizon = 1, #week
+    horizon = 1, # week
     target = "inc death",
     target_date = as.Date("2021-12-25"),
     output_type = "quantile",
