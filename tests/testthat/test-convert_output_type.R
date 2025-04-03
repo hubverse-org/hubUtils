@@ -44,7 +44,7 @@ test_that("providing a model_out_tbl containing an unsupported output type throw
   )
 })
 
-test_that("requesting an unsupported or invalid transformation throws an error", {
+test_that("requesting an unsupported or invalid conversion throws an error", {
   sample_outputs <- create_test_sample_outputs()
   expect_error(
     convert_output_type(sample_outputs, to = list("cdf" = 0.5)),
@@ -55,7 +55,7 @@ test_that("requesting an unsupported or invalid transformation throws an error",
 test_that("providing incompatible output_type_ids throws an error", {
   sample_outputs <- create_test_sample_outputs()
   # mean and median have to NA
-  expect_error(
+  expect_warning(
     convert_output_type(sample_outputs, to = list("mean" = 0.5)),
     "`to` is incompatible with ", fixed = TRUE
   )
@@ -65,18 +65,18 @@ test_that("providing incompatible output_type_ids throws an error", {
       sample_outputs,
       to = list("mean" = NA, "quantile" = c(0.25, 1.75))
     ),
-    "elements of `to` should be between 0 and 1", fixed = TRUE
+    "Values in `to` representing ", fixed = TRUE
   )
-
-  # quantile has numeric terminal_output_type_id
+  # quantile has numeric to values
   expect_error(
     convert_output_type(
       sample_outputs,
-      terminal_output_type_id = list("mean" = NA, "quantile" = c("0.25", 0.75))
+      to = list("mean" = NA, "quantile" = c("0.25", 0.75))
     ),
-    "Values in `terminal_output_type_id` representing",
+    "Values in `to` representing",
     fixed = TRUE
   )
+
   # data frame to contains the required columns
   expect_error(
     convert_output_type(
@@ -92,7 +92,7 @@ test_that("providing incompatible output_type_ids throws an error", {
       sample_outputs,
       to = list("quantile" = expand.grid(group = c(1, 2), output_type_id = c(0.33, 0.66)))
     ),
-    "an element of `to` included ", fixed = TRUE
+    " element of `to` included ", fixed = TRUE
   )
 })
 

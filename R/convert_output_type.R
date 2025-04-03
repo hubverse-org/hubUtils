@@ -137,19 +137,22 @@ validate_conversion_inputs <- function(model_out_tbl, to_output_type, to) {
   # check initial_output_type is supported
   valid_initial_output_type <- initial_output_type %in% names(valid_conversions)
   if (!valid_initial_output_type) {
-    cli::cli_abort(c(
-      "Transformation of {.arg output_type} {.val {initial_output_type}} is not supported",
-      i = "{.arg model_out_tbl} may only contain one of types {.val {names(valid_conversions)}}"
+    cli::cli_abort(
+      c("!" = "Conversion of {.arg output_type} {.val {initial_output_type}} is not supported",
+      i = "Only conversions of {.val {names(valid_conversions)}} output type{?s} 
+      are currently supported"
     ))
   }
   # check to_output_type is supported
   invalid_to_output_type <- setdiff(to_output_type, valid_conversions[[initial_output_type]])
-  if (length(invalid_to_output_type) > 0) {
-    cli::cli_abort(c(
-      "Forecasts of {.arg output_type} {.val {initial_output_type}} cannot be converted to
+  if (length(invalid_to_output_type) > 0L) {
+    cli::cli_abort(
+      c(
+        x = "{.arg output_type} {.val {initial_output_type}} cannot be converted to
       {.val {invalid_to_output_type}}",
-      i = "{.arg to_output_type} values must be one of {.val {valid_conversions[[initial_output_type]]}}"
-    ))
+        i = "{.arg to_output_type} values must be one of {.val {valid_conversions[[initial_output_type]]}}"
+      )
+    )
   }
 
   # check to and coerce vectors to data frames
@@ -179,15 +182,17 @@ validate_to_output <- function(to_output_type, to_otid, task_id_cols) {
   }
 
   if (to_output_type %in% c("mean", "median") && !is.na(to_otid$output_type_id)) {
-    cli::cli_abort(c(
+    cli::cli_warn(c(
       "{.arg to} is incompatible with {.arg to_output_type}",
       i = "{.arg to} should be {.val NA}"
     ))
+    to_otid <- data.frame(output_type_id = NA)
   } else {
     req_to_otid_cols <- "output_type_id"
     if (!all(req_to_otid_cols %in% names(to_otid))) {
       cli::cli_abort(c(
-        "{.arg to} did not contain the required column {.val {req_to_otid_cols}}"
+        "the {.val {to_output_type}} element of {.arg to} did not contain 
+        the required column {.val {req_to_otid_cols}}"
       ))
     }
 
@@ -196,28 +201,30 @@ validate_to_output <- function(to_output_type, to_otid, task_id_cols) {
     invalid_cols <- join_by_cols[!(join_by_cols %in% task_id_cols)]
     if (length(invalid_cols) > 0L) {
       cli::cli_abort(c(
-        "x" = "an element of {.arg to} included {length(invalid_cols)} task ID{?s} that
-               {?was/were} not present in {.arg model_out_tbl}: {.val {invalid_cols}}"
+        "x" = "the {.val to_output_type} element of {.arg to} included 
+              {length(invalid_cols)} task ID{?s} that {?was/were} not present in 
+              {.arg model_out_tbl}: {.val {invalid_cols}}"
       ))
     }
 
     if (to_output_type == "quantile") {
       if (!is.numeric(to_otid$output_type_id)) {
         cli::cli_abort(c(
-          "elements of {.arg to} should be numeric",
-          i = "elements of {.arg to} represent quantiles
-                  of the predictive distribution"
+          "!" = "Values in {.arg to} representing {.val quantile} output type IDs 
+          should be numeric"
         ))
       }
-      if (any(to_otid$output_type_id < 0) || any(to_otid$output_type_id > 1)) {
+      less_than_0 <- to_otid$output_type_id < 0
+      more_than_1 <- to_otid$output_type_id > 1
+      if (any(less_than_0) || any(more_than_1)) {
         cli::cli_abort(c(
-          "elements of {.arg to} should be between 0 and 1",
-          i = "elements of {.arg to} represent quantiles
-                  of the predictive distribution"
+          "!" = "Values in {.arg to} representing {.val quantile} output type IDs 
+          should be between {.val {0L}} and {.val {1L}}.",
+          x = "Value{?s} outside this range found:
+          {.val {to_otid$output_type_id[less_than_0 | more_than_1]}}"
         ))
       }
     }
-
-    to_otid
   }
+  to_otid
 }
