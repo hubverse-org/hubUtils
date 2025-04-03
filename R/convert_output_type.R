@@ -47,7 +47,6 @@
 #'   to output_type(s) for each unique combination of task IDs for each model
 #'
 #' @export
-#' @importFrom rlang .data
 convert_output_type <- function(model_out_tbl, to) {
   # validations
   to_output_type <- names(to)
@@ -67,15 +66,13 @@ convert_output_type <- function(model_out_tbl, to) {
 convert_single_output_type <- function(to_output_type, to, model_out_tbl) {
   model_out_cols <- colnames(model_out_tbl)
   task_id_cols <- subset_task_id_names(model_out_cols)
-  grouped_model_outputs <- dplyr::group_by(model_out_tbl, dplyr::across(dplyr::all_of(c("model_id", task_id_cols))))
   to_output_type_id <- to[[to_output_type]]
+  otid_cols <- "output_type_id"
 
   if (to_output_type %in% c("mean", "median")) {
-    otid_cols <- "output_type_id"
     transform_fun <- match.fun(to_output_type)
     transform_args <- list(x = quote(.data[["value"]]))
   } else if (to_output_type == "quantile") {
-    otid_cols <- "output_type_id"
     transform_fun <- stats::quantile
     transform_args <- list(
       x = quote(.data[["value"]]),
@@ -84,12 +81,12 @@ convert_single_output_type <- function(to_output_type, to, model_out_tbl) {
     )
   }
 
-  # if overlapping columns, join grouped_model_outputs with to_output_type_id
+  # if overlapping task ID cols provided, join model_out_tbl with to_output_type_id
   # else, cross-join to avoid warnings (vector to_output_type_id elements
   #   are coerced to data frames during validation)
   join_cols <- task_id_cols[task_id_cols %in% colnames(to_output_type_id)]
   if (length(join_cols) > 0) {
-    grouped_model_outputs <- grouped_model_outputs |>
+    model_out_tbl <- model_out_tbl |>
       dplyr::select(-c("output_type", "output_type_id")) |>
       dplyr::left_join(
         to_output_type_id,
@@ -97,13 +94,13 @@ convert_single_output_type <- function(to_output_type, to, model_out_tbl) {
         relationship = "many-to-many"
       )
   } else {
-    grouped_model_outputs <- grouped_model_outputs |>
+    model_out_tbl <- model_out_tbl |>
       dplyr::select(-c("output_type", "output_type_id")) |>
       dplyr::cross_join(to_output_type_id)
   }
 
   # compute prediction values, clean up included columns
-  grouped_model_outputs |>
+  model_out_tbl |>
     dplyr::group_by(dplyr::across(dplyr::all_of(c("model_id", task_id_cols, otid_cols)))) |>
     dplyr::reframe(value = do.call(transform_fun, args = transform_args)) |>
     dplyr::mutate(
