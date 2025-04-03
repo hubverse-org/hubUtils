@@ -22,7 +22,7 @@ test_that("providing a model_output_tbl with multiple output types throws an err
   )
   expect_error(
     convert_output_type(mixed_outputs, to = list("quantile" = 0.5)),
-    "Provided `model_output_tbl` may only contain one output type", fixed = TRUE
+    "Provided `model_out_tbl` may only contain one output type", fixed = TRUE
   )
 })
 
@@ -40,7 +40,7 @@ test_that("providing a model_out_tbl containing an unsupported output type throw
   )
   expect_error(
     convert_output_type(median_outputs, to = list("quantile" = 0.5)),
-    "Transformation of `output_type` ", fixed = TRUE
+    "Conversion of `output_type` ", fixed = TRUE
   )
 })
 
@@ -68,6 +68,15 @@ test_that("providing incompatible output_type_ids throws an error", {
     "elements of `to` should be between 0 and 1", fixed = TRUE
   )
 
+  # quantile has numeric terminal_output_type_id
+  expect_error(
+    convert_output_type(
+      sample_outputs,
+      terminal_output_type_id = list("mean" = NA, "quantile" = c("0.25", 0.75))
+    ),
+    "Values in `terminal_output_type_id` representing",
+    fixed = TRUE
+  )
   # data frame to contains the required columns
   expect_error(
     convert_output_type(

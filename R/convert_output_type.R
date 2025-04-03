@@ -124,8 +124,12 @@ validate_conversion_inputs <- function(model_out_tbl, to_output_type, to) {
   }
   # check only one initial_output_type is provided
   initial_output_type <- unique(model_out_tbl$output_type)
-  if (length(initial_output_type) != 1) {
-    cli::cli_abort(c("Provided {.arg model_output_tbl} may only contain one output type"))
+  if (length(initial_output_type) != 1L) {
+    cli::cli_abort(
+      c("!" = "Provided {.arg model_out_tbl} may only contain one output type.",
+        "x" = "Found {length(initial_output_type)} output types: {.val {initial_output_type}}."
+        )
+    )
   }
   valid_conversions <- list(
     "sample" = c("mean", "median", "quantile")
@@ -190,7 +194,7 @@ validate_to_output <- function(to_output_type, to_otid, task_id_cols) {
     # joining_columns must be part of task_ids
     join_by_cols <- names(to_otid)[!(names(to_otid) %in% req_to_otid_cols)]
     invalid_cols <- join_by_cols[!(join_by_cols %in% task_id_cols)]
-    if (length(invalid_cols) > 0) {
+    if (length(invalid_cols) > 0L) {
       cli::cli_abort(c(
         "x" = "an element of {.arg to} included {length(invalid_cols)} task ID{?s} that
                {?was/were} not present in {.arg model_out_tbl}: {.val {invalid_cols}}"
