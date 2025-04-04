@@ -1182,7 +1182,7 @@
                                                 "maxLength": 100
                                             },
                                             "target_keys": {
-                                                "description": "Should be either null, in the case where the target is not specified as a task_id and is specified solely through the target_id target_metadata property or an object with one or more properties, the names of which match task_id variable(s) named within the same model_tasks object. Each property should have one specified value. Each value, or the combination of values if multiple keys are specified, define a single target value.",
+                                                "description": "Should be either null, in the case where the target is not specified as a task_id and is specified solely through the target_id target_metadata property or an object with a single property. The property name must match a task_id variable defined within the same model_tasks object and should have a single specified value, which matches one of the values in the associated task ID variable. This value defines a single target.",
                                                 "examples": [
                                                     {
                                                         "target": "inc hosp"
