@@ -17,6 +17,6 @@ Logical. \code{TRUE} if \code{x} is a URL, \code{FALSE} otherwise.
 Determine if a string is a URL
 }
 \examples{
-is_url("https://hubverse.io")
+is_url("https://docs.hubverse.io")
 is_url("www.hubverse.io")
 }

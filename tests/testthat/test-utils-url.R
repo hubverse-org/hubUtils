@@ -1,17 +1,17 @@
 test_that("is_url works", {
-  expect_true(is_url("https://hubverse.io"))
+  expect_true(is_url("https://docs.hubverse.io"))
   expect_false(is_url("www.hubverse.io"))
 })
 
 test_that("is_valid_url works", {
   skip_if_offline()
-  expect_true(is_valid_url("https://hubverse.io"))
+  expect_true(is_valid_url("https://docs.hubverse.io"))
   expect_true(
     is_valid_url(
       "https://hubverse.s3.amazonaws.com/hubutils/testhubs/simple/hub-config/admin.json"
     )
   )
-  expect_false(is_valid_url("https://hubverse.io/invalid"))
+  expect_false(is_valid_url("https://docs.hubverse.io/invalid"))
   expect_false(
     is_valid_url(
       "https://hubverse.s3.amazonaws.com/hubutils/testhubs/simple/random-file"
@@ -74,7 +74,7 @@ test_that("GitHub utils work", {
   file_url <- "https://github.com/hubverse-org/schemas/tree/main/v5.0.0"
   expect_true(is_github_url(hub_url))
 
-  expect_false(is_github_url("https://hubverse.io"))
+  expect_false(is_github_url("https://docs.hubverse.io"))
   raw_url <- paste0(
     "https://raw.githubusercontent.com/hubverse-org/",
     "example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"
