@@ -16,6 +16,6 @@ Logical. \code{TRUE} if the URL is valid and reachable, \code{FALSE} otherwise.
 Determine if a URL is valid and reachable
 }
 \examples{
-is_valid_url("https://hubverse.io")
-is_valid_url("https://hubverse.io/invalid")
+is_valid_url("https://docs.hubverse.io")
+is_valid_url("https://docs.hubverse.io/invalid")
 }
