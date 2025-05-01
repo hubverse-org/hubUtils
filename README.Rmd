@@ -59,6 +59,6 @@ Please note that the hubUtils package is released with a [Contributor Code of Co
 ## Contributing
 
 Interested in contributing back to the open-source hubverse project?
-Learn more about how to [get involved in the Hubverse Community](https://hubverse.io/en/latest/overview/contribute.html) or [how to contribute to the hubUtils package](https://hubverse-org.github.io/hubUtils/CONTRIBUTING.html).
+Learn more about how to [get involved in the Hubverse Community](https://docs.hubverse.io/en/latest/overview/contribute.html) or [how to contribute to the hubUtils package](https://hubverse-org.github.io/hubUtils/CONTRIBUTING.html).
 
 
