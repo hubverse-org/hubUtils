@@ -46,7 +46,7 @@ create_s3_url <- function(base_fs, base_path) {
 #' @export
 #'
 #' @examples
-#' is_url("https://hubverse.io")
+#' is_url("https://docs.hubverse.io")
 #' is_url("www.hubverse.io")
 is_url <- function(x) {
   grepl("^(https?|ftp)://[[:alnum:].-]+\\.[a-z]{2,6}(/.*)?$",
@@ -63,8 +63,8 @@ is_url <- function(x) {
 #' @export
 #'
 #' @examples
-#' is_valid_url("https://hubverse.io")
-#' is_valid_url("https://hubverse.io/invalid")
+#' is_valid_url("https://docs.hubverse.io")
+#' is_valid_url("https://docs.hubverse.io/invalid")
 is_valid_url <- function(url) {
   checkmate::assert_character(url, len = 1L)
   if (!curl::has_internet()) {
