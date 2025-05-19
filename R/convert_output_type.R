@@ -14,6 +14,8 @@
 #'   - `quantile`: a numeric vector of probability levels OR a dataframe of
 #'     probability levels and the task ID variables they depend upon.
 #'     (See examples section for an example of each.)
+#'     Note that any task ID variable value must appear in the associated
+#'     `model_out_tbl` task ID column
 #'
 #' @details Currently, only `"sample"` can be converted to `"mean"`, `"median"`,
 #' or `"quantile"`
@@ -163,7 +165,7 @@ validate_conversion_inputs <- function(model_out_tbl, to_output_type, to) {
     ~ validate_to_output(
       to_output_type = .x,
       to_otid = to[[.x]],
-      task_id_cols = subset_task_id_names(model_out_cols)
+      model_out_tbl = model_out_tbl
     )
   )
   names(validated_to_output) <- to_output_type
@@ -177,7 +179,7 @@ validate_conversion_inputs <- function(model_out_tbl, to_output_type, to) {
 
 #' Validate the to output type id values for a single to output type
 #' @noRd
-validate_to_output <- function(to_output_type, to_otid, task_id_cols) {
+validate_to_output <- function(to_output_type, to_otid, model_out_tbl) {
   # coerce vector to_otid elements to data frame for joining
   if (is.atomic(to_otid)) {
     to_otid <- data.frame(output_type_id = to_otid)
@@ -185,8 +187,8 @@ validate_to_output <- function(to_output_type, to_otid, task_id_cols) {
 
   if (to_output_type %in% c("mean", "median") && !is.na(to_otid$output_type_id)) {
     cli::cli_warn(c(
-      "{.arg to} is incompatible with {.arg to_output_type}",
-      i = "{.arg to} should be {.val NA}"
+      "{.arg to} value is incompatible with {.val {to_output_type}}",
+      i = "{.arg to} value will be coerced to {.val NA}"
     ))
     to_otid <- data.frame(output_type_id = NA)
   } else {
@@ -198,16 +200,8 @@ validate_to_output <- function(to_output_type, to_otid, task_id_cols) {
       ))
     }
 
-    # joining_columns must be part of task_ids
-    join_by_cols <- names(to_otid)[!(names(to_otid) %in% req_to_otid_cols)]
-    invalid_cols <- join_by_cols[!(join_by_cols %in% task_id_cols)]
-    if (length(invalid_cols) > 0L) {
-      cli::cli_abort(c(
-        "x" = "the {.val to_output_type} element of {.arg to} included
-              {length(invalid_cols)} task ID{?s} that {?was/were} not present in
-              {.arg model_out_tbl}: {.val {invalid_cols}}"
-      ))
-    }
+    # Validate columns for joining, if applicable
+    validate_join_by_cols(to_output_type, to_otid, model_out_tbl, return_missing_combos = FALSE)
 
     if (to_output_type == "quantile") {
       if (!is.numeric(to_otid$output_type_id)) {
@@ -229,4 +223,58 @@ validate_to_output <- function(to_output_type, to_otid, task_id_cols) {
     }
   }
   to_otid
+}
+
+
+#' Validate the to join by columns for a single to output type
+#' @noRd
+validate_join_by_cols <- function(to_output_type, to_otid, model_out_tbl, return_missing_combos = FALSE) {
+  # joining columns must be part of task_id_cols
+  req_to_otid_cols <- "output_type_id"
+  task_id_cols <- subset_task_id_names(colnames(model_out_tbl))
+  join_by_cols <- names(to_otid)[!(names(to_otid) %in% req_to_otid_cols)]
+  invalid_cols <- join_by_cols[!(join_by_cols %in% task_id_cols)]
+  if (length(invalid_cols) > 0L) {
+    cli::cli_abort(c(
+      "x" = "the {.val to_output_type} element of {.arg to} included
+            {length(invalid_cols)} task ID{?s} that {?was/were} not present in
+            {.arg model_out_tbl}: {.val {invalid_cols}}"
+    ))
+  }
+
+  if (length(join_by_cols) > 0) {
+    for (join_col in join_by_cols) {
+      # joining columns must be of the same type
+      # `join_by_cols` type in `to` is coerced to that in `model_out_tbl`
+      class(to_otid[[join_col]]) <- class(model_out_tbl[[join_col]])
+    }
+
+    # task ID var values in to_otid must appear in associated model_out_tbl cols
+    # warn for the opposite case
+    missing_model_out_case <- dplyr::anti_join(to_otid, model_out_tbl, by = join_by_cols)
+    missing_to_case <- dplyr::anti_join(model_out_tbl, to_otid, by = join_by_cols)
+    if (nrow(missing_model_out_case) > 0) {
+      if (!return_missing_combos) {
+        cli::cli_warn(c(
+          x = "Some task ID variable combos present in the {.val {to_output_type}} 
+            element of {.arg to} are missing from {.arg model_out_tbl}",
+          i = "Run {.arg validate_join_by_cols(to_output_type, to_otid, 
+            model_out_tbl, return_missing_combos = TRUE)} to see the missing cases"
+        ))
+      } else {
+        missing_model_out_case
+      }
+    } else if (nrow(missing_to_case) > 0) {
+      if (!return_missing_combos) {
+        cli::cli_abort(c(
+          x = "Some task ID variable combos present in {.arg model_out_tbl} are
+            missing from the {.val {to_output_type}} element of {.arg to}",
+          i = "Run {.arg validate_join_by_cols(to_output_type, to_otid, 
+            model_out_tbl, return_missing_combos = TRUE)} to see the missing cases"
+        ))
+      } else {
+        missing_to_case
+      }
+    }
+  }
 }
