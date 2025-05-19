@@ -242,39 +242,42 @@ validate_join_by_cols <- function(to_output_type, to_otid, model_out_tbl, return
     ))
   }
 
-  if (length(join_by_cols) > 0) {
-    for (join_col in join_by_cols) {
-      # joining columns must be of the same type
-      # `join_by_cols` type in `to` is coerced to that in `model_out_tbl`
-      class(to_otid[[join_col]]) <- class(model_out_tbl[[join_col]])
-    }
+  # return early if there are no problems
+  if (length(join_by_cols) == 0) {
+    return(NULL)
+  }
 
-    # task ID var values in to_otid must appear in associated model_out_tbl cols
-    # warn for the opposite case
-    missing_model_out_case <- dplyr::anti_join(to_otid, model_out_tbl, by = join_by_cols)
-    missing_to_case <- dplyr::anti_join(model_out_tbl, to_otid, by = join_by_cols)
-    if (nrow(missing_model_out_case) > 0) {
-      if (!return_missing_combos) {
-        cli::cli_warn(c(
-          x = "Some task ID variable combos present in the {.val {to_output_type}} 
-            element of {.arg to} are missing from {.arg model_out_tbl}",
-          i = "Run {.arg validate_join_by_cols(to_output_type, to_otid, 
-            model_out_tbl, return_missing_combos = TRUE)} to see the missing cases"
-        ))
-      } else {
-        missing_model_out_case
-      }
-    } else if (nrow(missing_to_case) > 0) {
-      if (!return_missing_combos) {
-        cli::cli_abort(c(
-          x = "Some task ID variable combos present in {.arg model_out_tbl} are
-            missing from the {.val {to_output_type}} element of {.arg to}",
-          i = "Run {.arg validate_join_by_cols(to_output_type, to_otid, 
-            model_out_tbl, return_missing_combos = TRUE)} to see the missing cases"
-        ))
-      } else {
-        missing_to_case
-      }
+  for (join_col in join_by_cols) {
+    # joining columns must be of the same type
+    # `join_by_cols` type in `to` is coerced to that in `model_out_tbl`
+    class(to_otid[[join_col]]) <- class(model_out_tbl[[join_col]])
+  }
+
+  # task ID var values in to_otid must appear in associated model_out_tbl cols
+  # warn for the opposite case
+  missing_model_out_case <- dplyr::anti_join(to_otid, model_out_tbl, by = join_by_cols)
+  missing_to_case <- dplyr::anti_join(model_out_tbl, to_otid, by = join_by_cols)
+  if (nrow(missing_model_out_case) > 0) {
+    if (return_missing_combos) {
+      missing_model_out_case
+    } else {
+      cli::cli_warn(c(
+        x = "Some task ID variable combos present in the {.val {to_output_type}} 
+          element of {.arg to} are missing from {.arg model_out_tbl}",
+        i = "Run {.arg validate_join_by_cols(to_output_type, to_otid, 
+          model_out_tbl, return_missing_combos = TRUE)} to see the missing cases"
+      ))
+    }
+  } else if (nrow(missing_to_case) > 0) {
+    if (return_missing_combos) {
+      missing_to_case
+    } else {
+      cli::cli_abort(c(
+        x = "Some task ID variable combos present in {.arg model_out_tbl} are
+          missing from the {.val {to_output_type}} element of {.arg to}",
+        i = "Run {.arg validate_join_by_cols(to_output_type, to_otid, 
+          model_out_tbl, return_missing_combos = TRUE)} to see the missing cases"
+      ))
     }
   }
 }
