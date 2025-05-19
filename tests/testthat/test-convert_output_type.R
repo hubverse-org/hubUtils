@@ -60,7 +60,7 @@ test_that("providing incompatible output_type_ids throws an error", {
   # mean and median have to NA
   expect_warning(
     convert_output_type(sample_outputs, to = list("mean" = 0.5)),
-    "`to` is incompatible with ",
+    "`to` value is incompatible with ",
     fixed = TRUE
   )
   # quantile has numeric to between 0 and 1
@@ -69,7 +69,7 @@ test_that("providing incompatible output_type_ids throws an error", {
       sample_outputs,
       to = list("mean" = NA, "quantile" = c(0.25, 1.75))
     ),
-    "Values in `to` representing ",
+    "output type IDs should be between 0 and 1.",
     fixed = TRUE
   )
   # quantile has numeric to values
@@ -78,7 +78,7 @@ test_that("providing incompatible output_type_ids throws an error", {
       sample_outputs,
       to = list("mean" = NA, "quantile" = c("0.25", 0.75))
     ),
-    "Values in `to` representing",
+    " output type IDs should be numeric",
     fixed = TRUE
   )
 
@@ -100,6 +100,62 @@ test_that("providing incompatible output_type_ids throws an error", {
     ),
     " element of `to` included ",
     fixed = TRUE
+  )
+})
+
+test_that("providing output_type_ids with incompatible join columns throws an error", {
+  sample_outputs <- create_test_sample_outputs()
+  # to has more cases of join column values than model_out_tbl (supported but warn)
+  more_levels <- expand.grid(
+    location = c("222", "555", "888"),
+    output_type_id = c(0.25, 0.75),
+    stringsAsFactors = FALSE
+  )
+  expected_outputs <- expand.grid(
+    stringsAsFactors = FALSE,
+    KEEP.OUT.ATTRS = FALSE,
+    model_id = letters[1:4],
+    location = c("222", "888"),
+    horizon = 1, # week
+    target = "inc death",
+    target_date = as.Date("2021-12-25"),
+    output_type = "quantile",
+    value = NA_real_
+  ) |>
+    dplyr::left_join(more_levels, by = "location", relationship = "many-to-many") |>
+    dplyr::arrange(model_id) |>
+    as_model_out_tbl()
+  task_id_cols <- subset_task_id_names(colnames(expected_outputs))
+  expected_outputs$value <- create_test_sample_outputs() |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(c("model_id", task_id_cols)))) |>
+    dplyr::reframe(
+      output_type_id = c(0.25, 0.75),
+      value = stats::quantile(value, probs = c(0.25, 0.75), names = FALSE)
+    ) |>
+    dplyr::pull(value)
+
+  # function call produces correct warning and output
+  expect_warning(
+    actual_outputs <- convert_output_type(sample_outputs, to = list("quantile" = more_levels)),
+    "Some task ID variable combos present in the "
+  )
+  expect_equal(actual_outputs, expected_outputs)
+  # correct missing cases are returned
+  expect_equal(
+    validate_join_by_cols("quantile", more_levels, sample_outputs, return_missing_combos = TRUE),
+    dplyr::filter(more_levels, location == "555")
+  )
+
+  # model_out_tbl has more cases of join column values than to (not supported)
+  fewer_levels <- data.frame(location = "222", output_type_id = c(0.25, 0.75), stringsAsFactors = FALSE)
+  expect_error(
+    convert_output_type(sample_outputs, to = list("quantile" = fewer_levels)),
+    "Some task ID variable combos present in `model_out_tbl` are missing "
+  )
+  # correct missing cases are returned
+  expect_equal(
+    validate_join_by_cols("quantile", fewer_levels, sample_outputs, return_missing_combos = TRUE),
+    dplyr::filter(sample_outputs, location != "222")
   )
 })
 
