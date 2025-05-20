@@ -137,7 +137,7 @@ test_that("providing output_type_ids with incompatible join columns throws an er
   # function call produces correct warning and output
   expect_warning(
     actual_outputs <- convert_output_type(sample_outputs, to = list("quantile" = more_levels)),
-    "Some task ID variable combos present in the "
+    r"{Some task ID variable combos present in the "quantile" element of `to` are missing from `model_out_tbl`}"
   )
   expect_equal(actual_outputs, expected_outputs)
   # correct missing cases are returned
@@ -150,7 +150,7 @@ test_that("providing output_type_ids with incompatible join columns throws an er
   fewer_levels <- data.frame(location = "222", output_type_id = c(0.25, 0.75), stringsAsFactors = FALSE)
   expect_error(
     convert_output_type(sample_outputs, to = list("quantile" = fewer_levels)),
-    "Some task ID variable combos present in `model_out_tbl` are missing "
+    r"{Some task ID variable combos present in `model_out_tbl` are missing from the "quantile" element of `to`}"
   )
   # correct missing cases are returned
   expect_equal(
