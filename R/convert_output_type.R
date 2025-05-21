@@ -258,26 +258,40 @@ validate_join_by_cols <- function(to_output_type, to_otid, model_out_tbl, return
   missing_model_out_case <- dplyr::anti_join(to_otid, model_out_tbl, by = join_by_cols)
   missing_to_case <- dplyr::anti_join(model_out_tbl, to_otid, by = join_by_cols)
   if (nrow(missing_model_out_case) > 0) {
-    if (return_missing_combos) {
-      missing_model_out_case
-    } else {
-      cli::cli_warn(c(
-        x = "Some task ID variable combos present in the {.val {to_output_type}} 
-          element of {.arg to} are missing from {.arg model_out_tbl}",
-        i = "Run {.arg validate_join_by_cols(to_output_type, to_otid, 
-          model_out_tbl, return_missing_combos = TRUE)} to see the missing cases"
-      ))
-    }
+    return_or_error(
+      which_missing = "model_out_tbl", missing_model_out_case,
+      to_output_type, cli::cli_warn, return_missing_combos
+    )
   } else if (nrow(missing_to_case) > 0) {
-    if (return_missing_combos) {
-      missing_to_case
-    } else {
-      cli::cli_abort(c(
-        x = "Some task ID variable combos present in {.arg model_out_tbl} are
-          missing from the {.val {to_output_type}} element of {.arg to}",
-        i = "Run {.arg validate_join_by_cols(to_output_type, to_otid, 
-          model_out_tbl, return_missing_combos = TRUE)} to see the missing cases"
-      ))
+    return_or_error(
+      which_missing = "to", missing_to_case,
+      to_output_type, cli::cli_abort, return_missing_combos
+    )
+  }
+}
+
+
+#' Validate missing task ID variable combos by returning missing cases or
+#' throwing a warning or error
+#' @noRd
+return_or_error <- function(which_missing = c("to", "model_out_tbl"),
+                            missing_x_case, to_output_type, cli_fn = cli::cli_abort,
+                            return_missing_combos = return_missing_combos) {
+  if (return_missing_combos) {
+    missing_x_case
+  } else {
+    cli_fn <- match.fun(cli_fn)
+    to_str <- paste0("the {.val ", to_output_type, "} element of {.arg to}")
+    model_out_str <- "{.arg model_out_tbl}"
+    if (which_missing == "model_out_tbl") {
+      str_vec <- c(to_str, model_out_str)
+    } else if (which_missing == "to") {
+      str_vec <- c(model_out_str, to_str)
     }
+    cli_fn(c(
+      x = paste0("Some task ID variable combos present in ", str_vec[1], " are missing from ", str_vec[2]),
+      i = "Run {.arg validate_join_by_cols(to_output_type, to_otid, 
+        model_out_tbl, return_missing_combos = TRUE)} to see the missing cases"
+    ))
   }
 }
