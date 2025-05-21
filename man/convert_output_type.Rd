@@ -18,6 +18,8 @@ output type IDs. List item name and value pairs may be as follows:
 \item \code{quantile}: a numeric vector of probability levels OR a dataframe of
 probability levels and the task ID variables they depend upon.
 (See examples section for an example of each.)
+Note that any task ID variable value must appear in the associated
+\code{model_out_tbl} task ID column
 }}
 }
 \value{
@@ -39,24 +41,26 @@ or \code{"quantile"}
 ex_quantiles <- c(0.25, 0.5, 0.75)
 model_out_tbl <- expand.grid(
   stringsAsFactors = FALSE,
-  group1 = c(1,2),
+  group1 = c(1, 2),
   model_id = "A",
   output_type = "sample",
   output_type_id = 1:100
 ) |>
-dplyr::mutate(value = rnorm(200, mean = group1))
+  dplyr::mutate(value = rnorm(200, mean = group1))
 
 # Output type conversions with vector `to` elements
 convert_output_type(model_out_tbl,
-  to = list("quantile" = ex_quantiles, "median" = NA))
+  to = list("quantile" = ex_quantiles, "median" = NA)
+)
 
 # Output type conversion with dataframe `to` element
 # Output type ID values (quantile levels) are determined by group1 value
 quantile_levels <- rbind(
- data.frame(group1 = 1, output_type_id = 0.5),
- data.frame(group1 = 2, output_type_id = c(0.25, 0.5, 0.75))
+  data.frame(group1 = 1, output_type_id = 0.5),
+  data.frame(group1 = 2, output_type_id = c(0.25, 0.5, 0.75))
 )
 convert_output_type(model_out_tbl,
-  to = list("quantile" = quantile_levels))
+  to = list("quantile" = quantile_levels)
+)
 
 }
