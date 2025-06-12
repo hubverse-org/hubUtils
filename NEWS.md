@@ -1,7 +1,8 @@
-# hubUtils (development version)
+# hubUtils 0.6.0
 
 * Added `convert_output_type()` function to convert model outputs from one output type to another (currently only supports sample to mean, median, and quantile) (#212, #214, #215)
 * `convert_output_type()` now supports transformations involving output type IDs dependent on task ID variable values (#222)
+* Added last schema version (v5.1.0)
 
 # hubUtils 0.5.0
 
