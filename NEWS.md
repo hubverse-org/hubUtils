@@ -1,3 +1,5 @@
+# hubUtils (development version)
+
 # hubUtils 0.6.0
 
 * Added `convert_output_type()` function to convert model outputs from one output type to another (currently only supports sample to mean, median, and quantile) (#212, #214, #215)
