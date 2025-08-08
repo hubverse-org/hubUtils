@@ -1,0 +1,169 @@
+"location","reference_date","horizon","target_end_date","target","output_type","output_type_id","value"
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.025",1760
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.1",2016
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.2",2198
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.3",2334
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.4",2453
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.5",2591
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.6",2741
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.7",2888
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.8",3049
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.9",3281
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.975",3633
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.025",2186
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.1",2471
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.2",2679
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.3",2831
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.4",2976
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.5",3164
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.6",3409
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.7",3576
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.8",3767
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.9",4030
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.975",4434
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.025",1
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.1",2
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.2",3
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.3",4
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.4",5
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.5",5
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.6",6
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.7",7
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.8",7
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.9",9
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.975",10
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.025",1
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.1",2
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.2",3
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.3",4
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.4",5
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.5",5
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.6",6
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.7",7
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.8",8
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.9",9
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.975",11
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.025",124
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.1",141
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.2",152
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.3",162
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.4",169
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.5",175
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.6",181
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.7",189
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.8",198
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.9",211
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","quantile","0.975",233
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.025",183
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.1",202
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.2",215
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.3",224
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.4",232
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.5",239
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.6",245
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.7",252
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.8",260
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.9",272
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","quantile","0.975",290
+"01",2022-10-22,1,2022-10-29,"wk inc flu hosp","mean",,175.26269991564573
+"01",2022-10-22,2,2022-11-05,"wk inc flu hosp","mean",,237.56565250759334
+"02",2022-10-22,1,2022-10-29,"wk inc flu hosp","mean",,5.416807984895323
+"02",2022-10-22,2,2022-11-05,"wk inc flu hosp","mean",,5.462001915661084
+"US",2022-10-22,1,2022-10-29,"wk inc flu hosp","mean",,2624.584152310742
+"US",2022-10-22,2,2022-11-05,"wk inc flu hosp","mean",,3222.9531330959708
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","low",0.029688672375747207
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","moderate",0.9695781063366309
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","high",0.0007332212876218769
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","very high",0
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","low",0.000009328082684293995
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","moderate",0.7124906719173157
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","high",0.2874999992100191
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","very high",7.899808585065671e-10
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","low",0.9999984473013983
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","moderate",0.0000015526986016922706
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","high",0
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","very high",0
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","low",0.9999892022864058
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","moderate",0.000010797713594246083
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","high",0
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","very high",0
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","low",1
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","moderate",0
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","high",0
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate category","pmf","very high",0
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","low",1
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","moderate",0
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","high",0
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate category","pmf","very high",0
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","1",0.000028179460937960414
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","2",0.004655548377725997
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","3",0.1992811084656085
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","4",0.8386428723217174
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","5",0.9992954453012732
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","6",0.999999999835992
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","7",1
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","8",1
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","9",1
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","10",1
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","11",1
+"01",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","12",1
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","1",1.0034167782339077e-13
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","2",6.219974943339201e-8
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","3",0.0006288063386916303
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","4",0.1038655411047865
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","5",0.7148612500000002
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","6",0.9952456006882541
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","7",0.9999995499438539
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","8",0.999999999999761
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","9",1
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","10",1
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","11",1
+"01",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","12",1
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","1",0.805713
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","2",0.9998179692413228
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","3",0.9999999999293716
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","4",1
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","5",1
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","6",1
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","7",1
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","8",1
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","9",1
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","10",1
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","11",1
+"02",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","12",1
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","1",0.755713
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","2",0.9992367856676089
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","3",0.9999999987976433
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","4",1
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","5",1
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","6",1
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","7",1
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","8",1
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","9",1
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","10",1
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","11",1
+"02",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","12",1
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","1",0.9129692881711724
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","2",0.9999999999998715
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","3",1
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","4",1
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","5",1
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","6",1
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","7",1
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","8",1
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","9",1
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","10",1
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","11",1
+"US",2022-10-22,1,2022-10-29,"wk flu hosp rate","cdf","12",1
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","1",0.5544072769598778
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","2",0.9999999997869281
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","3",1
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","4",1
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","5",1
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","6",1
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","7",1
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","8",1
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","9",1
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","10",1
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","11",1
+"US",2022-10-22,2,2022-11-05,"wk flu hosp rate","cdf","12",1
