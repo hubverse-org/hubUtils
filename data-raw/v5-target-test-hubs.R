@@ -445,7 +445,7 @@ oo_dat <- arrow::read_csv_arrow(oo_path) |>
 
 oo_cdf <- filter(oo_dat, output_type == "cdf", output_type_id %in% cdfs)
 oo_pmf <- filter(oo_dat, output_type == "pmf", output_type_id %in% pmfs)
-oo_rest <- filter(oo_dat, !output_type %in% c("cdf", "pmf"))
+oo_rest <- filter(oo_dat, !output_type %in% c("cdf", "pmf", "median"))
 
 oo_dat <- bind_rows(
   oo_cdf,
