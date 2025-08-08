@@ -328,6 +328,8 @@ reduce_model_out_file <- function(
       horizon %in% horizons,
       location %in% locations
     )
+  spls <- filter(tbl, output_type == "sample")
+
   tbl <- filter(
     tbl,
     output_type != "sample"
@@ -347,7 +349,6 @@ reduce_model_out_file <- function(
   mean_tbl <- filter(tbl, output_type == "mean")
 
   # Filter samples
-  spls <- filter(tbl, output_type == "sample")
   compound_taskids <- get_tbl_compound_taskid_set(
     coerce_to_character(spls),
     config_tasks,
