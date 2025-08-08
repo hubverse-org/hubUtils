@@ -1,5 +1,10 @@
 # hubUtils (development version)
 
+* Added two lightweight example v5 hubs for use in examples and tests:
+  - `testhubs/v5/target_file` — target data stored in single files.
+  - `testhubs/v5/target_dir` — hive-partitioned target data. These hubs are complete and valid, enabling faster examples and checks
+  without requiring a clone of the public example hub repository.
+
 # hubUtils 0.6.0
 
 * Added `convert_output_type()` function to convert model outputs from one output type to another (currently only supports sample to mean, median, and quantile) (#212, #214, #215)
