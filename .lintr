@@ -3,3 +3,11 @@ linters: linters_with_defaults(
     commented_code_linter = NULL,
     object_length_linter(length = 50L)
   )
+exclusions: list(
+    "tests/testthat/helper.R",
+    "inst/testhubs/v5",
+    # excluded from objest_usage_linter:
+    "data-raw/v5-target-test-hubs.R" = list(
+      object_usage_linter = Inf
+    )
+  )

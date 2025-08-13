@@ -1,0 +1,78 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Example Complex Forecast Hub
+
+**This repository is under construction.**
+
+This repository is designed as an example modeling Hub that follows the infrastructure guidelines laid out by the [Consortium of Infectious Disease Modeling Hubs](https://github.com/Infectious-Disease-Modeling-Hubs/).
+
+The example model outputs that are provided here are adapted from forecasts submitted to the FluSight Forecast Hub for the 2022/23 season. The original forecasts were provided in quantile format, but they have been modified to provide examples of additional model output types and targets. They should be viewed only as illustrations of the data formats, not as realistic examples of forecasts. **Note that the folder `internal-data-raw` is not a part of the standard hub setup; it contains the original source data and scripts used to create the example model output data and target data.**
+
+## Working with the data in R
+
+Install the [hubUtils package](https://infectious-disease-modeling-hubs.github.io/hubUtils/) to work with the data in R.
+
+To connect to a local copy of the data, clone this repository and use code like the following:
+
+```{r}
+library(hubUtils)
+library(dplyr)
+
+model_outputs <- hubUtils::connect_hub(hub_path = ".") %>%
+  dplyr::collect()
+head(model_outputs)
+
+target_time_series_data <- read.csv(
+  "target-data/flu-hospitalization-time-series.csv")
+head(target_time_series_data)
+
+inc_flu_hosp_target_data <- read.csv(
+  "target-data/wk-inc-flu-hosp-target-values.csv")
+head(inc_flu_hosp_target_data)
+
+rate_category_target_data <- read.csv(
+  "target-data/wk-flu-hosp-rate-category-target-values.csv")
+head(rate_category_target_data)
+```
+
+
+To connect to a copy of this example data hosted in the cloud (on AWS S3), your code would look like this:
+
+```{r}
+library(aws.s3)
+library(dplyr)
+library(hubUtils)
+
+hub_path <- s3_bucket("hubverse-example-complex-forecast-hub")
+model_outputs <- hubUtils::connect_hub(hub_path) %>%
+  dplyr::collect()
+head(model_outputs)
+
+target_time_series_data <- aws.s3::s3read_using(
+  read.csv,
+  object = "s3://hubverse-example-complex-forecast-hub/target-data/flu-hospitalization-time-series.csv")
+head(target_time_series_data)
+
+inc_flu_hosp_target_data <- aws.s3::s3read_using(
+  read.csv,
+  object = "s3://hubverse-example-complex-forecast-hub/target-data/wk-inc-flu-hosp-target-values.csv")
+head(inc_flu_hosp_target_data)
+
+rate_category_target_data <- aws.s3::s3read_using(
+  read.csv,
+  object = "s3://hubverse-example-complex-forecast-hub/target-data/wk-flu-hosp-rate-category-target-values.csv")
+head(rate_category_target_data)
+```

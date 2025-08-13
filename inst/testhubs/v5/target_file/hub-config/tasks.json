@@ -1,0 +1,200 @@
+{
+  "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v5.1.0/tasks-schema.json",
+  "rounds": [
+    {
+      "round_id_from_variable": true,
+      "round_id": "reference_date",
+      "model_tasks": [
+        {
+          "task_ids": {
+            "reference_date": {
+              "required": null,
+              "optional": ["2022-10-22", "2022-10-29", "2022-11-05", "2022-11-12", "2022-11-19", "2022-11-26", "2022-12-03", "2022-12-10", "2022-12-17", "2022-12-24", "2022-12-31"]
+            },
+            "target": {
+              "required": null,
+              "optional": [
+                "wk flu hosp rate category"
+              ]
+            },
+            "horizon": {
+              "required": null,
+              "optional": [1, 2]
+            },
+            "location": {
+              "required": null,
+              "optional": ["US", "01", "02"]
+            },
+            "target_end_date": {
+              "required": null,
+              "optional": ["2022-10-22", "2022-10-29", "2022-11-05", "2022-11-12", "2022-11-19", "2022-11-26", "2022-12-03", "2022-12-10", "2022-12-17", "2022-12-24", "2022-12-31", "2023-01-07", "2023-01-14"]
+            }
+          },
+          "output_type": {
+            "pmf": {
+              "output_type_id": {
+                "required": ["low", "moderate", "high", "very high"]
+              },
+              "is_required": true,
+              "value": {
+                "type": "double",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          },
+          "target_metadata": [
+            {
+              "target_id": "wk flu hosp rate category",
+              "target_name": "week ahead weekly influenza hospitalization rate category",
+              "target_units": "rate per 100,000 population",
+              "target_keys": {
+                "target": "wk flu hosp rate category"
+              },
+              "description": "This target represents a categorical severity level for rate of new hospitalizations per week for the week ending [horizon] weeks after the reference_date, on target_end_date.",
+              "target_type": "ordinal",
+              "is_step_ahead": true,
+              "time_unit": "week"
+            }
+          ]
+        },
+        {
+          "task_ids": {
+            "reference_date": {
+              "required": null,
+              "optional": ["2022-10-22", "2022-10-29", "2022-11-05", "2022-11-12", "2022-11-19", "2022-11-26", "2022-12-03", "2022-12-10", "2022-12-17", "2022-12-24", "2022-12-31"]
+            },
+            "target": {
+              "required": null,
+              "optional": [
+                "wk flu hosp rate"
+              ]
+            },
+            "horizon": {
+              "required": null,
+              "optional": [1, 2]
+            },
+            "location": {
+              "required": null,
+              "optional": ["US", "01", "02"]
+            },
+            "target_end_date": {
+              "required": null,
+              "optional": ["2022-10-22", "2022-10-29", "2022-11-05", "2022-11-12", "2022-11-19", "2022-11-26", "2022-12-03", "2022-12-10", "2022-12-17", "2022-12-24", "2022-12-31", "2023-01-07", "2023-01-14"]
+            }
+          },
+          "output_type": {
+            "cdf": {
+              "output_type_id": {
+                "required": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+              },
+              "is_required": true,
+              "value": {
+                "type": "double",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          },
+          "target_metadata": [
+            {
+              "target_id": "wk flu hosp rate",
+              "target_name": "week ahead weekly influenza hospitalization rate",
+              "target_units": "rate per 100,000 population",
+              "target_keys": {
+                "target": "wk flu hosp rate"
+              },
+              "description": "This target is the weekly rate of new hospitalizations per 100k population for the week ending [horizon] weeks after the reference_date, on target_end_date.",
+              "target_type": "continuous",
+              "is_step_ahead": true,
+              "time_unit": "week"
+            }
+          ]
+        },
+        {
+          "task_ids": {
+            "reference_date": {
+              "required": null,
+              "optional": ["2022-10-22", "2022-10-29", "2022-11-05", "2022-11-12", "2022-11-19", "2022-11-26", "2022-12-03", "2022-12-10", "2022-12-17", "2022-12-24", "2022-12-31"]
+            },
+            "target": {
+              "required": null,
+              "optional": [
+                "wk inc flu hosp"
+              ]
+            },
+            "horizon": {
+              "required": null,
+              "optional": [1, 2]
+            },
+            "location": {
+              "required": null,
+              "optional": ["US", "01", "02"]
+            },
+            "target_end_date": {
+              "required": null,
+              "optional": ["2022-10-22", "2022-10-29", "2022-11-05", "2022-11-12", "2022-11-19", "2022-11-26", "2022-12-03", "2022-12-10", "2022-12-17", "2022-12-24", "2022-12-31", "2023-01-07", "2023-01-14"]
+            }
+          },
+          "output_type": {
+            "quantile": {
+              "output_type_id": {
+                "required": [0.025, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.975]
+              },
+              "is_required": true,
+              "value": {
+                "type": "double",
+                "minimum": 0
+              }
+            },
+            "sample": {
+              "output_type_id_params": {
+                "type": "integer",
+                "min_samples_per_task": 5,
+                "max_samples_per_task": 5,
+                "compound_taskid_set": ["reference_date", "location"]
+              },
+              "is_required": true,
+              "value": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "mean": {
+              "output_type_id": {
+                "required": null
+              },
+              "is_required": false,
+              "value": {
+                "type": "double",
+                "minimum": 0
+              }
+            }
+          },
+          "target_metadata": [
+            {
+              "target_id": "wk inc flu hosp",
+              "target_name": "incident influenza hospitalizations",
+              "target_units": "count",
+              "target_keys": {
+                "target": "wk inc flu hosp"
+              },
+              "description": "This target represents the count of new hospitalizations in the week ending on the date [horizon] weeks after the reference_date, on the target_end_date.",
+              "target_type": "continuous",
+              "is_step_ahead": true,
+              "time_unit": "week"
+            }
+          ]
+        }
+      ],
+      "submissions_due": {
+        "relative_to": "reference_date",
+        "start": -6,
+        "end": -3
+      }
+    }
+  ],
+  "derived_task_ids": [
+    "target_end_date"
+  ]
+}

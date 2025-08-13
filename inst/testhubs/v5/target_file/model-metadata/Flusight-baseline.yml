@@ -1,0 +1,42 @@
+team_name: "Flusight"
+team_abbr: "Flusight"
+model_name: "Baseline model using reported weekly admissions"
+model_abbr: "baseline"
+model_version: "1.0"
+model_contributors: [
+  {
+    "name": "Evan L. Ray",
+    "affiliation": "University of Massachusetts, Amherst",
+    "email": "elray@umass.edu"
+  },
+  {
+    "name": "Nutcha Wattanachit",
+    "affiliation": "University of Massachusetts, Amherst"
+  },
+  {
+    "name": "Ryan Tibshirani",
+    "affiliation": "UC Berkeley"
+  }
+]
+website_url: "https://github.com/cdcepi/Flusight-baseline"
+license: "CC-BY-4.0"
+team_funding: "This model's development is funded by the US CDC grant number U01IP001122. The content is solely the responsibility of the authors and does not necessarily represent the official views of NIGMS or the National Institutes of Health."
+designated_model: true
+methods: "Simple time-series baseline model predicting forward the most recent week of reported laboratory confirmed influenza hospital admissions."
+data_inputs: "Weekly incident flu hospitalizations from HealthData.gov COVID-19 Reported Patient Impact and Hospital Capacity by State Timeseries."
+methods_long: "The median prediction at all future horizons
+  is the most recent observed weekly incidence.  To get a distribution around
+  the median, we look at how much incidence has changed from week to week in
+  the past, and we allow for the possibility that similar changes will occur
+  again in the future.
+
+  In more technical detail, forecasts of incidence are generated through the
+  following procedure: 1) Calculate first differences of incidence; 2) Collect
+  all first differences and their negatives; 3) Sample first differences in
+  incidence and add to the most recent observed incidence; 4) Enforce that the
+  mean of the predictive distribution for incidence is equal to the most recent
+  observed incidence; 5) truncate the predictive distribution for incidence at
+  0."
+ensemble_of_models: false
+ensemble_of_hub_models: false
+source_notes: "Model outputs and metadata adapted from https://github.com/cdcepi/Flusight-forecast-data."
