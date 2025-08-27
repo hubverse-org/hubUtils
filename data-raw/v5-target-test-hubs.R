@@ -423,7 +423,10 @@ cli::cli_alert_success("Model output files reduced successfully.")
 cli::cli_h2("Reducing target data")
 ts_path <- get_target_path(hub_path_source, "time-series")
 
-ts_dat <- arrow::read_csv_arrow(ts_path) |>
+ts_dat <- read_target_file(
+  target_file_path = basename(ts_path),
+  hub_path_source
+) |>
   filter(
     date %in% ref_dates,
     location %in% locations
@@ -438,7 +441,10 @@ cli::cli_alert_success(
 )
 
 oo_path <- get_target_path(hub_path_source, "oracle-output")
-oo_dat <- arrow::read_csv_arrow(oo_path) |>
+oo_dat <- read_target_file(
+  target_file_path = basename(oo_path),
+  hub_path_source
+) |>
   filter(
     target_end_date %in% ref_dates,
     location %in% locations
