@@ -1,4 +1,4 @@
-# hubUtils (development version)
+# hubUtils 0.7.0
 
 * Added two lightweight example v5 hubs for use in examples and tests:
   - `testhubs/v5/target_file` — target data stored in single files.
