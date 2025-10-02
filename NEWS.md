@@ -1,5 +1,7 @@
 # hubUtils (development version)
 
+* Added last schema version (v6.0.0)
+
 # hubUtils 0.7.0
 
 * Added two lightweight example v5 hubs for use in examples and tests:
