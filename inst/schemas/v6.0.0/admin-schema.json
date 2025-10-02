@@ -37,9 +37,9 @@
                 "email": {
                     "type": "string",
                     "format": "email"
-                },
-                "additionalProperties": false
-            }
+                }
+            },
+            "additionalProperties": false
         },
         "repository": {
             "description": "Object containing details of the hub repository.",
@@ -66,14 +66,14 @@
                 "name": {
                     "description": "The name of the hub repository.",
                     "type": "string"
-                },
-                "additionalProperties": false
+                }
             },
             "required": [
                 "host",
                 "owner",
                 "name"
-            ]
+            ],
+            "additionalProperties": false
         },
         "zoltar_project_id": {
             "description": "The project id of the Hub in Zoltar",
@@ -671,12 +671,12 @@
                         "storage_location": {
                             "description": "Cloud storage location, excluding prefix (for example, AWS S3 bucket name).",
                             "type": "string"
-                        },
-                        "additionalProperties": false
-                    }
-                },
-                "additionalProperties": false
+                        }
+                    },
+                    "additionalProperties": false
+                }
             },
+            "additionalProperties": false,
             "if": {
                 "properties": {
                     "enabled": {
