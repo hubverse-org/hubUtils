@@ -14,8 +14,10 @@
 #'
 #' @examplesIf asNamespace("hubUtils")$not_rcmd_check()
 #' get_schema_url(config = "tasks", version = "v0.0.0.9")
-get_schema_url <- function(config = c("tasks", "admin", "model"),
-                           version, branch = "main") {
+get_schema_url <- function(
+  version,
+  branch = "main"
+) {
   config <- rlang::arg_match(config)
   rlang::check_required(version)
 
@@ -24,7 +26,9 @@ get_schema_url <- function(config = c("tasks", "admin", "model"),
   validate_schema_version(version, branch = branch)
 
   schema_repo <- "hubverse-org/schemas"
-  glue::glue("https://raw.githubusercontent.com/{schema_repo}/{branch}/{version}/{config}-schema.json")
+  glue::glue(
+    "https://raw.githubusercontent.com/{schema_repo}/{branch}/{version}/{config}-schema.json"
+  )
 }
 
 #' Get a vector of valid schema version
@@ -56,7 +60,8 @@ get_schema_valid_versions <- function(branch = "main") {
     ))
   }
 
-  req <- gh("GET /repos/hubverse-org/schemas/git/trees/{branch}",
+  req <- gh(
+    "GET /repos/hubverse-org/schemas/git/trees/{branch}",
     branch = branch
   )
 
@@ -89,9 +94,11 @@ get_schema <- function(schema_url) {
     if (fs::file_exists(path)) {
       return(jsonlite::prettify(readLines(path)))
     } else {
-      cli::cli_alert_warning("{.file {version}/{config}} not found.
+      cli::cli_alert_warning(
+        "{.file {version}/{config}} not found.
         This could mean your version of hubUtils is outdated.
-        Attempting to connect to GitHub.")
+        Attempting to connect to GitHub."
+      )
     }
   }
   response <- try(curl_fetch_memory(schema_url), silent = TRUE)
@@ -154,8 +161,10 @@ extract_schema_info <- function(id) {
 #' @examplesIf asNamespace("hubUtils")$not_rcmd_check()
 #' get_schema_version_latest()
 #' get_schema_version_latest(schema_version = "v3.0.0")
-get_schema_version_latest <- function(schema_version = "latest",
-                                      branch = "main") {
+get_schema_version_latest <- function(
+  schema_version = "latest",
+  branch = "main"
+) {
   if (schema_version == "latest") {
     get_schema_valid_versions(branch = branch) %>%
       sort() %>%
@@ -191,6 +200,7 @@ validate_schema_version <- function(schema_version, branch) {
 #' extract_schema_version("refs/heads/main/v3.0.0")
 extract_schema_version <- function(id) {
   stringr::str_extract(
-    id, "v[0-9]+\\.[0-9]+\\.[0-9]+(\\.9([0-9]+)?)?"
+    id,
+    "v[0-9]+\\.[0-9]+\\.[0-9]+(\\.9([0-9]+)?)?"
   )
 }

@@ -8,7 +8,8 @@ test_that("Schema URL created successfully", {
 })
 
 test_that("Invalid branches fail successfully", {
-  expect_error(get_schema_url("tasks", "v0.0.1", branch = "random-branch"),
+  expect_error(
+    get_schema_url("tasks", "v0.0.1", branch = "random-branch"),
     regexp = "is not a valid branch in schema repository"
   )
 })
@@ -60,17 +61,22 @@ test_that("extract_schema_version works", {
   expect_equal(
     extract_schema_version(
       "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/tasks-schema.json"
-    ), "v3.0.0"
+    ),
+    "v3.0.0"
   )
 })
 
 
 test_that("extract_schema_info works", {
-
   expected <- data.frame(
     branch = c("main", "main", "br-v4.0.0", "multi/slash/path"),
     version = c("v3.0.1", "v2.0.0", "v4.0.0", "v5.0.0"),
-    config = c("tasks-schema.json", "admin-schema.json", "tasks-schema.json", "tasks-schema.json")
+    config = c(
+      "tasks-schema.json",
+      "admin-schema.json",
+      "tasks-schema.json",
+      "tasks-schema.json"
+    )
   )
   urls <- c(
     "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.1/tasks-schema.json",
@@ -86,12 +92,14 @@ test_that("check extract_schema_version on multidigit versions", {
   expect_equal(
     extract_schema_version(
       "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.11/tasks-schema.json"
-    ), "v3.0.11"
+    ),
+    "v3.0.11"
   )
   expect_equal(
     extract_schema_version(
       "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.20.13.900004/tasks-schema.json"
-    ), "v3.20.13.900004"
+    ),
+    "v3.20.13.900004"
   )
 })
 
@@ -99,6 +107,10 @@ test_that("check extract_schema_version on single digit version component", {
   expect_equal(
     extract_schema_version(
       "https://raw.githubusercontent.com/hubverse-org/schemas/main/v0.0.0.9/tasks-schema.json"
-    ), "v0.0.0.9"
+    ),
+    "v0.0.0.9"
+  )
+})
+
   )
 })
