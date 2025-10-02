@@ -141,10 +141,10 @@ get_schema <- function(schema_url) {
 #' extract_schema_info(urls)
 extract_schema_info <- function(id) {
   lead <- "^https[:][/][/]raw.githubusercontent.com[/]hubverse-org[/]schemas[/]"
-  good_stuff <- "(.+?)[/](v[0-9.]+?)[/]([a-z]+?-schema.json)$"
+  good_stuff <- "(.+?)[/](v[0-9.]+?)[/]([a-z-]+?-schema.json)$"
   pattern <- paste0(lead, good_stuff)
-  proto <- setNames(character(3), c("branch", "version", "config"))
-  utils::strcapture(pattern, id, proto)
+  template <- setNames(character(3), c("branch", "version", "config"))
+  utils::strcapture(pattern, id, template)
 }
 
 #' Get the latest schema version

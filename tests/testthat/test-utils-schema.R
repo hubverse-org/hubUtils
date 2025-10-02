@@ -69,20 +69,22 @@ test_that("extract_schema_version works", {
 
 test_that("extract_schema_info works", {
   expected <- data.frame(
-    branch = c("main", "main", "br-v4.0.0", "multi/slash/path"),
-    version = c("v3.0.1", "v2.0.0", "v4.0.0", "v5.0.0"),
+    branch = c("main", "main", "br-v4.0.0", "multi/slash/path", "main"),
+    version = c("v3.0.1", "v2.0.0", "v4.0.0", "v5.0.0", "v6.0.0"),
     config = c(
       "tasks-schema.json",
       "admin-schema.json",
       "tasks-schema.json",
-      "tasks-schema.json"
+      "tasks-schema.json",
+      "target-data-schema.json"
     )
   )
   urls <- c(
     "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.1/tasks-schema.json",
     "https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.0/admin-schema.json",
     "https://raw.githubusercontent.com/hubverse-org/schemas/br-v4.0.0/v4.0.0/tasks-schema.json",
-    "https://raw.githubusercontent.com/hubverse-org/schemas/multi/slash/path/v5.0.0/tasks-schema.json"
+    "https://raw.githubusercontent.com/hubverse-org/schemas/multi/slash/path/v5.0.0/tasks-schema.json",
+    "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json"
   )
   expect_equal(expected, extract_schema_info(urls))
 })
