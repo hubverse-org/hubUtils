@@ -68,7 +68,12 @@
                     "type": "string"
                 },
                 "additionalProperties": false
-            }
+            },
+            "required": [
+                "host",
+                "owner",
+                "name"
+            ]
         },
         "zoltar_project_id": {
             "description": "The project id of the Hub in Zoltar",

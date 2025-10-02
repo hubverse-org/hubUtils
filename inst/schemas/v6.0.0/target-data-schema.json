@@ -6,20 +6,23 @@
     "type": "object",
     "properties": {
         "target_data_metadata": {
-        "description": "Target data metadata object.",
+            "description": "Target data metadata object.",
             "type": "object",
             "properties": {
                 "observable_unit": {
-                            "description": "Names of columns whose unique value combinations define the minimum observable unit across al target type data. Each combination of values must be unique across `as_of` data versions if applicable. The majority are expected to correspond to task ID names but may include other columns as well (e.g. the general `date` column).",
-                        "type": "array",
-                        "uniqueItems": true,
-                        "items": {
-                            "type": "string"
-                        }
+                    "description": "Names of columns whose unique value combinations define the minimum observable unit across al target type data. Each combination of values must be unique across `as_of` data versions if applicable. The majority are expected to correspond to task ID names but may include other columns as well (e.g. the general `date` column).",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "date_col": {
                     "description": "Name of the date column across hub data (time-series, oracle-output and model output). This is the column that stores the date on which observed data actually occured.",
-                    "type": ["string", "null"],
+                    "type": [
+                        "string",
+                        "null"
+                    ],
                     "default": null
                 },
                 "time-series": {
@@ -32,13 +35,20 @@
                             "examples": [
                                 {
                                     "location_name": "character"
-                                },{
+                                },
+                                {
                                     "date": "Date"
                                 }
                             ],
                             "additionalProperties": {
                                 "type": "string",
-                                "enum": ["character", "double", "integer","logical", "Date"]
+                                "enum": [
+                                    "character",
+                                    "double",
+                                    "integer",
+                                    "logical",
+                                    "Date"
+                                ]
                             }
                         },
                         "versioned": {
@@ -74,7 +84,10 @@
                     "additionalProperties": false
                 }
             },
-            "required": ["observable_unit", "date_col"],
+            "required": [
+                "observable_unit",
+                "date_col"
+            ],
             "additionalProperties": false
         },
         "additionalProperties": true
