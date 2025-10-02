@@ -1,6 +1,7 @@
 #' Get the JSON schema download URL for a given config file version
 #'
-#' @param config Name of config file to validate. One of `"tasks"` or `"admin"`.
+#' @param config Name of config file to validate. One of `"tasks"`, `"admin"`,
+#' `"model"` or `"target-data"`.
 #' @param version A valid version of hubverse
 #'   [schema](https://github.com/hubverse-org/schemas)
 #'   (e.g. `"v0.0.1"`).
@@ -15,6 +16,7 @@
 #' @examplesIf asNamespace("hubUtils")$not_rcmd_check()
 #' get_schema_url(config = "tasks", version = "v0.0.0.9")
 get_schema_url <- function(
+  config = c("tasks", "admin", "model", "target-data"),
   version,
   branch = "main"
 ) {

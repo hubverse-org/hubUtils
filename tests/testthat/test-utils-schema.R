@@ -112,5 +112,10 @@ test_that("check extract_schema_version on single digit version component", {
   )
 })
 
+test_that("Schema URL for target-data created successfully", {
+  schema_url <- get_schema_url("target-data", "v6.0.0")
+  expect_equal(
+    schema_url,
+    "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json"
   )
 })
