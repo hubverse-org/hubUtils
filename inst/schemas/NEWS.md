@@ -1,3 +1,9 @@
+# v6.0.0
+
+* Add new `target-data-schema.json` for validating `target-data.json` files. (#131)
+* Remove `model_output_dir` property from `admin-schema.json`. Custom names for model output directories are no longer allowed. (#124)
+* Disallow additional properties in all objects within `admin-schema.json`. (#134)
+
 # v5.1.0
 
 * Allow additional properties in `target-metadata` section in `tasks.json` (#126)

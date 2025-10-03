@@ -4,10 +4,15 @@
 \alias{get_schema_url}
 \title{Get the JSON schema download URL for a given config file version}
 \usage{
-get_schema_url(config = c("tasks", "admin", "model"), version, branch = "main")
+get_schema_url(
+  config = c("tasks", "admin", "model", "target-data"),
+  version,
+  branch = "main"
+)
 }
 \arguments{
-\item{config}{Name of config file to validate. One of \code{"tasks"} or \code{"admin"}.}
+\item{config}{Name of config file to validate. One of \code{"tasks"}, \code{"admin"},
+\code{"model"} or \code{"target-data"}.}
 
 \item{version}{A valid version of hubverse
 \href{https://github.com/hubverse-org/schemas}{schema}
