@@ -30,7 +30,7 @@ library(hubUtils)
 library(hubAdmin)
 
 # Set up paths
-options(update.branch = "main") # Use to override default
+options(update.branch = "ak/upgrade-to-v6") # Use to override default
 # source branch ('main')
 hub_path_source <- fs::path(withr::local_tempdir(), "main")
 hub_url <- "https://github.com/hubverse-org/example-complex-forecast-hub.git"
@@ -43,7 +43,7 @@ initial_size <- sum(fs::dir_info(hub_path_source, recurse = TRUE)$size)
 
 hub_version <- hubUtils::get_version_hub(hub_path_source, "admin")
 options(hubAdmin.schema_version = hub_version)
-version <- stringr::str_match(hub_version, "v[0-9]+")
+version <- stringr::str_match(hub_version, "v[0-9]+")[1]
 
 hub_path_file <- here::here("inst", "testhubs", version, "target_file")
 hub_path_dir <- here::here("inst", "testhubs", version, "target_dir")
