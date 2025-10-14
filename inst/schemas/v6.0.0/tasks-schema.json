@@ -1242,6 +1242,11 @@
                                                     "week",
                                                     "month"
                                                 ]
+                                            },
+                                            "additional_metadata": {
+                                                "description": "Optional property in which any type of custom metadata can be stored.",
+                                                "type": "object",
+                                                "additionalProperties": true
                                             }
                                         },
                                         "required": [
@@ -1252,7 +1257,7 @@
                                             "target_keys",
                                             "is_step_ahead"
                                         ],
-                                        "additionalProperties": true,
+                                        "additionalProperties": false,
                                         "if": {
                                             "properties": {
                                                 "is_step_ahead": {
@@ -1382,6 +1387,11 @@
                         "items": {
                             "type": "string"
                         }
+                    },
+                    "additional_metadata": {
+                        "description": "Optional property in which any type of custom metadata can be stored.",
+                        "type": "object",
+                        "additionalProperties": true
                     }
                 },
                 "if": {
@@ -1405,7 +1415,7 @@
                     "model_tasks",
                     "submissions_due"
                 ],
-                "additionalProperties": true
+                "additionalProperties": false
             }
         },
         "output_type_id_datatype": {
