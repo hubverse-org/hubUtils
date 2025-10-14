@@ -699,6 +699,11 @@
                     }
                 }
             ]
+        },
+        "additional_metadata": {
+            "description": "Optional property in which any type of custom metadata can be stored.",
+            "type": "object",
+            "additionalProperties": true
         }
     },
     "required": [
@@ -710,5 +715,5 @@
         "file_format",
         "timezone"
     ],
-    "additionalProperties": true
+    "additionalProperties": false
 }
