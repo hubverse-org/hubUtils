@@ -710,5 +710,5 @@
         "file_format",
         "timezone"
     ],
-    "additionalProperties": false
+    "additionalProperties": true
 }

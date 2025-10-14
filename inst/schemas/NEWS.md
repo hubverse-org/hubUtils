@@ -2,7 +2,7 @@
 
 * Add new `target-data-schema.json` for validating `target-data.json` files. (#131)
 * Remove `model_output_dir` property from `admin-schema.json`. Custom names for model output directories are no longer allowed. (#124)
-* Disallow additional properties in all objects within `admin-schema.json`. (#134)
+* Disallow additional properties in all objects within `admin-schema.json` apart from the top level. Only in this top level are hub administrators allowed to store custom additional metadata. (#134)
 
 # v5.1.0
 
