@@ -30,16 +30,24 @@ library(hubUtils)
 library(hubAdmin)
 
 # Set up paths
+options(update.branch = "main") # Use to override default
+# source branch ('main')
 hub_path_source <- fs::path(withr::local_tempdir(), "main")
-hub_path_file <- here::here("inst", "testhubs", "v5", "target_file")
-hub_path_dir <- here::here("inst", "testhubs", "v5", "target_dir")
-
 hub_url <- "https://github.com/hubverse-org/example-complex-forecast-hub.git"
 gert::git_clone(
   url = hub_url,
-  path = hub_path_source
+  path = hub_path_source,
+  branch = getOption("update.branch", default = "main")
 )
 initial_size <- sum(fs::dir_info(hub_path_source, recurse = TRUE)$size)
+
+hub_version <- hubUtils::get_version_hub(hub_path_source, "admin")
+options(hubAdmin.schema_version = hub_version)
+version <- stringr::str_match(hub_version, "v[0-9]+")
+
+hub_path_file <- here::here("inst", "testhubs", version, "target_file")
+hub_path_dir <- here::here("inst", "testhubs", version, "target_dir")
+
 
 # Specify up hub valid values. Will be used to create hub config and subset
 # model output and target files.
@@ -233,7 +241,7 @@ write_config(
   overwrite = TRUE
 )
 
-##### ---- Udpate admin config if required #### ----
+##### ---- Update admin config if required #### ----
 tasks_v <- get_version_hub(hub_path_source, "tasks")
 admin_v <- get_version_hub(hub_path_source, "admin")
 
@@ -426,15 +434,16 @@ ts_path <- get_target_path(hub_path_source, "time-series")
 ts_dat <- read_target_file(
   target_file_path = basename(ts_path),
   hub_path_source
-) |>
-  filter(
-    date %in% ref_dates,
-    location %in% locations
-  )
-
+)
 if ("date" %in% colnames(ts_dat)) {
   ts_dat <- rename(ts_dat, target_end_date = date)
 }
+ts_dat <- filter(
+  ts_dat,
+  target_end_date %in% ref_dates,
+  location %in% locations
+)
+
 arrow::write_csv_arrow(ts_dat, ts_path)
 cli::cli_alert_success(
   "{.field time-series} target data reduced successfully."

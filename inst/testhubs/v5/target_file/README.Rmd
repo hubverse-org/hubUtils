@@ -23,56 +23,63 @@ The example model outputs that are provided here are adapted from forecasts subm
 
 ## Working with the data in R
 
-Install the [hubUtils package](https://infectious-disease-modeling-hubs.github.io/hubUtils/) to work with the data in R.
+Install the [hubData package](https://infectious-disease-modeling-hubs.github.io/hubData/) to work with the data in R.
 
-To connect to a local copy of the data, clone this repository and use code like the following:
+To connect to a local copy of the data, first clone this repository.
+
+You can then use functions in the `hubData` package to connect to hub data as well as dplyr functions to filter and select data prior to collecting the data into R. 
 
 ```{r}
-library(hubUtils)
+library(hubData)
 library(dplyr)
+```
 
-model_outputs <- hubUtils::connect_hub(hub_path = ".") %>%
-  dplyr::collect()
-head(model_outputs)
+For example, to connect to the hub and collect all model outputs:
 
-target_time_series_data <- read.csv(
-  "target-data/flu-hospitalization-time-series.csv")
-head(target_time_series_data)
-
-inc_flu_hosp_target_data <- read.csv(
-  "target-data/wk-inc-flu-hosp-target-values.csv")
-head(inc_flu_hosp_target_data)
-
-rate_category_target_data <- read.csv(
-  "target-data/wk-flu-hosp-rate-category-target-values.csv")
-head(rate_category_target_data)
+```{r}
+model_outputs <- connect_hub(hub_path = ".") %>%
+  collect_hub()
 ```
 
 
-To connect to a copy of this example data hosted in the cloud (on AWS S3), your code would look like this:
+To access time series target data, you can use the `connect_target_time_series()` function. For example, to collect all time series targets:
 
 ```{r}
-library(aws.s3)
-library(dplyr)
-library(hubUtils)
+target_time_series_data <- connect_target_timeseries() |>
+  collect()
+target_time_series_data
+```
 
+You can also filter data prior to collecting it. For example, to collect oracle-output target data for specific targets, you can use `dplyr` function `filter()` to select the targets you are interested in.
+
+```{r}
+inc_flu_hosp_oracle_data <- connect_target_oracle_output() |>
+  filter(target == "wk inc flu hosp") |>
+  collect()
+inc_flu_hosp_oracle_data
+  
+flu_hosp_rate_category_oracle_data <- connect_target_oracle_output() |>
+  filter(target == "wk flu hosp rate category") |>
+  collect()
+flu_hosp_rate_category_oracle_data
+```
+
+
+### Accessing data from the cloud
+
+To connect to a copy of this example data hosted in the cloud (on AWS S3), first you need to create a hub path that points to the S3 bucket where the hub data is stored. You can do this using the `s3_bucket()` function from the `hubData` package.
+
+```{r}
 hub_path <- s3_bucket("hubverse-example-complex-forecast-hub")
-model_outputs <- hubUtils::connect_hub(hub_path) %>%
-  dplyr::collect()
-head(model_outputs)
+```
 
-target_time_series_data <- aws.s3::s3read_using(
-  read.csv,
-  object = "s3://hubverse-example-complex-forecast-hub/target-data/flu-hospitalization-time-series.csv")
-head(target_time_series_data)
+You can then use the same `connect_hub()` and `connect_target_*()` functions to connect to and access the data in the cloud and also `dplyr` functions to subset data prior to collecting. 
 
-inc_flu_hosp_target_data <- aws.s3::s3read_using(
-  read.csv,
-  object = "s3://hubverse-example-complex-forecast-hub/target-data/wk-inc-flu-hosp-target-values.csv")
-head(inc_flu_hosp_target_data)
+For example, to collect all model outputs for a specific target end date and location, you can use the following code:
 
-rate_category_target_data <- aws.s3::s3read_using(
-  read.csv,
-  object = "s3://hubverse-example-complex-forecast-hub/target-data/wk-flu-hosp-rate-category-target-values.csv")
-head(rate_category_target_data)
+```{r}
+connect_hub(hub_path, skip_checks = TRUE) |>
+  filter(target_end_date == "2022-10-22",
+         location == "02") |>
+  collect_hub()
 ```
