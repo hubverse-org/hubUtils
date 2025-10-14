@@ -31,9 +31,11 @@
 #' # Read config file from AWS S3 bucket hub
 #' hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
 #' read_config(hub_path, "admin")
-read_config <- function(hub_path,
-                        config = c("tasks", "admin", "model-metadata-schema"),
-                        silent = TRUE) {
+read_config <- function(
+  hub_path,
+  config = c("tasks", "admin", "model-metadata-schema", "target-data"),
+  silent = TRUE
+) {
   UseMethod("read_config")
 }
 
@@ -41,9 +43,11 @@ read_config <- function(hub_path,
 #' @export
 #' @importFrom jsonlite read_json
 #' @importFrom fs path
-read_config.default <- function(hub_path,
-                                config = c("tasks", "admin", "model-metadata-schema"),
-                                silent = TRUE) {
+read_config.default <- function(
+  hub_path,
+  config = c("tasks", "admin", "model-metadata-schema", "target-data"),
+  silent = TRUE
+) {
   config <- rlang::arg_match(config)
   config_path <- path("hub-config", config, ext = "json")
   if (is_url(hub_path)) {
@@ -77,12 +81,16 @@ read_config.default <- function(hub_path,
 }
 
 #' @export
-read_config.SubTreeFileSystem <- function(hub_path,
-                                          config = c(
-                                            "tasks", "admin",
-                                            "model-metadata-schema"
-                                          ),
-                                          silent = TRUE) {
+read_config.SubTreeFileSystem <- function(
+  hub_path,
+  config = c(
+    "tasks",
+    "admin",
+    "model-metadata-schema",
+    "target-data"
+  ),
+  silent = TRUE
+) {
   config <- rlang::arg_match(config)
 
   base_path <- path("hub-config", config, ext = "json")
@@ -95,7 +103,8 @@ read_config.SubTreeFileSystem <- function(hub_path,
 
   split_base_path <- stringr::str_split(
     hub_path$base_path,
-    "/", 2
+    "/",
+    2
   ) %>%
     unlist()
 

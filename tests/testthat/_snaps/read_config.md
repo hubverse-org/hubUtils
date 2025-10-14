@@ -1085,3 +1085,38 @@
     Output
       named list()
 
+# read_config works on target-data.json files
+
+    Code
+      read_config(hub_path = system.file("testhubs", "v6", "target_file", package = "hubUtils"),
+      config = "target-data")
+    Output
+      $schema_version
+      [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json"
+      
+      $observable_unit
+      [1] "target_end_date" "target"          "location"       
+      
+      $date_col
+      [1] "target_end_date"
+      
+      $`time-series`
+      $`time-series`$versioned
+      [1] FALSE
+      
+      
+      $`oracle-output`
+      $`oracle-output`$has_output_type_ids
+      [1] TRUE
+      
+      $`oracle-output`$versioned
+      [1] FALSE
+      
+      
+      attr(,"schema_id")
+      [1] "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json"
+      attr(,"type")
+      [1] "target-data"
+      attr(,"class")
+      [1] "config" "list"  
+

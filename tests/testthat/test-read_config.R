@@ -47,7 +47,6 @@ test_that("read_config works with GitHub urls", {
     attr(github_config_admin, "schema_id"),
     "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/admin-schema.json"
   )
-
 })
 
 test_that("read_config_file works", {
@@ -118,5 +117,19 @@ test_that("read_config_file with urls works", {
   expect_error(
     read_config_file(config_path),
     regexp = "does not exist"
+  )
+})
+
+test_that("read_config works on target-data.json files", {
+  expect_snapshot(
+    read_config(
+      hub_path = system.file(
+        "testhubs",
+        "v6",
+        "target_file",
+        package = "hubUtils"
+      ),
+      config = "target-data"
+    )
   )
 })
