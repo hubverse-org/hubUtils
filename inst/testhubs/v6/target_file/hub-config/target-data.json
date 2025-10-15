@@ -5,12 +5,9 @@
     "target",
     "location"
   ],
+  "versioned": false,
   "date_col": "target_end_date",
-  "time-series": {
-    "versioned": false
-  },
   "oracle-output": {
-    "has_output_type_ids": true,
-    "versioned": false
+    "has_output_type_ids": true
   }
 }
