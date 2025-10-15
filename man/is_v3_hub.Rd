@@ -4,7 +4,7 @@
 \alias{is_v3_hub}
 \title{Is hub configured using v3.0.0 schema?}
 \usage{
-is_v3_hub(hub_path, config = c("tasks", "admin"))
+is_v3_hub(hub_path, config = c("tasks", "admin", "target-data"))
 }
 \arguments{
 \item{hub_path}{Either a character string path to a local Modeling Hub directory,

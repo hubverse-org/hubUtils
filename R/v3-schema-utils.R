@@ -38,7 +38,7 @@ is_v3_config_file <- function(config_path) {
 #'
 #' @examples
 #' is_v3_hub(hub_path = system.file("testhubs", "flusight", package = "hubUtils"))
-is_v3_hub <- function(hub_path, config = c("tasks", "admin")) {
+is_v3_hub <- function(hub_path, config = c("tasks", "admin", "target-data")) {
   config <- rlang::arg_match(config)
   read_config(hub_path, config = config) %>%
     is_v3_config()

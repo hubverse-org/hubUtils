@@ -7,3 +7,7 @@ docs
 attic/*
 tests/testthat/testdata-raw/*
 .secrets
+
+# Claude Code
+CLAUDE.md
+.claude/

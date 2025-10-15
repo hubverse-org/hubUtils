@@ -18,3 +18,5 @@
 ^\.lintr$
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
+^CLAUDE\.md$
+^\.claude$
