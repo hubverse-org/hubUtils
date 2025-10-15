@@ -1,7 +1,11 @@
 # hubUtils (development version)
 
 * Added latest schema version (v6.0.0).
-* Added support for `target-data` config files in `get_schema_url()`.
+* Added support for `target-data` config files in `get_schema_url()` and `read_config()` (#252).
+* Added two lightweight example v6 hubs for use in examples and tests:
+  - `testhubs/v6/target_file` — target data stored in single files.
+  - `testhubs/v6/target_dir` — hive-partitioned target data.
+
 
 # hubUtils 0.7.0
 
