@@ -1097,20 +1097,15 @@
       $observable_unit
       [1] "target_end_date" "target"          "location"       
       
-      $date_col
-      [1] "target_end_date"
-      
-      $`time-series`
-      $`time-series`$versioned
+      $versioned
       [1] FALSE
       
+      $date_col
+      [1] "target_end_date"
       
       $`oracle-output`
       $`oracle-output`$has_output_type_ids
       [1] TRUE
-      
-      $`oracle-output`$versioned
-      [1] FALSE
       
       
       attr(,"schema_id")
