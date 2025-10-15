@@ -30,7 +30,7 @@ library(hubUtils)
 library(hubAdmin)
 
 # Set up paths
-options(update.branch = "ak/upgrade-to-v6") # Use to override default
+options(update.branch = "main") # Use to override default
 # source branch ('main')
 hub_path_source <- fs::path(withr::local_tempdir(), "main")
 hub_url <- "https://github.com/hubverse-org/example-complex-forecast-hub.git"
