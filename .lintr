@@ -6,6 +6,7 @@ linters: linters_with_defaults(
 exclusions: list(
     "tests/testthat/helper.R",
     "inst/testhubs/v5",
+    "inst/testhubs/v6",
     # excluded from objest_usage_linter:
     "data-raw/v5-target-test-hubs.R" = list(
       object_usage_linter = Inf

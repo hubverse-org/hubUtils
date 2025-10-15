@@ -1,0 +1,24 @@
+{
+    "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/admin-schema.json",
+    "name": "Example complex forecast hub",
+    "maintainer": "hubverse",
+    "contact": {
+        "name": "Maintainer name",
+        "email": "maintainer.email@example.com"
+    },
+    "repository": {
+        "host": "github",
+        "owner": "Infectious-Disease-Modeling-Hubs",
+        "name": "example-complex-forecast-hub"
+    },
+    "file_format": ["csv"],
+    "timezone": "US/Eastern",
+    "cloud": {
+        "enabled": true,
+        "host": {
+          "name": "aws",
+          "storage_service": "s3",
+          "storage_location": "example-complex-forecast-hub"
+        }
+    }
+}

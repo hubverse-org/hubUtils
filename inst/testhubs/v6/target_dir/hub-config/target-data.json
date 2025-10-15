@@ -1,0 +1,16 @@
+{
+  "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json",
+  "observable_unit": [
+    "target_end_date",
+    "target",
+    "location"
+  ],
+  "date_col": "target_end_date",
+  "time-series": {
+    "versioned": false
+  },
+  "oracle-output": {
+    "has_output_type_ids": true,
+    "versioned": false
+  }
+}

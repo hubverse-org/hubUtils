@@ -6,7 +6,7 @@
 \usage{
 read_config(
   hub_path,
-  config = c("tasks", "admin", "model-metadata-schema"),
+  config = c("tasks", "admin", "model-metadata-schema", "target-data"),
   silent = TRUE
 )
 }
