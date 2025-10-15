@@ -13,7 +13,9 @@
 get_version_config <- function(config) {
   schema_version <- config$schema_version
   if (is.null(schema_version)) {
-    cli::cli_abort(c("x" = "No {.field schema_version} property found in {.arg config}."))
+    cli::cli_abort(c(
+      "x" = "No {.field schema_version} property found in {.arg config}."
+    ))
   }
   extract_schema_version(config$schema_version)
 }
@@ -43,7 +45,7 @@ get_version_file <- function(config_path) {
 
 #' @inheritParams read_config
 #' @param config_type Character vector specifying the type of config file to read.
-#' One of "tasks" or "admin". Default is "tasks".
+#' One of "tasks", "admin" or "target-data". Default is "tasks".
 #' @export
 #' @describeIn get_version_config Get schema version from config file at specific path.
 #'
@@ -55,7 +57,10 @@ get_version_file <- function(config_path) {
 #' # Get version from an AWS S3 cloud hub config file
 #' hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
 #' get_version_hub(hub_path)
-get_version_hub <- function(hub_path, config_type = c("tasks", "admin")) {
+get_version_hub <- function(
+  hub_path,
+  config_type = c("tasks", "admin", "target-data")
+) {
   config_type <- rlang::arg_match(config_type)
   read_config(hub_path, config_type) |>
     get_version_config()
@@ -92,10 +97,20 @@ get_version_hub <- function(hub_path, config_type = c("tasks", "admin")) {
 #' version_equal("v3.0.0", config_path = config_path)
 #' version_equal("v3.0.0", hub_path = hub_path)
 #' version_equal("v3.0.0", schema_version = schema_version)
-version_equal <- function(version, config = NULL, config_path = NULL,
-                          hub_path = NULL, schema_version = NULL) {
+version_equal <- function(
+  version,
+  config = NULL,
+  config_path = NULL,
+  hub_path = NULL,
+  schema_version = NULL
+) {
   validate_version_format(version)
-  comp_version <- get_comp_version(config, config_path, hub_path, schema_version)
+  comp_version <- get_comp_version(
+    config,
+    config_path,
+    hub_path,
+    schema_version
+  )
   comp_version == as_pkg_version(version)
 }
 
@@ -110,10 +125,20 @@ version_equal <- function(version, config = NULL, config_path = NULL,
 #' version_gte("v3.0.0", config_path = config_path)
 #' version_gte("v3.0.0", hub_path = hub_path)
 #' version_gte("v3.0.0", schema_version = schema_version)
-version_gte <- function(version, config = NULL, config_path = NULL,
-                        hub_path = NULL, schema_version = NULL) {
+version_gte <- function(
+  version,
+  config = NULL,
+  config_path = NULL,
+  hub_path = NULL,
+  schema_version = NULL
+) {
   validate_version_format(version)
-  comp_version <- get_comp_version(config, config_path, hub_path, schema_version)
+  comp_version <- get_comp_version(
+    config,
+    config_path,
+    hub_path,
+    schema_version
+  )
   comp_version >= as_pkg_version(version)
 }
 
@@ -128,10 +153,20 @@ version_gte <- function(version, config = NULL, config_path = NULL,
 #' version_gt("v3.0.0", config_path = config_path)
 #' version_gt("v3.0.0", hub_path = hub_path)
 #' version_gt("v3.0.0", schema_version = schema_version)
-version_gt <- function(version, config = NULL, config_path = NULL,
-                       hub_path = NULL, schema_version = NULL) {
+version_gt <- function(
+  version,
+  config = NULL,
+  config_path = NULL,
+  hub_path = NULL,
+  schema_version = NULL
+) {
   validate_version_format(version)
-  comp_version <- get_comp_version(config, config_path, hub_path, schema_version)
+  comp_version <- get_comp_version(
+    config,
+    config_path,
+    hub_path,
+    schema_version
+  )
   comp_version > as_pkg_version(version)
 }
 
@@ -146,10 +181,20 @@ version_gt <- function(version, config = NULL, config_path = NULL,
 #' version_lte("v3.0.0", config_path = config_path)
 #' version_lte("v3.0.0", hub_path = hub_path)
 #' version_lte("v3.0.0", schema_version = schema_version)
-version_lte <- function(version, config = NULL, config_path = NULL,
-                        hub_path = NULL, schema_version = NULL) {
+version_lte <- function(
+  version,
+  config = NULL,
+  config_path = NULL,
+  hub_path = NULL,
+  schema_version = NULL
+) {
   validate_version_format(version)
-  comp_version <- get_comp_version(config, config_path, hub_path, schema_version)
+  comp_version <- get_comp_version(
+    config,
+    config_path,
+    hub_path,
+    schema_version
+  )
   comp_version <= as_pkg_version(version)
 }
 
@@ -164,20 +209,37 @@ version_lte <- function(version, config = NULL, config_path = NULL,
 #' version_lt("v3.0.0", config_path = config_path)
 #' version_lt("v3.0.0", hub_path = hub_path)
 #' version_lt("v3.0.0", schema_version = schema_version)
-version_lt <- function(version, config = NULL, config_path = NULL,
-                       hub_path = NULL, schema_version = NULL) {
+version_lt <- function(
+  version,
+  config = NULL,
+  config_path = NULL,
+  hub_path = NULL,
+  schema_version = NULL
+) {
   validate_version_format(version)
-  comp_version <- get_comp_version(config, config_path, hub_path, schema_version)
+  comp_version <- get_comp_version(
+    config,
+    config_path,
+    hub_path,
+    schema_version
+  )
   comp_version < as_pkg_version(version)
 }
 
 # Get the schema version from the provided argument
-get_comp_version <- function(config, config_path, hub_path, schema_version,
-                             call = rlang::caller_env()) {
+get_comp_version <- function(
+  config,
+  config_path,
+  hub_path,
+  schema_version,
+  call = rlang::caller_env()
+) {
   non_null_args <- list(config, config_path, hub_path, schema_version) |>
     purrr::set_names(
       c(
-        "config", "config_path", "hub_path",
+        "config",
+        "config_path",
+        "hub_path",
         "schema_version"
       )
     ) |>
@@ -186,21 +248,20 @@ get_comp_version <- function(config, config_path, hub_path, schema_version,
   arg_names <- names(non_null_args)[non_null_args]
 
   if (sum(non_null_args) != 1) {
-    abort_msg <- c("x" = "Exactly one of {.arg config}, {.arg config_path},
-              {.arg hub_path} or {.arg schema_version} must be provided.")
+    abort_msg <- c(
+      "x" = "Exactly one of {.arg config}, {.arg config_path},
+              {.arg hub_path} or {.arg schema_version} must be provided."
+    )
     if (length(arg_names) > 0) {
-      abort_msg <- c(abort_msg,
-        "i" = "Provided arguments: {.arg {arg_names}}."
-      )
+      abort_msg <- c(abort_msg, "i" = "Provided arguments: {.arg {arg_names}}.")
     } else {
-      abort_msg <- c(abort_msg,
-        "i" = "None provided."
-      )
+      abort_msg <- c(abort_msg, "i" = "None provided.")
     }
     cli::cli_abort(abort_msg, call = call)
   }
 
-  v <- switch(arg_names,
+  v <- switch(
+    arg_names,
     config = get_version_config(config),
     config_path = get_version_file(config_path),
     hub_path = get_version_hub(hub_path),
@@ -214,8 +275,10 @@ validate_version_format <- function(version, call = rlang::caller_env()) {
   checkmate::assert_character(version, len = 1L)
   if (!grepl("^v[0-9]+\\.[0-9]+\\.[0-9]+$", version)) {
     cli::cli_abort(
-      c("x" = "Invalid version number format.
-              Must be in the format {.val v#.#.#.}"),
+      c(
+        "x" = "Invalid version number format.
+              Must be in the format {.val v#.#.#.}"
+      ),
       call = call
     )
   }

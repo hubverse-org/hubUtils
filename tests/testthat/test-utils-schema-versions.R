@@ -168,10 +168,7 @@ test_that("version comparison utilities fail correctly", {
   expect_snapshot(version_lt("v2.0.0"), error = TRUE)
   expect_snapshot(version_lt("v2.0.0", config = NULL), error = TRUE)
   expect_snapshot(
-    version_lt("v2.0.0",
-      hub_path = hub_path,
-      config_path = config_path
-    ),
+    version_lt("v2.0.0", hub_path = hub_path, config_path = config_path),
     error = TRUE
   )
 
@@ -200,5 +197,18 @@ test_that("version comparisons interpret pkg versions correctly", {
   )
   expect_true(
     version_equal("v3.0.11", schema_version = schema_version)
+  )
+})
+
+test_that("get_version_hub works with v6 target-data config file.", {
+  hub_path <- system.file(
+    "testhubs",
+    "v6",
+    "target_file",
+    package = "hubUtils"
+  )
+  expect_equal(
+    get_version_hub(hub_path, "target-data"),
+    "v6.0.0"
   )
 })

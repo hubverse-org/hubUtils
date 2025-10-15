@@ -10,7 +10,7 @@ get_version_config(config)
 
 get_version_file(config_path)
 
-get_version_hub(hub_path, config_type = c("tasks", "admin"))
+get_version_hub(hub_path, config_type = c("tasks", "admin", "target-data"))
 }
 \arguments{
 \item{config}{A \verb{<config>} class object. Usually the output of \code{read_config} or \code{read_config_file}.}
@@ -32,7 +32,7 @@ For more details consult the
 in the \code{arrow} package.}
 
 \item{config_type}{Character vector specifying the type of config file to read.
-One of "tasks" or "admin". Default is "tasks".}
+One of "tasks", "admin" or "target-data". Default is "tasks".}
 }
 \value{
 The schema version number as a character string.
