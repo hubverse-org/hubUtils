@@ -18,7 +18,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       PR_NUMBER: ${{ github.event.number }}
-      HUB_PATH: "inst/testhubs/v5/target_dir"
+      HUB_PATH: "inst/testhubs/v6/target_dir"
 
     steps:
       - uses: actions/checkout@v5
