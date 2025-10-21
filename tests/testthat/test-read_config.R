@@ -36,16 +36,16 @@ test_that("read_config works with GitHub urls", {
   github_hub <- "https://github.com/hubverse-org/example-simple-forecast-hub"
   github_config <- read_config(github_hub)
   expect_s3_class(github_config, "config")
-  expect_equal(
+  expect_match(
     attr(github_config, "schema_id"),
-    "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/tasks-schema.json"
+    "^https://raw\\.githubusercontent\\.com/hubverse-org/schemas/main/v\\d+\\.\\d+\\.\\d+/tasks-schema\\.json$"
   )
 
   github_config_admin <- read_config(github_hub, config = "admin")
   expect_s3_class(github_config_admin, "config")
-  expect_equal(
+  expect_match(
     attr(github_config_admin, "schema_id"),
-    "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/admin-schema.json"
+    "^https://raw\\.githubusercontent\\.com/hubverse-org/schemas/main/v\\d+\\.\\d+\\.\\d+/admin-schema\\.json$"
   )
 })
 
@@ -78,9 +78,9 @@ test_that("read_config_file with urls works", {
   )
 
   expect_s3_class(config_github, "config")
-  expect_equal(
+  expect_match(
     attr(config_github, "schema_id"),
-    "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.0/tasks-schema.json"
+    "^https://raw\\.githubusercontent\\.com/hubverse-org/schemas/main/v\\d+\\.\\d+\\.\\d+/tasks-schema\\.json$"
   )
 
   # Error if not a JSON file

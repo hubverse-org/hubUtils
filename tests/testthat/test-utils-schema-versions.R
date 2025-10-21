@@ -27,16 +27,16 @@ test_that("get_version_* utilities works with URLs", {
     "https://raw.githubusercontent.com/hubverse-org/",
     "example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"
   )
-  expect_equal(
-    get_version_file(file_url),
-    "v3.0.0"
-  )
+  version_file <- get_version_file(file_url)
+  expect_match(version_file, "^v\\d+\\.\\d+\\.\\d+$")
+  # Verify it matches what's actually in the config
+  config <- read_config_file(file_url)
+  expect_true(grepl(version_file, config$schema_version))
 
   hub_url <- "https://github.com/hubverse-org/example-simple-forecast-hub"
-  expect_equal(
-    get_version_hub(hub_url),
-    "v3.0.0"
-  )
+  version_hub <- get_version_hub(hub_url)
+  expect_match(version_hub, "^v\\d+\\.\\d+\\.\\d+$")
+  expect_equal(version_hub, version_file)  # Should match the file version
 })
 
 test_that("get_version_* utilities works with SubTreeFileSystem objects", {
