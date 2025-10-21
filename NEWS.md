@@ -1,4 +1,4 @@
-# hubUtils (development version)
+# hubUtils 1.0.0
 
 * Added latest schema version (v6.0.0).
 * Added support for `target-data` config files in `get_schema_url()`, `read_config()`, `get_version_hub()`, and `is_v3_hub()` (#252).
