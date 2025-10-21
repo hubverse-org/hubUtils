@@ -1,3 +1,5 @@
+# hubUtils (development version)
+
 # hubUtils 1.0.0
 
 * Added latest schema version (v6.0.0).
