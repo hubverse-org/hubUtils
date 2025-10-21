@@ -7,7 +7,7 @@
     <a href="https://hubdocs.readthedocs.io/en/latest/" class="external-link"><img src="https://raw.githubusercontent.com/hubverse-org/hubStyle/main/inst/hubverse.png" id="logo" height="30" alt="hubverse"></a>
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,9 +28,20 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/hubverse-org/hubUtils/blob/v0.7.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/hubverse-org/hubUtils/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.0" id="hubutils-100">hubUtils 1.0.0<a class="anchor" aria-label="anchor" href="#hubutils-100"></a></h2>
+<ul><li>Added latest schema version (v6.0.0).</li>
+<li>Added support for <code>target-data</code> config files in <code><a href="../reference/get_schema_url.html">get_schema_url()</a></code>, <code><a href="../reference/read_config.html">read_config()</a></code>, <code><a href="../reference/get_version_config.html">get_version_hub()</a></code>, and <code><a href="../reference/is_v3_hub.html">is_v3_hub()</a></code> (<a href="https://github.com/hubverse-org/hubUtils/issues/252" class="external-link">#252</a>).</li>
+<li>Added two lightweight example v6 hubs for use in examples and tests:
+<ul><li>
+<code>testhubs/v6/target_file</code> — target data stored in single files.</li>
+<li>
+<code>testhubs/v6/target_dir</code> — hive-partitioned target data.</li>
+</ul></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.7.0" id="hubutils-070">hubUtils 0.7.0<a class="anchor" aria-label="anchor" href="#hubutils-070"></a></h2>
 <ul><li>Added two lightweight example v5 hubs for use in examples and tests:
