@@ -59,8 +59,10 @@ get_date_col <- function(config_target_data) {
 #' @return `get_observable_unit()` returns a character vector: column names
 #'   whose unique value combinations define the minimum observable unit.
 #' @export
-get_observable_unit <- function(config_target_data,
-                                 dataset = c("time-series", "oracle-output")) {
+get_observable_unit <- function(
+  config_target_data,
+  dataset = c("time-series", "oracle-output")
+) {
   # Validate dataset parameter
   dataset <- rlang::arg_match(dataset)
 
@@ -87,8 +89,10 @@ get_observable_unit <- function(config_target_data,
 #' @return `get_versioned()` returns a logical value: whether the dataset is
 #'   versioned using `as_of` dates.
 #' @export
-get_versioned <- function(config_target_data,
-                          dataset = c("time-series", "oracle-output")) {
+get_versioned <- function(
+  config_target_data,
+  dataset = c("time-series", "oracle-output")
+) {
   # Validate dataset parameter
   dataset <- rlang::arg_match(dataset)
 
@@ -118,7 +122,7 @@ get_versioned <- function(config_target_data,
 get_has_output_type_ids <- function(config_target_data) {
   oracle_config <- config_target_data[["oracle-output"]]
   if (is.null(oracle_config)) {
-    return(FALSE)  # default
+    return(FALSE) # default
   }
 
   oracle_config$has_output_type_ids %||% FALSE
