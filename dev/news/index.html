@@ -33,7 +33,19 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="hubutils-development-version">hubUtils (development version)<a class="anchor" aria-label="anchor" href="#hubutils-development-version"></a></h2>
-</div>
+<ul><li>Added utility functions for extracting properties from <code>target-data.json</code> configuration files (v6.0.0 schema):
+<ul><li>
+<code><a href="../reference/target-data-utils.html">get_date_col()</a></code>: Get the name of the date column across hub data.</li>
+<li>
+<code><a href="../reference/target-data-utils.html">get_observable_unit()</a></code>: Get observable unit column names with support for dataset-specific overrides.</li>
+<li>
+<code><a href="../reference/target-data-utils.html">get_versioned()</a></code>: Get whether target data is versioned with inheritance from global settings.</li>
+<li>
+<code><a href="../reference/target-data-utils.html">get_has_output_type_ids()</a></code>: Get whether oracle-output data has output_type/output_type_id columns.</li>
+<li>
+<code><a href="../reference/target-data-utils.html">get_non_task_id_schema()</a></code>: Get the schema for non-task ID columns in time-series data.</li>
+</ul></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.0" id="hubutils-100">hubUtils 1.0.0<a class="anchor" aria-label="anchor" href="#hubutils-100"></a></h2>
 <ul><li>Added latest schema version (v6.0.0).</li>
