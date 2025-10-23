@@ -1,5 +1,12 @@
 # hubUtils (development version)
 
+* Added utility functions for extracting properties from `target-data.json` configuration files (v6.0.0 schema):
+  - `get_date_col()`: Get the name of the date column across hub data.
+  - `get_observable_unit()`: Get observable unit column names with support for dataset-specific overrides.
+  - `get_versioned()`: Get whether target data is versioned with inheritance from global settings.
+  - `get_has_output_type_ids()`: Get whether oracle-output data has output_type/output_type_id columns.
+  - `get_non_task_id_schema()`: Get the schema for non-task ID columns in time-series data.
+
 # hubUtils 1.0.0
 
 * Added latest schema version (v6.0.0).
