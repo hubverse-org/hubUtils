@@ -281,6 +281,6 @@ test_that("has_target_data_config works on local hubs", {
 })
 
 test_that("has_target_data_config works on S3 hubs", {
-  no_config_hub <- hubData::s3_bucket("hubverse/hubutils/testhubs/simple/")
+  no_config_hub <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
   expect_false(has_target_data_config(no_config_hub))
 })
