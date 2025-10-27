@@ -6,6 +6,7 @@
   - `get_versioned()`: Get whether target data is versioned with inheritance from global settings.
   - `get_has_output_type_ids()`: Get whether oracle-output data has output_type/output_type_id columns.
   - `get_non_task_id_schema()`: Get the schema for non-task ID columns in time-series data.
+* Moved `has_target_data_config()` from `hubAdmin` package to `hubUtils`. This function checks if a target-data.json file exists in a hub (#260).
 
 # hubUtils 1.0.0
 
