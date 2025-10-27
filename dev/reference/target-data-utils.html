@@ -55,7 +55,15 @@ for target data configuration.</p>
 <span></span>
 <span><span class="fu">get_has_output_type_ids</span><span class="op">(</span><span class="va">config_target_data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">get_non_task_id_schema</span><span class="op">(</span><span class="va">config_target_data</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">get_non_task_id_schema</span><span class="op">(</span><span class="va">config_target_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">has_target_data_config</span><span class="op">(</span><span class="va">hub_path</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Default S3 method</span></span>
+<span><span class="fu">has_target_data_config</span><span class="op">(</span><span class="va">hub_path</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'SubTreeFileSystem'</span></span>
+<span><span class="fu">has_target_data_config</span><span class="op">(</span><span class="va">hub_path</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -72,6 +80,11 @@ for target data configuration.</p>
 <code>"time-series"</code> or <code>"oracle-output"</code>. Used for functions that extract
 dataset-specific properties.</p></dd>
 
+
+<dt id="arg-hub-path">hub_path<a class="anchor" aria-label="anchor" href="#arg-hub-path"></a></dt>
+<dd><p>Path to a hub. Can be a local directory path or cloud URL
+(S3, GCS).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -86,6 +99,9 @@ oracle-output data has <code>output_type</code> and <code>output_type_id</code> 
 <code>FALSE</code> if not specified).</p>
 <p><code>get_non_task_id_schema()</code> returns a named list: key-value pairs of
 non-task ID column names and their data types, or <code>NULL</code> if not specified.</p>
+<p><code>has_target_data_config()</code> returns a logical value: <code>TRUE</code> if the
+target-data.json file exists in the <code>hub-config</code> directory of the hub,
+<code>FALSE</code> otherwise.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -116,6 +132,7 @@ inherits from global (default <code>FALSE</code> if not specified).</p></li>
 output_type/output_type_id columns.</p></li>
 <li><p><code>get_non_task_id_schema()</code>: Get the schema for non-task ID columns in
 time-series data.</p></li>
+<li><p><code>has_target_data_config()</code>: Check if target data config file exists in hub.</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -144,6 +161,15 @@ time-series data.</p></li>
 <span class="r-in"><span><span class="co"># Get time-series specific property</span></span></span>
 <span class="r-in"><span><span class="fu">get_non_task_id_schema</span><span class="op">(</span><span class="va">config</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Check if target data config exists</span></span></span>
+<span class="r-in"><span><span class="fu">has_target_data_config</span><span class="op">(</span><span class="va">hub_path</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /home/runner/work/_temp/Library/hubUtils/testhubs/v6/target_dir/hub-config/target-data.json </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                        TRUE </span>
+<span class="r-in"><span><span class="va">no_config_hub</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testhubs/v5/target_file/"</span>, package <span class="op">=</span> <span class="st">"hubUtils"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">has_target_data_config</span><span class="op">(</span><span class="va">no_config_hub</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /home/runner/work/_temp/Library/hubUtils/testhubs/v5/target_file/hub-config/target-data.json </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                        FALSE </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
