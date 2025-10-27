@@ -271,3 +271,16 @@ test_that("all functions work together on real config", {
   expect_equal(get_has_output_type_ids(config), TRUE)
   expect_null(get_non_task_id_schema(config))
 })
+
+test_that("has_target_data_config works on local hubs", {
+  config_hub <- system.file("testhubs/v6/target_file/", package = "hubUtils")
+  expect_true(has_target_data_config(config_hub))
+
+  no_config_hub <- system.file("testhubs/v5/target_file/", package = "hubUtils")
+  expect_false(has_target_data_config(no_config_hub))
+})
+
+test_that("has_target_data_config works on S3 hubs", {
+  no_config_hub <- hubData::s3_bucket("hubverse/hubutils/testhubs/simple/")
+  expect_false(has_target_data_config(no_config_hub))
+})

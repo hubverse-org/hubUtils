@@ -7,6 +7,9 @@
 \alias{get_versioned}
 \alias{get_has_output_type_ids}
 \alias{get_non_task_id_schema}
+\alias{has_target_data_config}
+\alias{has_target_data_config.default}
+\alias{has_target_data_config.SubTreeFileSystem}
 \title{Get target data configuration properties}
 \usage{
 get_date_col(config_target_data)
@@ -21,6 +24,12 @@ get_versioned(config_target_data, dataset = c("time-series", "oracle-output"))
 get_has_output_type_ids(config_target_data)
 
 get_non_task_id_schema(config_target_data)
+
+has_target_data_config(hub_path)
+
+\method{has_target_data_config}{default}(hub_path)
+
+\method{has_target_data_config}{SubTreeFileSystem}(hub_path)
 }
 \arguments{
 \item{config_target_data}{A target-data config object created by
@@ -29,6 +38,9 @@ get_non_task_id_schema(config_target_data)
 \item{dataset}{Character string specifying the dataset type: either
 \code{"time-series"} or \code{"oracle-output"}. Used for functions that extract
 dataset-specific properties.}
+
+\item{hub_path}{Path to a hub. Can be a local directory path or cloud URL
+(S3, GCS).}
 }
 \value{
 \code{get_date_col()} returns a character string: the name of the date
@@ -46,6 +58,10 @@ oracle-output data has \code{output_type} and \code{output_type_id} columns (def
 
 \code{get_non_task_id_schema()} returns a named list: key-value pairs of
 non-task ID column names and their data types, or \code{NULL} if not specified.
+
+\code{has_target_data_config()} returns a logical value: \code{TRUE} if the
+target-data.json file exists in the \code{hub-config} directory of the hub,
+\code{FALSE} otherwise.
 }
 \description{
 Utility functions for extracting properties from target-data.json configuration
@@ -87,6 +103,8 @@ output_type/output_type_id columns.
 \item \code{get_non_task_id_schema()}: Get the schema for non-task ID columns in
 time-series data.
 
+\item \code{has_target_data_config()}: Check if target data config file exists in hub.
+
 }}
 \examples{
 hub_path <- system.file("testhubs/v6/target_dir", package = "hubUtils")
@@ -107,4 +125,9 @@ get_has_output_type_ids(config)
 
 # Get time-series specific property
 get_non_task_id_schema(config)
+
+# Check if target data config exists
+has_target_data_config(hub_path)
+no_config_hub <- system.file("testhubs/v5/target_file/", package = "hubUtils")
+has_target_data_config(no_config_hub)
 }

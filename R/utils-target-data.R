@@ -44,6 +44,11 @@
 #'
 #' # Get time-series specific property
 #' get_non_task_id_schema(config)
+#'
+#' # Check if target data config exists
+#' has_target_data_config(hub_path)
+#' no_config_hub <- system.file("testhubs/v5/target_file/", package = "hubUtils")
+#' has_target_data_config(no_config_hub)
 NULL
 
 #' @describeIn target-data-utils Get the name of the date column across hub data.
@@ -140,4 +145,30 @@ get_non_task_id_schema <- function(config_target_data) {
   }
 
   ts_config$non_task_id_schema
+}
+
+#' @describeIn target-data-utils Check if target data config file exists in hub.
+#' @param hub_path Path to a hub. Can be a local directory path or cloud URL
+#'   (S3, GCS).
+#' @return `has_target_data_config()` returns a logical value: `TRUE` if the
+#'   target-data.json file exists in the `hub-config` directory of the hub,
+#'   `FALSE` otherwise.
+#' @export
+has_target_data_config <- function(hub_path) {
+  UseMethod("has_target_data_config")
+}
+
+#' @rdname target-data-utils
+#' @export
+has_target_data_config.default <- function(hub_path) {
+  fs::file_exists(
+    fs::path(hub_path, "hub-config", "target-data.json")
+  )
+}
+
+#' @rdname target-data-utils
+#' @export
+has_target_data_config.SubTreeFileSystem <- function(hub_path) {
+  config_path <- fs::path("hub-config", "target-data.json")
+  hub_path$GetFileInfo(config_path)[[1]]$type != 0L
 }
