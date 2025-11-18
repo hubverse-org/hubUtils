@@ -7,7 +7,7 @@
     <a href="https://hubdocs.readthedocs.io/en/latest/" class="external-link"><img src="https://raw.githubusercontent.com/hubverse-org/hubStyle/main/inst/hubverse.png" id="logo" height="30" alt="hubverse"></a>
     <a class="navbar-brand me-2" href="../index.html">hubUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Get hub config schema versions</h1>
-      <small class="dont-index">Source: <a href="https://github.com/hubverse-org/hubUtils/blob/v1.0.0/R/utils-schema-versions.R" class="external-link"><code>R/utils-schema-versions.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/hubverse-org/hubUtils/blob/main/R/utils-schema-versions.R" class="external-link"><code>R/utils-schema-versions.R</code></a></small>
       <div class="d-none name"><code>get_version_config.Rd</code></div>
     </div>
 
@@ -106,7 +106,7 @@ One of "tasks", "admin" or "target-data". Default is "tasks".</p></dd>
 <span class="r-in"><span>  <span class="st">"example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">get_version_file</span><span class="op">(</span><span class="va">url</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "v5.1.0"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "v6.0.0"</span>
 <span class="r-in"><span><span class="co"># Get version from an AWS S3 cloud hub config file</span></span></span>
 <span class="r-in"><span><span class="va">hub_path</span> <span class="op">&lt;-</span> <span class="fu">arrow</span><span class="fu">::</span><span class="fu"><a href="https://arrow.apache.org/docs/r/reference/s3_bucket.html" class="external-link">s3_bucket</a></span><span class="op">(</span><span class="st">"hubverse/hubutils/testhubs/simple/"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">config_path</span> <span class="op">&lt;-</span> <span class="va">hub_path</span><span class="op">$</span><span class="fu">path</span><span class="op">(</span><span class="st">"hub-config/admin.json"</span><span class="op">)</span></span></span>
@@ -134,7 +134,7 @@ One of "tasks", "admin" or "target-data". Default is "tasks".</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3. PR Previews built by <a href="https://www.netlify.com" class="external-link">Netlify</a>. Provided without <strong>any warranty</strong>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0. PR Previews built by <a href="https://www.netlify.com" class="external-link">Netlify</a>. Provided without <strong>any warranty</strong>.</p>
 </div>
 
     </footer></div>
