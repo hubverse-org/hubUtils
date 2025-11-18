@@ -1,0 +1,439 @@
+# Changelog
+
+## hubUtils (development version)
+
+## hubUtils 1.1.0
+
+- Added utility functions for extracting properties from
+  `target-data.json` configuration files (v6.0.0 schema):
+  - [`get_date_col()`](https://hubverse-org.github.io/hubUtils/dev/reference/target-data-utils.md):
+    Get the name of the date column across hub data.
+  - [`get_observable_unit()`](https://hubverse-org.github.io/hubUtils/dev/reference/target-data-utils.md):
+    Get observable unit column names with support for dataset-specific
+    overrides.
+  - [`get_versioned()`](https://hubverse-org.github.io/hubUtils/dev/reference/target-data-utils.md):
+    Get whether target data is versioned with inheritance from global
+    settings.
+  - [`get_has_output_type_ids()`](https://hubverse-org.github.io/hubUtils/dev/reference/target-data-utils.md):
+    Get whether oracle-output data has output_type/output_type_id
+    columns.
+  - [`get_non_task_id_schema()`](https://hubverse-org.github.io/hubUtils/dev/reference/target-data-utils.md):
+    Get the schema for non-task ID columns in time-series data.
+- Moved
+  [`has_target_data_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/target-data-utils.md)
+  from `hubAdmin` package to `hubUtils`. This function checks if a
+  target-data.json file exists in a hub
+  ([\#260](https://github.com/hubverse-org/hubUtils/issues/260)).
+
+## hubUtils 1.0.0
+
+- Added latest schema version (v6.0.0).
+- Added support for `target-data` config files in
+  [`get_schema_url()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_schema_url.md),
+  [`read_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/read_config.md),
+  [`get_version_hub()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_version_config.md),
+  and
+  [`is_v3_hub()`](https://hubverse-org.github.io/hubUtils/dev/reference/is_v3_hub.md)
+  ([\#252](https://github.com/hubverse-org/hubUtils/issues/252)).
+- Added two lightweight example v6 hubs for use in examples and tests:
+  - `testhubs/v6/target_file` — target data stored in single files.
+  - `testhubs/v6/target_dir` — hive-partitioned target data.
+
+## hubUtils 0.7.0
+
+- Added two lightweight example v5 hubs for use in examples and tests:
+  - `testhubs/v5/target_file` — target data stored in single files.
+  - `testhubs/v5/target_dir` — hive-partitioned target data. These hubs
+    are complete and valid, enabling faster examples and checks without
+    requiring a clone of the public example hub repository.
+
+## hubUtils 0.6.0
+
+- Added
+  [`convert_output_type()`](https://hubverse-org.github.io/hubUtils/dev/reference/convert_output_type.md)
+  function to convert model outputs from one output type to another
+  (currently only supports sample to mean, median, and quantile)
+  ([\#212](https://github.com/hubverse-org/hubUtils/issues/212),
+  [\#214](https://github.com/hubverse-org/hubUtils/issues/214),
+  [\#215](https://github.com/hubverse-org/hubUtils/issues/215))
+- [`convert_output_type()`](https://hubverse-org.github.io/hubUtils/dev/reference/convert_output_type.md)
+  now supports transformations involving output type IDs dependent on
+  task ID variable values
+  ([\#222](https://github.com/hubverse-org/hubUtils/issues/222))
+- Added last schema version (v5.1.0)
+
+## hubUtils 0.5.0
+
+- `read_config_file` now accepts a URL to the **raw contents** of a JSON
+  config file as well as an object of class `<SubTreeFileSystem>`
+  pointing to a config file in an S3 cloud hub
+  ([\#209](https://github.com/hubverse-org/hubUtils/issues/209)). This
+  enables reading config files directly from GitHub S3 cloud hubs
+  without having to clone the contents of a hub locally.  
+- `read_config` now also accepts a URL to of a fully configured hub
+  repository hosted on GitHub.
+- Added utilities for working with URLs:
+  - [`is_url()`](https://hubverse-org.github.io/hubUtils/dev/reference/is_url.md):
+    checks whether a character string is a URL.
+  - [`is_valid_url()`](https://hubverse-org.github.io/hubUtils/dev/reference/is_valid_url.md):
+    checks whether a URL is valid and reachable.
+  - [`is_github_url()`](https://hubverse-org.github.io/hubUtils/dev/reference/is_github_url.md):
+    checks whether a URL is a `github.com` URL.
+  - [`is_github_repo_url()`](https://hubverse-org.github.io/hubUtils/dev/reference/is_github_repo_url.md):
+    checks whether a URL is a GitHub repository URL.
+  - [`create_s3_url()`](https://hubverse-org.github.io/hubUtils/dev/reference/create_s3_url.md):
+    creates an S3 URL from a bucket name and object path.
+  - [`is_s3_base_fs()`](https://hubverse-org.github.io/hubUtils/dev/reference/is_s3_base_fs.md):
+    checks whether an object of class `<SubTreeFileSystem>` is a base
+    file system (i.e. the root of a cloud hub).
+
+## hubUtils 0.4.0
+
+- Released schemas are now shipped with the package, so an internet
+  connection is no longer necessary for local validation. Released
+  versions of `hubUtils` will always only contain released versions of
+  schemas while dev versions from `hubUtils` (installed from GitHub) may
+  contain versions of schema under active development.
+- Added
+  [`subset_task_id_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/subset_task_id_names.md)
+  function to subset task ID names from a character vector of column
+  names ([\#149](https://github.com/hubverse-org/hubUtils/issues/149)).
+- Added functions
+  [`subset_task_id_cols()`](https://hubverse-org.github.io/hubUtils/dev/reference/subset_task_id_cols.md)
+  and
+  [`subset_std_cols()`](https://hubverse-org.github.io/hubUtils/dev/reference/subset_task_id_cols.md)
+  to subset a `model_out_tbl` or submission `tbl` to task ID or standard
+  (non-task ID) columns respectively
+  ([\#149](https://github.com/hubverse-org/hubUtils/issues/149)).
+
+## hubUtils 0.3.0
+
+- `schema_id` version checks silenced by default in
+  [`read_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/read_config.md)
+  and
+  [`read_config_file()`](https://hubverse-org.github.io/hubUtils/dev/reference/read_config_file.md).  
+- Add and export `hubValidations` functions
+  [`get_hub_timezone()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md),
+  [`get_hub_model_output_dir()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md)
+  and
+  [`get_hub_file_formats()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md)
+  for extracting hub metadata to `hubUtils` package.
+- Add new function
+  [`get_hub_derived_task_ids()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md)
+  to extract round or hub level derived task ID values from a
+  `tasks.json` config file.
+
+## hubUtils 0.2.0
+
+- Add family of functions for extracting the version number from a
+  variety of sources:
+  - [`get_version_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_version_config.md):
+    extract version from a `<config>` class object.
+  - `get_version_config_file()`: extract version from a config file by
+    specifying a `config_path`.
+  - [`get_version_hub()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_version_config.md):
+    extract version from a config file by specifying a `hub_path`.
+- Add family of functions for comparing the version number extracted
+  from a variety of sources to a given version number
+  ([\#171](https://github.com/hubverse-org/hubUtils/issues/171)):
+  - [`version_equal()`](https://hubverse-org.github.io/hubUtils/dev/reference/version_equal.md):
+    Check whether a schema version property is equal to.
+  - [`version_gte()`](https://hubverse-org.github.io/hubUtils/dev/reference/version_equal.md):
+    Check whether a schema version property is equal to or greater than.
+  - [`version_gt()`](https://hubverse-org.github.io/hubUtils/dev/reference/version_equal.md):
+    Check whether a schema version property is greater than.
+  - [`version_lte()`](https://hubverse-org.github.io/hubUtils/dev/reference/version_equal.md):
+    Check whether a schema version property is equal to or less than.
+  - [`version_lt()`](https://hubverse-org.github.io/hubUtils/dev/reference/version_equal.md):
+    Check whether a schema version property is less than.
+- `<config>` class objects now have a `type` attribute to track what
+  type of config they contain (i.e `"tasks"` or `"admin"`).
+- [`read_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/read_config.md)
+  and
+  [`read_config_file()`](https://hubverse-org.github.io/hubUtils/dev/reference/read_config_file.md)
+  will attempt to coerce their output a `<config>` class object, with a
+  warning if unsuccessful
+  ([\#173](https://github.com/hubverse-org/hubUtils/issues/173)).
+- Add
+  [`as_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/as_config.md)
+  function to coerce a config list to a `<config>` class object (from
+  the `hubAdmin` package)
+  ([\#173](https://github.com/hubverse-org/hubUtils/issues/173)).
+- Fix bug in
+  [`extract_schema_version()`](https://hubverse-org.github.io/hubUtils/dev/reference/extract_schema_version.md)
+  where only single digits from each version component were being
+  extracted.
+- Fix documentation for
+  [`get_schema_version_latest()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_schema_version_latest.md)
+  to no longer use `v1.0.0`
+
+## hubUtils 0.1.7
+
+CRAN release: 2024-09-18
+
+- First submission to CRAN
+- Removed `hubData` dependency
+
+## hubUtils 0.1.2
+
+- Bug fix: Corrected bug in v3 config utilities so that configs are
+  detected as `v3` if they are `v3.0.0` or above, not just `v3.0.0`.
+  Thanks to [@M-7th](https://github.com/M-7th) for reporting.
+
+## hubUtils 0.1.1
+
+- Remove `hubAdmin` Suggests dependency by moving test hub configuration
+  validation to CI (resolved:
+  [@annakrystalli](https://github.com/annakrystalli),
+  <https://github.com/hubverse-org/hubUtils/issues/158>)
+
+## hubUtils 0.1.0
+
+- Add
+  [`read_config_file()`](https://hubverse-org.github.io/hubUtils/dev/reference/read_config_file.md)
+  helper function to read a JSON config file from a file path.
+- Add
+  [`extract_schema_version()`](https://hubverse-org.github.io/hubUtils/dev/reference/extract_schema_version.md)
+  helper function to extract the schema version from a schema `id` or
+  config `schema_version` property character string.
+- Add helpers `is_v3_config`, `is_v3_config_file` and `is_v3_config_hub`
+  to check whether a config object, file or hub is using schema version
+  3.
+
+## hubUtils 0.0.2
+
+- Missing dependency (`jsonlite`) bug fix.
+
+## hubUtils 0.0.1 MAJOR RELEASE
+
+- First **major release of `hubUtils` package** containing significant
+  breaking changes. Much of the package has been moved and split across
+  two smaller and more dedicated packages:
+  - **`hubData` package**: contains functions for connecting to and
+    interacting with hub data.
+    - Exported functions moved to `hubData`: `connect_hub()`,
+      `connect_model_output()`, `expand_model_out_val_grid()`,
+      `create_model_out_submit_tmpl()`, `coerce_to_character()`,
+      `coerce_to_hub_schema()` and `create_hub_schema()`.
+    - `hubUtils` functions re-exported to `hubData`:
+      [`as_model_out_tbl()`](https://hubverse-org.github.io/hubUtils/dev/reference/as_model_out_tbl.md),
+      [`validate_model_out_tbl()`](https://hubverse-org.github.io/hubUtils/dev/reference/validate_model_out_tbl.md),
+      [`model_id_split()`](https://hubverse-org.github.io/hubUtils/dev/reference/model_id_merge.md)
+      and
+      [`model_id_merge()`](https://hubverse-org.github.io/hubUtils/dev/reference/model_id_merge.md).
+  - **`hubAdmin` package**: contains functions for administering Hubs,
+    in particular creating and validating hub configuration files.
+    Exported functions moved to `hubAdmin`:
+    - Functions for creating config files: `create_config()`,
+      `create_model_task()`, `create_model_tasks()`,
+      `create_output_type()`, `create_output_type_cdf()`,
+      `create_output_type_mean()`, `create_output_type_median()`,
+      `create_output_type_pmf()`, `create_output_type_quantile()`,
+      `create_output_type_sample()`, `create_round()`,
+      `create_rounds()`, `create_target_metadata()`,
+      `create_target_metadata_item()`, `create_task_id()`,
+      `create_task_ids()`.
+    - Functions for validating config files:
+      `validate_config()`,`validate_model_metadata_schema()`,
+      `validate_hub_config()`, `view_config_val_errors()`.
+
+## hubUtils 0.0.0.9019
+
+- Minor internal bug fixes and documentation updates.
+
+## hubUtils 0.0.0.9018
+
+- Added US and European location datasets. These can be used e.g. when
+  assigning location task ID values for `tasks.json` config files
+  programmatically
+  ([\#127](https://github.com/hubverse-org/hubUtils/issues/127)).
+
+## hubUtils 0.0.0.9017
+
+- `connect_hub()` and `connect_model_output()` now identify and report
+  on files that are present and should have been opened but for which a
+  connection was not successful
+  ([\#124](https://github.com/hubverse-org/hubUtils/issues/124))
+- Introduced a number of minor documentation clarifications and bug
+  fixes ([\#129](https://github.com/hubverse-org/hubUtils/issues/129),
+  [\#128](https://github.com/hubverse-org/hubUtils/issues/128),
+  [\#121](https://github.com/hubverse-org/hubUtils/issues/121),
+  [\#130](https://github.com/hubverse-org/hubUtils/issues/130))
+
+## hubUtils 0.0.0.9016
+
+- Added `validate_model_metadata_schema()` function and included it as
+  part of `validate_hub_config()`
+  ([\#110](https://github.com/hubverse-org/hubUtils/issues/110) &
+  [\#112](https://github.com/hubverse-org/hubUtils/issues/112)).
+
+## hubUtils 0.0.0.9015
+
+- Added `load_model_metadata()` function to compile hub model metadata.
+
+## hubUtils 0.0.0.9014
+
+- Added `coerce_to_character()` function for coercing all model output
+  columns to character. This can be much faster than coercing to
+  `coerce_to_hub_schema()`, especially for dates.
+- Added the following parameters to `expand_model_out_val_grid()`:
+  - `all_character`: allow for returning all character columns.
+  - `as_arrow_table`: allow for returning an arrow data table.
+  - `bind_model_tasks`: allow for returning list of model task level
+    grids.
+- Bug fix. Handle situation in `expand_model_out_val_grid()` when
+  `required_vals_only = TRUE` yet required task ID columns are not
+  consistent across modeling tasks. The function now pads missing task
+  ID column values with `NA`s.
+
+## hubUtils 0.0.0.9013
+
+- Introduced `coerce_to_hub_schema()` function and applied it to
+  `create_model_out_submit_tmpl()` & `expand_model_out_val_grid()` to
+  ensure column data types in returned tibbles are consistent with the
+  hub’s schema
+  ([\#100](https://github.com/hubverse-org/hubUtils/issues/100)).
+- Fixed bug where optional `mean`/`median` output types where being
+  included erroneously when `required_vals_only = TRUE`.
+- Exported function
+  [`get_round_task_id_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_task_id_names.md)
+  ([\#99](https://github.com/hubverse-org/hubUtils/issues/99)).
+- Memoized function
+  [`read_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/read_config.md)
+  ([\#101](https://github.com/hubverse-org/hubUtils/issues/101)).
+
+## hubUtils 0.0.0.9012
+
+- Fixed bug ([\#95](https://github.com/hubverse-org/hubUtils/issues/95)
+  & [\#97](https://github.com/hubverse-org/hubUtils/issues/97)) which
+  was causing `connect_hub()` to error when `"csv"` was an accepted hub
+  file format but there were no CSV in the model output directory. Now
+  `connect_hub()` checks for the presence of files of each accepted file
+  format and only opens datasets for file formats of which files exists.
+  If there are no files of any accepted file_format in the model output
+  directory, the S3 `hub_connection` object returned consists of an
+  empty list.
+- Fixed bug ([\#96](https://github.com/hubverse-org/hubUtils/issues/96))
+  which was required `hubUtils` to be loaded for `std_colnames` to be
+  internally available.
+
+## hubUtils 0.0.0.9011
+
+- Changed default behavior of `create_model_out_submit_tmpl()`. Function
+  now, by default, returns rows of complete cases only and the behavior
+  is controlled by argument `complete_cases_only`. Argument
+  `remove_empty_cols` was also removed.
+
+## hubUtils 0.0.0.9010
+
+- **Support for Hubs using schema earlier than v2.0.0 deprecated**.
+  Currently a warning is issued when interacting with such Hubs. Support
+  will eventually be retired completely and errors will be produced with
+  Hubs using older config schema.
+- Added `create_model_out_submit_tmpl()` for generating round specific
+  model output template tibbles
+  ([\#82](https://github.com/hubverse-org/hubUtils/issues/82)).
+- Added lower level utilities:
+  - `expand_model_out_val_grid()` for creating an expanded grid of valid
+    task ID and output type ID across round modeling tasks and output
+    types.
+  - [`get_round_idx()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_idx.md):
+    for getting an integer index of the element in `config_tasks$rounds`
+    that a character round identifier maps to.
+  - [`get_round_ids()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_idx.md):
+    for getting a list or character vector of Hub round IDs.
+- Added additional `tasks.json` validation checks via
+  `validate_config()`:
+  - Check that all task_id and output_type_id values are unique across
+    `required` and `optional` properties.
+  - In rounds where `round_id_from_variable` is `TRUE`, check that the
+    specification of the task_id set as `round_id` is consistent across
+    modeling tasks.
+  - Check that `round_id` values are unique across rounds.
+- Exported object `std_colnames` which contains standard column names
+  used in hubverse model output data files, for use in other hubverse
+  packages ([\#88](https://github.com/hubverse-org/hubUtils/issues/88)).
+
+## hubUtils 0.0.0.9009
+
+- Added
+  [`as_model_out_tbl()`](https://hubverse-org.github.io/hubUtils/dev/reference/as_model_out_tbl.md)
+  function to standardize model output data by converting to a
+  `model_out_tbl` S3 class object.
+  ([\#32](https://github.com/hubverse-org/hubUtils/issues/32),
+  [\#33](https://github.com/hubverse-org/hubUtils/issues/33),
+  [\#63](https://github.com/hubverse-org/hubUtils/issues/63),
+  [\#64](https://github.com/hubverse-org/hubUtils/issues/64),
+  [\#66](https://github.com/hubverse-org/hubUtils/issues/66))
+- To support back-compatibility with model output data in older hubs,
+  added functions
+  [`model_id_merge()`](https://hubverse-org.github.io/hubUtils/dev/reference/model_id_merge.md)
+  and
+  [`model_id_split()`](https://hubverse-org.github.io/hubUtils/dev/reference/model_id_merge.md)
+  to create `model_id` column from separate `team_abbr` and `model_abbr`
+  columns and vice versa
+  ([\#63](https://github.com/hubverse-org/hubUtils/issues/63)).
+
+## hubUtils 0.0.0.9008
+
+- Added argument `output_type_id_datatype` to `connect_hub()` to allow
+  overriding default behavior of automatically detecting the
+  `output_type_id` column data type from the `tasks.json` config file
+  ([\#70](https://github.com/hubverse-org/hubUtils/issues/70)).
+- Exposed `create_hub_schema()` argument `partitions` to `connect_hub()`
+  function to accommodate custom hub partitioning.
+- Added argument `partition_names` to `connect_model_output()` to
+  accommodate custom hub partitioning.
+- Added argument `schema` to `connect_model_output()` to allow for
+  overriding default `arrow` schema auto-detection.
+- Moved `jsonvalidate` package to Imports so Hub administrator
+  functionality accessible through standard installation.
+- Removed argument `format` from `create_hub_schema()` which now creates
+  the same schema from a `tasks.json` config file, regardless of the
+  data file format
+  ([\#80](https://github.com/hubverse-org/hubUtils/issues/80)).
+
+## hubUtils 0.0.0.9007
+
+- New function `validate_hub_config()` allows maintainers to check the
+  validity of hub config files in a single call. Function
+  `view_config_val_errors()` also modified to create combined report for
+  hub config files from output of `validate_hub_config()`.
+- Breaking change: All `model-output` data are expected to have
+  `output_type` & `output_type_id` instead of `type` & `type_id`
+  respectively.
+
+## hubUtils 0.0.0.9006
+
+- `connect_hub()` now automatically determines the `output_type_id`
+  column data type from the `tasks.json` config file coercing to the
+  highest possible data type, “character” being the lowest denominator.
+- Introduced function `create_hub_schema()` for determining the schema
+  for data in a hub’s model-output directory from a `tasks.json` config
+  file.
+- `connect_hub()` now allows establishing connections to hubs with
+  multiple file type formats.
+- `create_output_type_categorical()` function was renamed to
+  `create_output_type_pmf()`.
+- When extracting data via a hub connection, the column containing model
+  identification information, inferred from `model-output` data
+  directory partitions, was renamed from “model” to “model_id”.
+
+## hubUtils 0.0.0.9005
+
+- Re-implemented `connect_hub()` function to open connection to
+  `model-output` data implemented through an `arrow` `FileSystemDataset`
+  object. This allows users to create custom `dplyr` queries to access
+  model output data.
+
+## hubUtils 0.0.0.9004
+
+- Added functionality to help create JSON configuration files.
+
+## hubUtils 0.0.0.9003
+
+- Added `validate_config()` function to validate JSON configuration
+  files against Hub schema as well as function
+  `view_config_val_errors()` for viewing a concise and easier to
+  navigate table of validation errors.
+- Added a `NEWS.md` file to track changes to the package.
