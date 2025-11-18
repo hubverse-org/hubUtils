@@ -1,3 +1,5 @@
+# hubUtils (development version)
+
 # hubUtils 1.1.0
 
 * Added utility functions for extracting properties from `target-data.json` configuration files (v6.0.0 schema):
