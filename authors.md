@@ -20,7 +20,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/hubverse-org/hubUtils/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/hubverse-org/hubUtils/blob/v1.1.0/DESCRIPTION)
 
 Krystalli A, Shandross L (2025). *hubUtils: Core 'hubverse' Utilities*.
 R package version 1.1.0, <https://github.com/hubverse-org/hubUtils>.
