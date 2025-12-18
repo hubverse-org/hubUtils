@@ -11,6 +11,9 @@ std_colnames <- c("model_id", "output_type", "output_type_id", "value") |>
   purrr::set_names()
 
 
-usethis::use_data(json_datatypes, std_colnames,
-  overwrite = TRUE, internal = TRUE
+usethis::use_data(
+  json_datatypes,
+  std_colnames,
+  overwrite = TRUE,
+  internal = TRUE
 )
