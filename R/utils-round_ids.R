@@ -27,9 +27,7 @@
 #' get_round_idx(config_tasks, "2022-10-29")
 get_round_idx <- function(config_tasks, round_id) {
   checkmate::assert_string(round_id)
-  round_id <- rlang::arg_match(round_id,
-    values = get_round_ids(config_tasks)
-  )
+  round_id <- rlang::arg_match(round_id, values = get_round_ids(config_tasks))
   get_round_ids(config_tasks, flatten = "model_task") %>%
     purrr::map_lgl(~ round_id %in% .x) %>%
     which()
@@ -66,8 +64,10 @@ get_round_idx <- function(config_tasks, round_id) {
 #' `round_id_from_variable` is `FALSE`, the value of the `round_id` property is
 #' returned.
 #' @export
-get_round_ids <- function(config_tasks,
-                          flatten = c("all", "model_task", "task_id", "none")) {
+get_round_ids <- function(
+  config_tasks,
+  flatten = c("all", "model_task", "task_id", "none")
+) {
   checkmate::assert_list(config_tasks)
   flatten <- rlang::arg_match(flatten)
 
@@ -90,7 +90,8 @@ get_round_ids_from_taskid <- function(x, flatten) {
       .x[["task_ids"]][[round_id_task_id]]
     }
   )
-  switch(flatten,
+  switch(
+    flatten,
     model_task = unique(unlist(out, use.names = FALSE)),
     task_id = purrr::modify(out, ~ unique(unlist(.x, use.names = FALSE))),
     out

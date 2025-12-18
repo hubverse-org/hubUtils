@@ -39,8 +39,14 @@ test_that("removing empty columns works", {
   expect_equal(
     names(as_model_out_tbl(tbl, remove_empty = TRUE)),
     c(
-      "model_id", "forecast_date", "horizon", "target", "location",
-      "output_type", "output_type_id", "value"
+      "model_id",
+      "forecast_date",
+      "horizon",
+      "target",
+      "location",
+      "output_type",
+      "output_type_id",
+      "value"
     )
   )
 
@@ -49,8 +55,14 @@ test_that("removing empty columns works", {
   expect_equal(
     names(as_model_out_tbl(tbl, remove_empty = TRUE)),
     c(
-      "model_id", "forecast_date", "horizon", "target", "location",
-      "output_type", "output_type_id", "value"
+      "model_id",
+      "forecast_date",
+      "horizon",
+      "target",
+      "location",
+      "output_type",
+      "output_type_id",
+      "value"
     )
   )
 })

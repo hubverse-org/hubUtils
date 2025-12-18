@@ -36,7 +36,7 @@ test_that("get_version_* utilities works with URLs", {
   hub_url <- "https://github.com/hubverse-org/example-simple-forecast-hub"
   version_hub <- get_version_hub(hub_url)
   expect_match(version_hub, "^v\\d+\\.\\d+\\.\\d+$")
-  expect_equal(version_hub, version_file)  # Should match the file version
+  expect_equal(version_hub, version_file) # Should match the file version
 })
 
 test_that("get_version_* utilities works with SubTreeFileSystem objects", {

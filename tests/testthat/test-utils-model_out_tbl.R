@@ -1,6 +1,11 @@
 test_that("subsetting model_out_tbls works", {
-  model_out_tbl_path <- system.file("testhubs", "v4", "simple",
-    "model-output", "hub-baseline", "2022-10-15-hub-baseline.parquet",
+  model_out_tbl_path <- system.file(
+    "testhubs",
+    "v4",
+    "simple",
+    "model-output",
+    "hub-baseline",
+    "2022-10-15-hub-baseline.parquet",
     package = "hubUtils"
   )
   model_out_tbl <- arrow::read_parquet(model_out_tbl_path) |>
@@ -14,7 +19,6 @@ test_that("subsetting model_out_tbls works", {
   )
   expect_equal(nrow(subset_task_ids), nrow(model_out_tbl))
   expect_s3_class(subset_task_ids, class(model_out_tbl), exact = TRUE)
-
 
   subset_std <- subset_std_cols(model_out_tbl)
   expect_equal(
@@ -30,8 +34,13 @@ test_that("subsetting model_out_tbls works", {
 })
 
 test_that("subsetting submission tbls works", {
-  tbl_path <- system.file("testhubs", "v4", "simple",
-    "model-output", "hub-baseline", "2022-10-15-hub-baseline.parquet",
+  tbl_path <- system.file(
+    "testhubs",
+    "v4",
+    "simple",
+    "model-output",
+    "hub-baseline",
+    "2022-10-15-hub-baseline.parquet",
     package = "hubUtils"
   )
   tbl <- arrow::read_parquet(tbl_path)

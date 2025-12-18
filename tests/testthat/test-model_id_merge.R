@@ -6,8 +6,15 @@ test_that("merging-splitting model_id works", {
   expect_equal(
     names(tbl),
     c(
-      "team_abbr", "model_abbr", "forecast_date", "horizon", "target",
-      "location", "output_type", "output_type_id", "value"
+      "team_abbr",
+      "model_abbr",
+      "forecast_date",
+      "horizon",
+      "target",
+      "location",
+      "output_type",
+      "output_type_id",
+      "value"
     )
   )
   expect_equal(unique(tbl$model_abbr), c("baseline", "ensemble"))
@@ -18,8 +25,14 @@ test_that("merging-splitting model_id works", {
   expect_equal(
     names(suppressMessages(model_id_merge(tbl))),
     c(
-      "model_id", "forecast_date", "horizon", "target", "location",
-      "output_type", "output_type_id", "value"
+      "model_id",
+      "forecast_date",
+      "horizon",
+      "target",
+      "location",
+      "output_type",
+      "output_type_id",
+      "value"
     )
   )
   expect_equal(
@@ -31,15 +44,20 @@ test_that("merging-splitting model_id works", {
   expect_equal(
     names(tbl),
     c(
-      "model_id", "forecast_date", "horizon", "target", "location",
-      "output_type", "output_type_id", "value"
+      "model_id",
+      "forecast_date",
+      "horizon",
+      "target",
+      "location",
+      "output_type",
+      "output_type_id",
+      "value"
     )
   )
   expect_equal(
     unique(tbl$model_id),
     c("hub-baseline", "hub-ensemble")
   )
-
 
   expect_snapshot(model_id_merge(tbl), error = TRUE)
 
@@ -50,7 +68,6 @@ test_that("merging-splitting model_id works", {
   expect_equal(unique(tbl_sep$model_abbr), c("baseline", "ensemble"))
   expect_equal(unique(tbl_sep$team_abbr), c("hub"))
   expect_true(all(c("team_abbr", "model_abbr") %in% names(tbl_sep)))
-
 
   tbl_sep <- model_id_merge(tbl_sep, sep = "_")
   expect_true("model_id" %in% names(tbl_sep))

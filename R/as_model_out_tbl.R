@@ -30,14 +30,23 @@
 #'
 #' @examples
 #' as_model_out_tbl(hub_con_output)
-as_model_out_tbl <- function(tbl, model_id_col = NULL, output_type_col = NULL,
-                             output_type_id_col = NULL, value_col = NULL, sep = "-",
-                             trim_to_task_ids = FALSE, hub_con = NULL,
-                             task_id_cols = NULL, remove_empty = FALSE) {
+as_model_out_tbl <- function(
+  tbl,
+  model_id_col = NULL,
+  output_type_col = NULL,
+  output_type_id_col = NULL,
+  value_col = NULL,
+  sep = "-",
+  trim_to_task_ids = FALSE,
+  hub_con = NULL,
+  task_id_cols = NULL,
+  remove_empty = FALSE
+) {
   checkmate::assert_data_frame(tbl)
   tbl <- tibble::as_tibble(tbl)
 
-  tbl <- rename_columns(tbl,
+  tbl <- rename_columns(
+    tbl,
     model_id_col = model_id_col,
     output_type_col = output_type_col,
     output_type_id_col = output_type_id_col,
@@ -45,7 +54,9 @@ as_model_out_tbl <- function(tbl, model_id_col = NULL, output_type_col = NULL,
   )
 
   if (!"model_id" %in% names(tbl)) {
-    cli::cli_alert_warning("{.arg model_id} column missing. Attempting to create automatically.")
+    cli::cli_alert_warning(
+      "{.arg model_id} column missing. Attempting to create automatically."
+    )
     tbl <- model_id_merge(tbl, sep = sep)
   }
 
@@ -64,9 +75,7 @@ as_model_out_tbl <- function(tbl, model_id_col = NULL, output_type_col = NULL,
 
   tbl <- std_col_order_model_out_tbl(tbl)
 
-  structure(tbl,
-    class = c("model_out_tbl", class(tbl))
-  ) %>%
+  structure(tbl, class = c("model_out_tbl", class(tbl))) %>%
     validate_model_out_tbl()
 }
 
@@ -103,8 +112,14 @@ validate_model_out_tbl <- function(tbl) {
 }
 
 # --- Unexported Utilities ----
-rename_columns <- function(tbl, model_id_col, output_type_col, output_type_id_col,
-                           value_col, call = rlang::caller_env()) {
+rename_columns <- function(
+  tbl,
+  model_id_col,
+  output_type_col,
+  output_type_id_col,
+  value_col,
+  call = rlang::caller_env()
+) {
   old_names <- names(tbl)
 
   if (!is.null(model_id_col)) {
@@ -128,13 +143,15 @@ rename_columns <- function(tbl, model_id_col, output_type_col, output_type_id_co
 
 validate_col_input <- function(x, call = rlang::caller_env()) {
   if (!is.character(x)) {
-    cli::cli_abort("{.arg {rlang::caller_arg(x)}} must be a {.cls character} string
+    cli::cli_abort(
+      "{.arg {rlang::caller_arg(x)}} must be a {.cls character} string
                        instead of {.cls {typeof(x)}}",
       call = call
     )
   }
   if (length(x) > 1L) {
-    cli::cli_warn("{.arg {rlang::caller_arg(x)}} must be character vector of
+    cli::cli_warn(
+      "{.arg {rlang::caller_arg(x)}} must be character vector of
                        length {.val {1L}} not length {.val {length(x)}}.
                       Only element 1 ({.val {x[1]}}) used, the rest ignored.",
       call = call
@@ -162,8 +179,12 @@ rename_col <- function(x, col_name, old_names, call) {
   x
 }
 
-trim_tbl_to_task_ids <- function(tbl, task_id_cols, hub_con,
-                                 call = rlang::caller_env()) {
+trim_tbl_to_task_ids <- function(
+  tbl,
+  task_id_cols,
+  hub_con,
+  call = rlang::caller_env()
+) {
   if (is.null(task_id_cols) && is.null(hub_con)) {
     cli::cli_abort(
       c(
@@ -178,7 +199,8 @@ trim_tbl_to_task_ids <- function(tbl, task_id_cols, hub_con,
 
   if (is.null(task_id_cols)) {
     if (!inherits(hub_con, "hub_connection")) {
-      cli::cli_abort("{.arg hub_con} must be a valid object of
+      cli::cli_abort(
+        "{.arg hub_con} must be a valid object of
                                    class {.cls hub_connection}",
         call = call
       )
@@ -207,8 +229,7 @@ remove_model_out_tbl_empty <- function(tbl) {
 }
 
 std_col_order_model_out_tbl <- function(tbl) {
-  tbl[
-    ,
+  tbl[,
     c(
       std_colnames[1],
       names(tbl)[!names(tbl) %in% std_colnames],
@@ -227,7 +248,10 @@ check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
 
   error_df <- tibble::tibble(
     colname = names(std_col_datatypes),
-    correct_datatype = purrr::map_chr(std_col_datatypes, ~ paste(.x, collapse = "/")),
+    correct_datatype = purrr::map_chr(
+      std_col_datatypes,
+      ~ paste(.x, collapse = "/")
+    ),
     actual_datatype = purrr::map_chr(
       tbl[, names(std_col_datatypes)],
       ~ class(.x)
@@ -247,14 +271,24 @@ check_std_coltypes <- function(tbl, call = rlang::caller_env()) {
 
     compose_error_msg <- function(i) {
       paste0(
-        "Column {.arg {error_df$colname[", i, "]}} should be ",
-        "{cli::qty(error_df$n_correct_datatypes[", i, "])} {?one of }",
-        "{.cls {error_df$correct_datatype[", i, "]}},",
-        " not {.cls {error_df$actual_datatype[", i, "]}}."
+        "Column {.arg {error_df$colname[",
+        i,
+        "]}} should be ",
+        "{cli::qty(error_df$n_correct_datatypes[",
+        i,
+        "])} {?one of }",
+        "{.cls {error_df$correct_datatype[",
+        i,
+        "]}},",
+        " not {.cls {error_df$actual_datatype[",
+        i,
+        "]}}."
       )
     }
 
-    error_msg <- c("x" = "{cli::qty(nrow(error_df))} Wrong datatype{?s} detected in standard column{?s}:")
+    error_msg <- c(
+      "x" = "{cli::qty(nrow(error_df))} Wrong datatype{?s} detected in standard column{?s}:"
+    )
 
     for (i in seq_len(nrow(error_df))) {
       error_msg <- c(error_msg, "!" = compose_error_msg(i))

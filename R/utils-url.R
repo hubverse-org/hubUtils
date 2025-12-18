@@ -29,11 +29,14 @@ create_s3_url <- function(base_fs, base_path) {
 
   split_base_fs <- stringr::str_split(
     base_fs,
-    "/", 2
+    "/",
+    2
   ) |>
     unlist()
 
-  glue::glue("https://{split_base_fs[1]}.s3.amazonaws.com/{split_base_fs[2]}/{base_path}") |>
+  glue::glue(
+    "https://{split_base_fs[1]}.s3.amazonaws.com/{split_base_fs[2]}/{base_path}"
+  ) |>
     sanitize_url()
 }
 
@@ -49,7 +52,8 @@ create_s3_url <- function(base_fs, base_path) {
 #' is_url("https://docs.hubverse.io")
 #' is_url("www.hubverse.io")
 is_url <- function(x) {
-  grepl("^(https?|ftp)://[[:alnum:].-]+\\.[a-z]{2,6}(/.*)?$",
+  grepl(
+    "^(https?|ftp)://[[:alnum:].-]+\\.[a-z]{2,6}(/.*)?$",
     x,
     ignore.case = TRUE
   )

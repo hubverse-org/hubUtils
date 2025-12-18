@@ -40,8 +40,11 @@ as_config <- function(x) {
   x
 }
 
-validate_config_properties <- function(schema_id, config_list,
-                                       call = rlang::caller_env()) {
+validate_config_properties <- function(
+  schema_id,
+  config_list,
+  call = rlang::caller_env()
+) {
   schema <- hubUtils::get_schema(schema_id)
   # validate the properties of a config object against a schema object
   schema_properties <- jsonlite::fromJSON(schema)$properties |> names()
@@ -60,12 +63,19 @@ validate_config_properties <- function(schema_id, config_list,
 }
 
 
-validate_schema_id <- function(schema_id, property_name = "schema_version",
-                               branch = "main", call = rlang::caller_env()) {
+validate_schema_id <- function(
+  schema_id,
+  property_name = "schema_version",
+  branch = "main",
+  call = rlang::caller_env()
+) {
   if (is.null(schema_id)) {
-    cli::cli_abort("No {.field {property_name}} property found in {.arg config_list}.")
+    cli::cli_abort(
+      "No {.field {property_name}} property found in {.arg config_list}."
+    )
   }
-  validate_schema_url_prefix(schema_id,
+  validate_schema_url_prefix(
+    schema_id,
     property_name = property_name,
     call = call
   )
@@ -86,8 +96,11 @@ validate_schema_id <- function(schema_id, property_name = "schema_version",
   invisible(TRUE)
 }
 
-validate_schema_url_prefix <- function(schema_url, property_name = "schema_version",
-                                       call = rlang::caller_env()) {
+validate_schema_url_prefix <- function(
+  schema_url,
+  property_name = "schema_version",
+  call = rlang::caller_env()
+) {
   check_prefix <- grepl(
     "https://raw.githubusercontent.com/(hubverse-org|Infectious-Disease-Modeling-Hubs)/schemas/main/",
     schema_url,
@@ -95,8 +108,10 @@ validate_schema_url_prefix <- function(schema_url, property_name = "schema_versi
   )
   if (!check_prefix) {
     cli::cli_abort(
-      c("x" = "Invalid {.field {property_name}} property. Should start with:
-              {.val https://raw.githubusercontent.com/hubverse-org/schemas/main/}"),
+      c(
+        "x" = "Invalid {.field {property_name}} property. Should start with:
+              {.val https://raw.githubusercontent.com/hubverse-org/schemas/main/}"
+      ),
       call = call
     )
   }
@@ -106,7 +121,8 @@ validate_schema_url_prefix <- function(schema_url, property_name = "schema_versi
       "Updating superseded URL {.var Infectious-Disease-Modeling-hubs} to {.var hubverse-org}"
     )
     schema_url <- sub(
-      "Infectious-Disease-Modeling-Hubs", "hubverse-org",
+      "Infectious-Disease-Modeling-Hubs",
+      "hubverse-org",
       schema_url,
       fixed = TRUE
     )

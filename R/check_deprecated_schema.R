@@ -13,12 +13,17 @@
 #' @return Invisibly, `TRUE` if the schema version is deprecated, `FALSE` otherwise.
 #' Primarily used for the side effect of issuing a lifecycle warning.
 #' @export
-check_deprecated_schema <- function(config_version, config, valid_version = "v2.0.0",
-                                    hubutils_version = "0.0.0.9010") {
+check_deprecated_schema <- function(
+  config_version,
+  config,
+  valid_version = "v2.0.0",
+  hubutils_version = "0.0.0.9010"
+) {
   checkmate::assert_string(valid_version)
   checkmate::assert_string(hubutils_version)
   version_source <- rlang::check_exclusive(config_version, config)
-  config_version <- switch(version_source,
+  config_version <- switch(
+    version_source,
     config = {
       checkmate::assert_list(config)
       checkmate::assert_choice("schema_version", names(config))
@@ -38,7 +43,11 @@ check_deprecated_schema <- function(config_version, config, valid_version = "v2.
   invisible(deprecated)
 }
 
-deprecate_schema_warn <- function(config_version, valid_version, hubutils_version) {
+deprecate_schema_warn <- function(
+  config_version,
+  valid_version,
+  hubutils_version
+) {
   what <- cli::format_inline(
     "Hub configured using schema version {.field {config_version}}.
     Support for schema earlier than {.field {valid_version}}"

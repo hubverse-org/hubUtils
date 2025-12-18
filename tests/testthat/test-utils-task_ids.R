@@ -1,7 +1,12 @@
 test_that("subset_task_id_names works", {
   x <- c(
-    "origin_date", "horizon", "target_date",
-    "location", "output_type", "output_type_id", "value"
+    "origin_date",
+    "horizon",
+    "target_date",
+    "location",
+    "output_type",
+    "output_type_id",
+    "value"
   )
   subset_task_id_names(x)
   expect_equal(

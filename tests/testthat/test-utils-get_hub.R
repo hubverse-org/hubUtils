@@ -27,7 +27,12 @@ test_that("get_hub_derived_task_ids functions work", {
     # valid schema version. We are suppressing this temporary warning for now.
     suppressWarnings(
       get_hub_derived_task_ids(
-        hub_path = system.file("testhubs", "v4", "flusight", package = "hubUtils")
+        hub_path = system.file(
+          "testhubs",
+          "v4",
+          "flusight",
+          package = "hubUtils"
+        )
       )
     ),
     "target_date"
