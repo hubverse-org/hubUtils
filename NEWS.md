@@ -1,5 +1,7 @@
 # hubUtils (development version)
 
+* Improved error handling when internet resources are unavailable. Functions that access remote URLs now fail gracefully with informative error messages (#272).
+
 # hubUtils 1.1.0
 
 * Added utility functions for extracting properties from `target-data.json` configuration files (v6.0.0 schema):

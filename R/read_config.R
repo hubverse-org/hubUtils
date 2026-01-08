@@ -195,10 +195,27 @@ read_json_config <- function(path, silent = TRUE) {
       "Config file {.path {path}} is not a JSON file."
     )
   }
-  config <- jsonlite::fromJSON(
-    path,
-    simplifyVector = TRUE,
-    simplifyDataFrame = FALSE
+  config <- tryCatch(
+    fromJSON(
+      path,
+      simplifyVector = TRUE,
+      simplifyDataFrame = FALSE
+    ),
+    error = function(e) {
+      if (is_url(path)) {
+        cli::cli_abort(c(
+          "x" = "Failed to read config file from {.path {path}}.",
+          "i" = "The URL may be unavailable or there may be
+                 a problem with your internet connection.",
+          "!" = "Error: {e$message}"
+        ))
+      } else {
+        cli::cli_abort(c(
+          "x" = "Failed to read config file {.path {path}}.",
+          "!" = "Error: {e$message}"
+        ))
+      }
+    }
   )
   if (grepl("model-metadata-schema", path)) {
     return(config)

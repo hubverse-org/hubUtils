@@ -49,10 +49,19 @@ get_schema_valid_versions <- function(branch = "main") {
     schema_path <- system.file("schemas", package = "hubUtils")
     return(list.files(schema_path, pattern = "^v"))
   }
-  branches <- gh(
-    "GET /repos/hubverse-org/schemas/branches"
-  ) |>
-    vapply("[[", "", "name")
+  branches <- tryCatch(
+    gh(
+      "GET /repos/hubverse-org/schemas/branches"
+    ) |>
+      vapply("[[", "", "name"),
+    error = function(e) {
+      cli::cli_abort(c(
+        "x" = "Failed to connect to GitHub API to
+               retrieve schema repository branch information.",
+        "i" = "Please check your internet connection."
+      ))
+    }
+  )
 
   if (!branch %in% branches) {
     cli::cli_abort(c(
@@ -62,9 +71,18 @@ get_schema_valid_versions <- function(branch = "main") {
     ))
   }
 
-  req <- gh(
-    "GET /repos/hubverse-org/schemas/git/trees/{branch}",
-    branch = branch
+  req <- tryCatch(
+    gh(
+      "GET /repos/hubverse-org/schemas/git/trees/{branch}",
+      branch = branch
+    ),
+    error = function(e) {
+      cli::cli_abort(c(
+        "x" = "Failed to connect to GitHub API to
+               retrieve schema version information.",
+        "i" = "Please check your internet connection."
+      ))
+    }
   )
 
   types <- vapply(req$tree, "[[", "", "type")
