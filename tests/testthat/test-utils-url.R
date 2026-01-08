@@ -52,10 +52,13 @@ test_that("create_s3_url works", {
   )
 
   expect_error(
-    create_s3_url(base_fs = c(
-      "hubverse/hubutils/testhubs/simple/",
-      "hubverse/hubutils/testhubs/complex/"
-    ), base_path = "hub-config/admin.json"),
+    create_s3_url(
+      base_fs = c(
+        "hubverse/hubutils/testhubs/simple/",
+        "hubverse/hubutils/testhubs/complex/"
+      ),
+      base_path = "hub-config/admin.json"
+    ),
     regexp = "Assertion on 'base_fs' failed: Must have length 1, but has length 2."
   )
 
@@ -95,9 +98,13 @@ test_that("is_github_repo_url correctly identifies GitHub repo URLs", {
   expect_true(is_github_repo_url("https://github.com/user/repo/")) # With trailing slash
 
   # Invalid GitHub URLs
-  expect_false(is_github_repo_url("https://github.com/user/repo/blob/main/file.txt")) # File path
+  expect_false(is_github_repo_url(
+    "https://github.com/user/repo/blob/main/file.txt"
+  )) # File path
   expect_false(is_github_repo_url("https://github.com/user/repo/issues/12")) # Issue page
-  expect_false(is_github_repo_url("https://raw.githubusercontent.com/user/repo/main/file.txt")) # Raw content
+  expect_false(is_github_repo_url(
+    "https://raw.githubusercontent.com/user/repo/main/file.txt"
+  )) # Raw content
   expect_false(is_github_repo_url("https://gitlab.com/user/repo")) # GitLab repo
   expect_false(is_github_repo_url("github.com/user/repo")) # Missing `https://`
   expect_false(is_github_repo_url("https://github.com/user")) # Only user, no repo
@@ -117,15 +124,23 @@ test_that("is_s3_base_fs correctly detects base file systems", {
 
 test_that("is_raw_file_url correctly identifies raw content URLs", {
   # Valid raw content URLs
-  expect_true(is_raw_file_url("https://raw.githubusercontent.com/user/repo/main/file.txt"))
-  expect_true(is_raw_file_url("https://gist.githubusercontent.com/user/123456/raw/file.csv"))
-  expect_true(is_raw_file_url("https://my-bucket.s3.amazonaws.com/data/file.json"))
+  expect_true(is_raw_file_url(
+    "https://raw.githubusercontent.com/user/repo/main/file.txt"
+  ))
+  expect_true(is_raw_file_url(
+    "https://gist.githubusercontent.com/user/123456/raw/file.csv"
+  ))
+  expect_true(is_raw_file_url(
+    "https://my-bucket.s3.amazonaws.com/data/file.json"
+  ))
   expect_true(is_raw_file_url("https://example.com/raw/file.png"))
   expect_true(is_raw_file_url("https://gitlab.com/user/repo/raw/main/file.txt"))
 
   # Invalid (non-raw) URLs
   expect_false(is_raw_file_url("https://www.example.com/page.html"))
-  expect_false(is_raw_file_url("https://github.com/user/repo/blob/main/file.txt"))
+  expect_false(is_raw_file_url(
+    "https://github.com/user/repo/blob/main/file.txt"
+  ))
   expect_false(is_raw_file_url("https://www.example.com/notraw/file.txt"))
   expect_false(is_raw_file_url("not_a_url"))
 })

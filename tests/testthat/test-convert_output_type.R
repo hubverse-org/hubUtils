@@ -96,7 +96,12 @@ test_that("providing incompatible output_type_ids throws an error", {
   expect_error(
     convert_output_type(
       sample_outputs,
-      to = list("quantile" = expand.grid(group = c(1, 2), output_type_id = c(0.33, 0.66)))
+      to = list(
+        "quantile" = expand.grid(
+          group = c(1, 2),
+          output_type_id = c(0.33, 0.66)
+        )
+      )
     ),
     " element of `to` included ",
     fixed = TRUE
@@ -122,12 +127,19 @@ test_that("providing output_type_ids with incompatible join columns throws an er
     output_type = "quantile",
     value = NA_real_
   ) |>
-    dplyr::left_join(more_levels, by = "location", relationship = "many-to-many") |>
+    dplyr::left_join(
+      more_levels,
+      by = "location",
+      relationship = "many-to-many"
+    ) |>
     dplyr::arrange(model_id) |>
     as_model_out_tbl()
   task_id_cols <- subset_task_id_names(colnames(expected_outputs))
   expected_outputs$value <- create_test_sample_outputs() |>
-    dplyr::group_by(dplyr::across(dplyr::all_of(c("model_id", task_id_cols)))) |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(c(
+      "model_id",
+      task_id_cols
+    )))) |>
     dplyr::reframe(
       output_type_id = c(0.25, 0.75),
       value = stats::quantile(value, probs = c(0.25, 0.75), names = FALSE)
@@ -136,25 +148,42 @@ test_that("providing output_type_ids with incompatible join columns throws an er
 
   # function call produces correct warning and output
   expect_warning(
-    actual_outputs <- convert_output_type(sample_outputs, to = list("quantile" = more_levels)),
+    actual_outputs <- convert_output_type(
+      sample_outputs,
+      to = list("quantile" = more_levels)
+    ),
     r"{Some task ID variable combos present in the "quantile" element of `to` are missing from `model_out_tbl`}"
   )
   expect_equal(actual_outputs, expected_outputs)
   # correct missing cases are returned
   expect_equal(
-    validate_join_by_cols("quantile", more_levels, sample_outputs, return_missing_combos = TRUE),
+    validate_join_by_cols(
+      "quantile",
+      more_levels,
+      sample_outputs,
+      return_missing_combos = TRUE
+    ),
     dplyr::filter(more_levels, location == "555")
   )
 
   # model_out_tbl has more cases of join column values than to (not supported)
-  fewer_levels <- data.frame(location = "222", output_type_id = c(0.25, 0.75), stringsAsFactors = FALSE)
+  fewer_levels <- data.frame(
+    location = "222",
+    output_type_id = c(0.25, 0.75),
+    stringsAsFactors = FALSE
+  )
   expect_error(
     convert_output_type(sample_outputs, to = list("quantile" = fewer_levels)),
     r"{Some task ID variable combos present in `model_out_tbl` are missing from the "quantile" element of `to`}"
   )
   # correct missing cases are returned
   expect_equal(
-    validate_join_by_cols("quantile", fewer_levels, sample_outputs, return_missing_combos = TRUE),
+    validate_join_by_cols(
+      "quantile",
+      fewer_levels,
+      sample_outputs,
+      return_missing_combos = TRUE
+    ),
     dplyr::filter(sample_outputs, location != "222")
   )
 })
@@ -210,14 +239,21 @@ test_that("More complex conversions from samples works", {
     output_type = "quantile",
     value = NA_real_
   ) |>
-    dplyr::left_join(quantile_levels, by = "location", relationship = "many-to-many") |>
+    dplyr::left_join(
+      quantile_levels,
+      by = "location",
+      relationship = "many-to-many"
+    ) |>
     as_model_out_tbl()
 
   task_id_cols <- subset_task_id_names(colnames(expected_outputs))
   expected_outputs$value <- c(
     create_test_sample_outputs() |>
       dplyr::filter(location == "222") |>
-      dplyr::group_by(dplyr::across(dplyr::all_of(c("model_id", task_id_cols)))) |>
+      dplyr::group_by(dplyr::across(dplyr::all_of(c(
+        "model_id",
+        task_id_cols
+      )))) |>
       dplyr::reframe(
         output_type_id = ps_222,
         value = stats::quantile(value, probs = ps_222, names = FALSE)
@@ -225,7 +261,10 @@ test_that("More complex conversions from samples works", {
       dplyr::pull(value),
     create_test_sample_outputs() |>
       dplyr::filter(location == "888") |>
-      dplyr::group_by(dplyr::across(dplyr::all_of(c("model_id", task_id_cols)))) |>
+      dplyr::group_by(dplyr::across(dplyr::all_of(c(
+        "model_id",
+        task_id_cols
+      )))) |>
       dplyr::reframe(
         output_type_id = ps_888,
         value = stats::quantile(value, probs = ps_888, names = FALSE)

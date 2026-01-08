@@ -74,7 +74,12 @@
 # we can use it later to check if we are in a Git hook
 script_name <- function() {
   cmd <- commandArgs()
-  basename(sub("--file=", "", cmd[grepl("--file=", cmd, fixed = TRUE)], fixed = TRUE))
+  basename(sub(
+    "--file=",
+    "",
+    cmd[grepl("--file=", cmd, fixed = TRUE)],
+    fixed = TRUE
+  ))
 }
 
 # Check if any schemas are changed but not committed and throw an error
@@ -148,7 +153,7 @@ check_main_ahead <- function(the_commit) {
   main_time <- main_commit$commit$author$date
   newer_main <- curr_time < main_time
   if (newer_main) {
-    main_sha <- main_commit$sha |> substr(1, 7)  # nolint: object_usage_linter
+    main_sha <- main_commit$sha |> substr(1, 7) # nolint: object_usage_linter
     old_sha <- the_commit$sha |> substr(1, 7) # nolint: object_usage_linter
     if (not_hook()) {
       # nolint start
@@ -169,7 +174,8 @@ check_main_ahead <- function(the_commit) {
 }
 
 get_latest_commit <- function(branch) {
-  res <- gh::gh("GET /repos/hubverse-org/schemas/branches/{branch}",
+  res <- gh::gh(
+    "GET /repos/hubverse-org/schemas/branches/{branch}",
     branch = branch
   )
   if (branch != "main") {
@@ -229,15 +235,27 @@ if (new$update) {
 
   cli::cli_alert_info("Fetching the latest version of the schemas from GitHub")
   tmp <- tempfile()
-  system2("git", c("clone", "--branch", branch, "https://github.com/hubverse-org/schemas.git", tmp))
+  system2(
+    "git",
+    c(
+      "clone",
+      "--branch",
+      branch,
+      "https://github.com/hubverse-org/schemas.git",
+      tmp
+    )
+  )
 
   versions <- as.character(fs::dir_ls(tmp, type = "dir"))
-  cli::cli_alert_success("Copying {.file {c(rev(fs::path_file(versions)), 'NEWS.md')}} to {.file inst/schemas}")
+  cli::cli_alert_success(
+    "Copying {.file {c(rev(fs::path_file(versions)), 'NEWS.md')}} to {.file inst/schemas}"
+  )
   purrr::walk(versions, fs::dir_copy, schemas)
   fs::file_copy(fs::path(tmp, "NEWS.md"), schemas)
   fs::dir_tree(schemas)
   fs::dir_delete(tmp)
-  jsonlite::write_json(new$cfg,
+  jsonlite::write_json(
+    new$cfg,
     path = cfg_path,
     pretty = TRUE,
     auto_unbox = TRUE
@@ -262,7 +280,9 @@ if (!interactive() && new$update) {
 }
 # GIT HOOK: CHECK FOR UNCOMMITTED CHANGES ------------------------------------
 if (is_hook()) {
-  cli::cli_h2("{.strong pre-push}: checking for changes in {.path inst/schemas}")
+  cli::cli_h2(
+    "{.strong pre-push}: checking for changes in {.path inst/schemas}"
+  )
   check_status(usethis::proj_path())
   cli::cli_alert_success("OK")
 }
