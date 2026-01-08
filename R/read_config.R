@@ -105,7 +105,7 @@ read_config.SubTreeFileSystem <- function(
     hub_path$base_path,
     "/",
     2
-  ) %>%
+  ) |>
     unlist()
 
   path_url <- glue::glue(
