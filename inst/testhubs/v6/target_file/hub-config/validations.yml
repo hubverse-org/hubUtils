@@ -10,5 +10,5 @@ default:
         fn: "opt_check_tbl_counts_lt_popn"
         pkg: "hubValidations"
         args:
-          targets: !expr list(target = 'wk inc flu hosp')
+          targets: !expr list(target = 'flu_hosp_inc')
           popn_file_path: "auxiliary-data/locations.csv"
