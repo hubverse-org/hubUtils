@@ -75,7 +75,7 @@ as_model_out_tbl <- function(
 
   tbl <- std_col_order_model_out_tbl(tbl)
 
-  structure(tbl, class = c("model_out_tbl", class(tbl))) %>%
+  structure(tbl, class = c("model_out_tbl", class(tbl))) |>
     validate_model_out_tbl()
 }
 
@@ -138,7 +138,7 @@ rename_columns <- function(
     value_col <- validate_col_input(value_col, call = call)
     tbl <- rename_col(tbl, value_col, old_names, call)
   }
-  return(tbl)
+  tbl
 }
 
 validate_col_input <- function(x, call = rlang::caller_env()) {
@@ -158,7 +158,7 @@ validate_col_input <- function(x, call = rlang::caller_env()) {
     )
     x <- x[1]
   }
-  return(x)
+  x
 }
 
 rename_col <- function(x, col_name, old_names, call) {
@@ -218,7 +218,7 @@ trim_tbl_to_task_ids <- function(
   }
   task_id_cols <- task_id_cols[task_id_cols %in% names(tbl)]
 
-  return(tbl[, c(task_id_cols, std_colnames)])
+  tbl[, c(task_id_cols, std_colnames)]
 }
 
 remove_model_out_tbl_empty <- function(tbl) {

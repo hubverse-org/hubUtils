@@ -30,8 +30,8 @@
 model_id_merge <- function(tbl, sep = "-") {
   # check all required columns present
   if (!all(c("model_abbr", "team_abbr") %in% names(tbl))) {
+    # nolint next: object_usage_linter
     missing_cols <- c("model_abbr", "team_abbr")[
-      # nolint: object_usage_linter
       !c("model_abbr", "team_abbr") %in% names(tbl)
     ]
     cli::cli_abort(c(
@@ -70,7 +70,7 @@ model_id_merge <- function(tbl, sep = "-") {
   col_order <- names(tbl)[names(tbl) != "model_id"]
   tbl <- tbl[, c("model_id", col_order)]
 
-  return(tbl)
+  tbl
 }
 
 #' @return a [tibble][tibble::tibble()] with `model_id` column split into separate
@@ -88,8 +88,8 @@ model_id_split <- function(tbl, sep = "-") {
   }
   # create model_abbr team_abbr columns
   if (any(c("model_abbr", "team_abbr") %in% names(tbl))) {
+    # nolint next: object_usage_linter
     existing_cols <- c("model_abbr", "team_abbr")[
-      # nolint: object_usage_linter
       !c("model_abbr", "team_abbr") %in% names(tbl)
     ]
     cli::cli_alert_warning(
@@ -122,5 +122,5 @@ model_id_split <- function(tbl, sep = "-") {
   col_order <- names(tbl)[!names(tbl) %in% c("team_abbr", "model_abbr")]
   tbl <- tbl[, c("team_abbr", "model_abbr", col_order)]
 
-  return(tbl)
+  tbl
 }

@@ -51,7 +51,7 @@ get_schema_valid_versions <- function(branch = "main") {
   }
   branches <- gh(
     "GET /repos/hubverse-org/schemas/branches"
-  ) %>%
+  ) |>
     vapply("[[", "", "name")
 
   if (!branch %in% branches) {
@@ -114,8 +114,8 @@ get_schema <- function(schema_url) {
   }
 
   if (response$status_code == 200L) {
-    response$content %>%
-      rawToChar() %>%
+    response$content |>
+      rawToChar() |>
       jsonlite::prettify()
   } else {
     cli::cli_abort(
@@ -168,8 +168,8 @@ get_schema_version_latest <- function(
   branch = "main"
 ) {
   if (schema_version == "latest") {
-    get_schema_valid_versions(branch = branch) %>%
-      sort() %>%
+    get_schema_valid_versions(branch = branch) |>
+      sort() |>
       utils::tail(1)
   } else {
     schema_version

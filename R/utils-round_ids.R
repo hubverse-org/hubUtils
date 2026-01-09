@@ -28,8 +28,8 @@
 get_round_idx <- function(config_tasks, round_id) {
   checkmate::assert_string(round_id)
   round_id <- rlang::arg_match(round_id, values = get_round_ids(config_tasks))
-  get_round_ids(config_tasks, flatten = "model_task") %>%
-    purrr::map_lgl(~ round_id %in% .x) %>%
+  get_round_ids(config_tasks, flatten = "model_task") |>
+    purrr::map_lgl(~ round_id %in% .x) |>
     which()
 }
 

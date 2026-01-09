@@ -59,7 +59,7 @@ validate_config_properties <- function(
       call = call
     )
   }
-  return(TRUE)
+  TRUE
 }
 
 
@@ -127,7 +127,7 @@ validate_schema_url_prefix <- function(
       fixed = TRUE
     )
   }
-  return(invisible(schema_url))
+  invisible(schema_url)
 }
 
 extract_config_type <- function(schema_version) {

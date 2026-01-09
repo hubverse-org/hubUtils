@@ -13,8 +13,8 @@ get_task_id_names <- function(config_tasks) {
   purrr::map(
     config_tasks[["rounds"]],
     ~ .x[["model_tasks"]]
-  ) %>%
-    purrr::map(~ names(.x[[1]][["task_ids"]])) %>%
-    unlist() %>%
+  ) |>
+    purrr::map(~ names(.x[[1]][["task_ids"]])) |>
+    unlist() |>
     unique()
 }
