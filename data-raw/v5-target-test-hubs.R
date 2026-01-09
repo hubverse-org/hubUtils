@@ -41,7 +41,10 @@ gert::git_clone(
 )
 initial_size <- sum(fs::dir_info(hub_path_source, recurse = TRUE)$size)
 
-hub_version <- hubUtils::get_version_hub(hub_path_source, "admin")
+hub_version <- getOption(
+  "hubAdmin.schema_version",
+  default = hubUtils::get_version_hub(hub_path_source, "admin")
+)
 options(hubAdmin.schema_version = hub_version)
 version <- stringr::str_match(hub_version, "v[0-9]+")[1]
 
@@ -110,7 +113,7 @@ tids_cat <- create_task_ids(
   create_task_id(
     "target",
     required = NULL,
-    optional = "wk flu hosp rate category"
+    optional = "flu_hosp_rate_cat"
   ),
   horizon_tid,
   location_tid,
@@ -122,7 +125,7 @@ tids_cont <- create_task_ids(
   create_task_id(
     "target",
     required = NULL,
-    optional = "wk flu hosp rate"
+    optional = "flu_hosp_rate"
   ),
   horizon_tid,
   location_tid,
@@ -131,7 +134,7 @@ tids_cont <- create_task_ids(
 
 tids_inc <- create_task_ids(
   ref_date_tid,
-  create_task_id("target", required = NULL, optional = "wk inc flu hosp"),
+  create_task_id("target", required = NULL, optional = "flu_hosp_inc"),
   horizon_tid,
   location_tid,
   target_end_date_tid
@@ -149,10 +152,10 @@ task_cat <- create_model_task(
   ),
   target_metadata = create_target_metadata(
     create_target_metadata_item(
-      target_id = "wk flu hosp rate category",
+      target_id = "flu_hosp_rate_cat",
       target_name = "week ahead weekly influenza hospitalization rate category",
       target_units = "rate per 100,000 population",
-      target_keys = list(target = "wk flu hosp rate category"),
+      target_keys = list(target = "flu_hosp_rate_cat"),
       target_type = "ordinal",
       description = "This target represents a categorical severity level for rate of new hospitalizations per week for the week ending [horizon] weeks after the reference_date, on target_end_date.", # nolint: line_length_linter
       is_step_ahead = TRUE,
@@ -172,10 +175,10 @@ task_cont <- create_model_task(
   ),
   target_metadata = create_target_metadata(
     create_target_metadata_item(
-      target_id = "wk flu hosp rate",
+      target_id = "flu_hosp_rate",
       target_name = "week ahead weekly influenza hospitalization rate",
       target_units = "rate per 100,000 population",
-      target_keys = list(target = "wk flu hosp rate"),
+      target_keys = list(target = "flu_hosp_rate"),
       target_type = "continuous",
       description = "This target is the weekly rate of new hospitalizations per 100k population for the week ending [horizon] weeks after the reference_date, on target_end_date.", # nolint: line_length_linter
       is_step_ahead = TRUE,
@@ -210,10 +213,10 @@ task_inc <- create_model_task(
   ),
   target_metadata = create_target_metadata(
     create_target_metadata_item(
-      target_id = "wk inc flu hosp",
+      target_id = "flu_hosp_inc",
       target_name = "incident influenza hospitalizations",
       target_units = "count",
-      target_keys = list(target = "wk inc flu hosp"),
+      target_keys = list(target = "flu_hosp_inc"),
       target_type = "continuous",
       description = "This target represents the count of new hospitalizations in the week ending on the date [horizon] weeks after the reference_date, on the target_end_date.", # nolint: line_length_linters
       is_step_ahead = TRUE,
@@ -267,12 +270,45 @@ if (admin_v != tasks_v) {
     silent = FALSE
   )
 }
+
+##### ---- Remove target-data.json if version < v6 #### ----
+# target-data.json was introduced in schema v6.0.0
+if (as.integer(gsub("v", "", version)) < 6L) {
+  target_data_path <- fs::path(
+    hub_path_source,
+    "hub-config",
+    "target-data.json"
+  )
+  if (fs::file_exists(target_data_path)) {
+    fs::file_delete(target_data_path)
+    cli::cli_alert_info(
+      "Removed {.file target-data.json} (not supported in {version})."
+    )
+  }
+}
+
 ## Validate hub config files ----
 validate_hub_config(hub_path = hub_path_source)
 
 cli::cli_alert_success(
   "Hub config files created and validated successfully."
 )
+
+# ---- Update validations.yml to use new short target names ----
+validations_path <- fs::path(hub_path_source, "hub-config", "validations.yml")
+if (fs::file_exists(validations_path)) {
+  validations_content <- readLines(validations_path)
+  validations_content <- gsub(
+    "target = 'wk inc flu hosp'",
+    "target = 'flu_hosp_inc'",
+    validations_content,
+    fixed = TRUE
+  )
+  writeLines(validations_content, validations_path)
+  cli::cli_alert_success(
+    "Updated {.file validations.yml} with new target names."
+  )
+}
 
 # ##### ---- Reduce size of hub ---- ####
 # Delete any existing git files
@@ -376,6 +412,17 @@ reduce_model_out_file <- function(
     cdf_tbl,
     spls
   )
+  # Rename targets to shorter names to avoid CRAN 100-byte path limit
+  tbl <- mutate(
+    tbl,
+    target = case_match(
+      target,
+      "wk flu hosp rate" ~ "flu_hosp_rate",
+      "wk inc flu hosp" ~ "flu_hosp_inc",
+      "wk flu hosp rate category" ~ "flu_hosp_rate_cat",
+      .default = target
+    )
+  )
   # Write the reduced data back to CSV files
   arrow::write_csv_arrow(
     coerce_to_hub_schema(tbl, config_tasks),
@@ -427,6 +474,55 @@ if (!all(check)) {
   )
 }
 cli::cli_alert_success("Model output files reduced successfully.")
+
+# ---- Shorten model names to reduce path lengths ----
+# Rename Flusight-baseline to Flusight-base to stay under CRAN 100-byte limit
+old_model_name <- "Flusight-baseline"
+new_model_name <- "Flusight-base"
+
+# Rename model output directory
+old_model_dir <- fs::path(hub_path_source, "model-output", old_model_name)
+new_model_dir <- fs::path(hub_path_source, "model-output", new_model_name)
+if (fs::dir_exists(old_model_dir)) {
+  fs::dir_copy(old_model_dir, new_model_dir)
+  fs::dir_delete(old_model_dir)
+  # Rename files within the directory
+  model_files <- fs::dir_ls(new_model_dir)
+  purrr::walk(
+    model_files,
+    ~ {
+      new_name <- gsub(old_model_name, new_model_name, .x, fixed = TRUE)
+      if (new_name != .x) fs::file_move(.x, new_name)
+    }
+  )
+}
+
+# Rename and update model metadata file
+old_meta_file <- fs::path(
+  hub_path_source,
+  "model-metadata",
+  paste0(old_model_name, ".yml")
+)
+new_meta_file <- fs::path(
+  hub_path_source,
+  "model-metadata",
+  paste0(new_model_name, ".yml")
+)
+if (fs::file_exists(old_meta_file)) {
+  meta_content <- readLines(old_meta_file)
+  meta_content <- gsub(
+    old_model_name,
+    new_model_name,
+    meta_content,
+    fixed = TRUE
+  )
+  writeLines(meta_content, new_meta_file)
+  fs::file_delete(old_meta_file)
+}
+cli::cli_alert_success(
+  "Renamed {.val {old_model_name}} to {.val {new_model_name}}."
+)
+
 # ---- Reduce target data ----
 cli::cli_h2("Reducing target data")
 ts_path <- get_target_path(hub_path_source, "time-series")
@@ -442,6 +538,16 @@ ts_dat <- filter(
   ts_dat,
   target_end_date %in% ref_dates,
   location %in% locations
+)
+# Rename targets to shorter names to avoid CRAN 100-byte path limit
+ts_dat <- mutate(
+  ts_dat,
+  target = case_match(
+    target,
+    "wk flu hosp rate" ~ "flu_hosp_rate",
+    "wk inc flu hosp" ~ "flu_hosp_inc",
+    .default = target
+  )
 )
 
 arrow::write_csv_arrow(ts_dat, ts_path)
@@ -467,6 +573,17 @@ oo_dat <- bind_rows(
   oo_cdf,
   oo_pmf,
   oo_rest
+)
+# Rename targets to shorter names to avoid CRAN 100-byte path limit
+oo_dat <- mutate(
+  oo_dat,
+  target = case_match(
+    target,
+    "wk flu hosp rate" ~ "flu_hosp_rate",
+    "wk inc flu hosp" ~ "flu_hosp_inc",
+    "wk flu hosp rate category" ~ "flu_hosp_rate_cat",
+    .default = target
+  )
 )
 arrow::write_csv_arrow(
   oo_dat,

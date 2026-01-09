@@ -18,7 +18,7 @@ model_contributors: [
     "affiliation": "UC Berkeley"
   }
 ]
-website_url: "https://github.com/cdcepi/Flusight-baseline"
+website_url: "https://github.com/cdcepi/Flusight-base"
 license: "CC-BY-4.0"
 team_funding: "This model's development is funded by the US CDC grant number U01IP001122. The content is solely the responsibility of the authors and does not necessarily represent the official views of NIGMS or the National Institutes of Health."
 designated_model: true
