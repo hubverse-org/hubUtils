@@ -274,10 +274,16 @@ if (admin_v != tasks_v) {
 ##### ---- Remove target-data.json if version < v6 #### ----
 # target-data.json was introduced in schema v6.0.0
 if (as.integer(gsub("v", "", version)) < 6L) {
-  target_data_path <- fs::path(hub_path_source, "hub-config", "target-data.json")
+  target_data_path <- fs::path(
+    hub_path_source,
+    "hub-config",
+    "target-data.json"
+  )
   if (fs::file_exists(target_data_path)) {
     fs::file_delete(target_data_path)
-    cli::cli_alert_info("Removed {.file target-data.json} (not supported in {version}).")
+    cli::cli_alert_info(
+      "Removed {.file target-data.json} (not supported in {version})."
+    )
   }
 }
 
@@ -299,7 +305,9 @@ if (fs::file_exists(validations_path)) {
     fixed = TRUE
   )
   writeLines(validations_content, validations_path)
-  cli::cli_alert_success("Updated {.file validations.yml} with new target names.")
+  cli::cli_alert_success(
+    "Updated {.file validations.yml} with new target names."
+  )
 }
 
 # ##### ---- Reduce size of hub ---- ####
@@ -480,22 +488,40 @@ if (fs::dir_exists(old_model_dir)) {
   fs::dir_delete(old_model_dir)
   # Rename files within the directory
   model_files <- fs::dir_ls(new_model_dir)
-  purrr::walk(model_files, ~ {
-    new_name <- gsub(old_model_name, new_model_name, .x, fixed = TRUE)
-    if (new_name != .x) fs::file_move(.x, new_name)
-  })
+  purrr::walk(
+    model_files,
+    ~ {
+      new_name <- gsub(old_model_name, new_model_name, .x, fixed = TRUE)
+      if (new_name != .x) fs::file_move(.x, new_name)
+    }
+  )
 }
 
 # Rename and update model metadata file
-old_meta_file <- fs::path(hub_path_source, "model-metadata", paste0(old_model_name, ".yml"))
-new_meta_file <- fs::path(hub_path_source, "model-metadata", paste0(new_model_name, ".yml"))
+old_meta_file <- fs::path(
+  hub_path_source,
+  "model-metadata",
+  paste0(old_model_name, ".yml")
+)
+new_meta_file <- fs::path(
+  hub_path_source,
+  "model-metadata",
+  paste0(new_model_name, ".yml")
+)
 if (fs::file_exists(old_meta_file)) {
   meta_content <- readLines(old_meta_file)
-  meta_content <- gsub(old_model_name, new_model_name, meta_content, fixed = TRUE)
+  meta_content <- gsub(
+    old_model_name,
+    new_model_name,
+    meta_content,
+    fixed = TRUE
+  )
   writeLines(meta_content, new_meta_file)
   fs::file_delete(old_meta_file)
 }
-cli::cli_alert_success("Renamed {.val {old_model_name}} to {.val {new_model_name}}.")
+cli::cli_alert_success(
+  "Renamed {.val {old_model_name}} to {.val {new_model_name}}."
+)
 
 # ---- Reduce target data ----
 cli::cli_h2("Reducing target data")
