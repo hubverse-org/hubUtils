@@ -2,6 +2,11 @@
 
 ## hubUtils (development version)
 
+- Improved error handling when internet resources are unavailable.
+  Functions that access remote URLs now fail gracefully with informative
+  error messages
+  ([\#272](https://github.com/hubverse-org/hubUtils/issues/272)).
+
 ## hubUtils 1.1.0
 
 - Added utility functions for extracting properties from
