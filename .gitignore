@@ -11,3 +11,4 @@ tests/testthat/testdata-raw/*
 # Claude Code
 CLAUDE.md
 .claude/
+revdep/

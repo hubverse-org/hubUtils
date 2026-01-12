@@ -9,6 +9,7 @@ test_that("Schema URL created successfully", {
 })
 
 test_that("Invalid branches fail successfully", {
+  skip_on_cran()
   skip_if_offline()
   expect_error(
     get_schema_url("tasks", "v0.0.1", branch = "random-branch"),
@@ -18,6 +19,7 @@ test_that("Invalid branches fail successfully", {
 
 
 test_that("outdated hubUtils will still fetch schema", {
+  skip_on_cran()
   skip_if_offline()
   url <- "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.3.3/tasks-schema.json"
   # we should attempt to reach github with missing versions (even if they 404)
@@ -29,6 +31,7 @@ test_that("outdated hubUtils will still fetch schema", {
 
 
 test_that("Valid json schema versions detected successfully", {
+  skip_on_cran()
   skip_if_offline()
   expect_equal(
     get_schema_valid_versions(branch = "hubUtils-test"),
@@ -37,6 +40,7 @@ test_that("Valid json schema versions detected successfully", {
 })
 
 test_that("get_schema_version_latest works", {
+  skip_on_cran()
   skip_if_offline()
   expect_equal(
     get_schema_version_latest(branch = "hubUtils-test"),
@@ -52,6 +56,7 @@ test_that("get_schema_version_latest works", {
 })
 
 test_that("validate_schema_version works", {
+  skip_on_cran()
   skip_if_offline()
   expect_equal(
     validate_schema_version("v0.0.0.9", branch = "hubUtils-test"),

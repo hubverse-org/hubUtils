@@ -22,3 +22,4 @@
 ^\.claude$
 ^[.]?air[.]toml$
 ^\.vscode$
+^revdep$

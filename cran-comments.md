@@ -1,24 +1,18 @@
-## Resubmission
-
-This is a resubmission. In this version I have set the test that requires arrow s3 support to skip if it is not available.
-
 ## R CMD check results
 
-0 errors | 0 warnings | 1 notes
+0 errors | 0 warnings | 0 notes
 
+Tested on:
+- Local: macOS Sequoia 15.7.2, R 4.5.1
+- GitHub Actions: macOS, Windows, Ubuntu (R-devel, release, oldrel-1)
 
-*   Possibly misspelled words in DESCRIPTION:
-    al (16:37)
-    et (16:34)
-    
-    False positive
+## CRAN check issues addressed
 
-Additional previous actions in response to automated and manual reviews
+This release addresses the CRAN team's email regarding graceful failure when internet resources are unavailable. Functions that access remote URLs (GitHub API, JSON configs) now use tryCatch to fail gracefully with informative error messages when resources are unavailable (#272).
 
-*   Removed the remote dependency on 'hubData' and used 'arrow' where applicable instead.
+## Reverse dependencies
 
-*   More details and DOI to relevant publication added to Description field.
+We checked 1 reverse dependency (hubEnsembles), comparing R CMD check results across CRAN and dev versions of this package.
 
-*   Installation instructions updated in README.md.
-
-*   Comments added to `zzz.R` to clarify use of `<<-` and `check_deprecated_schema.R` to clarify use of `.GlobalEnv` in `lifecycle::deprecate_warn()`.
+- We saw 0 new problems
+- We failed to check 0 packages

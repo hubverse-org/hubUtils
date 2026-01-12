@@ -1,4 +1,4 @@
-# hubUtils (development version)
+# hubUtils 1.2.0
 
 * Improved error handling when internet resources are unavailable. Functions that access remote URLs now fail gracefully with informative error messages (#272).
 
