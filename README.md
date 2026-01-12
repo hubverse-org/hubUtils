@@ -62,6 +62,6 @@ By contributing to this project, you agree to abide by its terms.
 
 Interested in contributing back to the open-source hubverse project?
 Learn more about how to [get involved in the Hubverse
-Community](https://hubverse.io/community/) or
-[how to contribute to the hubUtils
+Community](https://hubverse.io/community/) or [how to contribute to the
+hubUtils
 package](https://hubverse-org.github.io/hubUtils/CONTRIBUTING.html).
