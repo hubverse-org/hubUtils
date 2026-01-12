@@ -133,3 +133,16 @@ test_that("read_config works on target-data.json files", {
     )
   )
 })
+
+test_that("read_config_file fails gracefully when URL unavailable", {
+  local_mocked_bindings(
+    fromJSON = function(...) stop("cannot open connection"),
+    is_valid_url = function(...) TRUE
+  )
+  expect_error(
+    read_config_file(
+      "https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub/main/hub-config/tasks.json"
+    ),
+    regexp = "URL may be unavailable"
+  )
+})

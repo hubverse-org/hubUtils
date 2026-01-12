@@ -1,4 +1,5 @@
 test_that("Schema URL created successfully", {
+  skip_if_offline()
   schema_url <- get_schema_url("tasks", "v0.0.1")
   expect_true(valid_url(schema_url))
   expect_equal(
@@ -8,6 +9,7 @@ test_that("Schema URL created successfully", {
 })
 
 test_that("Invalid branches fail successfully", {
+  skip_if_offline()
   expect_error(
     get_schema_url("tasks", "v0.0.1", branch = "random-branch"),
     regexp = "is not a valid branch in schema repository"
@@ -16,6 +18,7 @@ test_that("Invalid branches fail successfully", {
 
 
 test_that("outdated hubUtils will still fetch schema", {
+  skip_if_offline()
   url <- "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.3.3/tasks-schema.json"
   # we should attempt to reach github with missing versions (even if they 404)
   expect_error(
@@ -26,6 +29,7 @@ test_that("outdated hubUtils will still fetch schema", {
 
 
 test_that("Valid json schema versions detected successfully", {
+  skip_if_offline()
   expect_equal(
     get_schema_valid_versions(branch = "hubUtils-test"),
     c("v0.0.0.8", "v0.0.0.9")
@@ -33,6 +37,7 @@ test_that("Valid json schema versions detected successfully", {
 })
 
 test_that("get_schema_version_latest works", {
+  skip_if_offline()
   expect_equal(
     get_schema_version_latest(branch = "hubUtils-test"),
     "v0.0.0.9"
@@ -47,6 +52,7 @@ test_that("get_schema_version_latest works", {
 })
 
 test_that("validate_schema_version works", {
+  skip_if_offline()
   expect_equal(
     validate_schema_version("v0.0.0.9", branch = "hubUtils-test"),
     "v0.0.0.9"
@@ -119,5 +125,15 @@ test_that("Schema URL for target-data created successfully", {
   expect_equal(
     schema_url,
     "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json"
+  )
+})
+
+test_that("get_schema_valid_versions fails gracefully when GitHub API unavailable", {
+  local_mocked_bindings(
+    gh = function(...) stop("Failed to connect to api.github.com")
+  )
+  expect_error(
+    get_schema_valid_versions(branch = "some-branch"),
+    regexp = "Failed to connect to GitHub API"
   )
 })
