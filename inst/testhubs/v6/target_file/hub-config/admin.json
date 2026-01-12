@@ -8,7 +8,7 @@
     },
     "repository": {
         "host": "github",
-        "owner": "Infectious-Disease-Modeling-Hubs",
+        "owner": "hubverse-org",
         "name": "example-complex-forecast-hub"
     },
     "file_format": ["csv"],
