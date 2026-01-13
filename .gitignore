@@ -3,6 +3,7 @@
 .Rdata
 .httr-oauth
 .DS_Store
+CRAN-SUBMISSION
 docs
 attic/*
 tests/testthat/testdata-raw/*

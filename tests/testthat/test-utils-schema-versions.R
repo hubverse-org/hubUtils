@@ -40,6 +40,7 @@ test_that("get_version_* utilities works with URLs", {
 })
 
 test_that("get_version_* utilities works with SubTreeFileSystem objects", {
+  skip_on_cran()
   skip_if_offline()
   skip_if_not(arrow::arrow_with_s3())
 

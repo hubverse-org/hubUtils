@@ -19,6 +19,7 @@ test_that("read_config works on local hubs", {
 })
 
 test_that("read_config works on S3 cloud hubs", {
+  skip_on_cran()
   skip_if_not(arrow::arrow_with_s3())
   skip_if_offline()
 
@@ -100,6 +101,7 @@ test_that("read_config_file with urls works", {
   )
 
   # Read from an S3 bucket config file
+  skip_on_cran()
   skip_if_not(arrow::arrow_with_s3())
 
   hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")

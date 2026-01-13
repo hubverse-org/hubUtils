@@ -20,6 +20,7 @@ test_that("is_valid_url works", {
 })
 
 test_that("create_s3_url works", {
+  skip_on_cran()
   skip_if_offline()
   skip_if_not(arrow::arrow_with_s3())
 
@@ -113,6 +114,7 @@ test_that("is_github_repo_url correctly identifies GitHub repo URLs", {
 })
 
 test_that("is_s3_base_fs correctly detects base file systems", {
+  skip_on_cran()
   skip_if_not(arrow::arrow_with_s3())
   skip_if_offline()
 
