@@ -6,6 +6,10 @@ Tested on:
 - Local: macOS Sequoia 15.7.2, R 4.5.1
 - GitHub Actions: macOS, Windows, Ubuntu (R-devel, release, oldrel-1)
 
+## Resubmission
+
+This is a resubmission. The previous submission failed on Debian due to a test calling `arrow::s3_bucket()`. All S3-related tests now skip on CRAN.
+
 ## CRAN check issues addressed
 
 This release addresses the CRAN team's email regarding graceful failure when internet resources are unavailable. Functions that access remote URLs (GitHub API, JSON configs) now use tryCatch to fail gracefully with informative error messages when resources are unavailable (#272).
