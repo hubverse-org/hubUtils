@@ -2,6 +2,10 @@
 
 ## hubUtils (development version)
 
+## hubUtils 1.2.0
+
+CRAN release: 2026-01-13
+
 - Improved error handling when internet resources are unavailable.
   Functions that access remote URLs now fail gracefully with informative
   error messages
