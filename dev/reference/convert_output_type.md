@@ -64,14 +64,14 @@ convert_output_type(model_out_tbl,
 #> # A tibble: 8 × 5
 #>   model_id group1 output_type output_type_id value
 #> * <chr>     <dbl> <chr>                <dbl> <dbl>
-#> 1 A             1 quantile              0.25 0.614
-#> 2 A             1 quantile              0.5  1.13 
-#> 3 A             1 quantile              0.75 1.87 
-#> 4 A             2 quantile              0.25 1.45 
-#> 5 A             2 quantile              0.5  2.09 
-#> 6 A             2 quantile              0.75 2.75 
-#> 7 A             1 median               NA    1.13 
-#> 8 A             2 median               NA    2.09 
+#> 1 A             1 quantile              0.25 0.375
+#> 2 A             1 quantile              0.5  1.09 
+#> 3 A             1 quantile              0.75 1.75 
+#> 4 A             2 quantile              0.25 1.61 
+#> 5 A             2 quantile              0.5  2.13 
+#> 6 A             2 quantile              0.75 2.81 
+#> 7 A             1 median               NA    1.09 
+#> 8 A             2 median               NA    2.13 
 
 # Output type conversion with dataframe `to` element
 # Output type ID values (quantile levels) are determined by group1 value
@@ -85,8 +85,8 @@ convert_output_type(model_out_tbl,
 #> # A tibble: 4 × 5
 #>   model_id group1 output_type output_type_id value
 #> * <chr>     <dbl> <chr>                <dbl> <dbl>
-#> 1 A             1 quantile              0.5   1.13
-#> 2 A             2 quantile              0.25  1.45
-#> 3 A             2 quantile              0.5   2.09
-#> 4 A             2 quantile              0.75  2.75
+#> 1 A             1 quantile              0.5   1.09
+#> 2 A             2 quantile              0.25  1.61
+#> 3 A             2 quantile              0.5   2.13
+#> 4 A             2 quantile              0.75  2.81
 ```
