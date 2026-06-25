@@ -1,5 +1,7 @@
 # hubUtils (development version)
 
+* Substantially improved the performance of `convert_output_type()`. Conversions are now computed per group of model/task ID combinations without first materialising an `n_samples * n_output_type_ids` intermediate table, reducing both runtime and memory allocation by roughly an order of magnitude for large sample tables (#282, thanks @damonbayer for reporting!).
+
 # hubUtils 1.2.0
 
 * Improved error handling when internet resources are unavailable. Functions that access remote URLs now fail gracefully with informative error messages (#272).
