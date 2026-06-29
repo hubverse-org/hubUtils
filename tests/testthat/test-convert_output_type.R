@@ -277,3 +277,73 @@ test_that("More complex conversions from samples works", {
     dplyr::arrange(location, model_id)
   expect_equal(actual_outputs, expected_outputs)
 })
+
+test_that("quantile conversion output is invariant to the order of requested levels", {
+  sample_outputs <- create_test_sample_outputs()
+  unsorted_levels <- c(0.75, 0.25, 0.5, 0.9, 0.1)
+  canonical_levels <- sort(unsorted_levels)
+
+  unsorted_outputs <- convert_output_type(
+    sample_outputs,
+    to = list("quantile" = unsorted_levels)
+  )
+  canonical_outputs <- convert_output_type(
+    sample_outputs,
+    to = list("quantile" = canonical_levels)
+  )
+  # the requested order of levels must not affect the result: output type IDs
+  # (and therefore values) are returned ascending within each task ID group
+  expect_equal(unsorted_outputs, canonical_outputs)
+
+  task_id_cols <- subset_task_id_names(colnames(unsorted_outputs))
+  group_checks <- unsorted_outputs |>
+    dplyr::group_by(dplyr::across(dplyr::all_of(c(
+      "model_id",
+      task_id_cols
+    )))) |>
+    dplyr::summarise(
+      ids_ascending = !is.unsorted(output_type_id),
+      values_ascending = !is.unsorted(value),
+      .groups = "drop"
+    )
+  expect_true(all(group_checks$ids_ascending))
+  expect_true(all(group_checks$values_ascending))
+})
+
+test_that("duplicate requested quantile levels are de-duplicated", {
+  sample_outputs <- create_test_sample_outputs()
+  duplicated_outputs <- convert_output_type(
+    sample_outputs,
+    to = list("quantile" = c(0.5, 0.5, 0.25, 0.25, 0.75))
+  )
+  unique_outputs <- convert_output_type(
+    sample_outputs,
+    to = list("quantile" = c(0.25, 0.5, 0.75))
+  )
+  expect_equal(duplicated_outputs, unique_outputs)
+
+  # each output type ID appears at most once per task ID group (required for
+  # valid hub model output)
+  task_id_cols <- subset_task_id_names(colnames(duplicated_outputs))
+  row_counts <- duplicated_outputs |>
+    dplyr::count(dplyr::across(dplyr::all_of(
+      c("model_id", task_id_cols, "output_type_id")
+    )))
+  expect_true(all(row_counts$n == 1L))
+})
+
+test_that("task-ID-dependent quantile levels are sorted and de-duplicated per group", {
+  sample_outputs <- create_test_sample_outputs()
+  messy_levels <- rbind(
+    data.frame(location = "222", output_type_id = c(0.75, 0.25, 0.5, 0.25)),
+    data.frame(location = "888", output_type_id = c(0.9, 0.1, 0.5, 0.9))
+  )
+  clean_levels <- rbind(
+    data.frame(location = "222", output_type_id = c(0.25, 0.5, 0.75)),
+    data.frame(location = "888", output_type_id = c(0.1, 0.5, 0.9))
+  )
+  expect_equal(
+    convert_output_type(sample_outputs, to = list("quantile" = messy_levels)),
+    convert_output_type(sample_outputs, to = list("quantile" = clean_levels))
+  )
+})
