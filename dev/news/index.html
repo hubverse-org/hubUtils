@@ -33,7 +33,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="hubutils-development-version">hubUtils (development version)<a class="anchor" aria-label="anchor" href="#hubutils-development-version"></a></h2>
-</div>
+<ul><li>Substantially improved the performance of <code><a href="../reference/convert_output_type.html">convert_output_type()</a></code>. Conversions are now computed per group of model/task ID combinations without first materialising an <code>n_samples * n_output_type_ids</code> intermediate table, reducing both runtime and memory allocation by roughly an order of magnitude for large sample tables (<a href="https://github.com/hubverse-org/hubUtils/issues/282" class="external-link">#282</a>, thanks <a href="https://github.com/damonbayer" class="external-link">@damonbayer</a> for reporting!).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.0" id="hubutils-120">hubUtils 1.2.0<a class="anchor" aria-label="anchor" href="#hubutils-120"></a></h2><p class="text-muted">CRAN release: 2026-01-13</p>
 <ul><li>Improved error handling when internet resources are unavailable. Functions that access remote URLs now fail gracefully with informative error messages (<a href="https://github.com/hubverse-org/hubUtils/issues/272" class="external-link">#272</a>).</li>

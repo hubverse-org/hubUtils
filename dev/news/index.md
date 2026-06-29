@@ -2,6 +2,15 @@
 
 ## hubUtils (development version)
 
+- Substantially improved the performance of
+  [`convert_output_type()`](https://hubverse-org.github.io/hubUtils/dev/reference/convert_output_type.md).
+  Conversions are now computed per group of model/task ID combinations
+  without first materialising an `n_samples * n_output_type_ids`
+  intermediate table, reducing both runtime and memory allocation by
+  roughly an order of magnitude for large sample tables
+  ([\#282](https://github.com/hubverse-org/hubUtils/issues/282), thanks
+  [@damonbayer](https://github.com/damonbayer) for reporting!).
+
 ## hubUtils 1.2.0
 
 CRAN release: 2026-01-13
