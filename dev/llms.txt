@@ -11,6 +11,7 @@ You can install the released version of `hubUtils` from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
+
 install.packages("hubUtils")
 ```
 
@@ -20,6 +21,7 @@ You can install the [latest version of hubUtils from the
 R-universe](https://hubverse-org.r-universe.dev/hubUtils):
 
 ``` r
+
 install.packages("hubUtils", repos = c("https://hubverse-org.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
@@ -30,6 +32,7 @@ you can install the development version of hubUtils from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 remotes::install_github("hubverse-org/hubUtils")
 ```
 

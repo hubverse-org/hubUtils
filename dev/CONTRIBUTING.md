@@ -141,6 +141,7 @@ the environment variable is unset, the branch information from the
 #### Usage: within R
 
 ``` r
+
 source("data-raw/schemas.R")
 ```
 
@@ -184,6 +185,7 @@ branch. This can only be done interactively in R or as a BASH script.
 #### Via R
 
 ``` r
+
 Sys.setenv("HUBUTILS_SCHEMA_BRANCH" = "br-v4.0.1")
 source("data-raw/schemas.R")
 #> ✔ removing /path/to/hubUtils/inst/schemas
@@ -254,6 +256,7 @@ It is optional, but recommended to use this script as a pre-push hook so
 that the schemas are checked for updates before each commit.
 
 ``` r
+
 usethis::use_git_hook("pre-push", readLines(usethis::proj_path("data-raw/schemas.R")))
 ```
 
