@@ -2,6 +2,8 @@
 
 ## hubUtils (development version)
 
+## hubUtils 1.2.1
+
 - Substantially improved the performance of
   [`convert_output_type()`](https://hubverse-org.github.io/hubUtils/dev/reference/convert_output_type.md).
   Conversions are now computed per group of model/task ID combinations
