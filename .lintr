@@ -10,5 +10,9 @@ exclusions: list(
     # excluded from objest_usage_linter:
     "data-raw/v5-target-test-hubs.R" = list(
       object_usage_linter = Inf
+    ),
+    # `<<-` memoises functions in the package namespace on load
+    "R/zzz.R" = list(
+      assignment_linter = Inf
     )
   )
