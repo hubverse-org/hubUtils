@@ -1,5 +1,9 @@
 # hubUtils (development version)
 
+* Added `get_round_value_sets_config()`, which returns the values each modeling task in a round allows for each task ID and, per output type, for `output_type_id` (#301).
+* Added `get_round_output_type_names()`, which returns the names of the output types a round accepts, as `get_round_task_id_names()` does for task IDs.
+* Added `get_round_config()`, which returns a round's element of the `rounds` property of the tasks config.
+
 # hubUtils 1.2.1
 
 * Substantially improved the performance of `convert_output_type()`. Conversions are now computed per group of model/task ID combinations without first materialising an `n_samples * n_output_type_ids` intermediate table, reducing both runtime and memory allocation by roughly an order of magnitude for large sample tables (#282, thanks @damonbayer for reporting!).

@@ -36,8 +36,7 @@ get_hub_file_formats <- function(hub_path, round_id = NULL) {
     return(config_admin$file_format)
   }
   config_tasks <- read_config(hub_path, "tasks")
-  round_idx <- get_round_idx(config_tasks, round_id)
-  file_formats <- config_tasks[["rounds"]][[round_idx]]$file_format
+  file_formats <- get_round_config(config_tasks, round_id)[["file_format"]]
   if (!is.null(file_formats)) {
     return(file_formats)
   }
@@ -54,10 +53,9 @@ get_hub_derived_task_ids <- function(hub_path, round_id = NULL) {
   if (is.null(round_id)) {
     return(derived_task_ids_hub)
   }
-  round_idx <- get_round_idx(config_tasks, round_id)
-  derived_tasks_ids_round <- config_tasks[["rounds"]][[
-    round_idx
-  ]]$derived_task_ids
+  derived_tasks_ids_round <- get_round_config(config_tasks, round_id)[[
+    "derived_task_ids"
+  ]]
   if (!is.null(derived_tasks_ids_round)) {
     return(derived_tasks_ids_round)
   }

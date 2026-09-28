@@ -30,6 +30,65 @@ test_that("get_round_task_id_names fails correctly", {
   )
 })
 
+test_that("get_round_output_type_names works", {
+  hub_path <- system.file("testhubs/v6/target_dir", package = "hubUtils")
+  config_tasks <- read_config(hub_path)
+
+  expect_snapshot(
+    get_round_output_type_names(config_tasks, round_id = "2022-10-22")
+  )
+})
+
+test_that("get_round_output_type_names fails correctly", {
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
+  config_tasks <- read_config(hub_path)
+
+  expect_snapshot(
+    get_round_output_type_names(
+      config_tasks = c("random", "character", "vector"),
+      round_id = "2022-10-01"
+    ),
+    error = TRUE
+  )
+  expect_snapshot(
+    get_round_output_type_names(
+      config_tasks,
+      round_id = c("2022-10-01", "2022-10-22")
+    ),
+    error = TRUE
+  )
+})
+
+test_that("get_round_config works", {
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
+  config_tasks <- read_config(hub_path)
+
+  expect_identical(
+    get_round_config(config_tasks, round_id = "2022-10-22"),
+    config_tasks$rounds[[2]]
+  )
+})
+
+test_that("get_round_config fails correctly", {
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
+  config_tasks <- read_config(hub_path)
+
+  expect_snapshot(
+    get_round_config(
+      config_tasks = c("random", "character", "vector"),
+      round_id = "2022-10-01"
+    ),
+    error = TRUE
+  )
+  expect_snapshot(
+    get_round_config(
+      config_tasks,
+      round_id = c("2022-10-01", "2022-10-22")
+    ),
+    error = TRUE
+  )
+})
+
 test_that("get_round_model_tasks works", {
   hub_path <- system.file("testhubs/simple", package = "hubUtils")
   config_tasks <- read_config(hub_path)
