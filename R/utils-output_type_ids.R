@@ -20,7 +20,8 @@ get_mt_output_type_ids <- function(
     output_types,
     \(output_type) {
       output_type_ids <- output_type[[config_tid]]
-      only_required <- required_vals_only && !force_output_types &&
+      only_required <- required_vals_only &&
+        !force_output_types &&
         has_required_optional(output_type_ids)
       values <- if (only_required) {
         output_type_ids[["required"]]
