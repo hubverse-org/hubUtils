@@ -29,7 +29,7 @@ The JSON schema download URL for a given config file version.
 Get the JSON schema download URL for a given config file version
 }
 \examples{
-\dontshow{if (asNamespace("hubUtils")$not_rcmd_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check()) withAutoprint(\{ # examplesIf}
 get_schema_url(config = "tasks", version = "v0.0.0.9")
 \dontshow{\}) # examplesIf}
 }

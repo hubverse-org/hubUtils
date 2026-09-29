@@ -1,5 +1,7 @@
 # hubUtils (development version)
 
+* Added `read_model_metadata()`, which reads a model metadata YAML file. Every array in the file is returned as a list, so a length-1 array is read as a list rather than a string (#299).
+
 # hubUtils 1.2.1
 
 * Substantially improved the performance of `convert_output_type()`. Conversions are now computed per group of model/task ID combinations without first materialising an `n_samples * n_output_type_ids` intermediate table, reducing both runtime and memory allocation by roughly an order of magnitude for large sample tables (#282, thanks @damonbayer for reporting!).
