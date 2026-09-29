@@ -79,7 +79,11 @@ get_round_ids <- function(
       .x[["round_id"]]
     }
   )
-  if (flatten == "all") unlist(round_ids, use.names = FALSE) else round_ids
+  if (flatten == "all") {
+    unique(unlist(round_ids, use.names = FALSE))
+  } else {
+    round_ids
+  }
 }
 
 get_round_ids_from_taskid <- function(x, flatten) {

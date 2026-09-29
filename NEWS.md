@@ -1,5 +1,7 @@
 # hubUtils (development version)
 
+* `get_round_ids(flatten = "all")` now returns unique round IDs, as documented. Previously, a round with `round_id_from_variable: true` and more than one modeling task contributed one copy of each round ID per modeling task. Errors that list the valid round IDs, such as from `get_round_idx()`, no longer repeat each ID (#303).
+
 # hubUtils 1.2.1
 
 * Substantially improved the performance of `convert_output_type()`. Conversions are now computed per group of model/task ID combinations without first materialising an `n_samples * n_output_type_ids` intermediate table, reducing both runtime and memory allocation by roughly an order of magnitude for large sample tables (#282, thanks @damonbayer for reporting!).
