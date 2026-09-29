@@ -2,6 +2,14 @@
 
 ## hubUtils (development version)
 
+- `get_round_ids(flatten = "all")` now returns unique round IDs, as
+  documented. Previously, a round with `round_id_from_variable: true`
+  and more than one modeling task contributed one copy of each round ID
+  per modeling task. Errors that list the valid round IDs, such as from
+  [`get_round_idx()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_idx.md),
+  no longer repeat each ID
+  ([\#303](https://github.com/hubverse-org/hubUtils/issues/303)).
+
 ## hubUtils 1.2.1
 
 CRAN release: 2026-07-15
