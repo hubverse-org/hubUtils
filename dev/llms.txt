@@ -162,6 +162,9 @@ package](https://hubverse-org.github.io/hubUtils/CONTRIBUTING.html).
 - [`read_config_file()`](https://hubverse-org.github.io/hubUtils/dev/reference/read_config_file.md)
   : Read a JSON config file from a path
 
+- [`read_model_metadata()`](https://hubverse-org.github.io/hubUtils/dev/reference/read_model_metadata.md)
+  : Read a model metadata file into R
+
 - [`std_colnames`](https://hubverse-org.github.io/hubUtils/dev/reference/std_colnames.md)
   : Hubverse model output standard column names
 

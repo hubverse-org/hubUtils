@@ -10,6 +10,13 @@
   no longer repeat each ID
   ([\#303](https://github.com/hubverse-org/hubUtils/issues/303)).
 
+- Added
+  [`read_model_metadata()`](https://hubverse-org.github.io/hubUtils/dev/reference/read_model_metadata.md),
+  which reads a model metadata YAML file. Every array in the file is
+  returned as a list, so a length-1 array is read as a list rather than
+  a string
+  ([\#299](https://github.com/hubverse-org/hubUtils/issues/299)).
+
 ## hubUtils 1.2.1
 
 CRAN release: 2026-07-15
