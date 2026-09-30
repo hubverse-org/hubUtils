@@ -16,7 +16,7 @@ Contents of the JSON schema as a character string.
 Download a schema
 }
 \examples{
-\dontshow{if (asNamespace("hubUtils")$not_rcmd_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check()) withAutoprint(\{ # examplesIf}
 schema_url <- get_schema_url(config = "tasks", version = "v0.0.0.9")
 get_schema(schema_url)
 \dontshow{\}) # examplesIf}

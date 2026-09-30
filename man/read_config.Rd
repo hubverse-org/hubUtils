@@ -43,7 +43,7 @@ read_config(hub_path, "admin")
 github_url <- "https://github.com/hubverse-org/example-simple-forecast-hub"
 read_config(github_url)
 read_config(github_url, "admin")
-\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 # Read config file from AWS S3 bucket hub
 hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
 read_config(hub_path, "admin")

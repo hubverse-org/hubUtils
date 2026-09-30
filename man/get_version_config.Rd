@@ -62,7 +62,7 @@ url <- paste0(
   "example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json"
 )
 get_version_file(url)
-\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 # Get version from an AWS S3 cloud hub config file
 hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
 config_path <- hub_path$path("hub-config/admin.json")
@@ -71,7 +71,7 @@ get_version_file(config_path)
 hub_path <- system.file("testhubs/simple", package = "hubUtils")
 get_version_hub(hub_path)
 get_version_hub(hub_path, "admin")
-\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 # Get version from an AWS S3 cloud hub config file
 hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
 get_version_hub(hub_path)

@@ -39,16 +39,18 @@ Imports:
     stats,
     stringr,
     tibble,
-    utils
+    utils,
+    yaml
 Suggests: 
     arrow (>= 17.0.0),
     dplyr,
     knitr,
     rmarkdown,
-    testthat (>= 3.2.0)
+    testthat (>= 3.2.0),
+    withr
 Config/Needs/website: hubverse-org/hubStyle
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3

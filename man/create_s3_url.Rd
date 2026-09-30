@@ -26,7 +26,7 @@ create_s3_url(
   base_fs = "hubverse/hubutils/testhubs/simple/",
   base_path = "hub-config/admin.json"
 )
-\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 # Create a URL from an object of class `<SubTreeFileSystem>` of an s3 hub
 hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
 create_s3_url(hub_path$base_path, "hub-config/admin.json")
