@@ -23,7 +23,7 @@ Get the latest schema version from the schema repository if "latest" requested
 }
 \examples{
 # Get the latest version of the schema
-\dontshow{if (asNamespace("hubUtils")$not_rcmd_check()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check()) withAutoprint(\{ # examplesIf}
 get_schema_version_latest()
 get_schema_version_latest(schema_version = "v3.0.0")
 \dontshow{\}) # examplesIf}

@@ -19,7 +19,7 @@ Detect whether An object of class \verb{<SubTreeFileSystem>} represents the base
 path of an S3 file system (i.e. the root of a cloud hub)
 }
 \examples{
-\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (asNamespace("hubUtils")$not_rcmd_check() && requireNamespace("arrow", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 hub_path <- arrow::s3_bucket("hubverse/hubutils/testhubs/simple/")
 config_path <- hub_path$path("hub-config/admin.json")
 is_s3_base_fs(hub_path)

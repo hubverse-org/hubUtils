@@ -1,5 +1,9 @@
 # hubUtils (development version)
 
+* `get_round_ids(flatten = "all")` now returns unique round IDs, as documented. Previously, a round with `round_id_from_variable: true` and more than one modeling task contributed one copy of each round ID per modeling task. Errors that list the valid round IDs, such as from `get_round_idx()`, no longer repeat each ID (#303).
+
+* Added `read_model_metadata()`, which reads a model metadata YAML file. Every array in the file is returned as a list, so a length-1 array is read as a list rather than a string (#299).
+
 * Added `get_round_value_sets_config()`, which returns the values each modeling task in a round allows for each task ID and, per output type, for `output_type_id` (#301).
 * Added `get_round_output_type_names()`, which returns the names of the output types a round accepts, as `get_round_task_id_names()` does for task IDs.
 * Added `get_round_config()`, which returns a round's element of the `rounds` property of the tasks config.
