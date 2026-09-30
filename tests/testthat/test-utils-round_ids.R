@@ -10,6 +10,8 @@ test_that("get_round_ids works correctly", {
   hub_path <- system.file("testhubs/flusight", package = "hubUtils")
   config_tasks <- read_config(hub_path)
   expect_snapshot(get_round_ids(config_tasks))
+  # flusight rounds have two modeling tasks sharing the round ID task ID (#303)
+  expect_identical(anyDuplicated(get_round_ids(config_tasks)), 0L)
   expect_snapshot(get_round_ids(config_tasks, flatten = "model_task"))
   expect_snapshot(get_round_ids(config_tasks, flatten = "task_id"))
   expect_snapshot(get_round_ids(config_tasks, flatten = "none"))
