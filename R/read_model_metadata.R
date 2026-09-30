@@ -9,7 +9,8 @@
 #'
 #' @param path A character string of the path to a local model metadata YAML
 #' file.
-#' @return The contents of the metadata file as a named list.
+#' @return The contents of the metadata file as a named list, or `NULL` for an
+#' empty file.
 #' @export
 #' @examples
 #' hub_path <- system.file("testhubs/simple", package = "hubUtils")

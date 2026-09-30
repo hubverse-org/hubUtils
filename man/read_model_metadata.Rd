@@ -11,7 +11,8 @@ read_model_metadata(path)
 file.}
 }
 \value{
-The contents of the metadata file as a named list.
+The contents of the metadata file as a named list, or \code{NULL} for an
+empty file.
 }
 \description{
 Reads a model metadata YAML file into a named list.
