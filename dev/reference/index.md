@@ -35,6 +35,9 @@
   [`get_hub_derived_task_ids()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md)
   : Get hub configuration fields
 
+- [`get_round_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_config.md)
+  : Get the configuration of a given round
+
 - [`get_round_idx()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_idx.md)
   [`get_round_ids()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_idx.md)
   : Utilities for accessing round ID metadata
@@ -42,8 +45,14 @@
 - [`get_round_model_tasks()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_model_tasks.md)
   : Get the model tasks for a given round
 
+- [`get_round_output_type_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_output_type_names.md)
+  : Get output type names for a given round
+
 - [`get_round_task_id_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_task_id_names.md)
   : Get task ID names for a given round
+
+- [`get_round_value_sets_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_value_sets_config.md)
+  : Get the values each modeling task in a round allows
 
 - [`get_schema()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_schema.md)
   : Download a schema

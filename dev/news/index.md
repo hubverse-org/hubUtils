@@ -17,6 +17,23 @@
   a string
   ([\#299](https://github.com/hubverse-org/hubUtils/issues/299)).
 
+- Added
+  [`get_round_value_sets_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_value_sets_config.md),
+  which returns the values each modeling task in a round allows for each
+  task ID and, per output type, for `output_type_id`
+  ([\#301](https://github.com/hubverse-org/hubUtils/issues/301)).
+
+- Added
+  [`get_round_output_type_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_output_type_names.md),
+  which returns the names of the output types a round accepts, as
+  [`get_round_task_id_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_task_id_names.md)
+  does for task IDs.
+
+- Added
+  [`get_round_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_config.md),
+  which returns a round’s element of the `rounds` property of the tasks
+  config.
+
 ## hubUtils 1.2.1
 
 CRAN release: 2026-07-15

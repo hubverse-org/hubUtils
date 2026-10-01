@@ -14,9 +14,12 @@
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/extract_schema_version.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_config_tid.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_round_config.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_round_idx.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_round_model_tasks.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_round_output_type_names.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_round_task_id_names.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_round_value_sets_config.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_schema.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_schema_url.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_schema_valid_versions.html</loc></url>
