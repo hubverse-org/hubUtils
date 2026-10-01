@@ -14,11 +14,6 @@
 #'     $pmf      "low" "moderate" "high" ...
 #' ```
 #'
-#' A row of model output is valid for a modeling task when each column holds
-#' one of the values listed for it. The one exception is the `sample` output
-#' type (see Details). The sets are not expanded into the combinations of
-#' values they allow.
-#'
 #' @inheritParams get_round_idx
 #' @param required_vals_only Logical. Whether to return only required values.
 #' @param force_output_types Logical. Whether to treat all output types as
@@ -28,10 +23,9 @@
 #' `NULL`, all output types in the round are included.
 #' @param derived_task_ids Character vector of derived task ID names (task IDs
 #' whose values depend on other task IDs). Their values are returned as `NA`.
-#' @param call The execution environment of the function to report in errors
-#' and warnings about invalid `output_types` or `derived_task_ids`. Functions
-#' that call `get_round_value_sets_config()` on the user's behalf pass
-#' `rlang::caller_env()` so that conditions name the function the user called.
+#' @param call The execution environment of the function to name in errors
+#' and warnings about invalid `output_types` or `derived_task_ids`. Defaults
+#' to the environment of `get_round_value_sets_config()`.
 #'
 #' @details
 #' The values are read from the config as follows:

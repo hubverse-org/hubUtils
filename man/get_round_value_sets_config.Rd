@@ -37,10 +37,9 @@ result when \code{required_vals_only = TRUE}.}
 \item{derived_task_ids}{Character vector of derived task ID names (task IDs
 whose values depend on other task IDs). Their values are returned as \code{NA}.}
 
-\item{call}{The execution environment of the function to report in errors
-and warnings about invalid \code{output_types} or \code{derived_task_ids}. Functions
-that call \code{get_round_value_sets_config()} on the user's behalf pass
-\code{rlang::caller_env()} so that conditions name the function the user called.}
+\item{call}{The execution environment of the function to name in errors
+and warnings about invalid \code{output_types} or \code{derived_task_ids}. Defaults
+to the environment of \code{get_round_value_sets_config()}.}
 }
 \value{
 A list with one element per modeling task in the round. Each element
@@ -67,11 +66,6 @@ for each output type, in the \code{output_type_id} column:
   $output_type_ids
     $pmf      "low" "moderate" "high" ...
 }\if{html}{\out{</div>}}
-
-A row of model output is valid for a modeling task when each column holds
-one of the values listed for it. The one exception is the \code{sample} output
-type (see Details). The sets are not expanded into the combinations of
-values they allow.
 
 The values are read from the config as follows:
 \itemize{
