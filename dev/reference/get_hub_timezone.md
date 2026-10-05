@@ -57,8 +57,10 @@ get_hub_derived_task_ids(hub_path, round_id = NULL)
 
 - `get_hub_derived_task_ids`: character vector of hub or round level
   derived task ID names. If `round_id` is `NULL` or the round does not
-  have a round level `derived_tasks_ids` setting, returns the hub level
-  `derived_tasks_ids` setting.
+  have a round level `derived_task_ids` setting, returns the hub level
+  `derived_task_ids` setting. See
+  [`get_derived_task_ids_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_derived_task_ids_config.md)
+  to get the same from a tasks config object.
 
 ## Functions
 
@@ -69,7 +71,7 @@ get_hub_derived_task_ids(hub_path, round_id = NULL)
 - `get_hub_file_formats()`: Get the hub or round level file formats
 
 - `get_hub_derived_task_ids()`: Get the hub or round level
-  `derived_tasks_ids`
+  `derived_task_ids`
 
 ## Examples
 

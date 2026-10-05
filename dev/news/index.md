@@ -18,6 +18,16 @@
   ([\#299](https://github.com/hubverse-org/hubUtils/issues/299)).
 
 - Added
+  [`get_derived_task_ids_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_derived_task_ids_config.md),
+  which returns the hub or round level derived task IDs from a tasks
+  config object, as
+  [`get_hub_derived_task_ids()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md)
+  does from a hub path.
+  [`get_config_derived_task_ids()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_derived_task_ids_config.md)
+  is an alias
+  ([\#302](https://github.com/hubverse-org/hubUtils/issues/302)).
+
+- Added
   [`get_round_value_sets_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_value_sets_config.md),
   which returns the values each modeling task in a round allows for each
   task ID and, per output type, for `output_type_id`

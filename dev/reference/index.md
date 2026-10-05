@@ -29,6 +29,10 @@
   : Get the name of the output type id column based on the schema
   version
 
+- [`get_derived_task_ids_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_derived_task_ids_config.md)
+  [`get_config_derived_task_ids()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_derived_task_ids_config.md)
+  : Get hub or round level derived task IDs
+
 - [`get_hub_timezone()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md)
   [`get_hub_model_output_dir()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md)
   [`get_hub_file_formats()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md)

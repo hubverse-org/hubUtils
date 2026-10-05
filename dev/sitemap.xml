@@ -13,6 +13,7 @@
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/create_s3_url.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/extract_schema_version.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_config_tid.html</loc></url>
+<url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_derived_task_ids_config.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_round_config.html</loc></url>
 <url><loc>https://hubverse-org.github.io/hubUtils/dev/reference/get_round_idx.html</loc></url>
