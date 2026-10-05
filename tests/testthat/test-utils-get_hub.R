@@ -42,4 +42,9 @@ test_that("get_hub_derived_task_ids functions work", {
       hub_path = system.file("testhubs", "simple", package = "hubUtils")
     )
   )
+  hub_path <- system.file("testhubs", "v6", "target_dir", package = "hubUtils")
+  expect_equal(
+    get_hub_derived_task_ids(hub_path, round_id = "2022-10-22"),
+    "target_end_date"
+  )
 })

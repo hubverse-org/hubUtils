@@ -49,7 +49,8 @@ file formats. If \code{round_id} is \code{NULL} or the round does not have a rou
 \itemize{
 \item \code{get_hub_derived_task_ids}: character vector of hub or round level derived
 task ID names. If \code{round_id} is \code{NULL} or the round does not have a round level
-\code{derived_tasks_ids} setting, returns the hub level \code{derived_tasks_ids} setting.
+\code{derived_task_ids} setting, returns the hub level \code{derived_task_ids} setting.
+See \code{\link[=get_derived_task_ids_config]{get_derived_task_ids_config()}} to get the same from a tasks config object.
 }
 }
 \description{
@@ -63,7 +64,7 @@ Get hub configuration fields
 
 \item \code{get_hub_file_formats()}: Get the hub or round level file formats
 
-\item \code{get_hub_derived_task_ids()}: Get the hub or round level \code{derived_tasks_ids}
+\item \code{get_hub_derived_task_ids()}: Get the hub or round level \code{derived_task_ids}
 
 }}
 \examples{
