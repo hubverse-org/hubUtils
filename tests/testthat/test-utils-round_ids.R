@@ -63,6 +63,14 @@ test_that("get_round_idx reports conditions against `call`", {
   )
 })
 
+test_that("get_round_ids rejects a data frame as `config_tasks`", {
+  expect_error_named(
+    get_round_ids(data.frame(round_id = "2022-10-01")),
+    "get_round_ids",
+    "`config_tasks` must be a list, not a data frame."
+  )
+})
+
 test_that("get_round_ids reports conditions against `call`", {
   hub_path <- system.file("testhubs/simple", package = "hubUtils")
   config_tasks <- read_config(hub_path)

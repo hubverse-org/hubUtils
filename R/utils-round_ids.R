@@ -84,7 +84,7 @@ get_round_ids <- function(
   call = rlang::current_env()
 ) {
   rlang::check_required(config_tasks, call = call)
-  if (!is.list(config_tasks)) {
+  if (!is.list(config_tasks) || is.data.frame(config_tasks)) {
     cli::cli_abort(
       "{.arg config_tasks} must be a list, not
       {.obj_type_friendly {config_tasks}}.",
