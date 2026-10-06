@@ -164,8 +164,8 @@
     Code
       get_round_idx(config_tasks)
     Condition
-      Error in `checkmate::assert_string()`:
-      ! argument "round_id" is missing, with no default
+      Error in `get_round_idx()`:
+      ! `round_id` is absent but must be supplied.
 
 ---
 
@@ -179,6 +179,6 @@
     Code
       get_round_idx(config_tasks)
     Condition
-      Error in `checkmate::assert_string()`:
-      ! argument "round_id" is missing, with no default
+      Error in `get_round_idx()`:
+      ! `round_id` is absent but must be supplied.
 

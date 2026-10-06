@@ -6,8 +6,11 @@
 #' @param round_id Character string. Round identifier. If the round is set to
 #' `round_id_from_variable: true`, IDs are values of the task ID defined in the
 #' round's `round_id` property of `config_tasks`.
-#' Otherwise should match round's `round_id` value in config. Ignored if hub
-#' contains only a single round.
+#' Otherwise should match round's `round_id` value in config.
+#' @param call The execution environment of the function to name in error and
+#' warning messages. By default, messages name this function. Supply another
+#' environment, such as a wrapper function's environment, to name that
+#' function instead.
 #' @return the integer index of the element in `config_tasks$rounds` that a
 #' character round identifier maps to
 #' @export
@@ -25,11 +28,22 @@
 #' # Get round integer index using a round_id
 #' get_round_idx(config_tasks, "2022-10-01")
 #' get_round_idx(config_tasks, "2022-10-29")
-get_round_idx <- function(config_tasks, round_id) {
-  checkmate::assert_string(round_id)
-  round_id <- rlang::arg_match(round_id, values = get_round_ids(config_tasks))
-  get_round_ids(config_tasks, flatten = "model_task") |>
-    purrr::map_lgl(~ round_id %in% .x) |>
+get_round_idx <- function(config_tasks, round_id, call = rlang::current_env()) {
+  rlang::check_required(round_id, call = call)
+  if (!rlang::is_string(round_id)) {
+    cli::cli_abort(
+      "{.arg round_id} must be a single string, not
+      {.obj_type_friendly {round_id}}.",
+      call = call
+    )
+  }
+  round_ids <- get_round_ids(config_tasks, flatten = "model_task", call = call)
+  round_id <- rlang::arg_match(
+    round_id,
+    values = unique(unlist(round_ids, use.names = FALSE)),
+    error_call = call
+  )
+  purrr::map_lgl(round_ids, ~ round_id %in% .x) |>
     which()
 }
 
@@ -66,10 +80,18 @@ get_round_idx <- function(config_tasks, round_id) {
 #' @export
 get_round_ids <- function(
   config_tasks,
-  flatten = c("all", "model_task", "task_id", "none")
+  flatten = c("all", "model_task", "task_id", "none"),
+  call = rlang::current_env()
 ) {
-  checkmate::assert_list(config_tasks)
-  flatten <- rlang::arg_match(flatten)
+  rlang::check_required(config_tasks, call = call)
+  if (!is.list(config_tasks)) {
+    cli::cli_abort(
+      "{.arg config_tasks} must be a list, not
+      {.obj_type_friendly {config_tasks}}.",
+      call = call
+    )
+  }
+  flatten <- rlang::arg_match(flatten, error_call = call)
 
   round_ids <- purrr::map(
     config_tasks[["rounds"]],

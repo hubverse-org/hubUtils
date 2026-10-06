@@ -18,16 +18,16 @@
       get_round_task_id_names(config_tasks = c("random", "character", "vector"),
       round_id = "2022-10-01")
     Condition
-      Error in `get_round_ids()`:
-      ! Assertion on 'config_tasks' failed: Must be of type 'list', not 'character'.
+      Error in `get_round_task_id_names()`:
+      ! `config_tasks` must be a list, not a character vector.
 
 ---
 
     Code
       get_round_task_id_names(config_tasks, round_id = c("2022-10-01", "2022-10-22"))
     Condition
-      Error in `get_round_idx()`:
-      ! Assertion on 'round_id' failed: Must have length 1.
+      Error in `get_round_task_id_names()`:
+      ! `round_id` must be a single string, not a character vector.
 
 # get_round_output_type_names works
 
@@ -42,8 +42,8 @@
       get_round_output_type_names(config_tasks = c("random", "character", "vector"),
       round_id = "2022-10-01")
     Condition
-      Error in `get_round_ids()`:
-      ! Assertion on 'config_tasks' failed: Must be of type 'list', not 'character'.
+      Error in `get_round_output_type_names()`:
+      ! `config_tasks` must be a list, not a character vector.
 
 ---
 
@@ -51,24 +51,24 @@
       get_round_output_type_names(config_tasks, round_id = c("2022-10-01",
         "2022-10-22"))
     Condition
-      Error in `get_round_idx()`:
-      ! Assertion on 'round_id' failed: Must have length 1.
+      Error in `get_round_output_type_names()`:
+      ! `round_id` must be a single string, not a character vector.
 
 # get_round_config fails correctly
 
     Code
       get_round_config(config_tasks = c("random", "character", "vector"), round_id = "2022-10-01")
     Condition
-      Error in `get_round_ids()`:
-      ! Assertion on 'config_tasks' failed: Must be of type 'list', not 'character'.
+      Error in `get_round_config()`:
+      ! `config_tasks` must be a list, not a character vector.
 
 ---
 
     Code
       get_round_config(config_tasks, round_id = c("2022-10-01", "2022-10-22"))
     Condition
-      Error in `get_round_idx()`:
-      ! Assertion on 'round_id' failed: Must have length 1.
+      Error in `get_round_config()`:
+      ! `round_id` must be a single string, not a character vector.
 
 # get_round_model_tasks works
 
@@ -306,14 +306,14 @@
       get_round_model_tasks(config_tasks = c("random", "character", "vector"),
       round_id = "2022-10-01")
     Condition
-      Error in `get_round_ids()`:
-      ! Assertion on 'config_tasks' failed: Must be of type 'list', not 'character'.
+      Error in `get_round_model_tasks()`:
+      ! `config_tasks` must be a list, not a character vector.
 
 ---
 
     Code
       get_round_model_tasks(config_tasks, round_id = c("2022-10-01", "2022-10-22"))
     Condition
-      Error in `get_round_idx()`:
-      ! Assertion on 'round_id' failed: Must have length 1.
+      Error in `get_round_model_tasks()`:
+      ! `round_id` must be a single string, not a character vector.
 

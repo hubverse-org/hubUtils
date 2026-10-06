@@ -5,9 +5,17 @@
 \alias{get_config_derived_task_ids}
 \title{Get hub or round level derived task IDs}
 \usage{
-get_derived_task_ids_config(config_tasks, round_id = NULL)
+get_derived_task_ids_config(
+  config_tasks,
+  round_id = NULL,
+  call = rlang::current_env()
+)
 
-get_config_derived_task_ids(config_tasks, round_id = NULL)
+get_config_derived_task_ids(
+  config_tasks,
+  round_id = NULL,
+  call = rlang::current_env()
+)
 }
 \arguments{
 \item{config_tasks}{a list version of the content's of a hub's \code{tasks.json}
@@ -17,8 +25,12 @@ object or function \code{\link[=read_config]{read_config()}}.}
 \item{round_id}{Character string. Round identifier. If the round is set to
 \code{round_id_from_variable: true}, IDs are values of the task ID defined in the
 round's \code{round_id} property of \code{config_tasks}.
-Otherwise should match round's \code{round_id} value in config. Ignored if hub
-contains only a single round.}
+Otherwise should match round's \code{round_id} value in config.}
+
+\item{call}{The execution environment of the function to name in error and
+warning messages. By default, messages name this function. Supply another
+environment, such as a wrapper function's environment, to name that
+function instead.}
 }
 \value{
 a character vector of hub or round level derived task ID names.

@@ -23,9 +23,6 @@
 #' `NULL`, all output types in the round are included.
 #' @param derived_task_ids Character vector of derived task ID names (task IDs
 #' whose values depend on other task IDs). Their values are returned as `NA`.
-#' @param call The execution environment of the function to name in errors
-#' and warnings about invalid `output_types` or `derived_task_ids`. Defaults
-#' to the environment of `get_round_value_sets_config()`.
 #'
 #' @details
 #' The values are read from the config as follows:
@@ -88,7 +85,7 @@ get_round_value_sets_config <- function(
   checkmate::assert_flag(force_output_types)
   checkmate::assert_character(output_types, null.ok = TRUE)
   checkmate::assert_character(derived_task_ids, null.ok = TRUE)
-  round_config <- get_round_config(config_tasks, round_id)
+  round_config <- get_round_config(config_tasks, round_id, call = call)
   model_tasks <- round_config[["model_tasks"]]
   round_task_ids <- mt_task_id_names(model_tasks)
   output_types <- validate_output_types(

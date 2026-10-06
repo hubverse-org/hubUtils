@@ -39,13 +39,17 @@ get_task_id_names <- function(config_tasks) {
 #' config_tasks <- read_config(hub_path, "tasks")
 #' get_derived_task_ids_config(config_tasks)
 #' get_derived_task_ids_config(config_tasks, round_id = "2023-05-08")
-get_derived_task_ids_config <- function(config_tasks, round_id = NULL) {
+get_derived_task_ids_config <- function(
+  config_tasks,
+  round_id = NULL,
+  call = rlang::current_env()
+) {
   derived_task_ids_hub <- config_tasks[["derived_task_ids"]]
   if (is.null(round_id)) {
     return(derived_task_ids_hub)
   }
-  get_round_config(config_tasks, round_id)[["derived_task_ids"]] %||%
-    derived_task_ids_hub
+  round_config <- get_round_config(config_tasks, round_id, call = call)
+  round_config[["derived_task_ids"]] %||% derived_task_ids_hub
 }
 
 #' @rdname get_derived_task_ids_config
