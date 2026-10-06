@@ -1,6 +1,8 @@
 # hubUtils (development version)
 
-* `get_round_idx()`, `get_round_ids()`, `get_round_config()`, `get_round_model_tasks()`, `get_round_task_id_names()`, `get_round_output_type_names()`, `get_derived_task_ids_config()`, `get_hub_file_formats()` and `get_hub_derived_task_ids()` gain a `call` argument, so that a function wrapping them can have error messages name the wrapper (#304).
+* `get_task_id_names()` now returns the task IDs used by every model task of every round. Previously it read only the first model task of each round, so a task ID used only in a later model task was missing from the result and from everything built on it, such as the hub schema and the task ID columns of a `<model_out_tbl>` (#315).
+
+* `get_round_idx()`, `get_round_ids()`, `get_round_config()`, `get_round_model_tasks()`, `get_round_task_id_names()`, `get_round_output_type_names()`, `get_task_id_names()`, `get_derived_task_ids_config()`, `get_hub_file_formats()` and `get_hub_derived_task_ids()` gain a `call` argument, so that a function wrapping them can have error messages name the wrapper (#304).
 
 * `get_round_ids(flatten = "all")` now returns unique round IDs, as documented. Previously, a round with `round_id_from_variable: true` and more than one modeling task contributed one copy of each round ID per modeling task. Errors that list the valid round IDs, such as from `get_round_idx()`, no longer repeat each ID (#303).
 

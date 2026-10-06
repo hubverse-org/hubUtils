@@ -29,14 +29,7 @@
 #' get_round_idx(config_tasks, "2022-10-01")
 #' get_round_idx(config_tasks, "2022-10-29")
 get_round_idx <- function(config_tasks, round_id, call = rlang::current_env()) {
-  rlang::check_required(round_id, call = call)
-  if (!rlang::is_string(round_id)) {
-    cli::cli_abort(
-      "{.arg round_id} must be a single string, not
-      {.obj_type_friendly {round_id}}.",
-      call = call
-    )
-  }
+  check_arg_type(round_id, rlang::is_string, "a single string", call = call)
   round_ids <- get_round_ids(config_tasks, flatten = "model_task", call = call)
   round_id <- rlang::arg_match(
     round_id,
@@ -83,14 +76,7 @@ get_round_ids <- function(
   flatten = c("all", "model_task", "task_id", "none"),
   call = rlang::current_env()
 ) {
-  rlang::check_required(config_tasks, call = call)
-  if (!is.list(config_tasks) || is.data.frame(config_tasks)) {
-    cli::cli_abort(
-      "{.arg config_tasks} must be a list, not
-      {.obj_type_friendly {config_tasks}}.",
-      call = call
-    )
-  }
+  check_config_tasks(config_tasks, call = call)
   flatten <- rlang::arg_match(flatten, error_call = call)
 
   round_ids <- purrr::map(
