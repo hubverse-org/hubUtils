@@ -1,0 +1,83 @@
+name: Hub Config Validation (R)
+
+# Validates the test hubs under inst/testhubs with the hubverse-actions
+# validate-config action. A new test hub is covered by adding its path to HUBS
+# below.
+#
+# empty, parquet and simple-dprc are not listed. They have no
+# model-metadata-schema.json, and hubAdmin::validate_hub_config() fails a hub
+# without one.
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: main
+    paths:
+      - 'inst/testhubs/**/hub-config/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  # Only hubs whose hub-config/ changed are validated, so a pull request gets
+  # a comment per hub it touches rather than one per hub in the package.
+  hubs-to-validate:
+    runs-on: ubuntu-latest
+    outputs:
+      hubs: ${{ steps.select.outputs.hubs }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The pull request checkout is a merge commit whose first parent is
+          # the base branch, so a depth of 2 is enough to diff against it.
+          fetch-depth: 2
+
+      - id: select
+        env:
+          HUBS: |
+            simple
+            flusight
+            v4/simple
+            v4/flusight
+            v5/target_dir
+            v5/target_file
+            v6/target_dir
+            v6/target_file
+          IS_PR: ${{ github.event_name == 'pull_request' }}
+        run: |
+          selected=()
+          for hub in $HUBS; do
+            if [ "$IS_PR" = "false" ] ||
+               ! git diff --quiet HEAD^1 HEAD -- "inst/testhubs/$hub/hub-config"; then
+              selected+=("$hub")
+            fi
+          done
+          # The comment key must be a slug, so the slash in a hub path becomes
+          # a hyphen.
+          hubs=$(jq -cn '[$ARGS.positional[]
+            | {hub: ., key: ("config-validation-" + gsub("/"; "-"))}]' \
+            --args "${selected[@]}")
+          echo "hubs=$hubs" >> "$GITHUB_OUTPUT"
+          echo "Hubs to validate: $hubs"
+
+  validate-hub-config:
+    name: validate-hub-config (${{ matrix.hub }})
+    needs: hubs-to-validate
+    if: needs.hubs-to-validate.outputs.hubs != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.hubs-to-validate.outputs.hubs) }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: hubverse-org/hubverse-actions/validate-config@ac54fd587bbdd20fcca6370a18ed49e348efb8d1  #v2.0.1
+        with:
+          hub_path: inst/testhubs/${{ matrix.hub }}
+          comment_header: ${{ matrix.key }}
