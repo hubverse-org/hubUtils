@@ -11,9 +11,13 @@ get_hub_timezone(hub_path)
 
 get_hub_model_output_dir(hub_path)
 
-get_hub_file_formats(hub_path, round_id = NULL)
+get_hub_file_formats(hub_path, round_id = NULL, call = rlang::current_env())
 
-get_hub_derived_task_ids(hub_path, round_id = NULL)
+get_hub_derived_task_ids(
+  hub_path,
+  round_id = NULL,
+  call = rlang::current_env()
+)
 }
 \arguments{
 \item{hub_path}{Either a character string path to a local Modeling Hub directory,
@@ -28,8 +32,12 @@ in the \code{arrow} package.}
 \item{round_id}{Character string. Round identifier. If the round is set to
 \code{round_id_from_variable: true}, IDs are values of the task ID defined in the
 round's \code{round_id} property of \code{config_tasks}.
-Otherwise should match round's \code{round_id} value in config. Ignored if hub
-contains only a single round.}
+Otherwise should match round's \code{round_id} value in config.}
+
+\item{call}{The execution environment of the function to name in error and
+warning messages. By default, messages name this function. Supply another
+environment, such as a wrapper function's environment, to name that
+function instead.}
 }
 \value{
 \itemize{

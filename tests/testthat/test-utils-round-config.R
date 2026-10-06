@@ -120,3 +120,24 @@ test_that("get_round_model_tasks fails correctly", {
     error = TRUE
   )
 })
+
+test_that("round accessors report conditions against `call`", {
+  hub_path <- system.file("testhubs/simple", package = "hubUtils")
+  config_tasks <- read_config(hub_path)
+  wrapper <- function(fn) {
+    fn(config_tasks, round_id = 1, call = rlang::current_env())
+  }
+  accessors <- list(
+    get_round_config,
+    get_round_model_tasks,
+    get_round_task_id_names,
+    get_round_output_type_names
+  )
+  for (fn in accessors) {
+    expect_error_named(
+      wrapper(fn),
+      "wrapper",
+      "`round_id` must be a single string, not a number."
+    )
+  }
+})

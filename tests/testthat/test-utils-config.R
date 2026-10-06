@@ -45,3 +45,20 @@ test_that("get_derived_task_ids_config fails correctly", {
 test_that("get_config_derived_task_ids is an alias", {
   expect_identical(get_config_derived_task_ids, get_derived_task_ids_config)
 })
+
+test_that("get_derived_task_ids_config reports conditions against `call`", {
+  hub_path <- system.file("testhubs/v6/target_dir", package = "hubUtils")
+  config_tasks <- read_config(hub_path)
+  wrapper <- function(round_id) {
+    get_derived_task_ids_config(
+      config_tasks,
+      round_id,
+      call = rlang::current_env()
+    )
+  }
+  expect_error_named(
+    wrapper(round_id = 1),
+    "wrapper",
+    "`round_id` must be a single string, not a number."
+  )
+})

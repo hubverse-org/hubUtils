@@ -30,13 +30,18 @@ get_hub_model_output_dir <- function(hub_path) {
 #' `file_format` setting, returns the hub level `file_format` setting.
 #' @export
 #' @describeIn get_hub_timezone Get the hub or round level file formats
-get_hub_file_formats <- function(hub_path, round_id = NULL) {
+get_hub_file_formats <- function(
+  hub_path,
+  round_id = NULL,
+  call = rlang::current_env()
+) {
   config_admin <- read_config(hub_path, "admin")
   if (is.null(round_id)) {
     return(config_admin$file_format)
   }
   config_tasks <- read_config(hub_path, "tasks")
-  file_formats <- get_round_config(config_tasks, round_id)[["file_format"]]
+  round_config <- get_round_config(config_tasks, round_id, call = call)
+  file_formats <- round_config[["file_format"]]
   if (!is.null(file_formats)) {
     return(file_formats)
   }
@@ -48,7 +53,11 @@ get_hub_file_formats <- function(hub_path, round_id = NULL) {
 #' See [get_derived_task_ids_config()] to get the same from a tasks config object.
 #' @export
 #' @describeIn get_hub_timezone Get the hub or round level `derived_task_ids`
-get_hub_derived_task_ids <- function(hub_path, round_id = NULL) {
+get_hub_derived_task_ids <- function(
+  hub_path,
+  round_id = NULL,
+  call = rlang::current_env()
+) {
   config_tasks <- read_config(hub_path)
-  get_derived_task_ids_config(config_tasks, round_id)
+  get_derived_task_ids_config(config_tasks, round_id, call = call)
 }

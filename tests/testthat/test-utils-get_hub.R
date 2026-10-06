@@ -48,3 +48,17 @@ test_that("get_hub_derived_task_ids functions work", {
     "target_end_date"
   )
 })
+
+test_that("get_hub round accessors report conditions against `call`", {
+  hub_path <- system.file("testhubs", "flusight", package = "hubUtils")
+  wrapper <- function(fn) {
+    fn(hub_path, round_id = 1, call = rlang::current_env())
+  }
+  for (fn in list(get_hub_file_formats, get_hub_derived_task_ids)) {
+    expect_error_named(
+      wrapper(fn),
+      "wrapper",
+      "`round_id` must be a single string, not a number."
+    )
+  }
+})

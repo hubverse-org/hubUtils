@@ -22,8 +22,7 @@ object or function \code{\link[=read_config]{read_config()}}.}
 \item{round_id}{Character string. Round identifier. If the round is set to
 \code{round_id_from_variable: true}, IDs are values of the task ID defined in the
 round's \code{round_id} property of \code{config_tasks}.
-Otherwise should match round's \code{round_id} value in config. Ignored if hub
-contains only a single round.}
+Otherwise should match round's \code{round_id} value in config.}
 
 \item{required_vals_only}{Logical. Whether to return only required values.}
 
@@ -37,9 +36,10 @@ result when \code{required_vals_only = TRUE}.}
 \item{derived_task_ids}{Character vector of derived task ID names (task IDs
 whose values depend on other task IDs). Their values are returned as \code{NA}.}
 
-\item{call}{The execution environment of the function to name in errors
-and warnings about invalid \code{output_types} or \code{derived_task_ids}. Defaults
-to the environment of \code{get_round_value_sets_config()}.}
+\item{call}{The execution environment of the function to name in error and
+warning messages. By default, messages name this function. Supply another
+environment, such as a wrapper function's environment, to name that
+function instead.}
 }
 \value{
 A list with one element per modeling task in the round. Each element

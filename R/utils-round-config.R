@@ -8,8 +8,12 @@
 #' config_tasks <- read_config(hub_path, "tasks")
 #' get_round_task_id_names(config_tasks, round_id = "2022-10-08")
 #' get_round_task_id_names(config_tasks, round_id = "2022-10-15")
-get_round_task_id_names <- function(config_tasks, round_id) {
-  get_round_model_tasks(config_tasks, round_id) |>
+get_round_task_id_names <- function(
+  config_tasks,
+  round_id,
+  call = rlang::current_env()
+) {
+  get_round_model_tasks(config_tasks, round_id, call = call) |>
     mt_task_id_names()
 }
 
@@ -28,8 +32,12 @@ mt_task_id_names <- function(model_tasks) {
 #' hub_path <- system.file("testhubs/v6/target_dir", package = "hubUtils")
 #' config_tasks <- read_config(hub_path, "tasks")
 #' get_round_output_type_names(config_tasks, round_id = "2022-10-22")
-get_round_output_type_names <- function(config_tasks, round_id) {
-  get_round_model_tasks(config_tasks, round_id) |>
+get_round_output_type_names <- function(
+  config_tasks,
+  round_id,
+  call = rlang::current_env()
+) {
+  get_round_model_tasks(config_tasks, round_id, call = call) |>
     mt_output_type_names()
 }
 
@@ -49,8 +57,12 @@ mt_output_type_names <- function(model_tasks) {
 #' config_tasks <- read_config(hub_path, "tasks")
 #' get_round_model_tasks(config_tasks, round_id = "2022-10-08")
 #' get_round_model_tasks(config_tasks, round_id = "2022-10-15")
-get_round_model_tasks <- function(config_tasks, round_id) {
-  get_round_config(config_tasks, round_id)[["model_tasks"]]
+get_round_model_tasks <- function(
+  config_tasks,
+  round_id,
+  call = rlang::current_env()
+) {
+  get_round_config(config_tasks, round_id, call = call)[["model_tasks"]]
 }
 
 #' Get the configuration of a given round
@@ -63,7 +75,11 @@ get_round_model_tasks <- function(config_tasks, round_id) {
 #' hub_path <- system.file("testhubs/simple", package = "hubUtils")
 #' config_tasks <- read_config(hub_path, "tasks")
 #' get_round_config(config_tasks, round_id = "2022-10-08")
-get_round_config <- function(config_tasks, round_id) {
-  round_idx <- get_round_idx(config_tasks, round_id)
+get_round_config <- function(
+  config_tasks,
+  round_id,
+  call = rlang::current_env()
+) {
+  round_idx <- get_round_idx(config_tasks, round_id, call = call)
   config_tasks[["rounds"]][[round_idx]]
 }
