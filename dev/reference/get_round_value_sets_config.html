@@ -72,8 +72,7 @@ object or function <code><a href="read_config.html">read_config()</a></code>.</p
 <dd><p>Character string. Round identifier. If the round is set to
 <code>round_id_from_variable: true</code>, IDs are values of the task ID defined in the
 round's <code>round_id</code> property of <code>config_tasks</code>.
-Otherwise should match round's <code>round_id</code> value in config. Ignored if hub
-contains only a single round.</p></dd>
+Otherwise should match round's <code>round_id</code> value in config.</p></dd>
 
 
 <dt id="arg-required-vals-only">required_vals_only<a class="anchor" aria-label="anchor" href="#arg-required-vals-only"></a></dt>
@@ -97,9 +96,10 @@ whose values depend on other task IDs). Their values are returned as <code>NA</c
 
 
 <dt id="arg-call">call<a class="anchor" aria-label="anchor" href="#arg-call"></a></dt>
-<dd><p>The execution environment of the function to name in errors
-and warnings about invalid <code>output_types</code> or <code>derived_task_ids</code>. Defaults
-to the environment of <code>get_round_value_sets_config()</code>.</p></dd>
+<dd><p>The execution environment of the function to name in error and
+warning messages. By default, messages name this function. Supply another
+environment, such as a wrapper function's environment, to name that
+function instead.</p></dd>
 
 </dl></div>
     <div class="section level2">

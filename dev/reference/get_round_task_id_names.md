@@ -5,7 +5,7 @@ Get task ID names for a given round
 ## Usage
 
 ``` r
-get_round_task_id_names(config_tasks, round_id)
+get_round_task_id_names(config_tasks, round_id, call = rlang::current_env())
 ```
 
 ## Arguments
@@ -22,8 +22,14 @@ get_round_task_id_names(config_tasks, round_id)
   Character string. Round identifier. If the round is set to
   `round_id_from_variable: true`, IDs are values of the task ID defined
   in the round's `round_id` property of `config_tasks`. Otherwise should
-  match round's `round_id` value in config. Ignored if hub contains only
-  a single round.
+  match round's `round_id` value in config.
+
+- call:
+
+  The execution environment of the function to name in error and warning
+  messages. By default, messages name this function. Supply another
+  environment, such as a wrapper function's environment, to name that
+  function instead.
 
 ## Value
 

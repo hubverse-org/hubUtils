@@ -2,6 +2,20 @@
 
 ## hubUtils (development version)
 
+- [`get_round_idx()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_idx.md),
+  [`get_round_ids()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_idx.md),
+  [`get_round_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_config.md),
+  [`get_round_model_tasks()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_model_tasks.md),
+  [`get_round_task_id_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_task_id_names.md),
+  [`get_round_output_type_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_output_type_names.md),
+  [`get_derived_task_ids_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_derived_task_ids_config.md),
+  [`get_hub_file_formats()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md)
+  and
+  [`get_hub_derived_task_ids()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md)
+  gain a `call` argument, so that a function wrapping them can have
+  error messages name the wrapper
+  ([\#304](https://github.com/hubverse-org/hubUtils/issues/304)).
+
 - `get_round_ids(flatten = "all")` now returns unique round IDs, as
   documented. Previously, a round with `round_id_from_variable: true`
   and more than one modeling task contributed one copy of each round ID
