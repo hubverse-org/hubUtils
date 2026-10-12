@@ -46,11 +46,3 @@
       Error in `get_task_id_values()`:
       ! `round_id` must be one of "2022-10-01", "2022-10-08", "2022-10-15", "2022-10-22", or "2022-10-29", not "random".
 
-# get_task_id_type errors when a task ID has no values
-
-    Code
-      get_task_id_type(config_tasks, "age_group", round_id = "2022-10-01")
-    Condition
-      Error in `get_task_id_type()`:
-      ! Task ID "age_group" has no values in the config to determine a data type from.
-

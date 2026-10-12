@@ -28,14 +28,14 @@ function instead.}
 }
 \value{
 a character string, one of \code{"character"}, \code{"double"}, \code{"integer"},
-\code{"logical"} or \code{"Date"}.
+\code{"logical"} or \code{"Date"}. \code{NA} if the task ID's \code{required} and \code{optional}
+values are both \code{null} in every modeling task in scope, so the config
+declares no type for it there.
 }
 \description{
 The data type is the simplest R type that represents every value the task
 ID takes in the config. Character values that are all ISO 8601 dates
-(\code{YYYY-MM-DD}) are reported as \code{"Date"}. A task ID whose \code{required} and
-\code{optional} values are both \code{null} in every modeling task in scope has no
-data type, and is an error.
+(\code{YYYY-MM-DD}) are reported as \code{"Date"}.
 }
 \examples{
 hub_path <- system.file("testhubs/simple", package = "hubUtils")

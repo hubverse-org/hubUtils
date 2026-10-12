@@ -2,14 +2,14 @@
 #'
 #' The data type is the simplest R type that represents every value the task
 #' ID takes in the config. Character values that are all ISO 8601 dates
-#' (`YYYY-MM-DD`) are reported as `"Date"`. A task ID whose `required` and
-#' `optional` values are both `null` in every modeling task in scope has no
-#' data type, and is an error.
+#' (`YYYY-MM-DD`) are reported as `"Date"`.
 #'
 #' @inheritParams get_task_id_values
 #'
 #' @return a character string, one of `"character"`, `"double"`, `"integer"`,
-#' `"logical"` or `"Date"`.
+#' `"logical"` or `"Date"`. `NA` if the task ID's `required` and `optional`
+#' values are both `null` in every modeling task in scope, so the config
+#' declares no type for it there.
 #' @seealso [get_task_id_values()] for the values the type is derived from.
 #' @export
 #'
@@ -32,11 +32,7 @@ get_task_id_type <- function(
     call = call
   )
   if (is.null(values)) {
-    cli::cli_abort(
-      "Task ID {.val {task_id_name}} has no values in the config to
-      determine a data type from.",
-      call = call
-    )
+    return(NA_character_)
   }
   get_data_type(values)
 }

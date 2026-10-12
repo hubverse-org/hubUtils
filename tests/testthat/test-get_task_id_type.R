@@ -123,7 +123,7 @@ test_that("get_task_id_type detects each data type", {
   )
 })
 
-test_that("get_task_id_type errors when a task ID has no values", {
+test_that("get_task_id_type returns NA when a task ID has no values", {
   config_tasks <- read_config(
     system.file("testhubs/simple", package = "hubUtils")
   )
@@ -134,9 +134,9 @@ test_that("get_task_id_type errors when a task ID has no values", {
   expect_null(
     get_task_id_values(config_tasks, "age_group", round_id = "2022-10-01")
   )
-  expect_snapshot(
+  expect_identical(
     get_task_id_type(config_tasks, "age_group", round_id = "2022-10-01"),
-    error = TRUE
+    NA_character_
   )
   # Values in another round are enough to determine the type
   expect_equal(get_task_id_type(config_tasks, "age_group"), "character")
