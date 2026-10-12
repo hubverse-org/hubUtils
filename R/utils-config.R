@@ -12,8 +12,7 @@
 #' get_task_id_names(config_tasks)
 get_task_id_names <- function(config_tasks, call = rlang::current_env()) {
   check_config_tasks(config_tasks, call = call)
-  purrr::map(config_tasks[["rounds"]], "model_tasks") |>
-    unlist(recursive = FALSE) |>
+  all_model_tasks(config_tasks) |>
     mt_task_id_names()
 }
 

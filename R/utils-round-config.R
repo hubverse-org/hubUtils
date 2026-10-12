@@ -23,6 +23,13 @@ mt_task_id_names <- function(model_tasks) {
     unique()
 }
 
+#' Get the model tasks of every round as a single list
+#' @noRd
+all_model_tasks <- function(config_tasks) {
+  purrr::map(config_tasks[["rounds"]], "model_tasks") |>
+    unlist(recursive = FALSE)
+}
+
 #' Get output type names for a given round
 #'
 #' @inheritParams get_round_idx
