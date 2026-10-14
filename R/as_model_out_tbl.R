@@ -205,7 +205,10 @@ trim_tbl_to_task_ids <- function(
         call = call
       )
     }
-    task_id_cols <- get_task_id_names(attr(hub_con, "config_tasks"))
+    task_id_cols <- get_task_id_names(
+      attr(hub_con, "config_tasks"),
+      call = call
+    )
   }
 
   # Ensure only task_id_cols present in table are subset

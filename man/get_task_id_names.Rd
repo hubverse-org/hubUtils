@@ -4,15 +4,21 @@
 \alias{get_task_id_names}
 \title{Get hub task IDs}
 \usage{
-get_task_id_names(config_tasks)
+get_task_id_names(config_tasks, call = rlang::current_env())
 }
 \arguments{
 \item{config_tasks}{a list version of the content's of a hub's \code{tasks.json}
 config file, accessed through the \code{"config_tasks"} attribute of a \verb{<hub_connection>}
 object or function \code{\link[=read_config]{read_config()}}.}
+
+\item{call}{The execution environment of the function to name in error and
+warning messages. By default, messages name this function. Supply another
+environment, such as a wrapper function's environment, to name that
+function instead.}
 }
 \value{
-a character vector of all unique task ID names across all rounds.
+a character vector of all unique task ID names across all model
+tasks of all rounds.
 }
 \description{
 Get hub task IDs

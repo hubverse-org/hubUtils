@@ -2,21 +2,19 @@
 #'
 #' @inheritParams get_round_idx
 #'
-#' @return a character vector of all unique task ID names across all rounds.
+#' @return a character vector of all unique task ID names across all model
+#' tasks of all rounds.
 #' @export
 #'
 #' @examples
 #' hub_path <- system.file("testhubs/simple", package = "hubUtils")
 #' config_tasks <- read_config(hub_path, "tasks")
 #' get_task_id_names(config_tasks)
-get_task_id_names <- function(config_tasks) {
-  purrr::map(
-    config_tasks[["rounds"]],
-    ~ .x[["model_tasks"]]
-  ) |>
-    purrr::map(~ names(.x[[1]][["task_ids"]])) |>
-    unlist() |>
-    unique()
+get_task_id_names <- function(config_tasks, call = rlang::current_env()) {
+  check_config_tasks(config_tasks, call = call)
+  purrr::map(config_tasks[["rounds"]], "model_tasks") |>
+    unlist(recursive = FALSE) |>
+    mt_task_id_names()
 }
 
 #' Get hub or round level derived task IDs
@@ -44,6 +42,7 @@ get_derived_task_ids_config <- function(
   round_id = NULL,
   call = rlang::current_env()
 ) {
+  check_config_tasks(config_tasks, call = call)
   derived_task_ids_hub <- config_tasks[["derived_task_ids"]]
   if (is.null(round_id)) {
     return(derived_task_ids_hub)
