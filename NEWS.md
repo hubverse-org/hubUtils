@@ -1,4 +1,4 @@
-# hubUtils (development version)
+# hubUtils 1.3.0
 
 * Added `get_task_id_type()` and `get_task_id_values()`, which return the data type of a task ID and the values it takes, from a tasks config, across all rounds or for one round (#266).
 
@@ -11,9 +11,12 @@
 * Added `read_model_metadata()`, which reads a model metadata YAML file. Every array in the file is returned as a list, so a length-1 array is read as a list rather than a string (#299).
 
 * Added `get_derived_task_ids_config()`, which returns the hub or round level derived task IDs from a tasks config object, as `get_hub_derived_task_ids()` does from a hub path. `get_config_derived_task_ids()` is an alias (#302).
+
 * Added `get_round_value_sets_config()`, which returns the values each modeling task in a round allows for each task ID and, per output type, for `output_type_id` (#301).
-* Added `get_round_output_type_names()`, which returns the names of the output types a round accepts, as `get_round_task_id_names()` does for task IDs.
-* Added `get_round_config()`, which returns a round's element of the `rounds` property of the tasks config.
+
+* Added `get_round_output_type_names()`, which returns the names of the output types a round accepts, as `get_round_task_id_names()` does for task IDs (#301).
+
+* Added `get_round_config()`, which returns a round's element of the `rounds` property of the tasks config (#301).
 
 # hubUtils 1.2.1
 
