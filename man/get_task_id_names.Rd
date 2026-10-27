@@ -28,3 +28,6 @@ hub_path <- system.file("testhubs/simple", package = "hubUtils")
 config_tasks <- read_config(hub_path, "tasks")
 get_task_id_names(config_tasks)
 }
+\seealso{
+\code{\link[=get_round_task_id_names]{get_round_task_id_names()}} for the task ID names of a single round.
+}

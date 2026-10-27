@@ -4,6 +4,7 @@
 #'
 #' @return a character vector of all unique task ID names across all model
 #' tasks of all rounds.
+#' @seealso [get_round_task_id_names()] for the task ID names of a single round.
 #' @export
 #'
 #' @examples
