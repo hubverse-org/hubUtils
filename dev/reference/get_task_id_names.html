@@ -41,7 +41,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_task_id_names</span><span class="op">(</span><span class="va">config_tasks</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_task_id_names</span><span class="op">(</span><span class="va">config_tasks</span>, call <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/stack.html" class="external-link">current_env</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -53,10 +53,22 @@
 config file, accessed through the <code>"config_tasks"</code> attribute of a <code>&lt;hub_connection&gt;</code>
 object or function <code><a href="read_config.html">read_config()</a></code>.</p></dd>
 
+
+<dt id="arg-call">call<a class="anchor" aria-label="anchor" href="#arg-call"></a></dt>
+<dd><p>The execution environment of the function to name in error and
+warning messages. By default, messages name this function. Supply another
+environment, such as a wrapper function's environment, to name that
+function instead.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>a character vector of all unique task ID names across all rounds.</p>
+    <p>a character vector of all unique task ID names across all model
+tasks of all rounds.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="get_round_task_id_names.html">get_round_task_id_names()</a></code> for the task ID names of a single round.</p></div>
     </div>
 
     <div class="section level2">

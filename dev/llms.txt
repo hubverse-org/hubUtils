@@ -128,6 +128,12 @@ package](https://hubverse-org.github.io/hubUtils/CONTRIBUTING.html).
 - [`get_task_id_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_task_id_names.md)
   : Get hub task IDs
 
+- [`get_task_id_type()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_task_id_type.md)
+  : Get the data type of a task ID
+
+- [`get_task_id_values()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_task_id_values.md)
+  : Get the values a task ID takes
+
 - [`get_version_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_version_config.md)
   [`get_version_file()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_version_config.md)
   [`get_version_hub()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_version_config.md)

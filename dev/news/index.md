@@ -2,12 +2,29 @@
 
 ## hubUtils (development version)
 
+- Added
+  [`get_task_id_type()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_task_id_type.md)
+  and
+  [`get_task_id_values()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_task_id_values.md),
+  which return the data type of a task ID and the values it takes, from
+  a tasks config, across all rounds or for one round
+  ([\#266](https://github.com/hubverse-org/hubUtils/issues/266)).
+
+- [`get_task_id_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_task_id_names.md)
+  now returns the task IDs used by every model task of every round.
+  Previously it read only the first model task of each round, so a task
+  ID used only in a later model task was missing from the result and
+  from everything built on it, such as the hub schema and the task ID
+  columns of a `<model_out_tbl>`
+  ([\#315](https://github.com/hubverse-org/hubUtils/issues/315)).
+
 - [`get_round_idx()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_idx.md),
   [`get_round_ids()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_idx.md),
   [`get_round_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_config.md),
   [`get_round_model_tasks()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_model_tasks.md),
   [`get_round_task_id_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_task_id_names.md),
   [`get_round_output_type_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_output_type_names.md),
+  [`get_task_id_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_task_id_names.md),
   [`get_derived_task_ids_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_derived_task_ids_config.md),
   [`get_hub_file_formats()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_hub_timezone.md)
   and
