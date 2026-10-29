@@ -9,9 +9,13 @@ get_hub_timezone(hub_path)
 
 get_hub_model_output_dir(hub_path)
 
-get_hub_file_formats(hub_path, round_id = NULL)
+get_hub_file_formats(hub_path, round_id = NULL, call = rlang::current_env())
 
-get_hub_derived_task_ids(hub_path, round_id = NULL)
+get_hub_derived_task_ids(
+  hub_path,
+  round_id = NULL,
+  call = rlang::current_env()
+)
 ```
 
 ## Arguments
@@ -35,8 +39,14 @@ get_hub_derived_task_ids(hub_path, round_id = NULL)
   Character string. Round identifier. If the round is set to
   `round_id_from_variable: true`, IDs are values of the task ID defined
   in the round's `round_id` property of `config_tasks`. Otherwise should
-  match round's `round_id` value in config. Ignored if hub contains only
-  a single round.
+  match round's `round_id` value in config.
+
+- call:
+
+  The execution environment of the function to name in error and warning
+  messages. By default, messages name this function. Supply another
+  environment, such as a wrapper function's environment, to name that
+  function instead.
 
 ## Value
 
@@ -57,8 +67,10 @@ get_hub_derived_task_ids(hub_path, round_id = NULL)
 
 - `get_hub_derived_task_ids`: character vector of hub or round level
   derived task ID names. If `round_id` is `NULL` or the round does not
-  have a round level `derived_tasks_ids` setting, returns the hub level
-  `derived_tasks_ids` setting.
+  have a round level `derived_task_ids` setting, returns the hub level
+  `derived_task_ids` setting. See
+  [`get_derived_task_ids_config()`](https://hubverse-org.github.io/hubUtils/reference/get_derived_task_ids_config.md)
+  to get the same from a tasks config object.
 
 ## Functions
 
@@ -69,7 +81,7 @@ get_hub_derived_task_ids(hub_path, round_id = NULL)
 - `get_hub_file_formats()`: Get the hub or round level file formats
 
 - `get_hub_derived_task_ids()`: Get the hub or round level
-  `derived_tasks_ids`
+  `derived_task_ids`
 
 ## Examples
 

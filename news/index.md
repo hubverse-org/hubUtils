@@ -1,6 +1,84 @@
 # Changelog
 
+## hubUtils 1.3.0
+
+- Added
+  [`get_task_id_type()`](https://hubverse-org.github.io/hubUtils/reference/get_task_id_type.md)
+  and
+  [`get_task_id_values()`](https://hubverse-org.github.io/hubUtils/reference/get_task_id_values.md),
+  which return the data type of a task ID and the values it takes, from
+  a tasks config, across all rounds or for one round
+  ([\#266](https://github.com/hubverse-org/hubUtils/issues/266)).
+
+- [`get_task_id_names()`](https://hubverse-org.github.io/hubUtils/reference/get_task_id_names.md)
+  now returns the task IDs used by every model task of every round.
+  Previously it read only the first model task of each round, so a task
+  ID used only in a later model task was missing from the result and
+  from everything built on it, such as the hub schema and the task ID
+  columns of a `<model_out_tbl>`
+  ([\#315](https://github.com/hubverse-org/hubUtils/issues/315)).
+
+- [`get_round_idx()`](https://hubverse-org.github.io/hubUtils/reference/get_round_idx.md),
+  [`get_round_ids()`](https://hubverse-org.github.io/hubUtils/reference/get_round_idx.md),
+  [`get_round_config()`](https://hubverse-org.github.io/hubUtils/reference/get_round_config.md),
+  [`get_round_model_tasks()`](https://hubverse-org.github.io/hubUtils/reference/get_round_model_tasks.md),
+  [`get_round_task_id_names()`](https://hubverse-org.github.io/hubUtils/reference/get_round_task_id_names.md),
+  [`get_round_output_type_names()`](https://hubverse-org.github.io/hubUtils/reference/get_round_output_type_names.md),
+  [`get_task_id_names()`](https://hubverse-org.github.io/hubUtils/reference/get_task_id_names.md),
+  [`get_derived_task_ids_config()`](https://hubverse-org.github.io/hubUtils/reference/get_derived_task_ids_config.md),
+  [`get_hub_file_formats()`](https://hubverse-org.github.io/hubUtils/reference/get_hub_timezone.md)
+  and
+  [`get_hub_derived_task_ids()`](https://hubverse-org.github.io/hubUtils/reference/get_hub_timezone.md)
+  gain a `call` argument, so that a function wrapping them can have
+  error messages name the wrapper
+  ([\#304](https://github.com/hubverse-org/hubUtils/issues/304)).
+
+- `get_round_ids(flatten = "all")` now returns unique round IDs, as
+  documented. Previously, a round with `round_id_from_variable: true`
+  and more than one modeling task contributed one copy of each round ID
+  per modeling task. Errors that list the valid round IDs, such as from
+  [`get_round_idx()`](https://hubverse-org.github.io/hubUtils/reference/get_round_idx.md),
+  no longer repeat each ID
+  ([\#303](https://github.com/hubverse-org/hubUtils/issues/303)).
+
+- Added
+  [`read_model_metadata()`](https://hubverse-org.github.io/hubUtils/reference/read_model_metadata.md),
+  which reads a model metadata YAML file. Every array in the file is
+  returned as a list, so a length-1 array is read as a list rather than
+  a string
+  ([\#299](https://github.com/hubverse-org/hubUtils/issues/299)).
+
+- Added
+  [`get_derived_task_ids_config()`](https://hubverse-org.github.io/hubUtils/reference/get_derived_task_ids_config.md),
+  which returns the hub or round level derived task IDs from a tasks
+  config object, as
+  [`get_hub_derived_task_ids()`](https://hubverse-org.github.io/hubUtils/reference/get_hub_timezone.md)
+  does from a hub path.
+  [`get_config_derived_task_ids()`](https://hubverse-org.github.io/hubUtils/reference/get_derived_task_ids_config.md)
+  is an alias
+  ([\#302](https://github.com/hubverse-org/hubUtils/issues/302)).
+
+- Added
+  [`get_round_value_sets_config()`](https://hubverse-org.github.io/hubUtils/reference/get_round_value_sets_config.md),
+  which returns the values each modeling task in a round allows for each
+  task ID and, per output type, for `output_type_id`
+  ([\#301](https://github.com/hubverse-org/hubUtils/issues/301)).
+
+- Added
+  [`get_round_output_type_names()`](https://hubverse-org.github.io/hubUtils/reference/get_round_output_type_names.md),
+  which returns the names of the output types a round accepts, as
+  [`get_round_task_id_names()`](https://hubverse-org.github.io/hubUtils/reference/get_round_task_id_names.md)
+  does for task IDs
+  ([\#301](https://github.com/hubverse-org/hubUtils/issues/301)).
+
+- Added
+  [`get_round_config()`](https://hubverse-org.github.io/hubUtils/reference/get_round_config.md),
+  which returns a round’s element of the `rounds` property of the tasks
+  config ([\#301](https://github.com/hubverse-org/hubUtils/issues/301)).
+
 ## hubUtils 1.2.1
+
+CRAN release: 2026-07-15
 
 - Substantially improved the performance of
   [`convert_output_type()`](https://hubverse-org.github.io/hubUtils/reference/convert_output_type.md).
