@@ -1,3 +1,5 @@
+# hubUtils (development version)
+
 # hubUtils 1.3.0
 
 * Added `get_task_id_type()` and `get_task_id_values()`, which return the data type of a task ID and the values it takes, from a tasks config, across all rounds or for one round (#266).
