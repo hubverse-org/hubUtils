@@ -4,7 +4,7 @@
 
 Tested on:
 - Local: macOS Sequoia 15.7.3, R 4.6.1
-- GitHub Actions: macOS, Windows, Ubuntu (R-devel, release, oldrel-1)
+- GitHub Actions: Ubuntu (R-devel, release, oldrel-1), macOS and Windows (R release)
 - win-builder: R-devel, R-release
 
 ## Release summary
