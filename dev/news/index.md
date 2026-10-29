@@ -2,6 +2,8 @@
 
 ## hubUtils (development version)
 
+## hubUtils 1.3.0
+
 - Added
   [`get_task_id_type()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_task_id_type.md)
   and
@@ -68,12 +70,13 @@
   [`get_round_output_type_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_output_type_names.md),
   which returns the names of the output types a round accepts, as
   [`get_round_task_id_names()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_task_id_names.md)
-  does for task IDs.
+  does for task IDs
+  ([\#301](https://github.com/hubverse-org/hubUtils/issues/301)).
 
 - Added
   [`get_round_config()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_round_config.md),
   which returns a round’s element of the `rounds` property of the tasks
-  config.
+  config ([\#301](https://github.com/hubverse-org/hubUtils/issues/301)).
 
 ## hubUtils 1.2.1
 
