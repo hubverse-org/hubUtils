@@ -4,6 +4,8 @@
 
 ## hubUtils 1.3.0
 
+CRAN release: 2026-10-29
+
 - Added
   [`get_task_id_type()`](https://hubverse-org.github.io/hubUtils/dev/reference/get_task_id_type.md)
   and
